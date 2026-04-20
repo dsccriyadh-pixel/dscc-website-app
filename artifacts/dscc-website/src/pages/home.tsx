@@ -12,64 +12,73 @@ import { projects } from "@/data/projects";
 import { clients } from "@/data/clients";
 import type { BilingualString } from "@/data/services";
 
+// Order matches client-provided sequence: Residential → Commercial → Hospitality → Infrastructure
 const HERO_SLIDES: { headline: BilingualString; sub: BilingualString; cta: BilingualString; href: string; image: string; }[] = [
   {
-    headline: { en: "Your  Smart Decision",        ar: "قرارك الذكي" },
-    sub:      { en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
-                ar: "مزوّد متكامل لخدمات الاستشارة والتصميم وتوريد مواد ومعدّات البناء." },
-    cta:      { en: "Infrastructure Solutions",     ar: "حلول البنية التحتية" },
-    href: "/sectors/infrastructure",
-    image: "/assets/uploads/media-uploader/cover011693833991.jpg",
-  },
-  {
-    headline: { en: "Your  Dream Home",             ar: "منزل أحلامك" },
+    headline: { en: "Your  Dream Home",            ar: "منزلك كما تحلم به" },
     sub:      { en: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
-                ar: "نُتقن كلّ تفصيل لخلق مساحات متناغمة تعكس شخصيّتك وأسلوب حياتك" },
-    cta:      { en: "Rsidential Services",          ar: "الخدمات السكنية" },
+                ar: "نحوّل المساحات إلى بيئات متكاملة تجمع بين الجمال والراحة والعملية، مع عناية دقيقة بكل تفصيلة." },
+    cta:      { en: "Rsidential Services",         ar: "الخدمات السكنية" },
     href: "/sectors/residential",
     image: "/assets/uploads/media-uploader/cover021693834064.jpg",
   },
   {
-    headline: { en: "Your  Successful Business",    ar: "أعمالك الناجحة" },
+    headline: { en: "Your  Successful Business",   ar: "حلول احترافية لأعمالك" },
     sub:      { en: "Architectural solutions tailored to your unique needs, preferences and project requirements",
-                ar: "حلول معمارية مفصّلة وفق احتياجاتك وتفضيلاتك ومتطلبات مشروعك" },
-    cta:      { en: "Business Solutions",           ar: "حلول الأعمال" },
+                ar: "نقدم حلولاً متكاملة للمشاريع التجارية تجمع بين الكفاءة والجودة وتدعم نمو أعمالك." },
+    cta:      { en: "Business Solutions",          ar: "حلول الأعمال" },
     href: "/sectors/commercial",
     image: "/assets/uploads/media-uploader/cover031693834151.jpg",
   },
   {
-    headline: { en: "Your  Hospitality Solutions",  ar: "حلول الضيافة" },
+    headline: { en: "Your  Hospitality Solutions", ar: "تجربة ضيافة متكاملة" },
     sub:      { en: "We create a seamless harmony that blends functionality, comfort and aesthetics",
-                ar: "نخلق انسجاماً سلساً يمزج بين الوظيفة والراحة والجمال" },
-    cta:      { en: "Hospitality Solutions",        ar: "حلول الضيافة" },
+                ar: "نصمم وننفذ حلول الضيافة بما يعزز تجربة الضيوف ويرفع مستوى التميز." },
+    cta:      { en: "Hospitality Solutions",       ar: "حلول الضيافة" },
     href: "/sectors/hospitality",
     image: "/assets/uploads/media-uploader/cover041693834210.jpg",
   },
+  {
+    headline: { en: "Your  Smart Decision",        ar: "شريكك لتنفيذ المشاريع" },
+    sub:      { en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
+                ar: "نقدّم حلولاً متكاملة تشمل التصميم والتوريد والتنفيذ والتجهيز من البداية حتى التشغيل." },
+    cta:      { en: "Infrastructure Solutions",    ar: "حلول البنية التحتية" },
+    href: "/sectors/infrastructure",
+    image: "/assets/uploads/media-uploader/cover011693833991.jpg",
+  },
 ];
 
-const FIT_OUT_STEPS: { title: BilingualString; icon: any }[] = [
-  { title: { en: "Design",              ar: "التصميم" },               icon: ClipboardList },
-  { title: { en: "Materials Supply",    ar: "توريد المواد" },          icon: Truck },
-  { title: { en: "Installation",        ar: "التركيب" },               icon: Wrench },
-  { title: { en: "After Sale Services", ar: "خدمات ما بعد البيع" },    icon: LifeBuoy },
+const FIT_OUT_STEPS: { title: BilingualString; desc: BilingualString; icon: any }[] = [
+  { title: { en: "Design",              ar: "التصميم" },
+    desc:  { en: "We develop integrated visions aligned with project goals", ar: "نطوّر رؤية متكاملة تتوافق مع أهداف المشروع" },
+    icon: ClipboardList },
+  { title: { en: "Materials Supply",    ar: "التوريد" },
+    desc:  { en: "Materials and equipment from trusted sources", ar: "مواد وتجهيزات من مصادر موثوقة" },
+    icon: Truck },
+  { title: { en: "Installation",        ar: "التنفيذ والتركيب" },
+    desc:  { en: "Precision and quality to the highest standards", ar: "دقة وجودة وفق أعلى المعايير" },
+    icon: Wrench },
+  { title: { en: "After Sale Services", ar: "خدمات ما بعد البيع" },
+    desc:  { en: "Support and maintenance to ensure continuity", ar: "دعم وصيانة لضمان الاستمرارية" },
+    icon: LifeBuoy },
 ];
 
 const VALUES: { title: BilingualString; desc: BilingualString; icon: any }[] = [
   { title: { en: "Excellence",     ar: "التميّز" },
     desc:  { en: "High-quality designs that exceed expectations. Value creativity and attention to detail.",
-             ar: "تصاميم عالية الجودة تتجاوز التوقّعات. نُثمّن الإبداع والاهتمام بالتفاصيل." },
+             ar: "جودة عالية ومعايير دقيقة" },
     icon: Award },
   { title: { en: "Client-Focus",   ar: "التركيز على العميل" },
     desc:  { en: "Make clients' needs our priority for developing trusted relationships, and customized solutions.",
-             ar: "نضع احتياجات العميل في المقدّمة لبناء علاقات موثوقة وحلول مخصّصة." },
+             ar: "حلول مخصصة لكل مشروع" },
     icon: Users },
   { title: { en: "Innovation",     ar: "الابتكار" },
     desc:  { en: "Value creativity, innovation, and keeping up with the latest technologies and design trends.",
-             ar: "نُثمّن الإبداع والابتكار، ومواكبة أحدث التقنيات واتجاهات التصميم." },
+             ar: "استخدام أحدث التقنيات" },
     icon: Sparkles },
   { title: { en: "Sustainability", ar: "الاستدامة" },
     desc:  { en: "We committed to design sustainable buildings & spaces that are environmentally responsible",
-             ar: "نلتزم بتصميم مبانٍ ومساحات مستدامة ومسؤولة بيئياً." },
+             ar: "حلول مسؤولة وطويلة الأمد" },
     icon: Leaf },
 ];
 
@@ -81,28 +90,33 @@ const STATS: { v: string; k: BilingualString }[] = [
 ];
 
 const T = {
-  badge:       { en: "Innovative One Stop Fit Out Solutions", ar: "حلول تجهيز متكاملة ومبتكرة" },
-  reqQuote:    { en: "REQUEST QUOTE",                          ar: "طلب عرض سعر" },
-  oneStop:     { en: "One-Stop Fit Out Solution",              ar: "حل التجهيز المتكامل" },
-  whyTitle:    { en: "Why You choose us ?",                    ar: "لماذا تختارنا؟" },
-  whySub:      { en: "We provide complete architectural solutions, Guided by our core values",
-                 ar: "نُقدّم حلولاً معمارية متكاملة، مستوحاة من قيمنا الأساسية" },
-  solutionsKik:{ en: "OUR SOLUTIONS",                          ar: "حلولنا" },
+  badge:        { en: "Innovative One Stop Fit Out Solutions", ar: "حلول متكاملة للتشطيبات والتجهيزات" },
+  reqQuote:     { en: "REQUEST QUOTE",                          ar: "اطلب عرض سعر" },
+  oneStop:      { en: "One-Stop Fit Out Solution",              ar: "حلول متكاملة للتشطيبات والتجهيزات" },
+  oneStopSub:   { en: "We provide an integrated delivery model from concept to operation.",
+                  ar: "نقدّم نموذج عمل متكامل يضمن تنفيذ المشروع بسلاسة وجودة عالية، من الفكرة وحتى التشغيل." },
+  whyTitle:     { en: "Why DSCC?",                              ar: "لماذا DSCC؟" },
+  whySub:       { en: "We provide complete architectural solutions, Guided by our core values",
+                  ar: "نقدم حلولاً متكاملة ترتكز على الجودة والابتكار وفهم احتياجات العميل." },
+  solutionsKik: { en: "OUR SOLUTIONS",                          ar: "حلولنا" },
   solutionsTitle: { en: "Wide Range Of Innovative Modern Services And Solutions To Fit Your Needs",
-                    ar: "تشكيلة واسعة من الخدمات والحلول العصرية المبتكرة لتلبية احتياجاتك" },
-  viewAll:     { en: "View All",                               ar: "عرض الكل" },
-  innovHeading:{ en: "DSCC .. Innovative One Stop Fit Out Solutions",
-                 ar: "DSCC .. حلول تجهيز متكاملة مبتكرة" },
-  latest:      { en: "Latest Projects",                        ar: "أحدث المشاريع" },
-  featuredProj:{ en: "Featured Projects",                      ar: "مشاريع مميّزة" },
-  ourClients:  { en: "Our Clients",                            ar: "عملاؤنا" },
-  ourPartners: { en: "Our Partners",                           ar: "شركاؤنا" },
-  joinUs:      { en: "Join Us on this Journey",                ar: "انضمّ إلينا في هذه الرحلة" },
-  joinUsSub:   { en: "Connect with us today to explore how DSCC Innovative One Stop Fit Out Solutions can transform your vision into reality.",
-                 ar: "تواصل معنا اليوم لاستكشاف كيف يمكن لحلول DSCC المتكاملة المبتكرة أن تحوّل رؤيتك إلى واقع." },
-  contactNow:  { en: "Lets Contact Now",                       ar: "تواصل معنا الآن" },
-  whatsapp:    { en: "What's App chat",                        ar: "محادثة واتساب" },
-  downloadProf:{ en: "Download Profile",                       ar: "تحميل ملف الشركة" },
+                    ar: "نقدّم باقة متكاملة من الخدمات التي تغطي مختلف احتياجات المشاريع، مع التركيز على الجودة والتكامل والموثوقية." },
+  viewAll:      { en: "View All",                               ar: "عرض جميع المشاريع" },
+  innovHeading: { en: "DSCC .. Innovative One Stop Fit Out Solutions",
+                  ar: "حلول متكاملة للتشطيبات والتجهيزات" },
+  latest:       { en: "Latest Projects",                        ar: "أحدث المشاريع" },
+  featuredProj: { en: "Featured Projects",                      ar: "نماذج من مشاريعنا التي تعكس جودة التنفيذ." },
+  ourClients:   { en: "Our Clients",                            ar: "نفخر بثقة عملائنا" },
+  ourClientsSub:{ en: "Trusted by leading organisations.",      ar: "تشرفنا بالعمل مع جهات رائدة." },
+  ourPartners:  { en: "Our Partners",                           ar: "شركاؤنا" },
+  ourPartnersSub:{ en: "Expanding capabilities through strong partnerships.", ar: "نوسّع الإمكانيات من خلال شراكات قوية." },
+  joinUs:       { en: "Join Us on this Journey",                ar: "ابدأ مشروعك الآن" },
+  joinUsSub:    { en: "Connect with us today to explore how DSCC Innovative One Stop Fit Out Solutions can transform your vision into reality.",
+                  ar: "تواصل معنا اليوم لنحوّل رؤيتك إلى واقع." },
+  contactNow:   { en: "Lets Contact Now",                       ar: "تواصل معنا" },
+  whatsapp:     { en: "What's App chat",                        ar: "واتساب" },
+  downloadProf: { en: "Download Profile",                       ar: "تحميل الملف التعريفي" },
+  talkSpec:     { en: "Talk to a Specialist",                   ar: "تحدث مع مختص" },
 };
 
 export default function Home() {
@@ -125,7 +139,7 @@ export default function Home() {
   return (
     <>
       <Seo
-        title={lang === "ar" ? "DSCC — تعاقد لتمكين القيم" : "DSCC - Contracting For Empower Values"}
+        title={lang === "ar" ? "DSCC — حلول متكاملة للتشطيبات والتجهيزات" : "DSCC - Contracting For Empower Values"}
         description={bi(T.innovHeading)}
         path="/"
         jsonLd={[
@@ -134,7 +148,7 @@ export default function Home() {
         ]}
       />
 
-      {/* HERO — clean image, soft top/bottom shade only for legibility */}
+      {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
@@ -146,7 +160,6 @@ export default function Home() {
             className="absolute inset-0 -z-10"
           >
             <img src={`${baseUrl.replace(/\/$/, "")}${cur.image}`} alt="" className="size-full object-cover" />
-            {/* Subtle gradient only behind text — not over the whole image */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
           </motion.div>
         </AnimatePresence>
@@ -171,16 +184,21 @@ export default function Home() {
                 {bi(cur.sub)}
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <Link href={cur.href}>
-                  <Button size="lg" variant="outline" className="border-white/50 bg-white/10 text-white hover:bg-white/20 gap-2">
-                    {bi(cur.cta)}<ArrowRight className="size-4" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
+                <Link href="/quote">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90">
                     {bi(T.reqQuote)}
                   </Button>
                 </Link>
+                <Link href="/contact">
+                  <Button size="lg" variant="outline" className="border-white/50 bg-white/10 text-white hover:bg-white/20 gap-2">
+                    {bi(T.talkSpec)}
+                  </Button>
+                </Link>
+                <a href={`${baseUrl}downloads/dscc-company-profile.pdf`} download>
+                  <Button size="lg" variant="outline" className="border-white/50 bg-white/10 text-white hover:bg-white/20 gap-2">
+                    <Download className="size-4" /> {bi(T.downloadProf)}
+                  </Button>
+                </a>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -198,26 +216,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ONE-STOP FIT OUT */}
+      {/* ONE-STOP */}
       <section className="border-b">
-        <div className="container py-14">
-          <div className="text-center mb-10">
-            <h2 className="font-serif text-2xl md:text-3xl text-foreground">{bi(T.oneStop)}</h2>
+        <div className="container py-16">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-3">{bi(T.oneStop)}</h2>
+            <p className="text-muted-foreground">{bi(T.oneStopSub)}</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {FIT_OUT_STEPS.map((step, i) => (
               <div key={step.title.en} className="text-center">
                 <div className="mx-auto mb-3 size-16 rounded-full bg-primary/5 border border-primary/15 flex items-center justify-center text-primary">
                   <step.icon className="size-7" />
                 </div>
-                <div className="text-sm font-medium text-foreground">{i + 1}. {bi(step.title)}</div>
+                <div className="font-medium text-foreground mb-1">{i + 1}. {bi(step.title)}</div>
+                <div className="text-xs text-muted-foreground">{bi(step.desc)}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY US */}
+      {/* WHY */}
       <section className="container py-20">
         <div className="max-w-2xl mb-12">
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">{bi(T.whyTitle)}</h2>
@@ -263,7 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTORS — clean images, label below */}
+      {/* SECTORS — clean images */}
       <section className="container py-20">
         <div className="max-w-2xl mb-10">
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">{bi(T.innovHeading)}</h2>
@@ -331,7 +351,8 @@ export default function Home() {
       {/* CLIENTS */}
       <section className="bg-muted/30 border-y">
         <div className="container py-16">
-          <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">{bi(T.ourClients)}</p>
+          <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-2">{bi(T.ourClients)}</p>
+          <p className="text-center text-sm text-muted-foreground mb-8">{bi(T.ourClientsSub)}</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center">
             {clientLogos.map((c) => (
               <div key={c.id} className="flex items-center justify-center p-3 bg-card rounded-md border h-20">
@@ -349,7 +370,8 @@ export default function Home() {
 
       {/* PARTNERS */}
       <section className="container py-16">
-        <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">{bi(T.ourPartners)}</p>
+        <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-2">{bi(T.ourPartners)}</p>
+        <p className="text-center text-sm text-muted-foreground mb-8">{bi(T.ourPartnersSub)}</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
           {partnerLogos.map((p) => (
             <div key={p.id} className="flex items-center justify-center p-4 bg-card rounded-md border h-24">
@@ -378,11 +400,6 @@ export default function Home() {
             <a href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
               <Button size="lg" variant="outline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10">
                 {bi(T.whatsapp)}
-              </Button>
-            </a>
-            <a href={`${baseUrl}downloads/dscc-company-profile.pdf`} download>
-              <Button size="lg" variant="outline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 gap-2">
-                <Download className="size-4" /> {bi(T.downloadProf)}
               </Button>
             </a>
           </div>

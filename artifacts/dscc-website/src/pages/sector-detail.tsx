@@ -42,32 +42,38 @@ export default function SectorDetail() {
         <p className="text-lg text-foreground/85 leading-relaxed">{bi(sec.overview)}</p>
       </section>
 
-      <section className="bg-muted/40 border-y">
-        <div className="container py-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-secondary mb-4">{t("common.client_needs")}</p>
-            <ul className="space-y-3">
-              {sec.needs.map((n, i) => (
-                <li key={i} className="flex gap-3 items-start"><CheckCircle2 className="size-5 text-secondary shrink-0 mt-0.5" /><span className="text-foreground/85">{bi(n)}</span></li>
-              ))}
-            </ul>
+      {(sec.needs.length > 0 || sec.process.length > 0) && (
+        <section className="bg-muted/40 border-y">
+          <div className="container py-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+            {sec.needs.length > 0 && (
+              <div>
+                <p className="text-xs uppercase tracking-[0.16em] text-secondary mb-4">{t("common.client_needs")}</p>
+                <ul className="space-y-3">
+                  {sec.needs.map((n, i) => (
+                    <li key={i} className="flex gap-3 items-start"><CheckCircle2 className="size-5 text-secondary shrink-0 mt-0.5" /><span className="text-foreground/85">{bi(n)}</span></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {sec.process.length > 0 && (
+              <div>
+                <p className="text-xs uppercase tracking-[0.16em] text-secondary mb-4">{t("common.our_process")}</p>
+                <ol className="space-y-4">
+                  {sec.process.map((p, i) => (
+                    <li key={i} className="flex gap-4">
+                      <span className="font-serif text-2xl text-secondary leading-none">0{i + 1}</span>
+                      <div>
+                        <h4 className="font-medium text-foreground mb-1">{bi(p.title)}</h4>
+                        <p className="text-sm text-muted-foreground">{bi(p.desc)}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-secondary mb-4">{t("common.our_process")}</p>
-            <ol className="space-y-4">
-              {sec.process.map((p, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="font-serif text-2xl text-secondary leading-none">0{i + 1}</span>
-                  <div>
-                    <h4 className="font-medium text-foreground mb-1">{bi(p.title)}</h4>
-                    <p className="text-sm text-muted-foreground">{bi(p.desc)}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="container py-16">
         <p className="text-xs uppercase tracking-[0.16em] text-secondary mb-6">{t("common.related_services")}</p>
