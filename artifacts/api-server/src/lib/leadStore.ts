@@ -296,51 +296,198 @@ export async function deleteLead(id: string): Promise<boolean> {
   return ok;
 }
 
+export interface FollowUpItem {
+  leadId: string;
+  leadRef: string;
+  leadName: string;
+  noteId: string;
+  body: string;
+  followUpAt: string;
+  assignedTo?: string;
+}
+
 export interface DashboardStats {
   total: number;
   byStatus: Record<string, number>;
   bySource: Record<string, number>;
+  byPriority: Record<string, number>;
   topServices: Array<{ name: string; count: number }>;
   topCities: Array<{ name: string; count: number }>;
   newLast7Days: number;
   newLast30Days: number;
   recent: Lead[];
+  // Performance
+  conversionRate: number; // won / (won + lost) * 100, 0 if denom 0
+  wonCount: number;
+  lostCount: number;
+  avgFirstResponseHours: number | null; // hours between createdAt and first non-empty note
+  firstResponseSampleSize: number;
+  pipelineValueByStage: Array<{ stage: LeadStatus; count: number; pct: number }>;
+  // Assignment
+  assignedCount: number;
+  unassignedCount: number;
+  byAssignee: Array<{ name: string; count: number }>;
+  // Follow-ups
+  overdueFollowUps: FollowUpItem[];
+  todayFollowUps: FollowUpItem[];
+  upcomingFollowUps: FollowUpItem[]; // next 7d (excluding today)
+}
+
+// Business timezone for follow-up day-boundary bucketing.
+// Defaults to Asia/Riyadh so the dashboard stays correct regardless of the
+// host timezone (Hostinger, Replit, etc.).
+const BIZ_TZ = process.env["BUSINESS_TZ"] || "Asia/Riyadh";
+
+function ymdInTz(d: Date, tz: string): string {
+  try {
+    // en-CA gives YYYY-MM-DD format
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: tz,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(d);
+  } catch {
+    return d.toISOString().slice(0, 10);
+  }
 }
 
 export async function getStats(): Promise<DashboardStats> {
   const all = await loadLeads();
   const byStatus: Record<string, number> = {};
   const bySource: Record<string, number> = {};
+  const byPriority: Record<string, number> = {};
   const svc: Record<string, number> = {};
   const cities: Record<string, number> = {};
+  const assignees: Record<string, number> = {};
   const now = Date.now();
+  const todayYmd = ymdInTz(new Date(now), BIZ_TZ);
+  const in7days = now + 7 * 86400000;
   let last7 = 0;
   let last30 = 0;
+  let assignedCount = 0;
+  let unassignedCount = 0;
+  let firstResponseTotalMs = 0;
+  let firstResponseSamples = 0;
+  const overdue: FollowUpItem[] = [];
+  const todayItems: FollowUpItem[] = [];
+  const upcoming: FollowUpItem[] = [];
+
   for (const l of all) {
     byStatus[l.status] = (byStatus[l.status] || 0) + 1;
     bySource[l.source] = (bySource[l.source] || 0) + 1;
+    byPriority[l.priority] = (byPriority[l.priority] || 0) + 1;
     if (l.services) for (const s of l.services) svc[s] = (svc[s] || 0) + 1;
     if (l.city) cities[l.city] = (cities[l.city] || 0) + 1;
+    if (l.assignedTo) {
+      assignedCount++;
+      assignees[l.assignedTo] = (assignees[l.assignedTo] || 0) + 1;
+    } else {
+      unassignedCount++;
+    }
     const t = Date.parse(l.createdAt);
     if (!Number.isNaN(t)) {
       const days = (now - t) / 86400000;
       if (days <= 7) last7++;
       if (days <= 30) last30++;
     }
+    // First response time = createdAt → oldest note
+    if (l.notes && l.notes.length > 0) {
+      const oldestNote = l.notes.reduce((acc, n) => {
+        const tn = Date.parse(n.createdAt);
+        return !acc || tn < acc ? tn : acc;
+      }, 0);
+      if (oldestNote && !Number.isNaN(t)) {
+        const delta = oldestNote - t;
+        if (delta > 0) {
+          firstResponseTotalMs += delta;
+          firstResponseSamples++;
+        }
+      }
+    }
+    // Follow-ups
+    for (const n of l.notes || []) {
+      if (!n.followUpAt) continue;
+      const fu = Date.parse(n.followUpAt);
+      if (Number.isNaN(fu)) continue;
+      const item: FollowUpItem = {
+        leadId: l.id,
+        leadRef: l.ref,
+        leadName: l.fullName || l.company || l.email || l.phone || l.ref,
+        noteId: n.id,
+        body: n.body,
+        followUpAt: n.followUpAt,
+        ...(l.assignedTo ? { assignedTo: l.assignedTo } : {}),
+      };
+      const fuYmd = ymdInTz(new Date(fu), BIZ_TZ);
+      if (fuYmd === todayYmd) {
+        todayItems.push(item);
+      } else if (fu < now) {
+        // Don't list as overdue if lead is already won/lost/archived
+        if (l.status !== "won" && l.status !== "lost" && l.status !== "archived") {
+          overdue.push(item);
+        }
+      } else if (fu <= in7days) {
+        upcoming.push(item);
+      }
+    }
   }
+
   const top = (m: Record<string, number>) =>
     Object.entries(m)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10)
       .map(([name, count]) => ({ name, count }));
+
+  const wonCount = byStatus["won"] || 0;
+  const lostCount = byStatus["lost"] || 0;
+  const conversionDenom = wonCount + lostCount;
+  const conversionRate = conversionDenom > 0 ? Math.round((wonCount / conversionDenom) * 1000) / 10 : 0;
+  const avgFirstResponseHours =
+    firstResponseSamples > 0
+      ? Math.round((firstResponseTotalMs / firstResponseSamples / 3600000) * 10) / 10
+      : null;
+
+  const pipelineStages: LeadStatus[] = [
+    "new",
+    "contacted",
+    "qualified",
+    "quotation_sent",
+    "negotiation",
+    "won",
+  ];
+  const pipelineTotal = pipelineStages.reduce((sum, s) => sum + (byStatus[s] || 0), 0);
+  const pipelineValueByStage = pipelineStages.map((stage) => {
+    const count = byStatus[stage] || 0;
+    const pct = pipelineTotal > 0 ? Math.round((count / pipelineTotal) * 1000) / 10 : 0;
+    return { stage, count, pct };
+  });
+
+  overdue.sort((a, b) => Date.parse(a.followUpAt) - Date.parse(b.followUpAt));
+  todayItems.sort((a, b) => Date.parse(a.followUpAt) - Date.parse(b.followUpAt));
+  upcoming.sort((a, b) => Date.parse(a.followUpAt) - Date.parse(b.followUpAt));
+
   return {
     total: all.length,
     byStatus,
     bySource,
+    byPriority,
     topServices: top(svc),
     topCities: top(cities),
     newLast7Days: last7,
     newLast30Days: last30,
     recent: all.slice(0, 8),
+    conversionRate,
+    wonCount,
+    lostCount,
+    avgFirstResponseHours,
+    firstResponseSampleSize: firstResponseSamples,
+    pipelineValueByStage,
+    assignedCount,
+    unassignedCount,
+    byAssignee: top(assignees),
+    overdueFollowUps: overdue.slice(0, 50),
+    todayFollowUps: todayItems.slice(0, 50),
+    upcomingFollowUps: upcoming.slice(0, 50),
   };
 }

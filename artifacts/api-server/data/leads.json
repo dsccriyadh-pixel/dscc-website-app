@@ -4,16 +4,23 @@
     "ref": "DSCC-mo77cqk7ncwj7t",
     "source": "quote",
     "status": "new",
-    "priority": "normal",
+    "priority": "high",
     "createdAt": "2026-04-20T13:00:01.015Z",
-    "updatedAt": "2026-04-20T13:00:01.015Z",
+    "updatedAt": "2026-04-20T13:20:13.939Z",
     "fullName": "عميل تجريبي",
     "email": "client-test@example.com",
     "phone": "+966500000000",
     "city": "الرياض",
     "projectType": "اختبار",
     "message": "هذا طلب تجريبي للتحقق من الإشعارات والبريد",
-    "notes": [],
+    "notes": [
+      {
+        "id": "N_mo77wsp07f8hus",
+        "body": "Follow-up test note zebra",
+        "followUpAt": "2026-04-21T13:15:00.000Z",
+        "createdAt": "2026-04-20T13:15:36.901Z"
+      }
+    ],
     "raw": {
       "fullName": "عميل تجريبي",
       "email": "client-test@example.com",

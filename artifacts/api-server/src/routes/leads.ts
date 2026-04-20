@@ -13,7 +13,16 @@ import { requireAdmin } from "../middlewares/adminAuth";
 import { ADMIN_NOTIFY_EMAIL, sendMail } from "../lib/mailer";
 import { adminNotificationEmail, clientAcknowledgementEmail } from "../lib/emailTemplates";
 import { createNotification } from "../lib/notificationStore";
+import { notifySlackNewLead } from "../lib/notifySlack";
 import { logger } from "../lib/logger";
+
+function getOperators(): string[] {
+  const raw = process.env["OPERATORS"] || "";
+  return raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
 const router: IRouter = Router();
 
@@ -110,6 +119,12 @@ router.post("/leads", async (req, res) => {
           logger.error({ err: (err as Error).message }, "client ack email failed");
         }
       }
+
+      try {
+        await notifySlackNewLead(lead);
+      } catch (err) {
+        logger.error({ err: (err as Error).message }, "slack notify failed");
+      }
     })();
 
     res.json({ ok: true, ref: lead.ref, id: lead.id });
@@ -130,12 +145,23 @@ router.get("/admin/leads", requireAdmin, async (req, res) => {
   const source = qp("source");
   const city = qp("city");
   const service = qp("service");
+  const assigned = qp("assigned"); // "all" | "unassigned" | exact name
+  const priority = qp("priority");
   const filtered = all.filter((l) => {
     if (status && status !== "all" && l.status !== status) return false;
     if (source && source !== "all" && l.source !== source) return false;
     if (city && city !== "all" && l.city !== city) return false;
     if (service && service !== "all" && !(l.services || []).includes(service)) return false;
+    if (priority && priority !== "all" && l.priority !== priority) return false;
+    if (assigned && assigned !== "all") {
+      if (assigned === "unassigned") {
+        if (l.assignedTo) return false;
+      } else if ((l.assignedTo || "") !== assigned) {
+        return false;
+      }
+    }
     if (q) {
+      const noteBlob = (l.notes || []).map((n) => `${n.body} ${n.outcome || ""}`).join(" ");
       const blob = [
         l.fullName,
         l.company,
@@ -146,6 +172,8 @@ router.get("/admin/leads", requireAdmin, async (req, res) => {
         l.message,
         l.chatbotSummary,
         l.ref,
+        l.assignedTo,
+        noteBlob,
         ...(l.services || []),
         ...(l.tags || []),
       ]
@@ -157,6 +185,10 @@ router.get("/admin/leads", requireAdmin, async (req, res) => {
     return true;
   });
   res.json({ leads: filtered });
+});
+
+router.get("/admin/operators", requireAdmin, (_req, res) => {
+  res.json({ operators: getOperators() });
 });
 
 router.get("/admin/leads/:id", requireAdmin, async (req, res) => {
@@ -196,6 +228,18 @@ router.patch("/admin/leads/:id", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid status" });
     return;
   }
+  if ("priority" in patch && !["low", "normal", "high", "urgent"].includes(String(patch["priority"]))) {
+    res.status(400).json({ error: "Invalid priority" });
+    return;
+  }
+  if ("assignedTo" in patch) {
+    const v = patch["assignedTo"];
+    if (v !== "" && (typeof v !== "string" || v.length > 80)) {
+      res.status(400).json({ error: "Invalid assignedTo" });
+      return;
+    }
+    if (v === "") patch["assignedTo"] = undefined;
+  }
   const updated = await updateLead(String(req.params["id"]), patch);
   if (!updated) {
     res.status(404).json({ error: "Not found" });
@@ -206,11 +250,28 @@ router.patch("/admin/leads/:id", requireAdmin, async (req, res) => {
 
 router.post("/admin/leads/:id/notes", requireAdmin, async (req, res) => {
   const { body, author, outcome, followUpAt } = req.body || {};
-  if (!body || typeof body !== "string") {
+  if (!body || typeof body !== "string" || body.length > MAX_STR) {
     res.status(400).json({ error: "Note body required" });
     return;
   }
-  const lead = await addNote(String(req.params["id"]), body, { author, outcome, followUpAt });
+  let normalizedFu: string | undefined;
+  if (followUpAt !== undefined && followUpAt !== null && followUpAt !== "") {
+    if (typeof followUpAt !== "string") {
+      res.status(400).json({ error: "Invalid followUpAt" });
+      return;
+    }
+    const t = Date.parse(followUpAt);
+    if (Number.isNaN(t)) {
+      res.status(400).json({ error: "Invalid followUpAt" });
+      return;
+    }
+    normalizedFu = new Date(t).toISOString();
+  }
+  const lead = await addNote(String(req.params["id"]), body, {
+    author: typeof author === "string" ? author : undefined,
+    outcome: typeof outcome === "string" ? outcome : undefined,
+    followUpAt: normalizedFu,
+  });
   if (!lead) {
     res.status(404).json({ error: "Not found" });
     return;

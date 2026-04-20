@@ -9,6 +9,11 @@ import {
   Users,
   MapPin,
   Wrench,
+  Trophy,
+  Clock,
+  UserX,
+  AlertTriangle,
+  CalendarDays,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import {
@@ -68,9 +73,49 @@ export default function Dashboard() {
     { key: "other", v: data.bySource["other"] || 0 },
   ];
 
+  const responseValue =
+    data.avgFirstResponseHours === null
+      ? t("perf_response_na")
+      : `${data.avgFirstResponseHours} ${t("perf_response_hours")}`;
+
   return (
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       <PageHeader title={t("overview_title")} description={t("overview_desc")} />
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <PerfCard
+          icon={Trophy}
+          label={t("perf_conversion")}
+          value={`${data.conversionRate}%`}
+          hint={`${t("perf_conversion_hint")} · ${data.wonCount}/${data.wonCount + data.lostCount}`}
+          testid="perf-conversion"
+        />
+        <PerfCard
+          icon={Clock}
+          label={t("perf_response")}
+          value={responseValue}
+          hint={t("perf_response_hint")}
+          testid="perf-response"
+        />
+        <PerfCard
+          icon={UserX}
+          label={t("perf_unassigned")}
+          value={String(data.unassignedCount)}
+          hint={`${data.assignedCount} ${t("perf_assigned").toLowerCase()}`}
+          testid="perf-unassigned"
+        />
+        <Link href="/today">
+          <a className="block hover-elevate rounded-lg" data-testid="perf-followups">
+            <PerfCard
+              icon={AlertTriangle}
+              label={t("today_overdue")}
+              value={String(data.overdueFollowUps.length)}
+              hint={`${data.todayFollowUps.length} ${t("today_due").toLowerCase()}`}
+              accent={data.overdueFollowUps.length > 0}
+            />
+          </a>
+        </Link>
+      </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard
@@ -231,6 +276,62 @@ export default function Dashboard() {
 
         <div className="space-y-6">
           <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <CalendarDays className="h-4 w-4" /> {t("today_title")}
+                </CardTitle>
+                <CardDescription>
+                  {data.overdueFollowUps.length + data.todayFollowUps.length === 0
+                    ? t("today_none")
+                    : `${data.overdueFollowUps.length} · ${data.todayFollowUps.length}`}
+                </CardDescription>
+              </div>
+              <Link href="/today">
+                <a className="text-xs text-primary inline-flex items-center gap-1 hover:underline">
+                  {t("view_all")} <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </Link>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const items = [...data.overdueFollowUps, ...data.todayFollowUps].slice(0, 5);
+                if (items.length === 0) {
+                  return (
+                    <div className="text-sm text-muted-foreground text-center py-4">
+                      {t("today_none")}
+                    </div>
+                  );
+                }
+                return (
+                  <ul className="space-y-2">
+                    {items.map((it) => {
+                      const fu = Date.parse(it.followUpAt);
+                      const overdue = fu < Date.now() && !isToday(fu);
+                      return (
+                        <li key={it.noteId} className="text-sm">
+                          <Link href={`/leads/${it.leadId}`}>
+                            <a className="flex items-start gap-2 hover-elevate -mx-1 px-1 py-1 rounded">
+                              {overdue ? (
+                                <AlertTriangle className="h-3.5 w-3.5 text-rose-600 mt-0.5 shrink-0" />
+                              ) : (
+                                <CalendarDays className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <div className="font-medium truncate">{it.leadName}</div>
+                                <div className="text-xs text-muted-foreground truncate">{it.body}</div>
+                              </div>
+                            </a>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                );
+              })()}
+            </CardContent>
+          </Card>
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <Wrench className="h-4 w-4" /> {t("top_services")}
@@ -275,6 +376,57 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+function isToday(ms: number): boolean {
+  const a = new Date(ms);
+  const b = new Date();
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function PerfCard({
+  icon: Icon,
+  label,
+  value,
+  hint,
+  accent,
+  testid,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+  hint?: string;
+  accent?: boolean;
+  testid?: string;
+}) {
+  return (
+    <Card data-testid={testid} className={accent ? "border-rose-300 dark:border-rose-700/60" : undefined}>
+      <CardContent className="pt-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
+              {label}
+            </div>
+            <div className="text-2xl font-semibold mt-1 truncate" dir="ltr">{value}</div>
+            {hint && <div className="text-[11px] text-muted-foreground mt-1">{hint}</div>}
+          </div>
+          <div
+            className={`h-9 w-9 rounded-md grid place-items-center shrink-0 ${
+              accent
+                ? "bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-200"
+                : "bg-muted text-muted-foreground"
+            }`}
+          >
+            <Icon className="h-4 w-4" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

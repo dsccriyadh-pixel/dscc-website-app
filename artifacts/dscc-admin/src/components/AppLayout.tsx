@@ -7,6 +7,7 @@ import {
   Mail,
   LogOut,
   Settings,
+  CalendarDays,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { clearToken } from "@/lib/auth";
@@ -23,6 +24,7 @@ interface NavItem {
 
 const NAV: NavItem[] = [
   { path: "/", labelKey: "nav_overview", icon: LayoutDashboard },
+  { path: "/today", labelKey: "nav_today", icon: CalendarDays },
   { path: "/leads", labelKey: "nav_leads", icon: Users },
   { path: "/quotes", labelKey: "nav_quotes", icon: FileText },
   { path: "/chatbot", labelKey: "nav_chatbot", icon: Bot },

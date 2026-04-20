@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { Download, Search, Bot, FileText, Mail } from "lucide-react";
+import { Download, Search, Bot, FileText, Mail, Bookmark, Trash2, User as UserIcon } from "lucide-react";
+import { toast } from "sonner";
 import { api, type LeadFilters } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/PageHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Spinner } from "@/components/ui/spinner";
@@ -40,6 +42,28 @@ const API_BASE =
   ((import.meta as unknown as { env?: { VITE_API_BASE?: string } }).env?.VITE_API_BASE) ||
   "/api";
 
+const VIEWS_KEY = "dscc_admin_saved_views_v1";
+
+interface SavedView {
+  id: string;
+  name: string;
+  filters: LeadFilters;
+}
+
+function loadViews(): SavedView[] {
+  try {
+    const raw = localStorage.getItem(VIEWS_KEY);
+    return raw ? (JSON.parse(raw) as SavedView[]) : [];
+  } catch {
+    return [];
+  }
+}
+function persistViews(v: SavedView[]) {
+  try {
+    localStorage.setItem(VIEWS_KEY, JSON.stringify(v));
+  } catch {}
+}
+
 interface Props {
   fixedSource?: LeadSource;
   titleKey?: TKey;
@@ -53,6 +77,10 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
   const [source, setSource] = useState<string>(fixedSource || "all");
   const [city, setCity] = useState("all");
   const [service, setService] = useState("all");
+  const [assigned, setAssigned] = useState("all");
+  const [priority, setPriority] = useState("all");
+  const [views, setViews] = useState<SavedView[]>(() => loadViews());
+  const [newViewName, setNewViewName] = useState("");
 
   const filters: LeadFilters = useMemo(
     () => ({
@@ -61,8 +89,10 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
       source: fixedSource || source,
       city,
       service,
+      assigned,
+      priority,
     }),
-    [q, status, source, city, service, fixedSource],
+    [q, status, source, city, service, assigned, priority, fixedSource],
   );
 
   const { data, isLoading } = useQuery({
@@ -70,6 +100,13 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
     queryFn: () => api.listLeads(filters),
     refetchInterval: 30000,
   });
+
+  const { data: ops } = useQuery({
+    queryKey: ["operators"],
+    queryFn: () => api.operators(),
+    staleTime: 60_000,
+  });
+  const operators = ops?.operators || [];
 
   const leads = data?.leads || [];
 
@@ -83,6 +120,43 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
     leads.forEach((l) => (l.services || []).forEach((x) => s.add(x)));
     return Array.from(s).sort();
   }, [leads]);
+  const assignees = useMemo(() => {
+    const s = new Set<string>();
+    leads.forEach((l) => l.assignedTo && s.add(l.assignedTo));
+    operators.forEach((n) => s.add(n));
+    return Array.from(s).sort();
+  }, [leads, operators]);
+
+  useEffect(() => {
+    persistViews(views);
+  }, [views]);
+
+  const saveCurrentView = () => {
+    const name = newViewName.trim();
+    if (!name) return;
+    const view: SavedView = {
+      id: `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+      name,
+      filters: { ...filters, q: q.trim() || undefined },
+    };
+    setViews((vs) => [view, ...vs.filter((v) => v.name !== name)]);
+    setNewViewName("");
+    toast.success(t("view_saved"));
+  };
+
+  const applyView = (v: SavedView) => {
+    setQ(v.filters.q || "");
+    setStatus(v.filters.status || "all");
+    if (!fixedSource) setSource(v.filters.source || "all");
+    setCity(v.filters.city || "all");
+    setService(v.filters.service || "all");
+    setAssigned(v.filters.assigned || "all");
+    setPriority(v.filters.priority || "all");
+  };
+
+  const deleteView = (id: string) => {
+    setViews((vs) => vs.filter((v) => v.id !== id));
+  };
 
   const downloadCsv = async () => {
     const token = getToken();
@@ -112,7 +186,7 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
       />
 
       <Card className="p-4 mb-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div className="lg:col-span-2 relative">
             <Search className="h-4 w-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
@@ -151,6 +225,32 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
               </SelectContent>
             </Select>
           )}
+          <Select value={priority} onValueChange={setPriority}>
+            <SelectTrigger data-testid="select-priority">
+              <SelectValue placeholder={t("filter_priority")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("all_priorities")}</SelectItem>
+              <SelectItem value="urgent">{t("prio_urgent_short")}</SelectItem>
+              <SelectItem value="high">{t("prio_high_short")}</SelectItem>
+              <SelectItem value="normal">{t("prio_normal_short")}</SelectItem>
+              <SelectItem value="low">{t("prio_low_short")}</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={assigned} onValueChange={setAssigned}>
+            <SelectTrigger data-testid="select-assigned">
+              <SelectValue placeholder={t("filter_assigned")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("all_assignees")}</SelectItem>
+              <SelectItem value="unassigned">{t("unassigned")}</SelectItem>
+              {assignees.map((a) => (
+                <SelectItem key={a} value={a}>
+                  {a}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Select value={city} onValueChange={setCity}>
             <SelectTrigger data-testid="select-city">
               <SelectValue placeholder={t("city")} />
@@ -180,6 +280,59 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
             </Select>
           )}
         </div>
+
+        <div className="mt-3 pt-3 border-t flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Bookmark className="h-3.5 w-3.5" />
+            <span className="font-medium">{t("saved_views")}</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 flex-1">
+            {views.length === 0 ? (
+              <span className="text-xs text-muted-foreground">{t("no_saved_views")}</span>
+            ) : (
+              views.map((v) => (
+                <Badge
+                  key={v.id}
+                  variant="secondary"
+                  className="gap-1 cursor-pointer hover-elevate"
+                  data-testid={`view-${v.id}`}
+                  onClick={() => applyView(v)}
+                >
+                  {v.name}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteView(v.id);
+                    }}
+                    className="ms-1 opacity-70 hover:opacity-100"
+                    aria-label={t("delete_view")}
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </button>
+                </Badge>
+              ))
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <Input
+              value={newViewName}
+              onChange={(e) => setNewViewName(e.target.value)}
+              placeholder={t("view_name_ph")}
+              className="h-8 w-48 text-xs"
+              data-testid="input-view-name"
+            />
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={saveCurrentView}
+              disabled={!newViewName.trim()}
+              data-testid="button-save-view"
+            >
+              {t("save_view")}
+            </Button>
+          </div>
+        </div>
       </Card>
 
       <Card>
@@ -198,7 +351,7 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
                 <TableHead>{t("th_lead")}</TableHead>
                 <TableHead>{t("th_source")}</TableHead>
                 <TableHead>{t("th_city")}</TableHead>
-                <TableHead>{t("th_services")}</TableHead>
+                <TableHead>{t("filter_assigned")}</TableHead>
                 <TableHead>{t("th_status")}</TableHead>
                 <TableHead className="text-end">{t("th_received")}</TableHead>
               </TableRow>
@@ -233,10 +386,15 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
                     </span>
                   </TableCell>
                   <TableCell className="text-sm">{lead.city || "—"}</TableCell>
-                  <TableCell className="text-sm max-w-[280px]">
-                    <div className="truncate">
-                      {(lead.services || []).slice(0, 3).join(t("list_sep")) || lead.projectType || "—"}
-                    </div>
+                  <TableCell className="text-sm">
+                    {lead.assignedTo ? (
+                      <span className="inline-flex items-center gap-1">
+                        <UserIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                        {lead.assignedTo}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground/60">—</span>
+                    )}
                   </TableCell>
                   <TableCell>
                     <StatusBadge status={lead.status} />

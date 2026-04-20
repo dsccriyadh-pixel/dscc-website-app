@@ -55,6 +55,8 @@ export interface LeadFilters {
   source?: string;
   city?: string;
   service?: string;
+  assigned?: string;
+  priority?: string;
 }
 
 export const api = {
@@ -85,6 +87,7 @@ export const api = {
   deleteLead: (id: string) =>
     request<{ ok: boolean }>(`/admin/leads/${id}`, { method: "DELETE" }),
   stats: () => request<DashboardStats>("/admin/stats"),
+  operators: () => request<{ operators: string[] }>("/admin/operators"),
   csvUrl: () => {
     const token = getToken();
     return `${API_BASE}/admin/leads.csv${token ? `?token=${encodeURIComponent(token)}` : ""}`;

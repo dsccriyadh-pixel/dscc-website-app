@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import {
   ArrowLeft,
   Building2,
+  CalendarClock,
   Calendar,
   Clock,
   FileIcon,
@@ -11,6 +13,7 @@ import {
   MapPin,
   MessageSquare,
   Phone,
+  Send,
   Trash2,
   User,
 } from "lucide-react";
@@ -24,6 +27,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -34,6 +38,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/StatusBadge";
+import { MessageTemplates } from "@/components/MessageTemplates";
 import { formatDate, relativeTime } from "@/lib/format";
 import {
   STATUS_ORDER,
@@ -53,6 +58,16 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+const UNASSIGNED = "__unassigned__";
 
 export default function LeadDetail() {
   const params = useParams<{ id: string }>();
@@ -60,6 +75,7 @@ export default function LeadDetail() {
   const qc = useQueryClient();
   const [note, setNote] = useState("");
   const [outcome, setOutcome] = useState("");
+  const [followUpAt, setFollowUpAt] = useState("");
   const { t, lang } = useI18n();
   const dateLocale = lang === "ar" ? "ar-SA" : undefined;
 
@@ -67,6 +83,12 @@ export default function LeadDetail() {
     queryKey: ["lead", id],
     queryFn: () => api.getLead(id),
   });
+  const { data: ops } = useQuery({
+    queryKey: ["operators"],
+    queryFn: () => api.operators(),
+    staleTime: 60_000,
+  });
+  const operators = ops?.operators || [];
 
   const updateMut = useMutation({
     mutationFn: (patch: Record<string, unknown>) => api.updateLead(id, patch),
@@ -78,11 +100,26 @@ export default function LeadDetail() {
   });
 
   const noteMut = useMutation({
-    mutationFn: () => api.addNote(id, note, { outcome: outcome || undefined }),
+    mutationFn: () => {
+      let fuIso: string | undefined;
+      if (followUpAt) {
+        const t = Date.parse(followUpAt);
+        if (!Number.isNaN(t)) fuIso = new Date(t).toISOString();
+      }
+      return api.addNote(id, note, {
+        outcome: outcome || undefined,
+        followUpAt: fuIso,
+      });
+    },
     onSuccess: () => {
       setNote("");
       setOutcome("");
+      setFollowUpAt("");
       qc.invalidateQueries({ queryKey: ["lead", id] });
+      qc.invalidateQueries({ queryKey: ["stats"] });
+    },
+    onError: (err) => {
+      toast.error((err as Error).message);
     },
   });
 
@@ -121,6 +158,17 @@ export default function LeadDetail() {
     return k ? t(k) : raw.replace(/_/g, " ");
   };
 
+  const fmtDateTime = (iso: string) => {
+    try {
+      return new Date(iso).toLocaleString(dateLocale, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+    } catch {
+      return iso;
+    }
+  };
+
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto">
       <div className="flex items-center gap-3 mb-4">
@@ -142,6 +190,11 @@ export default function LeadDetail() {
             {lead.priority !== "normal" && (
               <Badge variant="outline">{t(prioKey)}</Badge>
             )}
+            {lead.assignedTo && (
+              <Badge variant="secondary" className="gap-1">
+                <User className="h-3 w-3" /> {lead.assignedTo}
+              </Badge>
+            )}
           </div>
           <div className="text-sm text-muted-foreground mt-1">
             {t("ref")} <code className="font-mono">{lead.ref}</code> · {t("received_at")}{" "}
@@ -149,6 +202,42 @@ export default function LeadDetail() {
           </div>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="default" size="sm" data-testid="button-open-templates">
+                <Send className="h-4 w-4 me-1.5" />
+                {t("templates_title")}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>{t("templates_title")}</DialogTitle>
+                <DialogDescription>{t("templates_desc")}</DialogDescription>
+              </DialogHeader>
+              <MessageTemplates lead={lead} />
+            </DialogContent>
+          </Dialog>
+          <Select
+            value={lead.assignedTo || UNASSIGNED}
+            onValueChange={(v) =>
+              updateMut.mutate({ assignedTo: v === UNASSIGNED ? "" : v })
+            }
+          >
+            <SelectTrigger className="w-[180px]" data-testid="select-assign">
+              <SelectValue placeholder={t("assign")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={UNASSIGNED}>{t("unassigned")}</SelectItem>
+              {operators.length === 0 && lead.assignedTo && (
+                <SelectItem value={lead.assignedTo}>{lead.assignedTo}</SelectItem>
+              )}
+              {operators.map((op) => (
+                <SelectItem key={op} value={op}>
+                  {op}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Select
             value={lead.status}
             onValueChange={(v) => updateMut.mutate({ status: v as LeadStatus })}
@@ -202,6 +291,12 @@ export default function LeadDetail() {
           </AlertDialog>
         </div>
       </div>
+
+      {operators.length === 0 && (
+        <div className="text-xs text-muted-foreground bg-muted/40 border rounded-md px-3 py-2 mb-4">
+          {t("no_operators_hint")}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
@@ -366,6 +461,18 @@ export default function LeadDetail() {
                   <SelectItem value="not_interested">{t("out_notinterested")}</SelectItem>
                 </SelectContent>
               </Select>
+              <div>
+                <label className="text-xs text-muted-foreground mb-1 block">
+                  {t("followup_optional")}
+                </label>
+                <Input
+                  type="datetime-local"
+                  value={followUpAt}
+                  onChange={(e) => setFollowUpAt(e.target.value)}
+                  data-testid="input-followup"
+                  dir="ltr"
+                />
+              </div>
               <Button
                 size="sm"
                 disabled={!note.trim() || noteMut.isPending}
@@ -383,16 +490,24 @@ export default function LeadDetail() {
                 ) : (
                   lead.notes.map((n) => (
                     <div key={n.id} className="text-sm">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-1 flex-wrap gap-1">
                         <span className="inline-flex items-center gap-1">
                           <Clock className="h-3 w-3" />
                           {relativeTime(n.createdAt, lang)}
                         </span>
-                        {n.outcome && (
-                          <Badge variant="outline" className="text-[10px]">
-                            {outcomeLabel(n.outcome)}
-                          </Badge>
-                        )}
+                        <div className="flex items-center gap-1.5">
+                          {n.followUpAt && (
+                            <Badge variant="outline" className="text-[10px] gap-1">
+                              <CalendarClock className="h-3 w-3" />
+                              <span dir="ltr">{fmtDateTime(n.followUpAt)}</span>
+                            </Badge>
+                          )}
+                          {n.outcome && (
+                            <Badge variant="outline" className="text-[10px]">
+                              {outcomeLabel(n.outcome)}
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       <div className="whitespace-pre-wrap">{n.body}</div>
                     </div>

@@ -58,15 +58,38 @@ export interface Lead {
   raw?: Record<string, unknown>;
 }
 
+export interface FollowUpItem {
+  leadId: string;
+  leadRef: string;
+  leadName: string;
+  noteId: string;
+  body: string;
+  followUpAt: string;
+  assignedTo?: string;
+}
+
 export interface DashboardStats {
   total: number;
   byStatus: Record<string, number>;
   bySource: Record<string, number>;
+  byPriority: Record<string, number>;
   topServices: Array<{ name: string; count: number }>;
   topCities: Array<{ name: string; count: number }>;
   newLast7Days: number;
   newLast30Days: number;
   recent: Lead[];
+  conversionRate: number;
+  wonCount: number;
+  lostCount: number;
+  avgFirstResponseHours: number | null;
+  firstResponseSampleSize: number;
+  pipelineValueByStage: Array<{ stage: LeadStatus; count: number; pct: number }>;
+  assignedCount: number;
+  unassignedCount: number;
+  byAssignee: Array<{ name: string; count: number }>;
+  overdueFollowUps: FollowUpItem[];
+  todayFollowUps: FollowUpItem[];
+  upcomingFollowUps: FollowUpItem[];
 }
 
 export const STATUS_ORDER: LeadStatus[] = [

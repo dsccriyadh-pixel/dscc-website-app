@@ -8,6 +8,7 @@ import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 import LeadsList from "@/pages/LeadsList";
 import LeadDetail from "@/pages/LeadDetail";
+import Today from "@/pages/Today";
 import Settings from "@/pages/Settings";
 import { AppLayout } from "@/components/AppLayout";
 import { RequireAuth } from "@/components/RequireAuth";
@@ -24,6 +25,7 @@ function ProtectedRoutes() {
       <AppLayout>
         <Switch>
           <Route path="/" component={Dashboard} />
+          <Route path="/today" component={Today} />
           <Route path="/leads" component={() => <LeadsList />} />
           <Route path="/leads/:id" component={LeadDetail} />
           <Route
