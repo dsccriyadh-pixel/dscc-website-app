@@ -10,6 +10,10 @@ import {
   type LeadStatus,
 } from "../lib/leadStore";
 import { requireAdmin } from "../middlewares/adminAuth";
+import { ADMIN_NOTIFY_EMAIL, sendMail } from "../lib/mailer";
+import { adminNotificationEmail, clientAcknowledgementEmail } from "../lib/emailTemplates";
+import { createNotification } from "../lib/notificationStore";
+import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
@@ -47,6 +51,67 @@ router.post("/leads", async (req, res) => {
     }
     const ref = typeof body["ref"] === "string" ? (body["ref"] as string).slice(0, 64) : undefined;
     const lead = await createLead({ source, ref, data });
+
+    // Fire-and-forget side effects: in-app notification + emails
+    void (async () => {
+      try {
+        const sourceLabelAr: Record<string, string> = {
+          quote: "طلب عرض سعر",
+          contact: "نموذج تواصل",
+          chatbot: "محادثة الروبوت",
+          newsletter: "نشرة بريدية",
+          other: "طلب عام",
+        };
+        const sourceLabelEn: Record<string, string> = {
+          quote: "Quote request",
+          contact: "Contact message",
+          chatbot: "Chatbot lead",
+          newsletter: "Newsletter signup",
+          other: "Inquiry",
+        };
+        const who = lead.fullName || lead.company || lead.email || lead.phone || "بدون اسم";
+        await createNotification({
+          type: "lead_new",
+          titleAr: `${sourceLabelAr[lead.source] || "طلب جديد"} · ${who}`,
+          titleEn: `${sourceLabelEn[lead.source] || "New lead"} · ${who}`,
+          bodyAr: lead.message || lead.chatbotSummary || `مرجع: ${lead.ref}`,
+          bodyEn: lead.message || lead.chatbotSummary || `Ref: ${lead.ref}`,
+          leadId: lead.id,
+          leadRef: lead.ref,
+          meta: { source: lead.source, city: lead.city, services: lead.services },
+        });
+      } catch (err) {
+        logger.error({ err: (err as Error).message }, "failed to create notification");
+      }
+
+      try {
+        const adminMail = adminNotificationEmail(lead);
+        await sendMail({
+          to: ADMIN_NOTIFY_EMAIL,
+          subject: adminMail.subject,
+          html: adminMail.html,
+          text: adminMail.text,
+          replyTo: lead.email,
+        });
+      } catch (err) {
+        logger.error({ err: (err as Error).message }, "admin email failed");
+      }
+
+      if (lead.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
+        try {
+          const ack = clientAcknowledgementEmail(lead);
+          await sendMail({
+            to: lead.email,
+            subject: ack.subject,
+            html: ack.html,
+            text: ack.text,
+          });
+        } catch (err) {
+          logger.error({ err: (err as Error).message }, "client ack email failed");
+        }
+      }
+    })();
+
     res.json({ ok: true, ref: lead.ref, id: lead.id });
   } catch (err) {
     res.status(500).json({ ok: false, error: (err as Error).message });
