@@ -50,12 +50,9 @@ export function Header() {
             variant="outline"
             size="sm"
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="gap-2 rounded-full px-3 border-primary/20 hover:border-primary hover:bg-primary/5"
+            className="rounded-full px-4 border-primary/20 hover:border-primary hover:bg-primary/5"
             aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
           >
-            <span className="text-base leading-none" aria-hidden>
-              {lang === "en" ? "🇸🇦" : "🇬🇧"}
-            </span>
             <span className={lang === "en" ? "font-arabic text-base" : "text-sm"}>
               {lang === "en" ? "العربية" : "English"}
             </span>
@@ -88,12 +85,9 @@ export function Header() {
                   variant="outline"
                   size="sm"
                   onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                  className="gap-2 flex-1 rounded-full"
+                  className="flex-1 rounded-full"
                   aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
                 >
-                  <span className="text-base leading-none" aria-hidden>
-                    {lang === "en" ? "🇸🇦" : "🇬🇧"}
-                  </span>
                   <span className={lang === "en" ? "font-arabic text-base" : "text-sm"}>
                     {lang === "en" ? "العربية" : "English"}
                   </span>

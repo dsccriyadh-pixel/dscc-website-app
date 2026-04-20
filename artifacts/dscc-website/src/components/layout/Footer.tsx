@@ -130,12 +130,9 @@ export function Footer() {
             <a href="#" className="hover:text-primary-foreground">{t("footer.terms")}</a>
             <button
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="inline-flex items-center gap-1.5 hover:text-primary-foreground"
+              className="hover:text-primary-foreground"
               aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
             >
-              <span className="text-sm leading-none" aria-hidden>
-                {lang === "en" ? "🇸🇦" : "🇬🇧"}
-              </span>
               <span className={lang === "en" ? "font-arabic text-sm" : ""}>
                 {lang === "en" ? "العربية" : "English"}
               </span>

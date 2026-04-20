@@ -106,12 +106,24 @@ const STATS: { v: string; k: BilingualString }[] = [
   { v: "7430", k: { en: "Salified Clients",      ar: "عملاء راضون" } },
 ];
 
-const PROOF_BAR: { v: BilingualString; k: BilingualString }[] = [
-  { v: { en: "3,000+", ar: "+٣٠٠٠" }, k: { en: "Projects Delivered",   ar: "مشروع منجز" } },
-  { v: { en: "400+",   ar: "+٤٠٠"  }, k: { en: "Clients Served",       ar: "عميل" } },
-  { v: { en: "25",     ar: "٢٥"    }, k: { en: "Integrated Services",  ar: "خدمة متكاملة" } },
-  { v: { en: "4",      ar: "٤"     }, k: { en: "Sectors of Expertise", ar: "قطاعات تخصص" } },
+const PROOF_BAR: { v: string; k: BilingualString }[] = [
+  { v: "3,000+", k: { en: "Projects Delivered",   ar: "مشروع منجز" } },
+  { v: "400+",   k: { en: "Clients Served",       ar: "عميل" } },
+  { v: "25",     k: { en: "Integrated Services",  ar: "خدمة متكاملة" } },
+  { v: "4",      k: { en: "Sectors of Expertise", ar: "قطاعات تخصص" } },
 ];
+
+function CircleStep({ value, unit, label }: { value: string; unit: string; label: string }) {
+  return (
+    <div className="size-24 sm:size-28 rounded-full bg-white text-foreground shadow-xl flex flex-col items-center justify-center mx-auto">
+      <div className="flex items-baseline gap-1">
+        <span className="font-serif text-2xl text-primary font-bold">{value}</span>
+        <span className="text-[10px] text-muted-foreground">{unit}</span>
+      </div>
+      <div className="text-xs font-semibold text-foreground mt-0.5">{label}</div>
+    </div>
+  );
+}
 
 const SECTOR_LABEL: Record<string, BilingualString> = {
   residential:    { en: "Residential",    ar: "سكني" },
@@ -275,7 +287,7 @@ export default function Home() {
               <div key={p.k.en} className="flex items-center gap-3 px-3 py-3 rounded-md bg-card border border-border">
                 <CheckCircle2 className="size-6 text-primary shrink-0" />
                 <div className="min-w-0">
-                  <div className="font-serif text-2xl text-foreground leading-none">{bi(p.v)}</div>
+                  <div className="font-serif text-2xl text-foreground leading-none" dir="ltr">{p.v}</div>
                   <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground mt-1">{bi(p.k)}</div>
                 </div>
               </div>
@@ -284,23 +296,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ONE-STOP */}
-      <section className="border-b">
-        <div className="container py-16">
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-3">{bi(T.oneStop)}</h2>
-            <p className="text-muted-foreground">{bi(T.oneStopSub)}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {FIT_OUT_STEPS.map((step, i) => (
-              <div key={step.title.en} className="text-center">
-                <div className="mx-auto mb-3 size-16 rounded-full bg-primary/5 border border-primary/15 flex items-center justify-center text-primary">
-                  <step.icon className="size-7" />
+      {/* ONE-STOP + CHINA FAST */}
+      <section className="relative bg-primary text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" aria-hidden />
+        <div className="absolute -top-24 right-1/3 size-72 rounded-full bg-secondary/10 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-24 right-10 size-72 rounded-full bg-secondary/10 blur-3xl" aria-hidden />
+
+        <div className="container relative py-16 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
+          {/* LEFT — 4 step cards */}
+          <div>
+            <h2 className="font-serif text-2xl md:text-3xl text-amber-300 mb-2">{bi(T.oneStop)}</h2>
+            <p className="text-primary-foreground/75 mb-8 max-w-xl">{bi(T.oneStopSub)}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {FIT_OUT_STEPS.map((step, i) => (
+                <div key={step.title.en} className="rounded-xl bg-white text-foreground shadow-lg p-5 flex flex-col items-center text-center hover:-translate-y-0.5 hover:shadow-xl transition">
+                  <div className="size-14 rounded-full bg-primary/5 flex items-center justify-center text-primary mb-3">
+                    <step.icon className="size-7" />
+                  </div>
+                  <div className="font-semibold text-foreground">{i + 1}. {bi(step.title)}</div>
+                  <div className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{bi(step.desc)}</div>
                 </div>
-                <div className="font-medium text-foreground mb-1">{i + 1}. {bi(step.title)}</div>
-                <div className="text-xs text-muted-foreground">{bi(step.desc)}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — China Fast timeline */}
+          <div className="flex flex-col items-center text-center">
+            <div className="flex gap-1 mb-2" aria-hidden>
+              {[0,1,2,3,4].map((i) => (
+                <span key={i} className="text-amber-300 text-sm">★</span>
+              ))}
+            </div>
+            <div className="font-serif text-3xl md:text-4xl mb-1 tracking-wide">
+              <span className="text-white">CHINA</span>
+              <span className="text-amber-300"> FAST</span>
+            </div>
+            <div className="font-serif text-2xl md:text-3xl text-white mb-8 tracking-wide">FIT OUT CO.</div>
+
+            <div className="relative w-full max-w-md">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 220" fill="none" aria-hidden>
+                <path d="M 90 70 Q 200 40 310 70" stroke="rgba(255,255,255,0.35)" strokeWidth="1" strokeDasharray="4 4" />
+                <path d="M 200 130 Q 110 160 90 110" stroke="rgba(255,255,255,0.35)" strokeWidth="1" strokeDasharray="4 4" />
+                <path d="M 200 130 Q 290 160 310 110" stroke="rgba(255,255,255,0.35)" strokeWidth="1" strokeDasharray="4 4" />
+              </svg>
+              <div className="relative grid grid-cols-3 gap-3">
+                <CircleStep value="20" unit={lang === "ar" ? "يوم" : "Days"} label={lang === "ar" ? "الإنتاج" : "Production"} />
+                <div />
+                <CircleStep value="15" unit={lang === "ar" ? "يوم" : "Days"} label={lang === "ar" ? "التركيب" : "Installation"} />
+                <div />
+                <CircleStep value="25" unit={lang === "ar" ? "يوم" : "Days"} label={lang === "ar" ? "الشحن" : "Shipment"} />
+                <div />
               </div>
-            ))}
+            </div>
+
+            <p className="text-xs text-primary-foreground/70 mt-6 max-w-xs">
+              {lang === "ar"
+                ? "مكتبنا في شنغهاي يضمن توريداً سريعاً ومباشراً من المصدر."
+                : "Our Shanghai office enables fast, direct sourcing from origin."}
+            </p>
           </div>
         </div>
       </section>
@@ -383,7 +436,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {STATS.map((s) => (
               <div key={s.k.en}>
-                <div className="font-serif text-5xl mb-1">{s.v}</div>
+                <div className="font-serif text-5xl mb-1" dir="ltr">{s.v}</div>
                 <div className="text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
               </div>
             ))}
