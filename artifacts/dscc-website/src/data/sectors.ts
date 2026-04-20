@@ -18,14 +18,14 @@ export const sectors: Sector[] = [
     id: "residential",
     slug: "residential",
     name: { en: "Residential", ar: "السكني" },
-    tagline: { en: "Bespoke contracting for villas, palaces, and luxury compounds.", ar: "مقاولات مخصصة للفلل والقصور والمجمعات السكنية الفاخرة." },
+    tagline: { en: "Bespoke contracting for villas, palaces, and luxury compounds.", ar: "مقاولات مخصصة للفلل والقصور والمجمعات السكنية الراقية." },
     overview: {
       en: "DSCC delivers turnkey residential projects for high-net-worth families and developers across Saudi Arabia — from individual luxury villas to gated compound communities. Every project blends architectural integrity with modern smart-home engineering.",
-      ar: "تقدم دي إس سي سي مشاريع سكنية متكاملة للعائلات والمطورين من ذوي الثروات العالية في جميع أنحاء المملكة العربية السعودية — من الفلل الفاخرة الفردية إلى مجتمعات المجمعات المسورة. يجمع كل مشروع بين النزاهة المعمارية وهندسة المنازل الذكية الحديثة.",
+      ar: "تقدم دي إس سي سي مشاريع سكنية متكاملة للعائلات والمطورين من ذوي الثروات العالية في جميع أنحاء المملكة العربية السعودية — من الفلل الراقية الفردية إلى مجتمعات المجمعات المسورة. يجمع كل مشروع بين النزاهة المعمارية وهندسة المنازل الذكية الحديثة.",
     },
     needs: [
       { en: "Discreet, white-glove project management", ar: "إدارة مشاريع متحفظة بأعلى المعايير" },
-      { en: "Premium imported finishes and materials", ar: "تشطيبات ومواد مستوردة فاخرة" },
+      { en: "Premium imported finishes and materials", ar: "تشطيبات ومواد مستوردة راقية" },
       { en: "Full smart-home and security integration", ar: "تكامل كامل للمنازل الذكية والأمن" },
       { en: "Outdoor living and pool engineering", ar: "هندسة المعيشة الخارجية والمسابح" },
     ],
@@ -38,7 +38,7 @@ export const sectors: Sector[] = [
     ],
     faqs: [
       { q: { en: "Do you work with international architects?", ar: "هل تعملون مع المعماريين الدوليين؟" }, a: { en: "Yes, we partner with Italian, French, and British design houses regularly.", ar: "نعم، نعمل بانتظام مع دور التصميم الإيطالية والفرنسية والبريطانية." } },
-      { q: { en: "What is your typical villa timeline?", ar: "ما هو الجدول الزمني المعتاد للفيلا؟" }, a: { en: "12-24 months for a 1,500-3,500 m² luxury villa, depending on scope.", ar: "12-24 شهراً لفيلا فاخرة بمساحة 1500-3500 م²، حسب النطاق." } },
+      { q: { en: "What is your typical villa timeline?", ar: "ما هو الجدول الزمني المعتاد للفيلا؟" }, a: { en: "12-24 months for a 1,500-3,500 m² luxury villa, depending on scope.", ar: "12-24 شهراً لفيلا راقية بمساحة 1500-3500 م²، حسب النطاق." } },
     ],
     serviceSlugs: ["aluminum-steel-glazing", "windows-and-doors", "wall-floor-coverings", "hvac-systems", "lighting-switches-sockets", "smart-room-solutions", "swimming-pool-systems", "outdoor-landscape-solutions", "audio-video-systems", "bathroom-solutions"],
     image: "img/sector-residential.png",

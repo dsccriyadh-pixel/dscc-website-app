@@ -38,27 +38,27 @@ export const services: Service[] = [
     slug: "aluminum-steel-glazing",
     category: "Architecture & Envelope",
     iconKey: "Building2",
-    name: { en: "Aluminum & Steel Glazing", ar: "تزجيج الألمنيوم والصلب" },
-    tagline: { en: "Premium architectural facades engineered for the Saudi climate.", ar: "واجهات معمارية فاخرة مصممة للمناخ السعودي." },
+    name: { en: "Aluminum & Steel Glazing", ar: "زجاج الألمنيوم والصلب" },
+    tagline: { en: "Premium architectural facades engineered for the Saudi climate.", ar: "واجهات معمارية راقية مصممة للمناخ السعودي." },
     overview: {
       en: "DSCC delivers high-performance aluminum and steel glazing systems for towers, hotels, villas, and public infrastructure. Our facades combine thermal efficiency, acoustic comfort, and architectural drama, engineered to withstand extreme GCC heat and dust.",
-      ar: "تقدم دي إس سي سي أنظمة تزجيج عالية الأداء من الألمنيوم والصلب للأبراج والفنادق والفلل ومرافق البنية التحتية العامة. تجمع واجهاتنا بين الكفاءة الحرارية والراحة الصوتية والتأثير المعماري المذهل، وهي مصممة لتحمل الحرارة والغبار القاسيين في دول الخليج.",
+      ar: "تقدم دي إس سي سي أنظمة زجاج عالية الأداء من الألمنيوم والصلب للأبراج والفنادق والفلل ومرافق البنية التحتية العامة. تجمع واجهاتنا بين الكفاءة الحرارية والراحة الصوتية والتأثير المعماري اللافت، وهي مصممة لتحمل الحرارة والغبار القاسيين في دول الخليج.",
     },
     features: [
       { en: "Curtain wall, structural and unitized facade systems", ar: "أنظمة الحوائط الستائرية والإنشائية والموحدة" },
       { en: "Triple-glazed thermal performance up to U-value 1.0", ar: "زجاج ثلاثي بأداء حراري حتى قيمة U تصل إلى 1.0" },
-      { en: "Acoustic glazing rated up to 45 dB attenuation", ar: "تزجيج صوتي بتخفيف يصل إلى 45 ديسيبل" },
+      { en: "Acoustic glazing rated up to 45 dB attenuation", ar: "زجاج صوتي بتخفيف يصل إلى 45 ديسيبل" },
       { en: "Custom anodized & PVDF aluminum finishes", ar: "تشطيبات ألمنيوم مؤكسد و PVDF مخصصة" },
       { en: "Hurricane and sandstorm resistant assemblies", ar: "تجميعات مقاومة للأعاصير والعواصف الرملية" },
     ],
     useCases: [
       { en: "Commercial towers and corporate HQs", ar: "الأبراج التجارية والمقرات الرئيسية للشركات" },
-      { en: "5-star hotel and resort envelopes", ar: "واجهات الفنادق والمنتجعات الفاخرة" },
-      { en: "Luxury villa and palace skylights", ar: "كوات الفلل والقصور الفاخرة" },
+      { en: "5-star hotel and resort envelopes", ar: "واجهات الفنادق والمنتجعات الراقية" },
+      { en: "Luxury villa and palace skylights", ar: "فتحات سقفية الفلل والقصور الراقية" },
     ],
     faqs: [
       { q: { en: "What materials and certifications do you use?", ar: "ما هي المواد والشهادات التي تستخدمونها؟" }, a: { en: "We use aerospace-grade aluminum alloys and structural steel certified to EN, ASTM, and SASO standards.", ar: "نستخدم سبائك الألمنيوم بدرجة الطيران والفولاذ الإنشائي المعتمد وفقاً لمعايير EN و ASTM و SASO." } },
-      { q: { en: "Can you handle design-build delivery?", ar: "هل يمكنكم تقديم التصميم والتنفيذ معاً؟" }, a: { en: "Yes — our in-house design team works alongside fabrication and installation crews for full turnkey delivery.", ar: "نعم — يعمل فريق التصميم الداخلي لدينا جنباً إلى جنب مع طاقم التصنيع والتركيب لتسليم متكامل." } },
+      { q: { en: "Can you handle design-build delivery?", ar: "هل يمكنكم تقديم التصميم والتنفيذ معاً؟" }, a: { en: "Yes — our in-house design team works alongside fabrication and installation crews for full turnkey delivery.", ar: "نعم — يعمل فريق التصميم الداخلي لدينا جنباً إلى جنب مع فريق التصنيع والتركيب لتسليم متكامل." } },
       { q: { en: "Do you provide post-handover maintenance?", ar: "هل تقدمون صيانة بعد التسليم؟" }, a: { en: "Yes, we offer 1-, 3-, and 5-year facade maintenance programs across the Kingdom.", ar: "نعم، نقدم برامج صيانة واجهات لمدة سنة وثلاث وخمس سنوات في جميع أنحاء المملكة." } },
       { q: { en: "What is your typical lead time?", ar: "ما هو الوقت المعتاد للتسليم؟" }, a: { en: "10-16 weeks depending on facade complexity and quantity.", ar: "من 10 إلى 16 أسبوعاً حسب تعقيد الواجهة والكمية." } },
     ],
@@ -73,7 +73,7 @@ export const services: Service[] = [
     tagline: { en: "Bespoke furniture for hotels, residences, and public spaces.", ar: "أثاث مخصص للفنادق والمساكن والمساحات العامة." },
     overview: {
       en: "From custom hotel guestroom packages to landscape lounge furniture, DSCC sources, designs, and installs furniture programs that perform in luxury environments and Saudi outdoor conditions alike.",
-      ar: "من حزم غرف الفنادق المخصصة إلى أثاث الصالات الخارجية، تقوم دي إس سي سي بتوريد وتصميم وتركيب برامج الأثاث التي تعمل في البيئات الفاخرة وظروف السعودية الخارجية على حد سواء.",
+      ar: "من حزم غرف الفنادق المخصصة إلى أثاث الصالات الخارجية، تقوم دي إس سي سي بتوريد وتصميم وتركيب برامج الأثاث التي تعمل في البيئات الراقية وظروف السعودية الخارجية على حد سواء.",
     },
     features: [
       { en: "FF&E packages and case goods for hotels", ar: "حزم FF&E والأثاث الجاهز للفنادق" },
@@ -98,8 +98,8 @@ export const services: Service[] = [
     category: "Architecture & Envelope",
     iconKey: "DoorOpen",
     name: { en: "Windows & Doors", ar: "النوافذ والأبواب" },
-    tagline: { en: "Engineered openings with luxury hardware.", ar: "فتحات هندسية بأجهزة فاخرة." },
-    overview: { en: "Premium aluminum, timber, and steel windows and doors with German hardware, sound and thermal performance, and architectural-grade finishes.", ar: "نوافذ وأبواب فاخرة من الألمنيوم والخشب والصلب مع أجهزة ألمانية وأداء صوتي وحراري وتشطيبات معمارية." },
+    tagline: { en: "Engineered openings with luxury hardware.", ar: "فتحات هندسية بأجهزة راقية." },
+    overview: { en: "Premium aluminum, timber, and steel windows and doors with German hardware, sound and thermal performance, and architectural-grade finishes.", ar: "نوافذ وأبواب راقية من الألمنيوم والخشب والصلب مع أجهزة ألمانية وأداء صوتي وحراري وتشطيبات معمارية." },
     features: [
       { en: "Lift-and-slide and pivot doors up to 4m height", ar: "أبواب رفع وانزلاق ومحورية بارتفاع يصل إلى 4 أمتار" },
       { en: "Sound rated to 42 dB Rw", ar: "تصنيف صوتي حتى 42 ديسيبل" },
@@ -107,7 +107,7 @@ export const services: Service[] = [
       { en: "Smart locking and access control ready", ar: "جاهزة للأقفال الذكية والتحكم في الوصول" },
     ],
     useCases: [
-      { en: "Luxury villas and palaces", ar: "الفلل والقصور الفاخرة" },
+      { en: "Luxury villas and palaces", ar: "الفلل والقصور الراقية" },
       { en: "Hotel guestroom doors", ar: "أبواب غرف الفنادق" },
       { en: "Office and retail entrances", ar: "مداخل المكاتب والتجزئة" },
     ],
@@ -144,7 +144,7 @@ export const services: Service[] = [
     category: "Architecture & Envelope",
     iconKey: "LayoutPanelTop",
     name: { en: "Wall & Floor Coverings", ar: "تغطيات الجدران والأرضيات" },
-    tagline: { en: "Marble, stone, wood, and tile across Saudi luxury interiors.", ar: "الرخام والحجر والخشب والبلاط في الديكورات السعودية الفاخرة." },
+    tagline: { en: "Marble, stone, wood, and tile across Saudi luxury interiors.", ar: "الرخام والحجر والخشب والبلاط في الديكورات السعودية الراقية." },
     overview: { en: "End-to-end supply and installation of architectural marble, natural stone, engineered wood, and large-format tile from quarries and mills across Italy, Turkey, and Spain.", ar: "توريد وتركيب شامل للرخام المعماري والحجر الطبيعي والخشب الهندسي والبلاط كبير الحجم من المحاجر والمصانع في إيطاليا وتركيا وإسبانيا." },
     features: [
       { en: "Stone slab matching and book-matching", ar: "مطابقة ألواح الحجر والمطابقة المتماثلة" },
@@ -192,7 +192,7 @@ export const services: Service[] = [
     iconKey: "Volume2",
     name: { en: "Audio / Video Systems", ar: "أنظمة الصوت والفيديو" },
     tagline: { en: "Reference AV for ballrooms, boardrooms, and home cinemas.", ar: "أنظمة AV مرجعية لقاعات الحفلات وغرف الاجتماعات والسينما المنزلية." },
-    overview: { en: "Crestron, Lutron, Bose, and Dolby-grade AV design and installation for boardrooms, ballrooms, mosques, cinemas, and luxury home theatres.", ar: "تصميم وتركيب أنظمة AV من فئة كريستون ولوترون وبوز ودولبي لقاعات الاجتماعات والحفلات والمساجد والسينما والمسارح المنزلية الفاخرة." },
+    overview: { en: "Crestron, Lutron, Bose, and Dolby-grade AV design and installation for boardrooms, ballrooms, mosques, cinemas, and luxury home theatres.", ar: "تصميم وتركيب أنظمة AV من فئة كريستون ولوترون وبوز ودولبي لقاعات الاجتماعات والحفلات والمساجد والسينما والمسارح المنزلية الراقية." },
     features: [
       { en: "4K and 8K video distribution", ar: "توزيع فيديو 4K و 8K" },
       { en: "Dolby Atmos installations", ar: "تركيبات دولبي أتموس" },

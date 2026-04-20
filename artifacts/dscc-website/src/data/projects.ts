@@ -53,7 +53,7 @@ export const projects: Project[] = [
     scope: { en: "MEP, FF&E, smart room, landscape — turnkey", ar: "MEP، FF&E، غرفة ذكية، مناظر طبيعية — متكامل" },
     summary: {
       en: "Turnkey delivery of 96 ultra-luxury overwater and beachfront villas including custom joinery, smart room platforms, infinity pools, and full landscape engineering.",
-      ar: "تسليم متكامل لـ 96 فيلا فاخرة فوق الماء وعلى الواجهة البحرية تشمل النجارة المخصصة، منصات الغرف الذكية، المسابح اللانهائية، والهندسة الكاملة للمناظر الطبيعية.",
+      ar: "تسليم متكامل لـ 96 فيلا راقية فوق الماء وعلى الواجهة البحرية تشمل النجارة المخصصة، منصات الغرف الذكية، المسابح اللانهائية، والهندسة الكاملة للمناظر الطبيعية.",
     },
     highlights: [
       { en: "96 villas across 3 island clusters", ar: "96 فيلا عبر 3 مجموعات جزر" },
@@ -73,10 +73,10 @@ export const projects: Project[] = [
     city: "NEOM",
     year: "2024",
     sectorId: "infrastructure",
-    scope: { en: "Design, fabrication, install — modular facade and glazing", ar: "تصميم، تصنيع، تركيب — واجهات معيارية وتزجيج" },
+    scope: { en: "Design, fabrication, install — modular facade and glazing", ar: "تصميم، تصنيع، تركيب — واجهات معيارية وزجاج" },
     summary: {
       en: "Modular aluminum and glazing facade package for 1,400 staff accommodation units, engineered for fast-track installation and Saudi desert thermal performance.",
-      ar: "حزمة واجهات معيارية من الألمنيوم والتزجيج لـ 1400 وحدة سكن للموظفين، مصممة للتركيب السريع والأداء الحراري للصحراء السعودية.",
+      ar: "حزمة واجهات معيارية من الألمنيوم والزجاج لـ 1400 وحدة سكن للموظفين، مصممة للتركيب السريع والأداء الحراري للصحراء السعودية.",
     },
     highlights: [
       { en: "1,400 units delivered in 14 months", ar: "تسليم 1400 وحدة في 14 شهراً" },
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     scope: { en: "Heritage-sensitive interior fit-out and MEP", ar: "تجهيز داخلي وMEP حساس للتراث" },
     summary: {
       en: "70-key boutique hotel within the Diriyah heritage precinct, blending Najdi architectural language with contemporary luxury finishes and full smart room platform.",
-      ar: "فندق بوتيكي بـ 70 مفتاحاً داخل منطقة التراث في الدرعية، يمزج اللغة المعمارية النجدية مع التشطيبات الفاخرة المعاصرة ومنصة غرفة ذكية كاملة.",
+      ar: "فندق بوتيكي بـ 70 مفتاحاً داخل منطقة التراث في الدرعية، يمزج اللغة المعمارية النجدية مع التشطيبات الراقية المعاصرة ومنصة غرفة ذكية كاملة.",
     },
     highlights: [
       { en: "Heritage-compliant Najdi exterior", ar: "واجهة نجدية متوافقة مع التراث" },
@@ -119,7 +119,7 @@ export const projects: Project[] = [
     year: "2023",
     sectorId: "commercial",
     scope: { en: "Facade, MEP, retail fit-out", ar: "واجهة، MEP، تجهيز تجزئة" },
-    summary: { en: "Premium retail and F&B pavilion with marine-grade glazing facade and full MEP delivery.", ar: "جناح تجزئة و F&B ممتاز بواجهة تزجيج بحرية و MEP كامل." },
+    summary: { en: "Premium retail and F&B pavilion with marine-grade glazing facade and full MEP delivery.", ar: "جناح تجزئة و F&B ممتاز بواجهة زجاج بحرية و MEP كامل." },
     highlights: [{ en: "12,000 m² leasable area", ar: "12000 م² مساحة قابلة للتأجير" }, { en: "Marine-grade facade", ar: "واجهة بحرية" }],
     serviceSlugs: ["aluminum-steel-glazing", "hvac-systems", "electrical-systems", "lighting-switches-sockets"],
     image: "img/sector-commercial.png",
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     id: "7",
     slug: "alula-resort-spa",
     title: { en: "AlUla Heritage Resort & Spa", ar: "منتجع وسبا تراث العلا" },
-    client: { en: "Luxury resort operator", ar: "مشغل منتجع فاخر" },
+    client: { en: "Luxury resort operator", ar: "مشغل منتجع راقٍ" },
     location: { en: "AlUla, Madinah Region", ar: "العلا، منطقة المدينة" },
     city: "AlUla",
     year: "2025",
