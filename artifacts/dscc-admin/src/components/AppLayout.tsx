@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { clearToken } from "@/lib/auth";
 import { ThemeToggle } from "./ThemeToggle";
 import { LangToggle } from "./LangToggle";
+import { NotificationsBell } from "./NotificationsBell";
 import { useI18n, type TKey } from "@/lib/i18n";
 
 interface NavItem {
@@ -100,6 +101,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <span className="font-semibold text-sm">{t("brand")}</span>
           </div>
           <div className="flex items-center gap-1">
+            <NotificationsBell />
             <LangToggle />
             <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={onLogout}>
@@ -108,6 +110,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <div className="hidden md:flex items-center justify-end gap-1 px-6 py-2 border-b bg-card/50">
+          <NotificationsBell />
           <LangToggle />
           <ThemeToggle />
         </div>

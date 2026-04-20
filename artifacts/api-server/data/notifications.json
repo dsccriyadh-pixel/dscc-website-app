@@ -1,0 +1,225 @@
+[
+  {
+    "id": "N_mo77cqkfbewvd2",
+    "createdAt": "2026-04-20T13:00:01.023Z",
+    "read": false,
+    "type": "lead_new",
+    "titleAr": "طلب عرض سعر · عميل تجريبي",
+    "titleEn": "Quote request · عميل تجريبي",
+    "bodyAr": "هذا طلب تجريبي للتحقق من الإشعارات والبريد",
+    "bodyEn": "هذا طلب تجريبي للتحقق من الإشعارات والبريد",
+    "leadId": "L_mo77cqk7fiblhv",
+    "leadRef": "DSCC-mo77cqk7ncwj7t",
+    "meta": {
+      "source": "quote",
+      "city": "الرياض"
+    }
+  },
+  {
+    "id": "N_mo77bjheacojiy",
+    "type": "lead_new",
+    "titleAr": "طلب عرض سعر · أحمد العتيبي",
+    "titleEn": "Quote request · أحمد العتيبي",
+    "bodyAr": "نرغب ببناء مجمّع 6 فلل بمساحة إجمالية 4500م² شمال الرياض. لدينا التصاميم المعتمدة ونحتاج عرض سعر شامل.",
+    "bodyEn": "نرغب ببناء مجمّع 6 فلل بمساحة إجمالية 4500م² شمال الرياض. لدينا التصاميم المعتمدة ونحتاج عرض سعر شامل.",
+    "leadId": "L_mo77bjh8jxbbfb",
+    "leadRef": "DSCC-MO77BJH88MEK3M",
+    "meta": {
+      "source": "quote",
+      "city": "الرياض",
+      "services": [
+        "الإنشاءات السكنية",
+        "التشطيبات الداخلية"
+      ],
+      "seeded": true
+    },
+    "read": false,
+    "createdAt": "2026-04-20T10:59:05.174Z"
+  },
+  {
+    "id": "N_mo77bjhebov8uc",
+    "type": "lead_new",
+    "titleAr": "نموذج تواصل · نورة الشمري",
+    "titleEn": "Contact message · نورة الشمري",
+    "bodyAr": "أحتاج استشارة لتقييم هيكلي لمبنى قديم قبل إعادة التطوير. هل يمكن جدولة زيارة؟",
+    "bodyEn": "أحتاج استشارة لتقييم هيكلي لمبنى قديم قبل إعادة التطوير. هل يمكن جدولة زيارة؟",
+    "leadId": "L_mo77bjh8cy50ul",
+    "leadRef": "DSCC-MO77BJH8OZ4I6X",
+    "meta": {
+      "source": "contact",
+      "city": "الرياض",
+      "services": [
+        "الاستشارات الهندسية"
+      ],
+      "seeded": true
+    },
+    "read": false,
+    "createdAt": "2026-04-20T07:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhe6kgzhx",
+    "type": "lead_new",
+    "titleAr": "طلب عرض سعر · Fatimah Al-Zahrani",
+    "titleEn": "Quote request · Fatimah Al-Zahrani",
+    "bodyAr": "تطوير منشأة صناعية بمساحة 12000م² تتضمن مستودعات، مكاتب إدارية، ومناطق تحميل.",
+    "bodyEn": "تطوير منشأة صناعية بمساحة 12000م² تتضمن مستودعات، مكاتب إدارية، ومناطق تحميل.",
+    "leadId": "L_mo77bjh8kfy1s1",
+    "leadRef": "DSCC-MO77BJH85Y0V5E",
+    "meta": {
+      "source": "quote",
+      "city": "الدمام",
+      "services": [
+        "الإنشاءات الصناعية",
+        "البنية التحتية"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-20T04:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjheohmm9l",
+    "type": "lead_new",
+    "titleAr": "محادثة الروبوت · محمد القحطاني",
+    "titleEn": "Chatbot lead · محمد القحطاني",
+    "bodyAr": "محادثة مع سارة - يحتاج زيارة موقع لتقييم دقيق.",
+    "bodyEn": "محادثة مع سارة - يحتاج زيارة موقع لتقييم دقيق.",
+    "leadId": "L_mo77bjh88kzx6b",
+    "leadRef": "DSCC-MO77BJH8Q42FUZ",
+    "meta": {
+      "source": "chatbot",
+      "city": "جدة",
+      "services": [
+        "الترميم والصيانة",
+        "التشطيبات"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-19T16:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhea8esh1",
+    "type": "lead_new",
+    "titleAr": "محادثة الروبوت · Omar Hassan",
+    "titleEn": "Chatbot lead · Omar Hassan",
+    "bodyAr": "استشارة استراتيجية + عرض فني وتجاري.",
+    "bodyEn": "استشارة استراتيجية + عرض فني وتجاري.",
+    "leadId": "L_mo77bjh8ewi44i",
+    "leadRef": "DSCC-MO77BJH8CKQN30",
+    "meta": {
+      "source": "chatbot",
+      "city": "الرياض",
+      "services": [
+        "الإنشاءات الصناعية",
+        "أنظمة MEP",
+        "البنية التحتية"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-19T12:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhec9dnik",
+    "type": "lead_new",
+    "titleAr": "نشرة بريدية · ريم العنزي",
+    "titleEn": "Newsletter signup · ريم العنزي",
+    "bodyAr": "اشتراك في النشرة البريدية للحصول على آخر مشاريع الشركة.",
+    "bodyEn": "اشتراك في النشرة البريدية للحصول على آخر مشاريع الشركة.",
+    "leadId": "L_mo77bjh8nbr7m0",
+    "leadRef": "DSCC-MO77BJH865F60X",
+    "meta": {
+      "source": "newsletter",
+      "city": "الخبر",
+      "seeded": true
+    },
+    "read": false,
+    "createdAt": "2026-04-19T00:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhe4huf68",
+    "type": "lead_new",
+    "titleAr": "نموذج تواصل · Sarah Mansour",
+    "titleEn": "Contact message · Sarah Mansour",
+    "bodyAr": "Looking for a turnkey solution for a 6-floor office building in King Fahd district. Sustainability certifications preferred.",
+    "bodyEn": "Looking for a turnkey solution for a 6-floor office building in King Fahd district. Sustainability certifications preferred.",
+    "leadId": "L_mo77bjh8f38iuo",
+    "leadRef": "DSCC-MO77BJH87UUGF8",
+    "meta": {
+      "source": "contact",
+      "city": "الرياض",
+      "services": [
+        "الإنشاءات التجارية",
+        "أنظمة MEP",
+        "التشطيبات الداخلية"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-18T12:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhe1r0krk",
+    "type": "lead_new",
+    "titleAr": "طلب عرض سعر · خالد السبيعي",
+    "titleEn": "Quote request · خالد السبيعي",
+    "bodyAr": "تطوير مجمّع تجاري بمساحة 8000م² بطابقين تجاريين وموقف سيارات تحت الأرض.",
+    "bodyEn": "تطوير مجمّع تجاري بمساحة 8000م² بطابقين تجاريين وموقف سيارات تحت الأرض.",
+    "leadId": "L_mo77bjh89e8etv",
+    "leadRef": "DSCC-MO77BJH8H39DYC",
+    "meta": {
+      "source": "quote",
+      "city": "مكة المكرمة",
+      "services": [
+        "الإنشاءات التجارية",
+        "البنية التحتية"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-16T12:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjheg6fofr",
+    "type": "lead_new",
+    "titleAr": "طلب عرض سعر · عبدالله المالكي",
+    "titleEn": "Quote request · عبدالله المالكي",
+    "bodyAr": "فندق 5 نجوم بـ 120 غرفة في أبها — العقد موقّع، بدء التنفيذ الشهر القادم.",
+    "bodyEn": "فندق 5 نجوم بـ 120 غرفة في أبها — العقد موقّع، بدء التنفيذ الشهر القادم.",
+    "leadId": "L_mo77bjh8vo4ugc",
+    "leadRef": "DSCC-MO77BJH8D24WBT",
+    "meta": {
+      "source": "quote",
+      "city": "أبها",
+      "services": [
+        "الإنشاءات التجارية",
+        "التشطيبات الفاخرة"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-04-05T12:59:05.175Z"
+  },
+  {
+    "id": "N_mo77bjhebab4cl",
+    "type": "lead_new",
+    "titleAr": "نموذج تواصل · Lina Ibrahim",
+    "titleEn": "Contact message · Lina Ibrahim",
+    "bodyAr": "Project went to another contractor due to scheduling conflict.",
+    "bodyEn": "Project went to another contractor due to scheduling conflict.",
+    "leadId": "L_mo77bjh8qbwwlj",
+    "leadRef": "DSCC-MO77BJH854WD0V",
+    "meta": {
+      "source": "contact",
+      "city": "جدة",
+      "services": [
+        "البنية التحتية",
+        "الإنشاءات الصناعية"
+      ],
+      "seeded": true
+    },
+    "read": true,
+    "createdAt": "2026-03-31T12:59:05.175Z"
+  }
+]

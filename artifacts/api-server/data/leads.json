@@ -1,5 +1,288 @@
 [
   {
+    "id": "L_mo77cqk7fiblhv",
+    "ref": "DSCC-mo77cqk7ncwj7t",
+    "source": "quote",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T13:00:01.015Z",
+    "updatedAt": "2026-04-20T13:00:01.015Z",
+    "fullName": "عميل تجريبي",
+    "email": "client-test@example.com",
+    "phone": "+966500000000",
+    "city": "الرياض",
+    "projectType": "اختبار",
+    "message": "هذا طلب تجريبي للتحقق من الإشعارات والبريد",
+    "notes": [],
+    "raw": {
+      "fullName": "عميل تجريبي",
+      "email": "client-test@example.com",
+      "phone": "+966500000000",
+      "city": "الرياض",
+      "projectType": "اختبار",
+      "message": "هذا طلب تجريبي للتحقق من الإشعارات والبريد"
+    }
+  },
+  {
+    "id": "L_mo77bjh8jxbbfb",
+    "ref": "DSCC-MO77BJH88MEK3M",
+    "source": "quote",
+    "status": "new",
+    "priority": "high",
+    "createdAt": "2026-04-20T10:59:05.174Z",
+    "updatedAt": "2026-04-20T10:59:05.174Z",
+    "fullName": "أحمد العتيبي",
+    "company": "مجموعة الفيصل العقارية",
+    "email": "ahmed.alotaibi@example.sa",
+    "phone": "+966 50 123 4567",
+    "city": "الرياض",
+    "projectType": "بناء فلل سكنية",
+    "services": [
+      "الإنشاءات السكنية",
+      "التشطيبات الداخلية"
+    ],
+    "budget": "5,000,000 - 10,000,000 ر.س",
+    "timeline": "خلال 3 أشهر",
+    "message": "نرغب ببناء مجمّع 6 فلل بمساحة إجمالية 4500م² شمال الرياض. لدينا التصاميم المعتمدة ونحتاج عرض سعر شامل.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8cy50ul",
+    "ref": "DSCC-MO77BJH8OZ4I6X",
+    "source": "contact",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T07:59:05.175Z",
+    "updatedAt": "2026-04-20T07:59:05.175Z",
+    "fullName": "نورة الشمري",
+    "email": "noura.shamri@example.sa",
+    "phone": "+966 50 333 4455",
+    "city": "الرياض",
+    "projectType": "استشارة هندسية",
+    "services": [
+      "الاستشارات الهندسية"
+    ],
+    "message": "أحتاج استشارة لتقييم هيكلي لمبنى قديم قبل إعادة التطوير. هل يمكن جدولة زيارة؟",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8kfy1s1",
+    "ref": "DSCC-MO77BJH85Y0V5E",
+    "source": "quote",
+    "status": "contacted",
+    "priority": "urgent",
+    "createdAt": "2026-04-20T04:59:05.175Z",
+    "updatedAt": "2026-04-20T04:59:05.175Z",
+    "fullName": "Fatimah Al-Zahrani",
+    "company": "Aramco Contractors LLC",
+    "email": "fatimah.z@example.com",
+    "phone": "+966 55 987 6543",
+    "city": "الدمام",
+    "projectType": "مشروع صناعي",
+    "services": [
+      "الإنشاءات الصناعية",
+      "البنية التحتية"
+    ],
+    "budget": "15,000,000+ ر.س",
+    "timeline": "عاجل - شهر",
+    "message": "تطوير منشأة صناعية بمساحة 12000م² تتضمن مستودعات، مكاتب إدارية، ومناطق تحميل.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh88kzx6b",
+    "ref": "DSCC-MO77BJH8Q42FUZ",
+    "source": "chatbot",
+    "status": "qualified",
+    "priority": "normal",
+    "createdAt": "2026-04-19T16:59:05.175Z",
+    "updatedAt": "2026-04-19T16:59:05.175Z",
+    "fullName": "محمد القحطاني",
+    "email": "m.alqahtani@example.sa",
+    "phone": "+966 53 444 8899",
+    "city": "جدة",
+    "projectType": "ترميم منزل",
+    "services": [
+      "الترميم والصيانة",
+      "التشطيبات"
+    ],
+    "budget": "300,000 - 500,000 ر.س",
+    "timeline": "خلال شهرين",
+    "message": "محادثة مع سارة - يحتاج زيارة موقع لتقييم دقيق.",
+    "chatbotSummary": "العميل يملك منزلاً قديماً بمساحة 350م² في حي الشاطئ، يحتاج ترميم شامل يشمل السباكة والكهرباء والتشطيبات.",
+    "intent": "ترميم سكني",
+    "recommendedServices": [
+      "الترميم والصيانة",
+      "أنظمة MEP"
+    ],
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8ewi44i",
+    "ref": "DSCC-MO77BJH8CKQN30",
+    "source": "chatbot",
+    "status": "qualified",
+    "priority": "urgent",
+    "createdAt": "2026-04-19T12:59:05.175Z",
+    "updatedAt": "2026-04-19T12:59:05.175Z",
+    "fullName": "Omar Hassan",
+    "company": "Tech Park Riyadh",
+    "email": "omar.h@techpark.sa",
+    "phone": "+966 55 666 7788",
+    "city": "الرياض",
+    "projectType": "مركز بيانات",
+    "services": [
+      "الإنشاءات الصناعية",
+      "أنظمة MEP",
+      "البنية التحتية"
+    ],
+    "budget": "30,000,000+ ر.س",
+    "timeline": "6 أشهر",
+    "message": "استشارة استراتيجية + عرض فني وتجاري.",
+    "chatbotSummary": "العميل يطلب بناء مركز بيانات Tier-3 بمساحة 2500م² مع أنظمة تبريد متقدمة وغرف خوادم وUPS.",
+    "intent": "مركز بيانات",
+    "recommendedServices": [
+      "الإنشاءات الصناعية",
+      "أنظمة MEP المتقدمة"
+    ],
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8nbr7m0",
+    "ref": "DSCC-MO77BJH865F60X",
+    "source": "newsletter",
+    "status": "new",
+    "priority": "low",
+    "createdAt": "2026-04-19T00:59:05.175Z",
+    "updatedAt": "2026-04-19T00:59:05.175Z",
+    "fullName": "ريم العنزي",
+    "email": "reem.anazi@example.sa",
+    "phone": "+966 53 111 9988",
+    "city": "الخبر",
+    "message": "اشتراك في النشرة البريدية للحصول على آخر مشاريع الشركة.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8f38iuo",
+    "ref": "DSCC-MO77BJH87UUGF8",
+    "source": "contact",
+    "status": "quotation_sent",
+    "priority": "high",
+    "createdAt": "2026-04-18T12:59:05.175Z",
+    "updatedAt": "2026-04-18T12:59:05.175Z",
+    "fullName": "Sarah Mansour",
+    "company": "Mansour Investment Group",
+    "email": "sarah.m@example.com",
+    "phone": "+966 56 222 1133",
+    "city": "الرياض",
+    "projectType": "مكاتب إدارية",
+    "services": [
+      "الإنشاءات التجارية",
+      "أنظمة MEP",
+      "التشطيبات الداخلية"
+    ],
+    "budget": "8,000,000 ر.س",
+    "timeline": "Q3 2026",
+    "message": "Looking for a turnkey solution for a 6-floor office building in King Fahd district. Sustainability certifications preferred.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh89e8etv",
+    "ref": "DSCC-MO77BJH8H39DYC",
+    "source": "quote",
+    "status": "negotiation",
+    "priority": "high",
+    "createdAt": "2026-04-16T12:59:05.175Z",
+    "updatedAt": "2026-04-16T12:59:05.175Z",
+    "fullName": "خالد السبيعي",
+    "company": "شركة السبيعي للتطوير",
+    "email": "khalid@subaie-dev.sa",
+    "phone": "+966 54 777 2200",
+    "city": "مكة المكرمة",
+    "projectType": "مجمّع تجاري",
+    "services": [
+      "الإنشاءات التجارية",
+      "البنية التحتية"
+    ],
+    "budget": "20,000,000 ر.س",
+    "timeline": "12 شهراً",
+    "message": "تطوير مجمّع تجاري بمساحة 8000م² بطابقين تجاريين وموقف سيارات تحت الأرض.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8vo4ugc",
+    "ref": "DSCC-MO77BJH8D24WBT",
+    "source": "quote",
+    "status": "won",
+    "priority": "high",
+    "createdAt": "2026-04-05T12:59:05.175Z",
+    "updatedAt": "2026-04-05T12:59:05.175Z",
+    "fullName": "عبدالله المالكي",
+    "company": "مؤسسة المالكي للمقاولات",
+    "email": "a.malki@example.sa",
+    "phone": "+966 50 555 6677",
+    "city": "أبها",
+    "projectType": "فندق سياحي",
+    "services": [
+      "الإنشاءات التجارية",
+      "التشطيبات الفاخرة"
+    ],
+    "budget": "45,000,000 ر.س",
+    "timeline": "18 شهراً",
+    "message": "فندق 5 نجوم بـ 120 غرفة في أبها — العقد موقّع، بدء التنفيذ الشهر القادم.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
+    "id": "L_mo77bjh8qbwwlj",
+    "ref": "DSCC-MO77BJH854WD0V",
+    "source": "contact",
+    "status": "lost",
+    "priority": "normal",
+    "createdAt": "2026-03-31T12:59:05.175Z",
+    "updatedAt": "2026-03-31T12:59:05.175Z",
+    "fullName": "Lina Ibrahim",
+    "company": "Green Future Co.",
+    "email": "lina@greenfuture.sa",
+    "phone": "+966 55 333 9911",
+    "city": "جدة",
+    "projectType": "مشروع طاقة شمسية",
+    "services": [
+      "البنية التحتية",
+      "الإنشاءات الصناعية"
+    ],
+    "message": "Project went to another contractor due to scheduling conflict.",
+    "notes": [],
+    "raw": {
+      "seeded": true
+    }
+  },
+  {
     "id": "L_mo75bg88fu7i1a",
     "ref": "DSCC-5BHIF1II",
     "source": "chatbot",

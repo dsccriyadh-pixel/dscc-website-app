@@ -87,8 +87,36 @@ export function adminNotificationEmail(lead: Lead): { subject: string; html: str
 }
 
 export function clientAcknowledgementEmail(lead: Lead): { subject: string; html: string; text: string } {
-  const isAr = !lead.email || /[\u0600-\u06FF]/.test(`${lead.fullName || ""} ${lead.message || ""}`) || true;
-  const name = escapeHtml(lead.fullName || "عميلنا الكريم");
+  const hasArabic = /[\u0600-\u06FF]/.test(
+    `${lead.fullName || ""} ${lead.company || ""} ${lead.message || ""} ${lead.city || ""}`,
+  );
+  const isAr = hasArabic || !lead.email; // default to AR for SA market unless content is purely English
+  const name = escapeHtml(lead.fullName || (isAr ? "عميلنا الكريم" : "Valued client"));
+  if (!isAr) {
+    const innerEn = `
+    <h2 style="margin:0 0 12px;color:${BRAND_DARK};font-size:20px">Thank you for reaching out, ${name}</h2>
+    <p style="margin:0 0 12px;color:#333;font-size:14px;line-height:1.7">
+      We've received your inquiry and the sales team at <strong>Diversified Saudi Contracting Company (DSCC)</strong>
+      will review and contact you within <strong>24 business hours</strong>.
+    </p>
+    <div style="background:#faf3f6;border-left:4px solid ${BRAND_COLOR};padding:12px 16px;border-radius:6px;margin:16px 0">
+      <div style="font-size:12px;color:#777;margin-bottom:4px">Your reference number</div>
+      <div style="font-size:18px;font-weight:700;color:${BRAND_DARK};letter-spacing:.5px">${escapeHtml(lead.ref)}</div>
+    </div>
+    <p style="margin:12px 0;color:#444;font-size:13px;line-height:1.7">
+      Please keep this reference for your records. For urgent matters:
+    </p>
+    <ul style="padding:0 18px;margin:0 0 16px;color:#333;font-size:13px;line-height:1.9">
+      <li>Phone: <strong>+966 XX XXX XXXX</strong></li>
+      <li>Email: <strong>info@dsccsaudia.com</strong></li>
+      <li>Website: <strong>dsccsaudia.com</strong></li>
+    </ul>
+    <p style="margin:16px 0 0;color:#666;font-size:12px">We appreciate your trust and look forward to serving you.</p>
+    `;
+    const subjectEn = `We received your inquiry · DSCC · ${lead.ref}`;
+    const textEn = `Thank you ${lead.fullName || ""}.\nYour reference: ${lead.ref}\nOur team will contact you within 24 business hours.\n\nDSCC · dsccsaudia.com`;
+    return { subject: subjectEn, html: shell(innerEn, "ltr"), text: textEn };
+  }
   const innerAr = `
     <h2 style="margin:0 0 12px;color:${BRAND_DARK};font-size:20px">شكراً لتواصلك معنا، ${name}</h2>
     <p style="margin:0 0 12px;color:#333;font-size:14px;line-height:1.7">

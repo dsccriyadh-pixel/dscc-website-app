@@ -34,3 +34,8 @@ externalPort = 3001
 [[ports]]
 localPort = 23416
 externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+ADMIN_NOTIFY_EMAIL = "tahabeam@gmail.com"

@@ -1,6 +1,26 @@
 import { getToken } from "./auth";
 import type { Lead, DashboardStats, LeadStatus } from "./types";
 
+export interface Notification {
+  id: string;
+  type: "lead_new" | "lead_status" | "system";
+  titleAr: string;
+  titleEn: string;
+  bodyAr: string;
+  bodyEn: string;
+  leadId?: string;
+  leadRef?: string;
+  meta?: Record<string, unknown>;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface NotificationsResponse {
+  items: Notification[];
+  unread: number;
+  total: number;
+}
+
 const API_BASE =
   ((import.meta as unknown as { env?: { VITE_API_BASE?: string } }).env?.VITE_API_BASE) ||
   "/api";
@@ -69,4 +89,17 @@ export const api = {
     const token = getToken();
     return `${API_BASE}/admin/leads.csv${token ? `?token=${encodeURIComponent(token)}` : ""}`;
   },
+  listNotifications: (opts: { limit?: number; unreadOnly?: boolean } = {}) => {
+    const qs = new URLSearchParams();
+    if (opts.limit) qs.set("limit", String(opts.limit));
+    if (opts.unreadOnly) qs.set("unread", "1");
+    const s = qs.toString();
+    return request<NotificationsResponse>(`/admin/notifications${s ? `?${s}` : ""}`);
+  },
+  markNotificationRead: (id: string) =>
+    request<{ ok: boolean }>(`/admin/notifications/${id}/read`, { method: "POST" }),
+  markAllNotificationsRead: () =>
+    request<{ ok: boolean; count: number }>(`/admin/notifications/read-all`, { method: "POST" }),
+  deleteNotification: (id: string) =>
+    request<{ ok: boolean }>(`/admin/notifications/${id}`, { method: "DELETE" }),
 };

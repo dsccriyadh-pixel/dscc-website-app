@@ -34,8 +34,15 @@ export function NotificationsBell() {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current?.contains(e.target as Node)) setOpen(false);
     };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   const markOne = async (id: string) => {
@@ -75,6 +82,8 @@ export function NotificationsBell() {
         onClick={() => setOpen((v) => !v)}
         data-testid="button-notifications"
         aria-label={t("notifications_title")}
+        aria-haspopup="menu"
+        aria-expanded={open}
       >
         <Bell className="h-4 w-4" />
         {unread > 0 && (
@@ -134,8 +143,8 @@ export function NotificationsBell() {
                               <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                                 {body}
                               </div>
-                              <div className="text-[11px] text-muted-foreground mt-1" dir="ltr">
-                                {relativeTime(n.createdAt, lang, t)}
+                              <div className="text-[11px] text-muted-foreground mt-1">
+                                {relativeTime(n.createdAt, lang)}
                               </div>
                             </div>
                           </div>

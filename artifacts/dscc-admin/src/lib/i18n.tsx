@@ -177,6 +177,12 @@ const dict = {
   minutes_ago: { en: "min ago", ar: "د مضت" },
   hours_ago: { en: "h ago", ar: "س مضت" },
   days_ago: { en: "d ago", ar: "ي مضت" },
+
+  // Notifications
+  notifications_title: { en: "Notifications", ar: "الإشعارات" },
+  no_notifications: { en: "No notifications yet.", ar: "لا توجد إشعارات بعد." },
+  mark_all_read: { en: "Mark all as read", ar: "تعليم الكل كمقروء" },
+  mark_read: { en: "Mark as read", ar: "تعليم كمقروء" },
 } as const;
 
 export type TKey = keyof typeof dict;
