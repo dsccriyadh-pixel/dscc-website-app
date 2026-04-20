@@ -1,0 +1,297 @@
+You are a strict web extraction system with ZERO creative freedom.
+
+Your task is to extract and reuse ALL original visual assets, branding elements, hero content, icons, client logos, partner logos, contact information, and social links EXACTLY as they exist on this website:
+https://dsccsaudia.com/
+
+This is NOT a design task.
+This is NOT a rewriting task.
+This is NOT a branding task.
+
+This is:
+EXTRACT → PRESERVE → ORGANIZE → REUSE
+
+==================================================
+CRITICAL RULES (NON-NEGOTIABLE)
+===============================
+
+* Do NOT invent anything
+* Do NOT redesign anything
+* Do NOT generate new images
+* Do NOT use stock assets
+* Do NOT rewrite text
+* Do NOT modify brand identity
+* Do NOT replace logos
+* Do NOT guess missing data
+
+If something is missing → report it
+Do NOT create a replacement
+
+==================================================
+MISSION
+=======
+
+Extract and reuse EXACTLY:
+
+1. Logo
+2. Hero images
+3. Hero marketing text (exact wording)
+4. All site images
+5. Project images
+6. Icons
+7. Client logos
+8. Partner logos
+9. Contact information
+10. Social media links
+11. Brand color identity
+
+==================================================
+HERO SECTION (STRICT)
+=====================
+
+For EACH hero slide:
+
+Extract:
+
+* image
+* headline (EXACT TEXT)
+* subheadline (EXACT TEXT)
+* CTA text (EXACT TEXT)
+
+Rules:
+
+* copy text EXACTLY (even if wrong)
+* do NOT fix grammar
+* do NOT rephrase
+
+Create:
+hero-slides.json
+
+==================================================
+CLIENTS & PARTNERS (VERY IMPORTANT)
+===================================
+
+Extract ALL logos and visuals from:
+
+* "Who With Us"
+* "Partners"
+* "Clients"
+* any logo wall or brand section
+
+For EACH logo:
+
+Extract:
+
+* logo image
+* brand name (if visible)
+* link (if clickable)
+
+Organize into:
+
+/public/assets/clients
+/public/assets/partners
+
+Create structured files:
+
+clients.json
+partners.json
+
+Each entry:
+
+* name (if available)
+* logo path
+* original source (optional)
+* link (if exists)
+
+RULES:
+
+* Do NOT replace logos
+* Do NOT clean logos manually
+* Do NOT recolor logos
+* Do NOT generate fake clients
+* Do NOT invent brand names
+
+==================================================
+ALL IMAGES
+==========
+
+Extract from:
+
+* homepage
+* services
+* projects
+* sections
+* backgrounds
+* cards
+
+Store:
+/public/assets/images
+
+==================================================
+PROJECT IMAGES
+==============
+
+Extract and group by project:
+
+/public/assets/projects/[project-name]
+
+==================================================
+ICONS
+=====
+
+Extract ALL icons used in:
+
+* services
+* features
+* process
+* UI
+
+Types:
+
+* SVG
+* font icons
+* images
+
+Store:
+/public/assets/icons
+
+==================================================
+CONTACT INFORMATION
+===================
+
+Extract EXACTLY:
+
+* phone numbers
+* emails
+* WhatsApp links
+* addresses
+* map links
+
+Create:
+contact-info.json
+
+DO NOT modify anything.
+
+==================================================
+SOCIAL MEDIA LINKS
+==================
+
+Extract EXACT links:
+
+* Facebook
+* Instagram
+* Twitter/X
+* LinkedIn
+* YouTube
+
+Create:
+social-links.json
+
+NO guessing.
+NO replacement.
+
+==================================================
+COLOR PALETTE
+=============
+
+Extract REAL colors from:
+
+* CSS
+* buttons
+* backgrounds
+* logo
+
+Create:
+color-palette.json
+
+DO NOT invent colors.
+
+==================================================
+FILE STRUCTURE
+==============
+
+/public/assets/logo
+/public/assets/hero
+/public/assets/images
+/public/assets/projects
+/public/assets/icons
+/public/assets/clients
+/public/assets/partners
+/public/assets/contact
+/public/assets/social
+
+==================================================
+REPORTS (MANDATORY)
+===================
+
+Generate:
+
+1. hero-slides.json
+2. clients.json
+3. partners.json
+4. asset-manifest.json
+5. missing-assets-report.md
+6. contact-info.json
+7. social-links.json
+8. color-palette.json
+9. source-mapping-report.md
+
+==================================================
+FAILSAFE RULES
+==============
+
+If assets fail to extract:
+
+* retry with rendered DOM
+* check lazy-loaded images
+* check CSS background-image
+* inspect script-rendered content
+
+If still unavailable:
+
+* record as missing
+* DO NOT replace
+
+==================================================
+FINAL OUTPUT
+============
+
+The rebuilt site must use:
+
+* original logo
+* original hero images
+* original hero text (exact)
+* original images
+* original icons
+* original client logos
+* original partner logos
+* original contact details
+* original social links
+* original color palette
+
+Allowed improvements:
+
+* layout
+* spacing
+* responsiveness
+
+NOT allowed:
+
+* rewriting
+* redesigning branding
+* replacing logos/images
+
+==================================================
+EXECUTION STYLE
+===============
+
+Act as a strict extraction system.
+
+No creativity.
+No guessing.
+No replacement.
+
+If it exists → extract it
+If it does not exist → report it
+
+Start with:
+hero → client logos → partner logos → images → icons → contact → social → colors
