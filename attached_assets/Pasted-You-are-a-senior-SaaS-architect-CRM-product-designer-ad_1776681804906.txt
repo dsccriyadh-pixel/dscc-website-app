@@ -1,0 +1,246 @@
+You are a senior SaaS architect, CRM product designer, admin dashboard UX expert, and full-stack engineer.
+
+Build a professional internal admin dashboard for the DSCC website project.
+
+IMPORTANT CONTEXT:
+- Replit is only the build environment.
+- Final code must be GitHub-ready and deployable outside Replit.
+- Hostinger is the production target.
+- Use external database only if needed.
+- Avoid Replit-specific production dependencies.
+
+==================================================
+OBJECTIVE
+==================================================
+
+Build an internal admin dashboard for managing:
+- customer inquiries
+- quote requests
+- chatbot leads
+- contact form submissions
+- uploaded files
+- lead status tracking
+- notes and follow-ups
+- conversation summaries
+- service interest categorization
+- reporting overview
+
+This dashboard is for internal business operations, not public visitors.
+
+==================================================
+CORE GOALS
+==================================================
+
+The dashboard must help the company:
+1. receive all website leads in one place
+2. review project requests professionally
+3. track each lead by status
+4. view source and intent of each inquiry
+5. organize sales follow-up
+6. assign priorities
+7. review uploaded files and project details
+8. monitor chatbot-generated leads
+9. export or integrate leads later if needed
+
+==================================================
+ARCHITECTURE RULES
+==================================================
+
+- Build clean, modular, portable code
+- Use environment variables
+- Keep production portability in mind
+- Use DB only if needed
+- Prefer a minimal, maintainable schema
+- Keep role/auth architecture simple unless expansion is needed
+- Make it easy to host outside Replit
+
+Preferred stack:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- secure server actions or API routes if needed
+
+==================================================
+DASHBOARD FEATURES
+==================================================
+
+Build the following modules:
+
+1. Dashboard Overview
+- total leads
+- new leads
+- quote requests
+- contact submissions
+- chatbot leads
+- status summary
+- recent activity
+- top requested services
+- top cities
+- lead source overview
+
+2. Leads Management
+Each lead should include:
+- full name
+- company
+- phone
+- email
+- city
+- source page
+- source action
+- project type
+- services selected
+- project size
+- budget
+- timeline
+- notes
+- uploaded files
+- chatbot summary if relevant
+- created date
+- status
+
+Statuses:
+- New
+- Contacted
+- Qualified
+- Quotation Sent
+- Negotiation
+- Won
+- Lost
+- Archived
+
+3. Lead Detail View
+Show:
+- full request details
+- structured summary
+- files
+- notes
+- conversation summary
+- internal status update
+- follow-up history
+- tags
+- assigned team member if implemented
+
+4. Quote Requests Module
+- dedicated filtering for quotation requests
+- quick review of technical/commercial details
+- readiness scoring if possible
+
+5. Chatbot Leads Module
+- list of leads generated via chatbot
+- qualification summary
+- detected intent
+- recommended services
+- handoff status
+
+6. Contact Requests Module
+- standard contact messages
+- inquiry topic
+- reply status
+
+7. File Attachments Viewer
+- view uploaded plans, BOQ, images, references
+- safe file metadata display
+
+8. Filters and Search
+Allow filtering by:
+- status
+- source
+- project type
+- service
+- city
+- date
+- urgency
+- assigned person if available
+
+9. Notes and Follow-Ups
+Allow admin to:
+- add internal notes
+- log contact attempts
+- set follow-up reminders structure
+- mark outcome
+
+10. Export / Integration Readiness
+Prepare lead data structure for future export to:
+- CSV
+- Google Sheets
+- CRM
+- webhook endpoint
+
+==================================================
+UX / UI REQUIREMENTS
+==================================================
+
+The dashboard must feel:
+- premium
+- clean
+- efficient
+- business-ready
+- easy to scan
+- suitable for sales/admin operations
+
+Use:
+- summary cards
+- smart tables
+- detail drawers or detail pages
+- clear statuses
+- readable lead summaries
+- responsive layout
+
+Do NOT make it look cluttered or overly technical.
+
+==================================================
+DATA MODEL
+==================================================
+
+If DB is needed, design a minimal clean schema for:
+- leads
+- lead_notes
+- lead_files
+- chatbot_sessions (optional)
+- followups (optional)
+- admin_users (optional if auth is added)
+
+But keep the architecture flexible and lightweight.
+
+==================================================
+PERMISSIONS / ACCESS
+==================================================
+
+If authentication is included, keep it simple and secure.
+If auth is deferred, still architect the dashboard so auth can be added later cleanly.
+
+==================================================
+GOOGLE / AI / SYSTEM READINESS
+==================================================
+
+This dashboard is internal, but code quality still matters:
+- clean types
+- validation
+- secure handling of data
+- no broken forms
+- no poor state management
+- maintainable architecture
+
+==================================================
+DELIVERABLES
+==================================================
+
+Provide:
+1. dashboard codebase/modules
+2. schema or data model if needed
+3. lead status system
+4. filters/search system
+5. lead detail views
+6. notes/follow-up structure
+7. export/integration readiness
+8. deployment notes
+9. future extension notes
+
+==================================================
+EXECUTION STYLE
+==================================================
+
+Do not ask unnecessary questions.
+Make strong expert decisions.
+Build a polished internal operations dashboard that helps the business manage incoming leads and requests professionally.

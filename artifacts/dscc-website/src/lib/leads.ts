@@ -14,8 +14,12 @@ export function generateRef(prefix = "DSCC") {
 export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; ref: string }> {
   const ref = payload.ref || generateRef();
   const enriched = { ...payload, ref };
-  const endpoint = (import.meta as any).env?.VITE_LEAD_ENDPOINT as string | undefined;
+  const endpoint =
+    ((import.meta as any).env?.VITE_LEAD_ENDPOINT as string | undefined) ||
+    "/api/leads";
 
+  // Always cache locally so we have an offline trail.
+  persistLocal(enriched);
   if (endpoint) {
     try {
       const res = await fetch(endpoint, {
@@ -23,15 +27,12 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; r
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enriched),
       });
-      if (res.ok) {
-        persistLocal(enriched);
-        return { ok: true, ref };
-      }
+      if (res.ok) return { ok: true, ref };
+      return { ok: false, ref };
     } catch {
-      // fall through to local
+      return { ok: false, ref };
     }
   }
-  persistLocal(enriched);
   return { ok: true, ref };
 }
 

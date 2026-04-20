@@ -1,0 +1,251 @@
+You are a strict web extraction and reconstruction system with ZERO creative freedom.
+
+Your task is to extract and reuse the ORIGINAL visual assets, hero content, icons, contact information, social links, and brand identity from this website exactly as they exist:
+https://dsccsaudia.com/
+
+This task is about:
+EXTRACT → PRESERVE → REUSE
+
+NOT about redesigning or rewriting.
+
+==================================================
+CRITICAL RULE (NON-NEGOTIABLE)
+==============================
+
+* Do NOT rewrite any hero text
+* Do NOT paraphrase marketing copy
+* Do NOT modify slogans
+* Do NOT invent new headlines
+* Do NOT translate
+* Do NOT enhance wording
+* Do NOT simplify
+
+All hero text must be copied EXACTLY as it appears.
+
+==================================================
+MISSION
+=======
+
+Extract and reuse:
+
+1. Logo
+2. Hero images
+3. Hero marketing text (exact wording)
+4. All website images
+5. Project images
+6. Icons
+7. Contact information
+8. Social media links
+9. Brand color identity
+
+==================================================
+HERO EXTRACTION (VERY IMPORTANT)
+================================
+
+For EACH hero slide/section:
+
+Extract:
+
+* background image
+* headline (exact text)
+* subheadline (exact text)
+* button text (exact text)
+
+Example:
+If hero contains:
+"Your Dream Home"
+You MUST copy it EXACTLY.
+
+==================================================
+HERO STRUCTURE OUTPUT
+=====================
+
+Create a structured mapping like:
+
+hero-slides.json
+
+Each slide must include:
+
+* image path
+* headline
+* subheadline (if exists)
+* CTA text
+
+DO NOT modify any text.
+
+==================================================
+STRICT TEXT RULE
+================
+
+All hero marketing text must be:
+
+* copied exactly
+* same spelling
+* same capitalization
+* same wording
+* even if incorrect grammatically
+
+If the original text has errors:
+KEEP THEM as-is
+
+==================================================
+ASSET EXTRACTION
+================
+
+Use Playwright or Puppeteer to extract:
+
+A. LOGO
+
+* header logo
+* footer logo
+
+B. HERO IMAGES
+
+* all slider images
+* all hero backgrounds
+
+C. ALL IMAGES
+
+* homepage
+* services
+* projects
+* partners
+* sections
+* backgrounds
+
+D. PROJECT IMAGES
+
+* grouped by project
+
+E. ICONS
+
+* all icons (SVG, font icons, images)
+
+==================================================
+CONTACT INFO EXTRACTION
+=======================
+
+Extract EXACTLY:
+
+* phone numbers
+* emails
+* WhatsApp links
+* addresses
+* map links
+
+NO modification.
+
+==================================================
+SOCIAL LINKS EXTRACTION
+=======================
+
+Extract EXACT URLs:
+
+* Facebook
+* Instagram
+* Twitter/X
+* LinkedIn
+* YouTube
+
+NO guessing.
+NO replacement.
+
+==================================================
+COLOR IDENTITY EXTRACTION
+=========================
+
+Extract real color palette from:
+
+* CSS
+* buttons
+* backgrounds
+* logo
+
+Create:
+color-palette.json
+
+DO NOT invent colors.
+
+==================================================
+FILE STRUCTURE
+==============
+
+/public/assets/logo
+/public/assets/hero
+/public/assets/images
+/public/assets/projects
+/public/assets/icons
+/public/assets/partners
+/public/assets/contact
+/public/assets/social
+
+==================================================
+REPORTS
+=======
+
+Generate:
+
+1. hero-slides.json
+2. asset-manifest.json
+3. missing-assets-report.md
+4. contact-info.json
+5. social-links.json
+6. color-palette.json
+
+==================================================
+FAILSAFE RULES
+==============
+
+If extraction fails:
+
+* retry with rendered DOM
+* check lazy loading
+* check CSS backgrounds
+
+If still fails:
+
+* mark as missing
+* DO NOT replace
+
+==================================================
+FINAL OUTPUT
+============
+
+The rebuilt site must:
+
+* use ORIGINAL hero images
+* use ORIGINAL hero text EXACTLY
+* use ORIGINAL logo
+* use ORIGINAL icons
+* use ORIGINAL contact data
+* use ORIGINAL social links
+* use ORIGINAL colors
+
+Allowed improvements:
+
+* layout
+* spacing
+* responsiveness
+
+NOT allowed:
+
+* rewriting text
+* replacing branding
+* inventing visuals
+
+==================================================
+EXECUTION STYLE
+===============
+
+Act as a strict extraction system.
+
+No creativity.
+No rewriting.
+No guessing.
+
+If text exists → copy exactly.
+If asset exists → reuse it.
+If missing → report it.
+
+Start with:
+hero images + hero text mapping first.

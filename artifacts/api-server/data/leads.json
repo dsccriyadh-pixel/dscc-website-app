@@ -1,0 +1,134 @@
+[
+  {
+    "id": "L_mo72vv6spmgo0b",
+    "ref": "DSCC-mo72vv6sfpim10",
+    "source": "quote",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T10:54:55.395Z",
+    "updatedAt": "2026-04-20T10:54:55.395Z",
+    "fullName": "Test User",
+    "email": "t@example.com",
+    "city": "Riyadh",
+    "notes": [],
+    "raw": {
+      "fullName": "Test User",
+      "email": "t@example.com",
+      "city": "Riyadh"
+    }
+  },
+  {
+    "id": "L_mo72qu4q80dszv",
+    "ref": "DSCC-mo72qu4qvt7ozv",
+    "source": "contact",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T10:51:00.746Z",
+    "updatedAt": "2026-04-20T10:51:00.746Z",
+    "fullName": "Mohammed Al-Otaibi",
+    "company": "Gulf Real Estate Holdings",
+    "email": "m.alotaibi@gulfre.com",
+    "city": "Jeddah",
+    "message": "Interested in a corporate office fit-out (~3,500 m²). Please send your company profile and recent hospitality references.",
+    "notes": [],
+    "raw": {
+      "fullName": "Mohammed Al-Otaibi",
+      "company": "Gulf Real Estate Holdings",
+      "email": "m.alotaibi@gulfre.com",
+      "city": "Jeddah",
+      "message": "Interested in a corporate office fit-out (~3,500 m²). Please send your company profile and recent hospitality references."
+    }
+  },
+  {
+    "id": "L_mo72qu3roh30ix",
+    "ref": "DSCC-mo72qu3ruz6oye",
+    "source": "chatbot",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T10:51:00.711Z",
+    "updatedAt": "2026-04-20T10:51:00.711Z",
+    "fullName": "Sara Bin Faisal",
+    "company": "NEOM Hospitality",
+    "email": "s.binfaisal@neom.sa",
+    "phone": "+966 55 987 6543",
+    "city": "Tabuk",
+    "services": [
+      "MEP engineering"
+    ],
+    "sourcePage": "/services/mep-engineering",
+    "sourceAction": "Chatbot handoff to sales",
+    "chatbotSummary": "Visitor asked about HVAC retrofit for 6,000 m² hotel facility. Provided budget range SAR 4-6M, target completion Q2 2026. Confirmed site visit available next week.",
+    "intent": "Pricing inquiry",
+    "recommendedServices": [
+      "MEP engineering",
+      "HVAC design",
+      "Energy audit"
+    ],
+    "notes": [],
+    "raw": {
+      "fullName": "Sara Bin Faisal",
+      "company": "NEOM Hospitality",
+      "email": "s.binfaisal@neom.sa",
+      "phone": "+966 55 987 6543",
+      "city": "Tabuk",
+      "services": [
+        "MEP engineering"
+      ],
+      "intent": "Pricing inquiry",
+      "summary": "Visitor asked about HVAC retrofit for 6,000 m² hotel facility. Provided budget range SAR 4-6M, target completion Q2 2026. Confirmed site visit available next week.",
+      "recommendedServices": [
+        "MEP engineering",
+        "HVAC design",
+        "Energy audit"
+      ],
+      "sourcePage": "/services/mep-engineering",
+      "sourceAction": "Chatbot handoff to sales"
+    }
+  },
+  {
+    "id": "L_mo72qu2m8972h5",
+    "ref": "DSCC-DEMO1",
+    "source": "quote",
+    "status": "new",
+    "priority": "normal",
+    "createdAt": "2026-04-20T10:51:00.669Z",
+    "updatedAt": "2026-04-20T10:51:00.669Z",
+    "fullName": "Ahmed Al-Rashid",
+    "company": "Vision 2030 Hospitality Group",
+    "email": "ahmed@vision2030hg.com",
+    "phone": "+966 50 123 4567",
+    "city": "Riyadh",
+    "projectType": "5-star hotel fit-out",
+    "services": [
+      "Interior fit-out",
+      "MEP engineering",
+      "Joinery"
+    ],
+    "projectSize": "12,000 m²",
+    "budget": "SAR 18-22M",
+    "timeline": "Q3 2026 — 9 months",
+    "sourcePage": "/quote",
+    "sourceAction": "Submit detailed quotation",
+    "message": "Boutique luxury property in Diriyah. Need turnkey from concept to handover. Have schematic drawings ready.",
+    "notes": [],
+    "raw": {
+      "fullName": "Ahmed Al-Rashid",
+      "company": "Vision 2030 Hospitality Group",
+      "email": "ahmed@vision2030hg.com",
+      "phone": "+966 50 123 4567",
+      "city": "Riyadh",
+      "projectType": "5-star hotel fit-out",
+      "services": [
+        "Interior fit-out",
+        "MEP engineering",
+        "Joinery"
+      ],
+      "projectSize": "12,000 m²",
+      "budget": "SAR 18-22M",
+      "timeline": "Q3 2026 — 9 months",
+      "sourcePage": "/quote",
+      "sourceAction": "Submit detailed quotation",
+      "message": "Boutique luxury property in Diriyah. Need turnkey from concept to handover. Have schematic drawings ready."
+    }
+  }
+]

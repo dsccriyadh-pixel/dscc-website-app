@@ -1,0 +1,248 @@
+You are a senior enterprise UX architect, brand preservation specialist, and premium UI reconstruction expert.
+
+Your mission is to rebuild the website:
+https://dsccsaudia.com/
+
+using its ORIGINAL assets and identity, but transform it into a PREMIUM, MODERN, HIGH-END EXPERIENCE without breaking the brand.
+
+==================================================
+CORE RULE (CRITICAL)
+====================
+
+This is NOT a redesign from scratch.
+
+This is:
+EXTRACT → PRESERVE → UPGRADE PRESENTATION
+
+You must:
+
+* KEEP the original logo
+* KEEP the original hero images
+* KEEP the original site images
+* KEEP the original icons
+* KEEP the original contact information
+* KEEP the original social media links
+* KEEP the original color identity
+
+You must NOT:
+
+* invent new branding
+* replace visuals randomly
+* use stock assets unless something is missing
+* change the brand personality
+
+==================================================
+DESIGN PHILOSOPHY
+=================
+
+“Same brand — but looks 10x more premium”
+
+The final result should feel like:
+
+* high-end contracting company
+* enterprise-level execution
+* strong GCC market positioning
+* confident and trustworthy
+
+==================================================
+VISUAL UPGRADE RULES
+====================
+
+You are allowed to improve:
+
+1. Layout
+
+* better spacing
+* grid alignment
+* visual hierarchy
+* section structure
+
+2. Image presentation
+
+* better cropping
+* overlays
+* gradient layers
+* dark/light blending
+* aspect ratio consistency
+
+3. Hero section
+
+* use original hero images
+* add premium overlay
+* improve typography
+* improve CTA placement
+* create strong first impression
+
+4. Typography
+
+* clean modern fonts
+* stronger headings
+* better readability
+
+5. Components
+
+* cards
+* sections
+* buttons
+* navigation
+* footer
+
+BUT:
+All visuals must come from original assets first.
+
+==================================================
+COLOR SYSTEM (STRICT)
+=====================
+
+* Extract color palette from original site
+* Normalize it into a clean system
+* Improve consistency only
+* DO NOT replace colors with new branding
+
+Example improvements allowed:
+
+* better contrast
+* consistent button color
+* better hover states
+
+==================================================
+IMAGE PRIORITY RULE
+===================
+
+Priority order:
+
+1. Original website images (MUST use first)
+2. Extracted backgrounds
+3. Extracted project images
+4. Extracted hero images
+5. ONLY if missing → placeholder (clearly marked)
+
+==================================================
+ICON RULE
+=========
+
+* Use original icons if extracted
+* If icons are font-based:
+
+  * convert or map them properly
+* ONLY if completely missing:
+
+  * use minimal neutral icons (no style conflict)
+
+==================================================
+CONTACT + SOCIAL RULE
+=====================
+
+* Use EXACT contact info from original site
+* Use EXACT social links
+* Do NOT modify text
+* Do NOT invent missing data
+
+==================================================
+HERO SECTION (VERY IMPORTANT)
+=============================
+
+Rebuild hero like this:
+
+* use original background images
+* add dark overlay or gradient
+* strong headline
+* subheadline
+* primary CTA:
+
+  * Request Quote
+* secondary CTA:
+
+  * Talk to Specialist
+* optional CTA:
+
+  * Download Profile
+
+Make hero:
+
+* bold
+* clean
+* premium
+* focused
+
+==================================================
+SECTION UPGRADE STRATEGY
+========================
+
+Upgrade each section:
+
+1. Services
+
+* better grid
+* icons + image combo
+* clearer grouping
+
+2. Projects
+
+* image-focused
+* hover effects
+* clean layout
+
+3. Process
+
+* clean steps
+* visual icons
+
+4. Trust (clients)
+
+* clean logo wall
+* proper spacing
+
+5. Contact
+
+* modern form
+* clear CTA
+* WhatsApp highlight
+
+==================================================
+DO NOT DO THIS
+==============
+
+❌ Do NOT replace images with random stock
+❌ Do NOT change brand colors drastically
+❌ Do NOT redesign logo
+❌ Do NOT invent fake data
+❌ Do NOT overcomplicate UI
+❌ Do NOT create visual chaos
+
+==================================================
+FINAL OUTPUT EXPECTATION
+========================
+
+The final website must feel like:
+
+* same DSCC company
+* but now:
+  ✔ more premium
+  ✔ more organized
+  ✔ more modern
+  ✔ more professional
+  ✔ more convincing
+
+It should look like:
+“the original company hired a top-tier design agency”
+
+NOT:
+“a different company or template”
+
+==================================================
+EXECUTION STYLE
+===============
+
+* Preserve identity first
+* Upgrade presentation second
+* Never break brand consistency
+
+Start with:
+
+1. apply extracted assets
+2. apply original colors
+3. rebuild hero
+4. upgrade layout
+5. refine components
+6. finalize premium look

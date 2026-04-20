@@ -77,7 +77,7 @@ export default function Quote() {
   async function onSubmit() {
     setSubmitting(true);
     const ref = generateRef();
-    await submitLead({ source: "quote", data: state, ref, at: new Date().toISOString() });
+    await submitLead({ source: "quote", data: state as unknown as Record<string, unknown>, ref, at: new Date().toISOString() });
     setSubmitting(false);
     setDone({ ref });
   }
