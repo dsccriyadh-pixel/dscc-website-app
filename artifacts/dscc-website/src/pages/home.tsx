@@ -207,9 +207,21 @@ export default function Home() {
                     {bi(T.talkSpec)}
                   </Button>
                 </Link>
-                <a href={`${baseUrl}downloads/dscc-company-profile.pdf`} download>
-                  <Button size="lg" variant="outline" className="border-white/50 bg-white/10 text-white hover:bg-white/20 gap-2">
-                    <Download className="size-4" /> {bi(T.downloadProf)}
+                <a
+                  href={`${baseUrl}downloads/dscc-company-profile.pdf`}
+                  download="DSCC-Company-Profile.pdf"
+                  className="group relative inline-flex items-center"
+                >
+                  <span className="absolute -inset-0.5 rounded-md bg-gradient-to-r from-secondary via-amber-300 to-secondary opacity-75 blur-sm group-hover:opacity-100 group-hover:blur transition" aria-hidden />
+                  <Button
+                    size="lg"
+                    className="relative overflow-hidden bg-gradient-to-r from-secondary via-amber-400 to-secondary text-primary font-semibold shadow-lg ring-2 ring-secondary/40 hover:scale-[1.02] transition gap-2"
+                  >
+                    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent group-hover:translate-x-full transition-transform duration-700" aria-hidden />
+                    <span className="absolute inset-0 animate-[shimmer_3s_linear_infinite] bg-[linear-gradient(110deg,transparent_30%,rgba(255,255,255,0.5)_50%,transparent_70%)] bg-[length:200%_100%]" aria-hidden />
+                    <Download className="size-4 relative animate-bounce" />
+                    <span className="relative">{bi(T.downloadProf)}</span>
+                    <span className="relative ms-1 inline-flex items-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider px-2 py-0.5">PDF</span>
                   </Button>
                 </a>
               </div>
