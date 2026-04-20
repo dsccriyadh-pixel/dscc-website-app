@@ -1,73 +1,56 @@
 import { useEffect, useRef, useState } from "react";
-import { Send, Sparkles, RotateCcw, X, Zap, Clock, Globe2, ShieldCheck, Bot } from "lucide-react";
+import { Send, Sparkles, RotateCcw, X, Zap, Clock, Globe2, ShieldCheck, Bot, FileText, MessageCircle as WhatsIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
-import { cities } from "@/data/cities";
-import { sectors } from "@/data/sectors";
-import { services } from "@/data/services";
-import { buildMailtoLink, buildWhatsAppLink, generateRef, submitLead } from "@/lib/leads";
+import { submitLead } from "@/lib/leads";
 
-type Step =
-  | "greet" | "type" | "city" | "services" | "size" | "timeline" | "budget" | "scope"
-  | "name" | "company" | "phone" | "email" | "summary" | "done";
+interface Msg { role: "user" | "assistant"; content: string }
 
-interface Msg { who: "bot" | "user"; text: string }
+const STORAGE = "dscc_chatbot_history_v2";
+const TEASER_KEY = "dscc_chatbot_teaser_dismissed";
 
-interface State {
-  type?: string; city?: string; services: string[]; size?: string; timeline?: string;
-  budget?: string; scope?: string[]; name?: string; company?: string; phone?: string; email?: string;
-}
-
-const STORAGE = "dscc_chatbot_state_v1";
+const API_BASE =
+  ((import.meta as unknown as { env?: { VITE_API_BASE?: string } }).env?.VITE_API_BASE) || "";
 
 export function Chatbot() {
   const { t, lang, isRtl } = useLanguage();
-  const bi = useBilingual();
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState<Step>("greet");
-  const [state, setState] = useState<State>({ services: [] });
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
-  const [typing, setTyping] = useState(false);
-  const [ref] = useState(() => generateRef("SARA"));
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [teaserOpen, setTeaserOpen] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // restore
+  // restore history
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE);
       if (raw) {
-        const saved = JSON.parse(raw);
-        if (saved.state) setState(saved.state);
-        if (saved.step) setStep(saved.step);
-        if (saved.msgs) setMsgs(saved.msgs);
-      } else {
-        botSay(t("chatbot.greet"));
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setMsgs(parsed.slice(-30));
       }
-    } catch {
-      botSay(t("chatbot.greet"));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    } catch {/* ignore */}
   }, []);
 
+  // persist
   useEffect(() => {
-    try { localStorage.setItem(STORAGE, JSON.stringify({ step, state, msgs })); } catch {}
-  }, [step, state, msgs]);
+    try { localStorage.setItem(STORAGE, JSON.stringify(msgs.slice(-30))); } catch {/* ignore */}
+  }, [msgs]);
 
+  // autoscroll
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [msgs, typing]);
+  }, [msgs, sending]);
 
-  // Show a one-time teaser bubble after a short delay if user hasn't dismissed it.
+  // teaser
   useEffect(() => {
     if (open) return;
     const dismissed = (() => {
-      try { return localStorage.getItem("dscc_chatbot_teaser_dismissed") === "1"; } catch { return false; }
+      try { return localStorage.getItem(TEASER_KEY) === "1"; } catch { return false; }
     })();
     if (dismissed) return;
     const timer = setTimeout(() => setTeaserOpen(true), 4000);
@@ -76,128 +59,70 @@ export function Chatbot() {
 
   function dismissTeaser() {
     setTeaserOpen(false);
-    try { localStorage.setItem("dscc_chatbot_teaser_dismissed", "1"); } catch {}
-  }
-
-  function botSay(text: string) {
-    setTyping(true);
-    setTimeout(() => {
-      setMsgs((m) => [...m, { who: "bot", text }]);
-      setTyping(false);
-    }, 500);
-  }
-
-  function userSay(text: string) {
-    setMsgs((m) => [...m, { who: "user", text }]);
-  }
-
-  function advance(next: Step, prompt: string) {
-    setStep(next);
-    botSay(prompt);
+    try { localStorage.setItem(TEASER_KEY, "1"); } catch {/* ignore */}
   }
 
   function reset() {
-    localStorage.removeItem(STORAGE);
-    setState({ services: [] });
-    setStep("greet");
     setMsgs([]);
-    setTimeout(() => botSay(t("chatbot.greet")), 100);
+    setError(null);
+    try { localStorage.removeItem(STORAGE); } catch {/* ignore */}
   }
 
-  function pick(value: string, label?: string) {
-    const display = label ?? value;
-    userSay(display);
-    switch (step) {
-      case "greet":
-        advance("type", t("chatbot.ask_type")); break;
-      case "type":
-        setState((s) => ({ ...s, type: value }));
-        advance("city", t("chatbot.ask_city")); break;
-      case "city":
-        setState((s) => ({ ...s, city: value }));
-        advance("services", t("chatbot.ask_services")); break;
-      case "size":
-        setState((s) => ({ ...s, size: value }));
-        advance("timeline", t("chatbot.ask_timeline")); break;
-      case "timeline":
-        setState((s) => ({ ...s, timeline: value }));
-        advance("budget", t("chatbot.ask_budget")); break;
-      case "budget":
-        setState((s) => ({ ...s, budget: value }));
-        advance("scope", t("chatbot.ask_scope")); break;
-      default:
-        break;
-    }
-  }
-
-  function toggleService(slug: string) {
-    setState((s) => {
-      const has = s.services.includes(slug);
-      return { ...s, services: has ? s.services.filter((x) => x !== slug) : [...s.services, slug] };
-    });
-  }
-
-  function confirmServices() {
-    const selectedNames = state.services.map((sl) => bi(services.find((s) => s.slug === sl)!.name));
-    userSay(selectedNames.join(", ") || "—");
-    advance("size", t("chatbot.ask_size"));
-  }
-
-  function toggleScope(v: string) {
-    setState((s) => {
-      const arr = s.scope ?? [];
-      const has = arr.includes(v);
-      return { ...s, scope: has ? arr.filter((x) => x !== v) : [...arr, v] };
-    });
-  }
-
-  function confirmScope() {
-    userSay((state.scope ?? []).join(", ") || "—");
-    advance("name", t("chatbot.ask_name"));
-  }
-
-  function submitText() {
-    const v = input.trim();
-    if (!v) return;
+  async function sendMessage(text: string) {
+    const trimmed = text.trim();
+    if (!trimmed || sending) return;
+    setError(null);
+    const next: Msg[] = [...msgs, { role: "user", content: trimmed }];
+    setMsgs(next);
     setInput("");
-    userSay(v);
-    switch (step) {
-      case "name":
-        setState((s) => ({ ...s, name: v }));
-        advance("company", t("chatbot.ask_company")); break;
-      case "company":
-        setState((s) => ({ ...s, company: v }));
-        advance("phone", t("chatbot.ask_phone")); break;
-      case "phone":
-        setState((s) => ({ ...s, phone: v }));
-        advance("email", t("chatbot.ask_email")); break;
-      case "email":
-        setState((s) => ({ ...s, email: v }));
-        // submit lead and go to summary
-        submitLead({ source: "chatbot", data: { ...state, email: v }, ref, at: new Date().toISOString() });
-        setStep("summary");
-        botSay(t("chatbot.summary_title"));
-        break;
-      default:
-        break;
+    setSending(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next.slice(-20) }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "chat failed");
+      const reply = String(data.reply || "").trim();
+      setMsgs((m) => [...m, { role: "assistant", content: reply || t("chatbot.empty_reply") }]);
+
+      // Capture as soft lead so internal team sees the conversation
+      submitLead({
+        source: "chatbot",
+        data: { conversation: [...next, { role: "assistant", content: reply }].slice(-10) },
+        at: new Date().toISOString(),
+      }).catch(() => {/* silent */});
+    } catch (e: any) {
+      setError(t("chatbot.error_send"));
+    } finally {
+      setSending(false);
     }
   }
 
-  const quoteHref = (() => {
-    const params = new URLSearchParams();
-    if (state.type) params.set("type", state.type);
-    if (state.city) params.set("city", state.city);
-    if (state.services.length) params.set("services", state.services.join(","));
-    if (state.budget) params.set("budget", state.budget);
-    if (state.timeline) params.set("timeline", state.timeline);
-    return `/quote?${params.toString()}`;
-  })();
+  const greet = lang === "ar"
+    ? "أهلاً بك! أنا سارة، مساعدتك الذكية لدى DSCC. اسألني عن خدماتنا، قطاعاتنا، مشاريعنا، أو منهجية العمل — وسأساعدك خلال ثوانٍ."
+    : "Hi there! I'm Sara, the DSCC AI assistant. Ask me about our services, sectors, projects, or how we work — I'll help in seconds.";
 
-  const summaryText = `DSCC enquiry ${ref}\nProject type: ${state.type ?? "-"}\nCity: ${state.city ?? "-"}\nServices: ${state.services.join(", ") || "-"}\nSize: ${state.size ?? "-"}\nTimeline: ${state.timeline ?? "-"}\nBudget: ${state.budget ?? "-"}\nScope: ${(state.scope ?? []).join(", ") || "-"}\nContact: ${state.name ?? "-"} / ${state.company ?? "-"} / ${state.phone ?? "-"} / ${state.email ?? "-"}`;
+  const suggestions = lang === "ar"
+    ? [
+        "ما الخدمات التي تقدّمونها؟",
+        "هل تنفّذون مشاريع فنادق؟",
+        "ما خطوات تنفيذ المشروع؟",
+        "كيف أحصل على عرض سعر؟",
+      ]
+    : [
+        "What services do you offer?",
+        "Do you execute hotel projects?",
+        "What are your project steps?",
+        "How can I get a quotation?",
+      ];
+
+  const baseUrl = import.meta.env.BASE_URL;
 
   return (
     <Sheet open={open} onOpenChange={(o) => { setOpen(o); if (o) dismissTeaser(); }}>
-      {/* Teaser bubble */}
+      {/* Teaser */}
       <AnimatePresence>
         {teaserOpen && !open && (
           <motion.div
@@ -232,12 +157,12 @@ export function Chatbot() {
         )}
       </AnimatePresence>
 
+      {/* Launcher */}
       <SheetTrigger asChild>
         <button
           aria-label={t("chatbot.launcher")}
           className={`group fixed bottom-6 z-50 ${isRtl ? "left-6" : "right-6"}`}
         >
-          {/* pulse ring */}
           <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping opacity-75" aria-hidden />
           <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 px-5 py-3 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
             <span className="relative">
@@ -252,7 +177,9 @@ export function Chatbot() {
         </button>
       </SheetTrigger>
 
+      {/* Panel */}
       <SheetContent side={isRtl ? "left" : "right"} className="w-full sm:max-w-md p-0 flex flex-col">
+        {/* HEADER */}
         <div className="relative bg-gradient-to-br from-primary via-primary to-[#6e1432] text-primary-foreground p-5 overflow-hidden">
           <div className="absolute -top-12 -right-12 size-44 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
           <div className="absolute -bottom-16 -left-10 size-36 rounded-full bg-white/10 blur-2xl" aria-hidden />
@@ -281,7 +208,6 @@ export function Chatbot() {
               <RotateCcw className="size-4" />
             </Button>
           </div>
-          {/* Trust strip */}
           <div className="relative mt-4 grid grid-cols-3 gap-2 text-[10.5px] text-primary-foreground/85">
             <div className="flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-2 py-1.5">
               <Zap className="size-3 text-secondary" /> <span>{t("chatbot.perks_instant")}</span>
@@ -295,15 +221,36 @@ export function Chatbot() {
           </div>
         </div>
 
+        {/* MESSAGES */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/40">
+          {msgs.length === 0 && (
+            <>
+              <div className="flex justify-start">
+                <div className="max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed bg-card border border-border whitespace-pre-line">
+                  {greet}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {suggestions.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => sendMessage(q)}
+                    className="text-xs rounded-full border border-primary/30 bg-card hover:bg-primary hover:text-primary-foreground px-3 py-1.5 transition"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
           {msgs.map((m, i) => (
-            <div key={i} className={`flex ${m.who === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.who === "user" ? "bg-primary text-primary-foreground" : "bg-card border border-border"}`}>
-                {m.text}
+            <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line ${m.role === "user" ? "bg-primary text-primary-foreground" : "bg-card border border-border"}`}>
+                {m.content}
               </div>
             </div>
           ))}
-          {typing && (
+          {sending && (
             <div className="flex justify-start">
               <div className="bg-card border border-border rounded-2xl px-4 py-3 text-sm">
                 <span className="inline-flex gap-1">
@@ -314,98 +261,45 @@ export function Chatbot() {
               </div>
             </div>
           )}
+          {error && (
+            <div className="text-xs text-center text-destructive bg-destructive/10 rounded-md py-1.5 px-2">{error}</div>
+          )}
         </div>
 
-        <div className="border-t bg-background p-4 max-h-[42%] overflow-y-auto">
-          {step === "greet" && (
-            <div className="flex gap-2"><Button onClick={() => pick("yes", t("chatbot.yes"))}>{t("chatbot.yes")}</Button></div>
-          )}
-          {step === "type" && (
-            <div className="flex flex-wrap gap-2">
-              {sectors.map((s) => (
-                <Button key={s.id} variant="outline" size="sm" onClick={() => pick(s.slug, bi(s.name))}>{bi(s.name)}</Button>
-              ))}
-            </div>
-          )}
-          {step === "city" && (
-            <div className="flex flex-wrap gap-2">
-              {cities.slice(0, 12).map((c) => (
-                <Button key={c.key} variant="outline" size="sm" onClick={() => pick(c.key, bi(c.name))}>{bi(c.name)}</Button>
-              ))}
-            </div>
-          )}
-          {step === "services" && (
-            <div className="space-y-2">
-              <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
-                {services.map((s) => {
-                  const active = state.services.includes(s.slug);
-                  return (
-                    <Badge key={s.slug} onClick={() => toggleService(s.slug)} variant={active ? "default" : "outline"} className="cursor-pointer">{bi(s.name)}</Badge>
-                  );
-                })}
-              </div>
-              <Button size="sm" onClick={confirmServices} disabled={!state.services.length}>{t("common.next")}</Button>
-            </div>
-          )}
-          {step === "size" && (
-            <div className="flex flex-wrap gap-2">
-              {["< 500 m² / under 20 keys", "500–2,000 m² / 20–80 keys", "2,000–10,000 m² / 80–300 keys", "> 10,000 m² / 300+ keys"].map((v) => (
-                <Button key={v} variant="outline" size="sm" onClick={() => pick(v)}>{v}</Button>
-              ))}
-            </div>
-          )}
-          {step === "timeline" && (
-            <div className="flex flex-wrap gap-2">
-              {[["lt3", t("quote.timelines.lt3")], ["3to6", t("quote.timelines.3to6")], ["6to12", t("quote.timelines.6to12")], ["gt12", t("quote.timelines.gt12")], ["tbd", t("quote.timelines.tbd")]].map(([k, l]) => (
-                <Button key={k} variant="outline" size="sm" onClick={() => pick(k, l)}>{l}</Button>
-              ))}
-            </div>
-          )}
-          {step === "budget" && (
-            <div className="flex flex-wrap gap-2">
-              {[["lt500", t("quote.budgets.lt500")], ["500to2m", t("quote.budgets.500to2m")], ["2to10m", t("quote.budgets.2to10m")], ["10to50m", t("quote.budgets.10to50m")], ["gt50m", t("quote.budgets.gt50m")]].map(([k, l]) => (
-                <Button key={k} variant="outline" size="sm" onClick={() => pick(k, l)}>{l}</Button>
-              ))}
-            </div>
-          )}
-          {step === "scope" && (
-            <div className="space-y-2">
-              <div className="flex flex-wrap gap-1.5">
-                {[["design", t("quote.scopes.design")], ["supply", t("quote.scopes.supply")], ["install", t("quote.scopes.install")], ["turnkey", t("quote.scopes.turnkey")]].map(([k, l]) => {
-                  const active = (state.scope ?? []).includes(k);
-                  return (
-                    <Badge key={k} onClick={() => toggleScope(k)} variant={active ? "default" : "outline"} className="cursor-pointer">{l}</Badge>
-                  );
-                })}
-              </div>
-              <Button size="sm" onClick={confirmScope} disabled={!(state.scope ?? []).length}>{t("common.next")}</Button>
-            </div>
-          )}
-          {(step === "name" || step === "company" || step === "phone" || step === "email") && (
-            <form onSubmit={(e) => { e.preventDefault(); submitText(); }} className="flex gap-2">
-              <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t("chatbot.type_msg")} type={step === "email" ? "email" : "text"} />
-              <Button type="submit" size="icon"><Send className="size-4" /></Button>
-              {step === "company" && (
-                <Button type="button" variant="ghost" size="sm" onClick={() => { setState((s) => ({ ...s, company: "" })); userSay("—"); advance("phone", t("chatbot.ask_phone")); }}>
-                  {t("chatbot.skip")}
-                </Button>
-              )}
-            </form>
-          )}
-          <div className="mt-3 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
+        {/* INPUT */}
+        <div className="border-t bg-background p-3 space-y-2">
+          <form onSubmit={(e) => { e.preventDefault(); sendMessage(input); }} className="flex gap-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={t("chatbot.type_msg")}
+              disabled={sending}
+              autoFocus
+            />
+            <Button type="submit" size="icon" disabled={sending || !input.trim()}>
+              <Send className="size-4" />
+            </Button>
+          </form>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <a href={`${baseUrl.replace(/\/$/, "")}/quote`} className="inline-flex">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs h-8">
+                <FileText className="size-3.5" /> {t("chatbot.cta_quote")}
+              </Button>
+            </a>
+            <a
+              href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex"
+            >
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs h-8">
+                <WhatsIcon className="size-3.5" /> {t("chatbot.cta_whatsapp")}
+              </Button>
+            </a>
+          </div>
+          <div className="flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground pt-1">
             <ShieldCheck className="size-3" /> <span>{t("chatbot.footer_secure")}</span>
           </div>
-          {step === "summary" && (
-            <div className="space-y-3">
-              <div className="rounded-lg border bg-muted/30 p-3 text-xs leading-relaxed whitespace-pre-line">{summaryText}</div>
-              <div className="grid grid-cols-1 gap-2">
-                <a href={`${import.meta.env.BASE_URL}${quoteHref.replace(/^\//, "")}`}><Button className="w-full">{t("chatbot.summary_cta_quote")}</Button></a>
-                <a href={buildWhatsAppLink(summaryText)} target="_blank" rel="noreferrer"><Button variant="outline" className="w-full">{t("chatbot.summary_cta_whatsapp")}</Button></a>
-                <a href={buildMailtoLink(`DSCC enquiry ${ref}`, summaryText)}><Button variant="outline" className="w-full">{t("chatbot.summary_cta_email")}</Button></a>
-              </div>
-              <p className="text-xs text-muted-foreground text-center">{t("chatbot.thanks")}</p>
-            </div>
-          )}
         </div>
       </SheetContent>
     </Sheet>

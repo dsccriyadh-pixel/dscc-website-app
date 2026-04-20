@@ -247,6 +247,10 @@
     "perks_instant": "Instant answers",
     "perks_24": "Available 24/7",
     "perks_bilingual": "Bilingual",
-    "footer_secure": "Private & secure chat"
+    "footer_secure": "Private & secure chat",
+    "empty_reply": "I didn't get a reply. Could you rephrase?",
+    "error_send": "Couldn't send. Please try again.",
+    "cta_quote": "Request a quote",
+    "cta_whatsapp": "WhatsApp"
   }
 }
