@@ -107,7 +107,7 @@ const STATS: { v: string; k: BilingualString }[] = [
 ];
 
 const PROOF_BAR: { v: string; k: BilingualString }[] = [
-  { v: "3,000+", k: { en: "Projects Delivered",   ar: "مشروع منجز" } },
+  { v: "3250",   k: { en: "Projects Delivered",   ar: "مشروع منجز" } },
   { v: "400+",   k: { en: "Clients Served",       ar: "عميل" } },
   { v: "25",     k: { en: "Integrated Services",  ar: "خدمة متكاملة" } },
   { v: "4",      k: { en: "Sectors of Expertise", ar: "قطاعات تخصص" } },
@@ -279,21 +279,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STATS — burgundy band directly under hero */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-10 md:py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {STATS.map((s) => (
-              <div key={s.k.en}>
-                <div className="font-serif text-4xl md:text-5xl font-bold mb-2 leading-none" dir="ltr">{s.v}</div>
-                <div className="text-[11px] md:text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROOF BAR */}
+      {/* PROOF BAR — directly under hero */}
       <section className="border-b bg-gradient-to-b from-muted/40 to-background">
         <div className="container py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -441,6 +427,20 @@ export default function Home() {
               </Card>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="container py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {STATS.map((s) => (
+              <div key={s.k.en}>
+                <div className="font-serif text-5xl mb-1" dir="ltr">{s.v}</div>
+                <div className="text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
