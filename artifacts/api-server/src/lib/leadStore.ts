@@ -80,8 +80,19 @@ async function loadLeads(): Promise<Lead[]> {
   } catch (err) {
     const e = err as NodeJS.ErrnoException;
     if (e.code === "ENOENT") {
-      // First run, start with empty store
-      cache = [];
+      // First run. Optionally seed demo data when SEED_DEMO_DATA=1.
+      if (process.env["SEED_DEMO_DATA"] === "1") {
+        const { buildDemoLeads } = await import("./seedDemoLeads.js");
+        cache = buildDemoLeads();
+        try {
+          await persist();
+          console.log(`[leadStore] Seeded ${cache.length} demo leads (SEED_DEMO_DATA=1).`);
+        } catch (e2) {
+          console.warn("[leadStore] Failed to persist seeded demo leads:", e2);
+        }
+      } else {
+        cache = [];
+      }
       return cache;
     }
     // Fail closed on corruption — never auto-reset and risk wiping data
@@ -294,6 +305,27 @@ export async function deleteLead(id: string): Promise<boolean> {
     ok = cache.length < before;
   });
   return ok;
+}
+
+export async function deleteAllDemoLeads(): Promise<number> {
+  await loadLeads();
+  let removed = 0;
+  await enqueueWrite(() => {
+    const before = cache!.length;
+    cache = cache!.filter((l) => !l.id.startsWith("L_demo_"));
+    removed = before - cache.length;
+  });
+  return removed;
+}
+
+export async function deleteAllLeads(): Promise<number> {
+  await loadLeads();
+  let removed = 0;
+  await enqueueWrite(() => {
+    removed = cache!.length;
+    cache = [];
+  });
+  return removed;
 }
 
 export interface FollowUpItem {

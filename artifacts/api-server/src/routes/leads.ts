@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 import {
   addNote,
   createLead,
+  deleteAllDemoLeads,
   deleteLead,
   getLead,
   getStats,
@@ -286,6 +287,12 @@ router.delete("/admin/leads/:id", requireAdmin, async (req, res) => {
     return;
   }
   res.json({ ok: true });
+});
+
+// Delete all seeded demo leads (ids prefixed with `L_demo_`).
+router.post("/admin/demo/clear", requireAdmin, async (_req, res) => {
+  const removed = await deleteAllDemoLeads();
+  res.json({ ok: true, removed });
 });
 
 router.get("/admin/stats", requireAdmin, async (_req, res) => {

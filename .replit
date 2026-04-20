@@ -39,3 +39,4 @@ externalPort = 3000
 
 [userenv.shared]
 ADMIN_NOTIFY_EMAIL = "tahabeam@gmail.com"
+SEED_DEMO_DATA = "1"
