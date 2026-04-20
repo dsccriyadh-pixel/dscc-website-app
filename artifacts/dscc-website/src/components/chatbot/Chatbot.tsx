@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Send, Sparkles, RotateCcw } from "lucide-react";
+import { Send, Sparkles, RotateCcw, X, Zap, Clock, Globe2, ShieldCheck, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,7 @@ export function Chatbot() {
   const [typing, setTyping] = useState(false);
   const [ref] = useState(() => generateRef("SARA"));
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [teaserOpen, setTeaserOpen] = useState(false);
 
   // restore
   useEffect(() => {
@@ -61,6 +62,22 @@ export function Chatbot() {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [msgs, typing]);
+
+  // Show a one-time teaser bubble after a short delay if user hasn't dismissed it.
+  useEffect(() => {
+    if (open) return;
+    const dismissed = (() => {
+      try { return localStorage.getItem("dscc_chatbot_teaser_dismissed") === "1"; } catch { return false; }
+    })();
+    if (dismissed) return;
+    const timer = setTimeout(() => setTeaserOpen(true), 4000);
+    return () => clearTimeout(timer);
+  }, [open]);
+
+  function dismissTeaser() {
+    setTeaserOpen(false);
+    try { localStorage.setItem("dscc_chatbot_teaser_dismissed", "1"); } catch {}
+  }
 
   function botSay(text: string) {
     setTyping(true);
@@ -179,30 +196,102 @@ export function Chatbot() {
   const summaryText = `DSCC enquiry ${ref}\nProject type: ${state.type ?? "-"}\nCity: ${state.city ?? "-"}\nServices: ${state.services.join(", ") || "-"}\nSize: ${state.size ?? "-"}\nTimeline: ${state.timeline ?? "-"}\nBudget: ${state.budget ?? "-"}\nScope: ${(state.scope ?? []).join(", ") || "-"}\nContact: ${state.name ?? "-"} / ${state.company ?? "-"} / ${state.phone ?? "-"} / ${state.email ?? "-"}`;
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={open} onOpenChange={(o) => { setOpen(o); if (o) dismissTeaser(); }}>
+      {/* Teaser bubble */}
+      <AnimatePresence>
+        {teaserOpen && !open && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 240, damping: 22 }}
+            className={`fixed bottom-24 z-50 max-w-[300px] rounded-2xl bg-card border border-border shadow-2xl p-4 ${isRtl ? "left-6" : "right-6"}`}
+          >
+            <button
+              onClick={dismissTeaser}
+              aria-label={t("chatbot.teaser_dismiss")}
+              className={`absolute top-2 ${isRtl ? "left-2" : "right-2"} size-6 rounded-full hover:bg-muted flex items-center justify-center text-muted-foreground`}
+            >
+              <X className="size-3.5" />
+            </button>
+            <div className="flex items-start gap-3">
+              <div className="size-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                <Bot className="size-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="font-serif text-sm font-semibold text-foreground mb-0.5">{t("chatbot.teaser_title")}</div>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-3">{t("chatbot.teaser_body")}</p>
+                <SheetTrigger asChild>
+                  <Button size="sm" className="w-full gap-1.5">
+                    <Sparkles className="size-3.5" /> {t("chatbot.teaser_cta")}
+                  </Button>
+                </SheetTrigger>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <SheetTrigger asChild>
         <button
           aria-label={t("chatbot.launcher")}
-          className={`fixed bottom-6 z-50 flex items-center gap-2 rounded-full bg-primary text-primary-foreground shadow-2xl px-5 py-3 hover:bg-primary/90 transition ${isRtl ? "left-6" : "right-6"}`}
+          className={`group fixed bottom-6 z-50 ${isRtl ? "left-6" : "right-6"}`}
         >
-          <Sparkles className="size-5 text-secondary" />
-          <span className="text-sm font-medium">{t("chatbot.launcher")}</span>
-          <MessageCircle className="size-4" />
+          {/* pulse ring */}
+          <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping opacity-75" aria-hidden />
+          <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 px-5 py-3 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
+            <span className="relative">
+              <Bot className="size-5" />
+              <span className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
+            </span>
+            <span className="text-sm font-medium whitespace-nowrap">{t("chatbot.launcher")}</span>
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-secondary/90 text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5">
+              <Sparkles className="size-2.5" /> AI
+            </span>
+          </span>
         </button>
       </SheetTrigger>
+
       <SheetContent side={isRtl ? "left" : "right"} className="w-full sm:max-w-md p-0 flex flex-col">
-        <div className="bg-primary text-primary-foreground p-5">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="size-4 text-secondary" />
-                <h3 className="font-serif text-lg font-semibold">{t("chatbot.title")}</h3>
+        <div className="relative bg-gradient-to-br from-primary via-primary to-[#6e1432] text-primary-foreground p-5 overflow-hidden">
+          <div className="absolute -top-12 -right-12 size-44 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
+          <div className="absolute -bottom-16 -left-10 size-36 rounded-full bg-white/10 blur-2xl" aria-hidden />
+          <div className="relative flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 min-w-0">
+              <div className="relative shrink-0">
+                <div className="size-12 rounded-full bg-primary-foreground/15 ring-2 ring-secondary/60 backdrop-blur flex items-center justify-center">
+                  <Bot className="size-6 text-primary-foreground" />
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
               </div>
-              <p className="text-xs text-primary-foreground/70 mt-1">{t("chatbot.subtitle")}</p>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-serif text-lg font-semibold leading-tight">{t("chatbot.title")}</h3>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-secondary text-primary text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5">
+                    <Sparkles className="size-2.5" /> AI
+                  </span>
+                </div>
+                <p className="text-xs text-primary-foreground/80 mt-1 flex items-center gap-1.5">
+                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" /> {t("chatbot.badge_online")} • {t("chatbot.badge_avg")}
+                </p>
+                <p className="text-[11px] text-primary-foreground/70 mt-1">{t("chatbot.tagline")}</p>
+              </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={reset} title={t("chatbot.reset")} className="text-primary-foreground hover:bg-primary-foreground/10">
+            <Button variant="ghost" size="icon" onClick={reset} title={t("chatbot.reset")} className="text-primary-foreground hover:bg-primary-foreground/10 shrink-0">
               <RotateCcw className="size-4" />
             </Button>
+          </div>
+          {/* Trust strip */}
+          <div className="relative mt-4 grid grid-cols-3 gap-2 text-[10.5px] text-primary-foreground/85">
+            <div className="flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-2 py-1.5">
+              <Zap className="size-3 text-secondary" /> <span>{t("chatbot.perks_instant")}</span>
+            </div>
+            <div className="flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-2 py-1.5">
+              <Clock className="size-3 text-secondary" /> <span>{t("chatbot.perks_24")}</span>
+            </div>
+            <div className="flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-2 py-1.5">
+              <Globe2 className="size-3 text-secondary" /> <span>{t("chatbot.perks_bilingual")}</span>
+            </div>
           </div>
         </div>
 
@@ -303,6 +392,9 @@ export function Chatbot() {
               )}
             </form>
           )}
+          <div className="mt-3 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
+            <ShieldCheck className="size-3" /> <span>{t("chatbot.footer_secure")}</span>
+          </div>
           {step === "summary" && (
             <div className="space-y-3">
               <div className="rounded-lg border bg-muted/30 p-3 text-xs leading-relaxed whitespace-pre-line">{summaryText}</div>

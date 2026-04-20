@@ -235,6 +235,18 @@
     "type_msg": "Type a message…",
     "send": "Send",
     "skip": "Skip",
-    "reset": "Start over"
+    "reset": "Start over",
+    "badge_ai": "AI-Powered",
+    "badge_online": "Online now",
+    "badge_avg": "Replies in seconds",
+    "tagline": "Your smart assistant — scope your project in 2 minutes",
+    "teaser_title": "Need a quotation?",
+    "teaser_body": "Talk to Sara now — instant answers, around the clock.",
+    "teaser_cta": "Start chat",
+    "teaser_dismiss": "Not now",
+    "perks_instant": "Instant answers",
+    "perks_24": "Available 24/7",
+    "perks_bilingual": "Bilingual",
+    "footer_secure": "Private & secure chat"
   }
 }
