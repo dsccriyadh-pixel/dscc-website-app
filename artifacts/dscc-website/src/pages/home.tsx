@@ -321,7 +321,7 @@ export default function Home() {
           </div>
 
           {/* RIGHT — China Fast timeline */}
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center" dir="ltr">
             <div className="flex gap-1 mb-2" aria-hidden>
               {[0,1,2,3,4].map((i) => (
                 <span key={i} className="text-amber-300 text-sm">★</span>

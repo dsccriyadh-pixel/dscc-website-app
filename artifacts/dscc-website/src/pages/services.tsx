@@ -58,7 +58,7 @@ export default function Services() {
                     {s.icon && (
                       <img src={`${baseUrl.replace(/\/$/, "")}${s.icon}`} alt="" className="mb-4 h-12 w-12 object-contain" />
                     )}
-                    <div className="text-xs uppercase tracking-[0.14em] text-primary mb-2">{s.category}</div>
+                    <div className="text-xs uppercase tracking-[0.14em] text-primary mb-2">{bi(serviceCategories.find((c) => c.key === s.category)?.name ?? { en: s.category, ar: s.category })}</div>
                     <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(s.name)}</h3>
                     {serviceShortDesc[s.slug] && (
                       <p className="text-sm text-foreground/80 leading-relaxed line-clamp-3">{bi(serviceShortDesc[s.slug])}</p>

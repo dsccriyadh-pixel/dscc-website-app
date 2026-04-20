@@ -28,11 +28,11 @@
   }
 
   export const serviceCategories: { key: string; name: BilingualString }[] = [
-    { key: "Architecture & Envelope", name: { en: "Architecture & Envelope", ar: "Architecture & Envelope" } },
-    { key: "MEP",                     name: { en: "MEP Engineering",         ar: "MEP Engineering" } },
-    { key: "Smart & Tech",            name: { en: "Smart & Technology",      ar: "Smart & Technology" } },
-    { key: "Hospitality",             name: { en: "Hospitality Solutions",   ar: "Hospitality Solutions" } },
-    { key: "Outdoor & Lifestyle",     name: { en: "Outdoor & Lifestyle",     ar: "Outdoor & Lifestyle" } },
+    { key: "Architecture & Envelope", name: { en: "Architecture & Envelope", ar: "العمارة والواجهات" } },
+    { key: "MEP",                     name: { en: "MEP Engineering",         ar: "الأنظمة الكهروميكانيكية" } },
+    { key: "Smart & Tech",            name: { en: "Smart & Technology",      ar: "الأنظمة الذكية والتقنية" } },
+    { key: "Hospitality",             name: { en: "Hospitality Solutions",   ar: "حلول الضيافة" } },
+    { key: "Outdoor & Lifestyle",     name: { en: "Outdoor & Lifestyle",     ar: "الخارجيات ونمط الحياة" } },
   ];
 
   export const services: Service[] = [
