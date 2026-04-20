@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import { Seo } from "@/components/seo/Seo";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { submitLead, buildWhatsAppLink } from "@/lib/leads";
+
+const offices = [
+  { city: "Riyadh", address: "Olaya Towers, King Fahd Road, Riyadh 12244", phone: "+966 11 200 1234", email: "riyadh@dscc-sa.com" },
+  { city: "Jeddah", address: "Jameel Square, Tahlia Street, Jeddah 21442", phone: "+966 12 660 4567", email: "jeddah@dscc-sa.com" },
+  { city: "Dammam", address: "Khobar-Dammam Highway, Dammam 31952", phone: "+966 13 833 2345", email: "dammam@dscc-sa.com" },
+];
+
+export default function Contact() {
+  const { t } = useLanguage();
+  const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const baseUrl = import.meta.env.BASE_URL;
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    const fd = new FormData(e.currentTarget);
+    const data = Object.fromEntries(fd.entries());
+    await submitLead({ source: "contact", data, at: new Date().toISOString() });
+    setSubmitting(false);
+    setDone(true);
+    (e.currentTarget as HTMLFormElement).reset();
+  }
+
+  return (
+    <>
+      <Seo title={t("contact_page.title")} description={t("contact_page.subtitle")} path="/contact" />
+      <section className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <img src={`${baseUrl}img/hq-exterior.png`} alt="" className="size-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/30" />
+        </div>
+        <div className="container py-24 text-primary-foreground">
+          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("contact_page.title")}</h1>
+          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/85">{t("contact_page.subtitle")}</p>
+        </div>
+      </section>
+
+      <section className="container py-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {offices.map((o) => (
+          <Card key={o.city}>
+            <CardContent className="p-6">
+              <h3 className="font-serif text-2xl text-foreground mb-4">{o.city}</h3>
+              <ul className="space-y-3 text-sm text-foreground/85">
+                <li className="flex gap-2"><MapPin className="size-4 text-secondary mt-0.5 shrink-0" /> {o.address}</li>
+                <li className="flex gap-2"><Phone className="size-4 text-secondary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`}>{o.phone}</a></li>
+                <li className="flex gap-2"><Mail className="size-4 text-secondary mt-0.5 shrink-0" /> <a href={`mailto:${o.email}`}>{o.email}</a></li>
+              </ul>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+
+      <section className="container pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h2 className="font-serif text-3xl mb-4">{t("contact_page.send_message")}</h2>
+          {done ? (
+            <div className="rounded-lg border bg-card p-6 text-foreground">{t("contact_page.thanks")}</div>
+          ) : (
+            <form onSubmit={onSubmit} className="space-y-4">
+              <Input name="name" required placeholder={t("contact_page.name")} />
+              <Input name="company" placeholder={t("contact_page.company")} />
+              <div className="grid grid-cols-2 gap-3">
+                <Input name="phone" required placeholder={t("contact_page.phone")} />
+                <Input name="email" type="email" required placeholder={t("contact_page.email")} />
+              </div>
+              <Textarea name="message" rows={5} required placeholder={t("contact_page.message")} />
+              <Button type="submit" disabled={submitting}>{submitting ? t("common.loading") : t("contact_page.send")}</Button>
+            </form>
+          )}
+        </div>
+
+        <div className="space-y-4">
+          <a href={buildWhatsAppLink("Hello DSCC, I would like to discuss a project.")} target="_blank" rel="noreferrer">
+            <Card className="hover:border-secondary transition">
+              <CardContent className="p-6 flex items-center gap-4">
+                <MessageCircle className="size-8 text-secondary" />
+                <div>
+                  <div className="font-serif text-lg">{t("common.send_via_whatsapp")}</div>
+                  <div className="text-sm text-muted-foreground">+966 11 200 1234</div>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+          <a href="mailto:hello@dscc-sa.com">
+            <Card className="hover:border-secondary transition">
+              <CardContent className="p-6 flex items-center gap-4">
+                <Mail className="size-8 text-secondary" />
+                <div>
+                  <div className="font-serif text-lg">{t("common.email_us")}</div>
+                  <div className="text-sm text-muted-foreground">hello@dscc-sa.com</div>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+          <a href="tel:+966112001234">
+            <Card className="hover:border-secondary transition">
+              <CardContent className="p-6 flex items-center gap-4">
+                <Phone className="size-8 text-secondary" />
+                <div>
+                  <div className="font-serif text-lg">+966 11 200 1234</div>
+                  <div className="text-sm text-muted-foreground">Sun–Thu 08:00–18:00 KSA</div>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+        </div>
+      </section>
+    </>
+  );
+}

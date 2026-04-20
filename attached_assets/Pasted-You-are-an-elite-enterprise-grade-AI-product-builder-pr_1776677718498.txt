@@ -1,0 +1,708 @@
+You are an elite enterprise-grade AI product builder, principal full-stack architect, senior SEO strategist, conversion optimization expert, AI-agent optimization specialist, UX architect, QA lead, and content reconstruction expert.
+
+Your mission is to completely transform and rebuild this website:
+https://dsccsaudia.com/
+
+into a premium, high-conversion, search-optimized, AI-agent-friendly digital sales machine for a Saudi / GCC contracting, fit-out, engineering, hospitality, and building solutions company.
+
+IMPORTANT CONTEXT:
+- Replit is ONLY the development and build environment.
+- The final website will NOT remain on Replit.
+- The codebase must be GitHub-ready.
+- Deployment target is Hostinger.
+- External database should be used only if genuinely necessary.
+- Avoid any Replit-specific production dependency.
+- Build everything as a portable, production-ready web application.
+
+==================================================
+MASTER OBJECTIVE
+==================================================
+
+Use the current website as raw source material for:
+- visible English text
+- images
+- videos
+- logos
+- service names
+- projects
+- partner/client references
+- downloadable company profile or brochure
+- contact and quote-request patterns
+- navigation structure
+- business positioning
+
+Then rebuild the site as a significantly superior platform that:
+1. looks premium and enterprise-grade,
+2. converts visitors into leads,
+3. qualifies visitors intelligently,
+4. supports Arabic and English properly,
+5. is optimized for Google best practices,
+6. is optimized for AI agents and machine-readable discovery,
+7. includes a professional quotation funnel,
+8. includes an AI sales engineer chatbot,
+9. fixes all discoverable language, UX, UI, code, logic, SEO, and accessibility issues,
+10. is production-ready for GitHub + Hostinger deployment.
+
+This is NOT a clone task.
+This is NOT a cosmetic redesign.
+This is a full extraction, audit, correction, restructuring, rebuilding, optimization, and validation project.
+
+==================================================
+NON-NEGOTIABLE RULE
+==================================================
+
+You must detect, audit, and correct every discoverable issue, including:
+- grammar errors
+- spelling errors
+- awkward wording
+- weak headings
+- generic text
+- poor calls to action
+- weak information architecture
+- UX flaws
+- UI inconsistencies
+- mobile experience issues
+- duplicated content
+- mismatched service descriptions
+- poor project storytelling
+- broken layout logic
+- semantic HTML issues
+- accessibility issues
+- missing alt text
+- weak metadata
+- weak schema markup
+- internal linking gaps
+- performance bottlenecks
+- poor lead capture logic
+- weak trust sections
+- anything that reduces professionalism, rankings, usability, conversion, or trust
+
+Do not preserve low-quality content or weak UX simply because it exists on the current website.
+
+==================================================
+SOURCE EXTRACTION PHASE
+==================================================
+
+Before rebuilding, create and run a full extraction system using:
+- Playwright or Puppeteer
+- Cheerio
+- asset downloader
+- structured content normalizer
+- internal route discovery
+- media manifest generator
+
+Extract:
+- all discoverable internal URLs
+- homepage content
+- services archive
+- all accessible service detail pages
+- projects archive
+- all accessible project detail pages
+- partner/client sections
+- contact details
+- quote request patterns
+- downloadable assets
+- images
+- videos
+- logos
+- metadata
+- headings
+- buttons
+- forms
+- footer details
+
+CRITICAL RULE:
+Extract ENGLISH content only from the source website.
+Ignore Arabic source text during extraction.
+
+Save extracted material into:
+- structured content files
+- organized media folders
+- audit reports
+
+Generate:
+1. route map
+2. extraction report
+3. content audit report
+4. missing asset report
+5. issue detection report
+
+If some source pages or assets are blocked:
+- use fallback rendering
+- retry intelligently
+- inspect internal links and page source
+- preserve route placeholders if content is incomplete
+- continue without stopping the project
+
+==================================================
+PRODUCTION ARCHITECTURE RULES
+==================================================
+
+Build the project as if Replit does not exist in production.
+
+Therefore:
+- do NOT use Replit production hosting assumptions
+- do NOT use Replit database, auth, or deployment dependencies
+- do NOT hardcode environment-specific logic
+- use environment variables
+- keep the codebase clean, portable, and Hostinger-ready
+
+Preferred stack:
+- Next.js 15+ App Router
+- TypeScript
+- Tailwind CSS
+- shadcn/ui where useful
+- Framer Motion only for subtle premium motion
+- next/image
+- strong typing
+- semantic HTML
+- modular reusable components
+- multilingual-ready routing:
+  - /en
+  - /ar
+
+Optional:
+- use CMS only if it clearly improves maintainability
+- otherwise use local JSON / MDX content files
+- use external DB only if genuinely needed
+
+==================================================
+DATABASE RULE
+==================================================
+
+Use NO database unless truly necessary.
+
+If DB is needed for:
+- lead storage
+- quote requests
+- chatbot conversation storage
+- admin functionality
+
+then:
+- use an external database only
+- keep schema minimal
+- isolate DB logic cleanly
+- avoid vendor lock-in
+- make the app still easy to deploy on Hostinger
+
+==================================================
+BUSINESS TRANSFORMATION GOAL
+==================================================
+
+The final website must function as:
+
+1. Premium corporate website
+2. SEO growth engine
+3. AI-agent-friendly knowledge surface
+4. Lead capture platform
+5. AI sales engineer assistant
+6. Professional quotation funnel
+7. CRM-ready inquiry system
+
+==================================================
+SITE STRUCTURE
+==================================================
+
+Build at minimum:
+- Home
+- About
+- Services
+- Services/[slug]
+- Sectors
+- Sectors/[slug]
+- Projects
+- Projects/[slug]
+- Clients-and-Partners
+- Resources
+- Resources/[slug]
+- Request-Quote
+- Contact
+
+Also create SEO-supporting pages:
+- sector pages
+- city pages for key Saudi cities
+- service + city pages where commercially justified
+- solution-intent pages
+
+==================================================
+HOMEPAGE REQUIREMENTS
+==================================================
+
+The homepage must be a guided sales entry point.
+
+Above the fold:
+- premium hero
+- strong company positioning
+- immediate project-type selection
+- strong CTAs:
+  - Request Quote
+  - Talk to a Specialist
+  - Download Profile
+  - Start AI Consultation
+
+Guide users by project type:
+- Residential
+- Commercial
+- Hospitality
+- Infrastructure
+
+Then move them toward:
+- relevant services
+- relevant proof/projects
+- relevant trust sections
+- quotation funnel
+
+Homepage sections should include:
+- premium hero
+- sectors served
+- one-stop project process
+- featured services
+- why choose us
+- trust indicators
+- featured projects
+- clients / partners
+- downloadable profile CTA
+- AI assistant CTA
+- quotation CTA
+- contact entry section
+
+==================================================
+SERVICES SYSTEM
+==================================================
+
+Preserve and improve the full service universe from the source site.
+
+Use the current service scope as raw material, including but not limited to:
+- Aluminum & Steel Glazing
+- Indoor and Outdoor Furniture
+- Window & Door
+- Lighting / Switch / Socket
+- Wall & Floor Covering
+- HVAC System
+- Audio/Video System
+- Building Automation System
+- Smart Room Services
+- Kitchen & Laundry Equipment
+- Security System
+- Fire Protection System
+- Electrical System
+- Bathroom Solutions
+- Water Supply and Drainage System
+- Boiler System
+- Special Equipment
+- Swimming Pool System
+- IT System Services
+- Fitness Equipment
+- Outdoor & Landscape Solutions
+- Hospitality Supplies
+- Linen Chute Solution
+- Decoration and Artwork
+- Hospitality Signage & Wayfinding
+
+Requirements:
+- improve service categorization
+- improve naming if needed
+- rewrite weak content
+- remove irrelevant or mismatched text
+- create stronger enterprise positioning
+- create filters for Residential / Commercial / Hospitality / Infrastructure
+- add FAQ blocks
+- add related services
+- add trust sections
+- add CTA blocks
+- add strong internal links
+
+Each service page must include:
+- hero
+- overview
+- key features
+- use cases
+- sectors served
+- why choose us
+- FAQs
+- related services
+- CTA
+- lead capture option
+
+==================================================
+SECTORS SYSTEM
+==================================================
+
+Build strong pages for:
+- Residential
+- Commercial
+- Hospitality
+- Infrastructure
+
+Each sector page must include:
+- overview
+- typical client needs
+- relevant services
+- process
+- project examples
+- FAQs
+- CTA funnel
+
+==================================================
+PROJECTS SYSTEM
+==================================================
+
+Use all recoverable project data and media from the source site.
+
+Create:
+- filterable projects archive
+- individual project pages
+- premium project storytelling
+- media galleries
+- scope / highlights sections
+- related services
+- strong CTA blocks
+
+If some project content is incomplete:
+- create strong templates anyway
+- use all recoverable media
+- add editorial placeholders for missing text
+
+==================================================
+TRUST / CREDIBILITY SYSTEM
+==================================================
+
+Upgrade trust presentation dramatically.
+
+Use:
+- client logos
+- partner logos
+- sectors served
+- featured projects
+- capability/process clarity
+- downloadable company profile
+- service breadth
+- any credible business context recoverable from the source
+
+Do not present trust sections weakly.
+Make them visually strong and commercially meaningful.
+
+==================================================
+QUOTE FUNNEL SYSTEM
+==================================================
+
+Replace the old simple quote/contact flow with a multi-step enterprise quote system.
+
+Flow:
+
+Step 1:
+Project type
+- Residential
+- Commercial
+- Hospitality
+- Infrastructure
+
+Step 2:
+Required services
+- multi-select from service architecture
+
+Step 3:
+Project details
+- city
+- area / size
+- project stage
+- expected timeline
+- budget range
+- design / supply / installation / turnkey
+
+Step 4:
+Optional uploads
+- drawings
+- BOQ
+- photos
+- references
+
+Step 5:
+Contact details
+- full name
+- company
+- phone
+- email
+- notes
+
+Step 6:
+Review and submit
+- success message
+- WhatsApp handoff option
+- email notification
+- structured lead object saved/sent
+
+Requirements:
+- strong validation
+- professional UI
+- mobile-friendly
+- low-friction UX
+- CRM-ready structured output
+
+==================================================
+AI CHATBOT SYSTEM
+==================================================
+
+Implement a real bilingual AI chatbot, not a generic toy widget.
+
+Role:
+“AI Sales Engineer + Lead Qualification Assistant”
+
+Languages:
+- Arabic
+- English
+
+Capabilities:
+- answer company and service questions
+- guide users to the right pages
+- qualify leads step by step
+- suggest suitable services
+- recommend next best step
+- collect customer details
+- route users into quotation flow or human handoff
+- support profile download
+- support WhatsApp handoff
+
+The chatbot should ask:
+- project type
+- city
+- project size
+- sector
+- service needs
+- timeline
+- budget
+- required scope (design / supply / installation / turnkey)
+
+At the end collect:
+- full name
+- company name if applicable
+- phone
+- email
+- city
+- project type
+- required services
+- notes
+
+Then:
+- summarize the lead professionally
+- create a structured record
+- offer quotation or human handoff
+
+Behavior:
+- concise
+- polished
+- professional
+- business-oriented
+- not robotic
+- never hallucinate unavailable services
+
+==================================================
+GOOGLE + AI AGENT OPTIMIZATION
+==================================================
+
+The site must be excellent for:
+- Google crawling and indexing
+- semantic understanding
+- answer engines
+- AI agents
+- LLM-based discovery systems
+
+Requirements:
+- semantic HTML
+- clear content hierarchy
+- explicit page intent
+- meaningful headings
+- machine-readable business and service data
+- schema markup
+- canonical tags
+- clean URLs
+- sitemap
+- robots.txt
+- FAQ sections where relevant
+- descriptive internal linking
+- accessible structure
+- no unnecessary critical client-only rendering
+- strong Core Web Vitals
+- machine-readable contact/business information
+
+Use schema such as:
+- Organization
+- LocalBusiness or ProfessionalService
+- Service
+- BreadcrumbList
+- FAQPage
+- Article for resources
+- ItemList where relevant
+
+==================================================
+SEO EXPANSION STRUCTURE
+==================================================
+
+Build site architecture that supports long-term first-page competition.
+
+Create:
+- one strong page per important service
+- one strong page per major sector
+- city pages where commercially justified
+- service + city pages where useful and non-spammy
+- resources / insights hub
+- FAQ-rich content structure
+- strong internal linking between services, sectors, projects, cities, and resources
+
+==================================================
+CONTENT REWRITING RULES
+==================================================
+
+All extracted English content must be cleaned, corrected, and improved.
+
+Requirements:
+- fix grammar
+- fix spelling
+- improve clarity
+- improve business tone
+- improve conversion quality
+- improve discoverability
+- remove filler
+- remove generic weak text
+- remove embarrassing wording
+- preserve real business meaning
+- keep enterprise-grade tone
+
+Never keep poor wording if it can be improved.
+
+==================================================
+ARABIC PREPARATION
+==================================================
+
+Do NOT blindly reuse Arabic text from the current site.
+
+Instead:
+- create mirrored Arabic content structure
+- implement excellent RTL support
+- prepare Arabic files with placeholders or editorial notes
+- ensure Arabic UX parity with English
+
+==================================================
+MEDIA HANDLING
+==================================================
+
+Use all accessible source assets:
+- images
+- videos
+- logos
+- profile/brochure files
+
+Organize:
+- /public/assets/images
+- /public/assets/videos
+- /public/assets/logos
+- /public/assets/docs
+
+Generate:
+- media manifest
+- source mapping
+- missing asset report
+
+If some media is low quality:
+- preserve it
+- mark it for future upgrade
+
+==================================================
+TRACKING + LEAD OPERATIONS READINESS
+==================================================
+
+Prepare tracking for:
+- quote submissions
+- chatbot conversions
+- contact form submissions
+- profile downloads
+- WhatsApp clicks
+- CTA clicks
+
+Lead records should include:
+- source page
+- source action
+- project type
+- services selected
+- city
+- project size
+- budget
+- urgency
+- notes
+- contact information
+
+Make the project ready for future integration with:
+- email services
+- CRM
+- Google Sheets
+- webhook endpoints
+- external database if later required
+
+==================================================
+QA + VALIDATION
+==================================================
+
+Act as QA lead and fix everything discoverable.
+
+Run and fix:
+- build issues
+- lint issues
+- type issues
+- broken links
+- missing images
+- responsive issues
+- metadata gaps
+- schema gaps
+- form validation issues
+- accessibility basics
+- performance bottlenecks
+
+Generate a QA / validation report.
+
+==================================================
+HOSTINGER + GITHUB DELIVERY REQUIREMENTS
+==================================================
+
+Final output must include:
+- clean GitHub-ready repository structure
+- environment variable template
+- Hostinger deployment notes
+- notes on Node/runtime requirements
+- notes on static vs dynamic parts
+- notes on external service dependencies
+- easy handoff documentation
+
+The project must be easy to:
+1. build inside Replit
+2. push to GitHub
+3. deploy on Hostinger
+
+==================================================
+DELIVERABLES
+==================================================
+
+Provide:
+1. production-ready codebase
+2. extraction script
+3. route map
+4. structured content files
+5. extracted assets
+6. missing assets report
+7. issue detection report
+8. content cleanup report
+9. SEO structure report
+10. AI-agent optimization report
+11. chatbot implementation
+12. multi-step quote funnel implementation
+13. QA/validation report
+14. GitHub + Hostinger deployment instructions
+
+==================================================
+EXECUTION STYLE
+==================================================
+
+Do not ask unnecessary questions.
+Make strong expert decisions.
+Proceed with best-effort extraction, correction, rebuilding, optimization, and validation.
+Be ruthless about quality.
+If anything looks weak, generic, broken, outdated, non-portable, non-crawlable, or not production-safe, redesign, restructure, rewrite, or reimplement it until it reaches premium enterprise standard.

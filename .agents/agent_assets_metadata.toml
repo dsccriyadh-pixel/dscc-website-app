@@ -1,0 +1,38 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "sDuoiwBBOCOqMLI8aADUe"
+uri = "file://artifacts/dscc-website/public/img/hero-skyline.png"
+type = "image"
+title = "Cinematic KSA skyline with modern architecture"
+
+[[generated]]
+id = "5D9HvrRYI-DzqhgcCol85"
+uri = "file://artifacts/dscc-website/public/img/sector-commercial.png"
+type = "image"
+title = "High-end commercial office building"
+
+[[generated]]
+id = "Y8CgIQ4IOitL_NiEx0nAm"
+uri = "file://artifacts/dscc-website/public/img/sector-hospitality.png"
+type = "image"
+title = "Luxury hospitality interior lobby"
+
+[[generated]]
+id = "MQ3ehrm7G_gOtdzzR-tGq"
+uri = "file://artifacts/dscc-website/public/img/sector-residential.png"
+type = "image"
+title = "Modern residential villa exterior"
+
+[[generated]]
+id = "-dksu2Q3Vp3o0R7QvX87M"
+uri = "file://artifacts/dscc-website/public/img/sector-infrastructure.png"
+type = "image"
+title = "Large scale infrastructure project"
+
+[[generated]]
+id = "2wyEMbW1JnGftQhYYGaQz"
+uri = "file://artifacts/dscc-website/public/img/hq-exterior.png"
+type = "image"
+title = "Premium corporate headquarters exterior"
