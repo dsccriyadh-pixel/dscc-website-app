@@ -7,30 +7,33 @@ import {
   Mail,
   LogOut,
   Settings,
-  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { clearToken } from "@/lib/auth";
 import { ThemeToggle } from "./ThemeToggle";
+import { LangToggle } from "./LangToggle";
+import { useI18n, type TKey } from "@/lib/i18n";
 
 interface NavItem {
   path: string;
-  label: string;
+  labelKey: TKey;
   icon: React.ComponentType<{ className?: string }>;
 }
 
 const NAV: NavItem[] = [
-  { path: "/", label: "Overview", icon: LayoutDashboard },
-  { path: "/leads", label: "All Leads", icon: Users },
-  { path: "/quotes", label: "Quote Requests", icon: FileText },
-  { path: "/chatbot", label: "Chatbot Leads", icon: Bot },
-  { path: "/contact", label: "Contact Messages", icon: Mail },
-  { path: "/settings", label: "Settings", icon: Settings },
+  { path: "/", labelKey: "nav_overview", icon: LayoutDashboard },
+  { path: "/leads", labelKey: "nav_leads", icon: Users },
+  { path: "/quotes", labelKey: "nav_quotes", icon: FileText },
+  { path: "/chatbot", labelKey: "nav_chatbot", icon: Bot },
+  { path: "/contact", labelKey: "nav_contact", icon: Mail },
+  { path: "/settings", labelKey: "nav_settings", icon: Settings },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const { t } = useI18n();
+  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
 
   const onLogout = () => {
     clearToken();
@@ -39,15 +42,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
-      <aside className="hidden md:flex w-64 shrink-0 flex-col bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
+      <aside className="hidden md:flex w-64 shrink-0 flex-col bg-sidebar text-sidebar-foreground border-e border-sidebar-border">
         <div className="px-5 py-5 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-md bg-sidebar-primary text-sidebar-primary-foreground grid place-items-center">
-              <Building2 className="h-5 w-5" />
+            <div className="h-11 w-11 rounded-md bg-white/95 grid place-items-center shadow-sm shrink-0">
+              <img src={logoSrc} alt="DSCC" className="h-8 w-auto" />
             </div>
-            <div>
-              <div className="text-sm font-semibold tracking-wide">DSCC Admin</div>
-              <div className="text-[11px] text-sidebar-foreground/60">Saudi Arabia · Operations</div>
+            <div className="min-w-0">
+              <div className="text-sm font-semibold tracking-wide truncate">{t("brand")}</div>
+              <div className="text-[11px] text-sidebar-foreground/70 truncate">{t("tagline")}</div>
             </div>
           </div>
         </div>
@@ -65,11 +68,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
                     active
                       ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                      : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+                      : "text-sidebar-foreground/85 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.label}</span>
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{t(item.labelKey)}</span>
                 </a>
               </Link>
             );
@@ -80,30 +83,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             variant="ghost"
             size="sm"
             onClick={onLogout}
-            className="w-full justify-start text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+            className="w-full justify-start text-sidebar-foreground/85 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
             data-testid="button-logout"
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign out
+            <LogOut className="h-4 w-4 me-2" />
+            {t("sign_out")}
           </Button>
         </div>
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="md:hidden flex items-center justify-between px-4 py-3 border-b bg-card">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-primary text-primary-foreground grid place-items-center">
-              <Building2 className="h-4 w-4" />
+            <div className="h-8 w-8 rounded-md bg-white grid place-items-center border">
+              <img src={logoSrc} alt="DSCC" className="h-6 w-auto" />
             </div>
-            <span className="font-semibold text-sm">DSCC Admin</span>
+            <span className="font-semibold text-sm">{t("brand")}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <LangToggle />
             <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={onLogout}>
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </header>
-        <div className="hidden md:flex items-center justify-end px-6 py-2 border-b bg-card/50">
+        <div className="hidden md:flex items-center justify-end gap-1 px-6 py-2 border-b bg-card/50">
+          <LangToggle />
           <ThemeToggle />
         </div>
         <main className="flex-1 overflow-y-auto">{children}</main>
@@ -114,6 +119,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 ? location === "/" || location === ""
                 : location.startsWith(item.path);
             const Icon = item.icon;
+            const label = t(item.labelKey);
             return (
               <Link key={item.path} href={item.path}>
                 <a
@@ -122,7 +128,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   }`}
                 >
                   <Icon className="h-4 w-4" />
-                  <span>{item.label.split(" ")[0]}</span>
+                  <span className="truncate max-w-[60px]">{label.split(" ")[0]}</span>
                 </a>
               </Link>
             );

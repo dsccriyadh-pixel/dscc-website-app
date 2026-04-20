@@ -1,3 +1,5 @@
+import type { TKey } from "./i18n";
+
 export type LeadStatus =
   | "new"
   | "contacted"
@@ -67,17 +69,6 @@ export interface DashboardStats {
   recent: Lead[];
 }
 
-export const STATUS_LABELS: Record<LeadStatus, string> = {
-  new: "New",
-  contacted: "Contacted",
-  qualified: "Qualified",
-  quotation_sent: "Quotation Sent",
-  negotiation: "Negotiation",
-  won: "Won",
-  lost: "Lost",
-  archived: "Archived",
-};
-
 export const STATUS_ORDER: LeadStatus[] = [
   "new",
   "contacted",
@@ -89,13 +80,32 @@ export const STATUS_ORDER: LeadStatus[] = [
   "archived",
 ];
 
-export const SOURCE_LABELS: Record<LeadSource, string> = {
-  quote: "Quote Request",
-  contact: "Contact Form",
-  chatbot: "Chatbot (Sara)",
-  newsletter: "Newsletter",
-  other: "Other",
-};
+export const SOURCE_KEYS: LeadSource[] = ["quote", "contact", "chatbot", "newsletter", "other"];
+
+export function statusKey(s: LeadStatus): TKey {
+  const map: Record<LeadStatus, TKey> = {
+    new: "st_new",
+    contacted: "st_contacted",
+    qualified: "st_qualified",
+    quotation_sent: "st_quotation_sent",
+    negotiation: "st_negotiation",
+    won: "st_won",
+    lost: "st_lost",
+    archived: "st_archived",
+  };
+  return map[s];
+}
+
+export function sourceKey(s: LeadSource): TKey {
+  const map: Record<LeadSource, TKey> = {
+    quote: "src_quote",
+    contact: "src_contact",
+    chatbot: "src_chatbot",
+    newsletter: "src_newsletter",
+    other: "src_other",
+  };
+  return map[s];
+}
 
 export const STATUS_COLORS: Record<LeadStatus, string> = {
   new: "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950 dark:text-blue-200 dark:border-blue-800",

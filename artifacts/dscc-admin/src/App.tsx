@@ -29,31 +29,19 @@ function ProtectedRoutes() {
           <Route
             path="/quotes"
             component={() => (
-              <LeadsList
-                fixedSource="quote"
-                title="Quote Requests"
-                description="Detailed quotation requests submitted via the quotation funnel."
-              />
+              <LeadsList fixedSource="quote" titleKey="quotes_title" descriptionKey="quotes_desc" />
             )}
           />
           <Route
             path="/chatbot"
             component={() => (
-              <LeadsList
-                fixedSource="chatbot"
-                title="Chatbot Leads"
-                description="Leads captured by Sara, the AI sales engineer."
-              />
+              <LeadsList fixedSource="chatbot" titleKey="chatbot_title" descriptionKey="chatbot_desc" />
             )}
           />
           <Route
             path="/contact"
             component={() => (
-              <LeadsList
-                fixedSource="contact"
-                title="Contact Messages"
-                description="General inquiries from the contact form."
-              />
+              <LeadsList fixedSource="contact" titleKey="contact_title" descriptionKey="contact_desc" />
             )}
           />
           <Route path="/settings" component={Settings} />

@@ -36,11 +36,12 @@ import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/StatusBadge";
 import { formatDate, relativeTime } from "@/lib/format";
 import {
-  SOURCE_LABELS,
-  STATUS_LABELS,
   STATUS_ORDER,
+  sourceKey,
+  statusKey,
   type LeadStatus,
 } from "@/lib/types";
+import { useI18n, type TKey } from "@/lib/i18n";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -59,6 +60,8 @@ export default function LeadDetail() {
   const qc = useQueryClient();
   const [note, setNote] = useState("");
   const [outcome, setOutcome] = useState("");
+  const { t, lang } = useI18n();
+  const dateLocale = lang === "ar" ? "ar-SA" : undefined;
 
   const { data, isLoading } = useQuery({
     queryKey: ["lead", id],
@@ -102,12 +105,28 @@ export default function LeadDetail() {
   }
   const lead = data.lead;
 
+  const prioKey = (`prio_${lead.priority}` as TKey);
+
+  const outcomeLabel = (raw?: string) => {
+    if (!raw) return "";
+    const map: Record<string, TKey> = {
+      called: "out_called",
+      emailed: "out_emailed",
+      meeting_scheduled: "out_meeting",
+      quote_sent: "out_quote",
+      no_answer: "out_noanswer",
+      not_interested: "out_notinterested",
+    };
+    const k = map[raw];
+    return k ? t(k) : raw.replace(/_/g, " ");
+  };
+
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto">
       <div className="flex items-center gap-3 mb-4">
         <Link href="/leads">
           <a className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4 mr-1" /> Back to leads
+            <ArrowLeft className="h-4 w-4 me-1 rtl:rotate-180" /> {t("back_to_leads")}
           </a>
         </Link>
       </div>
@@ -116,19 +135,17 @@ export default function LeadDetail() {
         <div>
           <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-2xl font-semibold tracking-tight" data-testid="text-lead-name">
-              {lead.fullName || "Unnamed lead"}
+              {lead.fullName || t("unnamed_lead")}
             </h1>
             <StatusBadge status={lead.status} />
-            <Badge variant="outline">{SOURCE_LABELS[lead.source]}</Badge>
+            <Badge variant="outline">{t(sourceKey(lead.source))}</Badge>
             {lead.priority !== "normal" && (
-              <Badge variant="outline" className="capitalize">
-                {lead.priority} priority
-              </Badge>
+              <Badge variant="outline">{t(prioKey)}</Badge>
             )}
           </div>
           <div className="text-sm text-muted-foreground mt-1">
-            Ref <code className="font-mono">{lead.ref}</code> · received{" "}
-            {formatDate(lead.createdAt)}
+            {t("ref")} <code className="font-mono">{lead.ref}</code> · {t("received_at")}{" "}
+            <span dir="ltr">{formatDate(lead.createdAt, dateLocale)}</span>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -142,7 +159,7 @@ export default function LeadDetail() {
             <SelectContent>
               {STATUS_ORDER.map((s) => (
                 <SelectItem key={s} value={s}>
-                  {STATUS_LABELS[s]}
+                  {t(statusKey(s))}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -155,10 +172,10 @@ export default function LeadDetail() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="normal">Normal</SelectItem>
-              <SelectItem value="high">High</SelectItem>
-              <SelectItem value="urgent">Urgent</SelectItem>
+              <SelectItem value="low">{t("prio_low_short")}</SelectItem>
+              <SelectItem value="normal">{t("prio_normal_short")}</SelectItem>
+              <SelectItem value="high">{t("prio_high_short")}</SelectItem>
+              <SelectItem value="urgent">{t("prio_urgent_short")}</SelectItem>
             </SelectContent>
           </Select>
           <AlertDialog>
@@ -169,18 +186,16 @@ export default function LeadDetail() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete this lead?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This permanently removes the lead, notes, and history. This action cannot be undone.
-                </AlertDialogDescription>
+                <AlertDialogTitle>{t("delete_lead_q")}</AlertDialogTitle>
+                <AlertDialogDescription>{t("delete_lead_desc")}</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={() => deleteMut.mutate()}
                   className="bg-destructive text-destructive-foreground"
                 >
-                  Delete
+                  {t("delete")}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -192,57 +207,55 @@ export default function LeadDetail() {
         <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Contact</CardTitle>
+              <CardTitle className="text-base">{t("contact_card")}</CardTitle>
             </CardHeader>
             <CardContent>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
-                <Field icon={User} label="Full name" value={lead.fullName} />
-                <Field icon={Building2} label="Company" value={lead.company} />
+                <Field icon={User} label={t("full_name")} value={lead.fullName} />
+                <Field icon={Building2} label={t("company")} value={lead.company} />
                 <Field
                   icon={Mail}
-                  label="Email"
+                  label={t("email")}
                   value={lead.email}
                   href={lead.email ? `mailto:${lead.email}` : undefined}
                 />
                 <Field
                   icon={Phone}
-                  label="Phone"
+                  label={t("phone")}
                   value={lead.phone}
                   href={lead.phone ? `tel:${lead.phone}` : undefined}
                 />
-                <Field icon={MapPin} label="City" value={lead.city} />
-                <Field icon={Calendar} label="Created" value={formatDate(lead.createdAt)} />
+                <Field icon={MapPin} label={t("city")} value={lead.city} />
+                <Field icon={Calendar} label={t("created")} value={formatDate(lead.createdAt, dateLocale)} />
               </dl>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Project request</CardTitle>
+              <CardTitle className="text-base">{t("project_request")}</CardTitle>
               <CardDescription>
-                Submitted via {SOURCE_LABELS[lead.source]}
-                {lead.sourcePage && <> from {lead.sourcePage}</>}
+                {t("submitted_via")} {t(sourceKey(lead.source))}
+                {lead.sourcePage && <> {t("from")} {lead.sourcePage}</>}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4">
-                <Field label="Project type" value={lead.projectType} />
-                <Field label="Project size" value={lead.projectSize} />
-                <Field label="Budget" value={lead.budget} />
-                <Field label="Timeline" value={lead.timeline} />
-                <Field label="Source action" value={lead.sourceAction} />
-                <Field label="Intent (chatbot)" value={lead.intent} />
+                <Field label={t("project_type")} value={lead.projectType} />
+                <Field label={t("project_size")} value={lead.projectSize} />
+                <Field label={t("budget")} value={lead.budget} />
+                <Field label={t("timeline")} value={lead.timeline} />
+                <Field label={t("source_action")} value={lead.sourceAction} />
+                <Field label={t("intent")} value={lead.intent} />
               </dl>
               {lead.services && lead.services.length > 0 && (
                 <div className="mb-4">
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">
-                    Services
+                    {t("services_label")}
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {lead.services.map((s) => (
-                      <Badge key={s} variant="secondary">
-                        {s}
-                      </Badge>
+                      <Badge key={s} variant="secondary">{s}</Badge>
                     ))}
                   </div>
                 </div>
@@ -250,13 +263,11 @@ export default function LeadDetail() {
               {lead.recommendedServices && lead.recommendedServices.length > 0 && (
                 <div className="mb-4">
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">
-                    Recommended (chatbot)
+                    {t("recommended")}
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {lead.recommendedServices.map((s) => (
-                      <Badge key={s} variant="outline">
-                        {s}
-                      </Badge>
+                      <Badge key={s} variant="outline">{s}</Badge>
                     ))}
                   </div>
                 </div>
@@ -264,7 +275,7 @@ export default function LeadDetail() {
               {lead.message && (
                 <div>
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">
-                    Message
+                    {t("message")}
                   </div>
                   <div className="text-sm whitespace-pre-wrap bg-muted/40 rounded-md p-3 border">
                     {lead.message}
@@ -274,7 +285,7 @@ export default function LeadDetail() {
               {lead.chatbotSummary && (
                 <div className="mt-4">
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">
-                    Conversation summary
+                    {t("conv_summary")}
                   </div>
                   <div className="text-sm whitespace-pre-wrap bg-muted/40 rounded-md p-3 border">
                     {lead.chatbotSummary}
@@ -287,25 +298,20 @@ export default function LeadDetail() {
           {lead.files && lead.files.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Attachments</CardTitle>
-                <CardDescription>
-                  Uploaded plans, drawings, BOQs and references.
-                </CardDescription>
+                <CardTitle className="text-base">{t("attachments")}</CardTitle>
+                <CardDescription>{t("attachments_desc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
                   {lead.files.map((f, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-3 p-2 rounded border bg-muted/20"
-                    >
+                    <li key={i} className="flex items-center gap-3 p-2 rounded border bg-muted/20">
                       <FileIcon className="h-4 w-4 text-muted-foreground" />
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{f.name}</div>
                         <div className="text-xs text-muted-foreground">
-                          {f.type || "file"}
+                          {f.type || t("file_label")}
                           {typeof f.size === "number" && (
-                            <> · {(f.size / 1024).toFixed(1)} KB</>
+                            <> · <span dir="ltr">{(f.size / 1024).toFixed(1)} KB</span></>
                           )}
                         </div>
                       </div>
@@ -319,11 +325,11 @@ export default function LeadDetail() {
           {lead.raw && Object.keys(lead.raw).length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Raw payload</CardTitle>
-                <CardDescription>Full submitted data for reference.</CardDescription>
+                <CardTitle className="text-base">{t("raw_payload")}</CardTitle>
+                <CardDescription>{t("raw_desc")}</CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs bg-muted/40 rounded-md p-3 border overflow-auto max-h-96">
+                <pre className="text-xs bg-muted/40 rounded-md p-3 border overflow-auto max-h-96" dir="ltr">
                   {JSON.stringify(lead.raw, null, 2)}
                 </pre>
               </CardContent>
@@ -335,13 +341,13 @@ export default function LeadDetail() {
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <MessageSquare className="h-4 w-4" /> Internal notes
+                <MessageSquare className="h-4 w-4" /> {t("internal_notes")}
               </CardTitle>
-              <CardDescription>Log calls, follow-ups, and outcomes.</CardDescription>
+              <CardDescription>{t("notes_desc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <Textarea
-                placeholder="Add a note about this lead…"
+                placeholder={t("add_note_ph")}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={3}
@@ -349,15 +355,15 @@ export default function LeadDetail() {
               />
               <Select value={outcome} onValueChange={setOutcome}>
                 <SelectTrigger data-testid="select-outcome">
-                  <SelectValue placeholder="Outcome (optional)" />
+                  <SelectValue placeholder={t("outcome_optional")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="called">Called</SelectItem>
-                  <SelectItem value="emailed">Emailed</SelectItem>
-                  <SelectItem value="meeting_scheduled">Meeting scheduled</SelectItem>
-                  <SelectItem value="quote_sent">Quote sent</SelectItem>
-                  <SelectItem value="no_answer">No answer</SelectItem>
-                  <SelectItem value="not_interested">Not interested</SelectItem>
+                  <SelectItem value="called">{t("out_called")}</SelectItem>
+                  <SelectItem value="emailed">{t("out_emailed")}</SelectItem>
+                  <SelectItem value="meeting_scheduled">{t("out_meeting")}</SelectItem>
+                  <SelectItem value="quote_sent">{t("out_quote")}</SelectItem>
+                  <SelectItem value="no_answer">{t("out_noanswer")}</SelectItem>
+                  <SelectItem value="not_interested">{t("out_notinterested")}</SelectItem>
                 </SelectContent>
               </Select>
               <Button
@@ -367,12 +373,12 @@ export default function LeadDetail() {
                 className="w-full"
                 data-testid="button-add-note"
               >
-                {noteMut.isPending ? "Saving…" : "Add note"}
+                {noteMut.isPending ? t("saving") : t("add_note")}
               </Button>
               <div className="pt-3 border-t space-y-3 max-h-96 overflow-y-auto">
                 {lead.notes.length === 0 ? (
                   <div className="text-xs text-muted-foreground text-center py-3">
-                    No notes yet.
+                    {t("no_notes_yet")}
                   </div>
                 ) : (
                   lead.notes.map((n) => (
@@ -380,11 +386,11 @@ export default function LeadDetail() {
                       <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                         <span className="inline-flex items-center gap-1">
                           <Clock className="h-3 w-3" />
-                          {relativeTime(n.createdAt)}
+                          {relativeTime(n.createdAt, lang)}
                         </span>
                         {n.outcome && (
-                          <Badge variant="outline" className="text-[10px] capitalize">
-                            {n.outcome.replace(/_/g, " ")}
+                          <Badge variant="outline" className="text-[10px]">
+                            {outcomeLabel(n.outcome)}
                           </Badge>
                         )}
                       </div>

@@ -27,12 +27,14 @@ import { Spinner } from "@/components/ui/spinner";
 import { relativeTime } from "@/lib/format";
 import {
   STATUS_ORDER,
-  STATUS_LABELS,
-  SOURCE_LABELS,
+  SOURCE_KEYS,
+  sourceKey,
+  statusKey,
   type Lead,
   type LeadSource,
 } from "@/lib/types";
 import { getToken } from "@/lib/auth";
+import { useI18n, type TKey } from "@/lib/i18n";
 
 const API_BASE =
   ((import.meta as unknown as { env?: { VITE_API_BASE?: string } }).env?.VITE_API_BASE) ||
@@ -40,11 +42,12 @@ const API_BASE =
 
 interface Props {
   fixedSource?: LeadSource;
-  title?: string;
-  description?: string;
+  titleKey?: TKey;
+  descriptionKey?: TKey;
 }
 
-export default function LeadsList({ fixedSource, title, description }: Props) {
+export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Props) {
+  const { t, lang } = useI18n();
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("all");
   const [source, setSource] = useState<string>(fixedSource || "all");
@@ -98,14 +101,12 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
   return (
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       <PageHeader
-        title={title || "All Leads"}
-        description={
-          description || "Inbound inquiries, quote requests, and chatbot conversations in one place."
-        }
+        title={t(titleKey || "leads_title")}
+        description={t(descriptionKey || "leads_desc")}
         actions={
           <Button variant="outline" onClick={downloadCsv} data-testid="button-export-csv">
-            <Download className="h-4 w-4 mr-2" />
-            Export CSV
+            <Download className="h-4 w-4 me-2" />
+            {t("export_csv")}
           </Button>
         }
       />
@@ -113,12 +114,12 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
       <Card className="p-4 mb-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <div className="lg:col-span-2 relative">
-            <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Search className="h-4 w-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
-              placeholder="Search name, company, email, ref…"
+              placeholder={t("search_placeholder")}
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              className="pl-9"
+              className="ps-9"
               data-testid="input-search"
             />
           </div>
@@ -127,10 +128,10 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All statuses</SelectItem>
+              <SelectItem value="all">{t("all_statuses")}</SelectItem>
               {STATUS_ORDER.map((s) => (
                 <SelectItem key={s} value={s}>
-                  {STATUS_LABELS[s]}
+                  {t(statusKey(s))}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -141,10 +142,10 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All sources</SelectItem>
-                {Object.entries(SOURCE_LABELS).map(([k, v]) => (
+                <SelectItem value="all">{t("all_sources")}</SelectItem>
+                {SOURCE_KEYS.map((k) => (
                   <SelectItem key={k} value={k}>
-                    {v}
+                    {t(sourceKey(k))}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -152,10 +153,10 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
           )}
           <Select value={city} onValueChange={setCity}>
             <SelectTrigger data-testid="select-city">
-              <SelectValue placeholder="City" />
+              <SelectValue placeholder={t("city")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All cities</SelectItem>
+              <SelectItem value="all">{t("all_cities")}</SelectItem>
               {cities.map((c) => (
                 <SelectItem key={c} value={c}>
                   {c}
@@ -166,10 +167,10 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
           {services.length > 0 && (
             <Select value={service} onValueChange={setService}>
               <SelectTrigger data-testid="select-service">
-                <SelectValue placeholder="Service" />
+                <SelectValue placeholder={t("service")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All services</SelectItem>
+                <SelectItem value="all">{t("all_services")}</SelectItem>
                 {services.map((s) => (
                   <SelectItem key={s} value={s}>
                     {s}
@@ -188,18 +189,18 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
           </div>
         ) : leads.length === 0 ? (
           <div className="p-12 text-center text-sm text-muted-foreground">
-            No leads match your filters.
+            {t("no_match")}
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Lead</TableHead>
-                <TableHead>Source</TableHead>
-                <TableHead>City</TableHead>
-                <TableHead>Services</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Received</TableHead>
+                <TableHead>{t("th_lead")}</TableHead>
+                <TableHead>{t("th_source")}</TableHead>
+                <TableHead>{t("th_city")}</TableHead>
+                <TableHead>{t("th_services")}</TableHead>
+                <TableHead>{t("th_status")}</TableHead>
+                <TableHead className="text-end">{t("th_received")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -216,7 +217,7 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
                   <TableCell>
                     <Link href={`/leads/${lead.id}`}>
                       <a className="block" onClick={(e) => e.stopPropagation()}>
-                        <div className="font-medium">{lead.fullName || "Unnamed"}</div>
+                        <div className="font-medium">{lead.fullName || t("unnamed")}</div>
                         <div className="text-xs text-muted-foreground">
                           {lead.company || lead.email || lead.phone || lead.ref}
                         </div>
@@ -228,20 +229,20 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
                       {lead.source === "chatbot" && <Bot className="h-3.5 w-3.5" />}
                       {lead.source === "contact" && <Mail className="h-3.5 w-3.5" />}
                       {lead.source === "quote" && <FileText className="h-3.5 w-3.5" />}
-                      {SOURCE_LABELS[lead.source]}
+                      {t(sourceKey(lead.source))}
                     </span>
                   </TableCell>
                   <TableCell className="text-sm">{lead.city || "—"}</TableCell>
                   <TableCell className="text-sm max-w-[280px]">
                     <div className="truncate">
-                      {(lead.services || []).slice(0, 3).join(", ") || lead.projectType || "—"}
+                      {(lead.services || []).slice(0, 3).join(t("list_sep")) || lead.projectType || "—"}
                     </div>
                   </TableCell>
                   <TableCell>
                     <StatusBadge status={lead.status} />
                   </TableCell>
-                  <TableCell className="text-right text-sm text-muted-foreground whitespace-nowrap">
-                    {relativeTime(lead.createdAt)}
+                  <TableCell className="text-end text-sm text-muted-foreground whitespace-nowrap">
+                    {relativeTime(lead.createdAt, lang)}
                   </TableCell>
                 </TableRow>
               ))}
@@ -251,7 +252,7 @@ export default function LeadsList({ fixedSource, title, description }: Props) {
       </Card>
 
       <div className="text-xs text-muted-foreground mt-3">
-        Showing {leads.length} {leads.length === 1 ? "lead" : "leads"}.
+        {t("showing_x")} <span dir="ltr">{leads.length}</span> {leads.length === 1 ? t("lead_singular") : t("lead_plural")}.
       </div>
     </div>
   );
