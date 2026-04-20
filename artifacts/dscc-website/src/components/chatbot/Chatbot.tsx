@@ -163,7 +163,7 @@ export function Chatbot() {
           aria-label={t("chatbot.launcher")}
           className={`group fixed bottom-6 z-50 ${isRtl ? "left-6" : "right-6"}`}
         >
-          <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping opacity-75" aria-hidden />
+          <span className="absolute inset-1 rounded-full bg-primary/30 animate-ping opacity-40" aria-hidden />
           <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 px-5 py-3 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
             <span className="relative">
               <Bot className="size-5" />
