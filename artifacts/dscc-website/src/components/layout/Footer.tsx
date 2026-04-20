@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Music2, MessageCircle, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Music2, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -130,10 +130,15 @@ export function Footer() {
             <a href="#" className="hover:text-primary-foreground">{t("footer.terms")}</a>
             <button
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="inline-flex items-center gap-1 hover:text-primary-foreground"
+              className="inline-flex items-center gap-1.5 hover:text-primary-foreground"
+              aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
             >
-              <Globe className="size-3" />
-              {lang === "en" ? "العربية" : "English"}
+              <span className="text-sm leading-none" aria-hidden>
+                {lang === "en" ? "🇸🇦" : "🇬🇧"}
+              </span>
+              <span className={lang === "en" ? "font-arabic text-sm" : ""}>
+                {lang === "en" ? "العربية" : "English"}
+              </span>
             </button>
           </div>
         </div>

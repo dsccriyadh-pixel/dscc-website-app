@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -47,13 +47,18 @@ export function Header() {
 
         <div className="hidden lg:flex items-center gap-2">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="gap-2"
+            className="gap-2 rounded-full px-3 border-primary/20 hover:border-primary hover:bg-primary/5"
+            aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
           >
-            <Globe className="size-4" />
-            {lang === "en" ? "العربية" : "English"}
+            <span className="text-base leading-none" aria-hidden>
+              {lang === "en" ? "🇸🇦" : "🇬🇧"}
+            </span>
+            <span className={lang === "en" ? "font-arabic text-base" : "text-sm"}>
+              {lang === "en" ? "العربية" : "English"}
+            </span>
           </Button>
           <Link href="/quote">
             <Button>{t("nav.quote")}</Button>
@@ -83,10 +88,15 @@ export function Header() {
                   variant="outline"
                   size="sm"
                   onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                  className="gap-2 flex-1"
+                  className="gap-2 flex-1 rounded-full"
+                  aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
                 >
-                  <Globe className="size-4" />
-                  {lang === "en" ? "العربية" : "English"}
+                  <span className="text-base leading-none" aria-hidden>
+                    {lang === "en" ? "🇸🇦" : "🇬🇧"}
+                  </span>
+                  <span className={lang === "en" ? "font-arabic text-base" : "text-sm"}>
+                    {lang === "en" ? "العربية" : "English"}
+                  </span>
                 </Button>
               </div>
               <Link href="/quote" onClick={() => setOpen(false)} className="px-3 mt-3">

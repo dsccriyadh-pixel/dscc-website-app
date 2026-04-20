@@ -8,6 +8,12 @@
   100% { background-position: -200% 0; }
 }
 
+@utility font-arabic {
+  font-family: 'Tajawal', 'Cairo', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
