@@ -74,11 +74,22 @@ export default function ProjectDetail() {
             <p className="text-lg text-foreground/85 leading-relaxed">{bi(p.summary)}</p>
           </div>
 
+          {p.narratives && p.narratives.length > 0 && (
+            <div className="space-y-5">
+              {p.narratives.map((n, i) => (
+                <div key={i}>
+                  <p className="text-xs uppercase tracking-[0.14em] text-primary mb-2">cutting-edge technologies, collaborative thinking{i > 0 ? ` ${i + 1}` : ""}</p>
+                  <p className="text-foreground/85 leading-relaxed">{bi(n)}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div>
-            <p className="text-xs uppercase tracking-[0.14em] text-secondary mb-3">{t("common.highlights")}</p>
+            <p className="text-xs uppercase tracking-[0.14em] text-primary mb-3">{t("common.highlights")}</p>
             <ul className="space-y-2">
               {p.highlights.map((h, i) => (
-                <li key={i} className="text-foreground/85 border-l-2 border-secondary pl-4">{bi(h)}</li>
+                <li key={i} className="text-foreground/85 border-l-2 border-primary pl-4">{bi(h)}</li>
               ))}
             </ul>
           </div>

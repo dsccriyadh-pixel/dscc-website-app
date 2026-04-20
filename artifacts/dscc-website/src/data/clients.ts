@@ -1,32 +1,29 @@
+// Real clients & partners extracted from dsccsaudia.com.
+// Logo paths point at assets mirrored under /public/assets/.
+
 export interface Client {
   id: string;
-  name: string;
+  name: string | null;
+  logo: string;
   type: "client" | "partner";
 }
 
 export const clients: Client[] = [
-  { id: "1", name: "Saudi Aramco", type: "client" },
-  { id: "2", name: "NEOM", type: "client" },
-  { id: "3", name: "Red Sea Global", type: "client" },
-  { id: "4", name: "Diriyah Gate", type: "client" },
-  { id: "5", name: "Qiddiya", type: "client" },
-  { id: "6", name: "ROSHN", type: "client" },
-  { id: "7", name: "Marriott International", type: "client" },
-  { id: "8", name: "Hilton", type: "client" },
-  { id: "9", name: "IHG Hotels", type: "client" },
-  { id: "10", name: "Accor", type: "client" },
-  { id: "11", name: "Rotana Hotels", type: "client" },
-  { id: "12", name: "Mövenpick", type: "client" },
-  { id: "13", name: "Schneider Electric", type: "partner" },
-  { id: "14", name: "Daikin", type: "partner" },
-  { id: "15", name: "Mitsubishi Electric", type: "partner" },
-  { id: "16", name: "Honeywell", type: "partner" },
-  { id: "17", name: "Siemens", type: "partner" },
-  { id: "18", name: "Crestron", type: "partner" },
-  { id: "19", name: "Lutron", type: "partner" },
-  { id: "20", name: "Cisco", type: "partner" },
-  { id: "21", name: "Hansgrohe", type: "partner" },
-  { id: "22", name: "Duravit", type: "partner" },
-  { id: "23", name: "Technogym", type: "partner" },
-  { id: "24", name: "Rational", type: "partner" },
+  { id: "c-hilton",      name: "Hilton",        logo: "/assets/images/svg/clients/hilton.svg",      type: "client" },
+  { id: "c-hyatt",       name: "Hyatt",         logo: "/assets/images/svg/clients/hayatt.svg",      type: "client" },
+  { id: "c-kempinski",   name: "Kempinski",     logo: "/assets/images/svg/clients/kempinski.svg",   type: "client" },
+  { id: "c-marriott",    name: "Marriott",      logo: "/assets/images/svg/clients/marriott.svg",    type: "client" },
+  { id: "c-shangri",     name: "Shangri-La",    logo: "/assets/images/svg/clients/shangri.svg",     type: "client" },
+  { id: "c-sheraton",    name: "Sheraton",      logo: "/assets/images/svg/clients/sheraton.svg",    type: "client" },
+  { id: "c-floorndecor", name: "Floor & Decor", logo: "/assets/images/svg/clients/floorndecor.svg", type: "client" },
+  { id: "c-01", name: null, logo: "/assets/images/svg/clients/01.svg", type: "client" },
+  { id: "c-02", name: null, logo: "/assets/images/svg/clients/02.svg", type: "client" },
+  { id: "c-03", name: null, logo: "/assets/images/svg/clients/03.svg", type: "client" },
+  { id: "c-04", name: null, logo: "/assets/images/svg/clients/04.svg", type: "client" },
+  { id: "c-05", name: null, logo: "/assets/images/svg/clients/05.svg", type: "client" },
+
+  { id: "p-aramco", name: "Saudi Aramco", logo: "/assets/images/partners/aramco.svg", type: "partner" },
+  { id: "p-maaden", name: "Ma'aden",      logo: "/assets/images/partners/maaden.svg", type: "partner" },
+  { id: "p-sabic",  name: "SABIC",        logo: "/assets/images/partners/sabic.svg",  type: "partner" },
+  { id: "p-stc",    name: "STC",          logo: "/assets/images/partners/stc.svg",    type: "partner" },
 ];

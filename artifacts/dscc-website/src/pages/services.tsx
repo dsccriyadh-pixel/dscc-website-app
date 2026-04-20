@@ -48,17 +48,23 @@ export default function Services() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((s) => (
-            <Link key={s.id} href={`/services/${s.slug}`}>
-              <Card className="h-full hover:border-secondary transition group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="text-xs uppercase tracking-[0.14em] text-secondary mb-2">{s.category}</div>
-                  <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(s.name)}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{bi(s.tagline)}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+          {filtered.map((s) => {
+            const baseUrl = import.meta.env.BASE_URL;
+            return (
+              <Link key={s.id} href={`/services/${s.slug}`}>
+                <Card className="h-full hover:border-primary transition group cursor-pointer">
+                  <CardContent className="p-6">
+                    {s.icon && (
+                      <img src={`${baseUrl.replace(/\/$/, "")}${s.icon}`} alt="" className="mb-4 h-12 w-12 object-contain" />
+                    )}
+                    <div className="text-xs uppercase tracking-[0.14em] text-primary mb-2">{s.category}</div>
+                    <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(s.name)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{bi(s.tagline)}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </>
