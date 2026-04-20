@@ -1,0 +1,166 @@
+You are a senior UX strategist, conversion copywriter, and frontend optimization expert.
+
+Your task is to IMPROVE the website conversion performance by upgrading the following sections:
+
+* Hero Section
+* Trust/Proof Section
+* Projects Section
+* Call-To-Action (CTA)
+
+==================================================
+CRITICAL RULES
+==============
+
+* Do NOT change layout drastically
+* Do NOT remove existing sections
+* ONLY improve content and structure
+* Keep design clean and professional
+* Keep corporate tone (Saudi / GCC market)
+* Maintain brand identity
+
+==================================================
+OBJECTIVE
+=========
+
+Transform the website from:
+"Visually good"
+
+Into:
+"High-conversion, persuasive, trust-driven website"
+
+==================================================
+
+1. HERO SECTION IMPROVEMENT
+   ==================================================
+
+Replace weak headline with strong positioning.
+
+Create:
+
+* Powerful headline
+* Clear subheadline
+* Strong CTA
+
+Requirements:
+
+Headline must:
+
+* clearly explain what the company does
+* sound premium and confident
+
+Subheadline must:
+
+* explain value
+* include services scope
+
+CTA must:
+
+* be action-oriented
+
+Example style:
+
+"Complete Fit-Out & Project Solutions Across Saudi Arabia"
+
+"From design to execution — we deliver high-quality integrated solutions for residential, commercial, and hospitality projects."
+
+Buttons:
+
+* Request a Quote
+* Talk to an Expert
+
+==================================================
+2. TRUST / PROOF SECTION (ADD NEW BLOCK)
+========================================
+
+Add a new section directly under Hero.
+
+Include:
+
+* Key numbers (use existing stats)
+* Trust bullets
+
+Example:
+
+✔ 3000+ Projects Delivered
+✔ 400+ Clients Served
+✔ End-to-End Solutions
+✔ Multi-Sector Expertise
+
+Make it visually clean and horizontal.
+
+==================================================
+3. PROJECTS SECTION IMPROVEMENT
+===============================
+
+For EACH project card:
+
+Add:
+
+* Project Type (Residential / Commercial / Hospitality / Infrastructure)
+* Short description (1–2 lines)
+* Outcome/result
+
+Example:
+
+Commercial Project
+Full fit-out execution with premium finishing, delivered on time and aligned with client requirements.
+
+Rules:
+
+* Keep text short
+* Make it professional
+* Focus on result
+
+==================================================
+4. CTA IMPROVEMENT (VERY IMPORTANT)
+===================================
+
+Add a strong CTA block BEFORE the footer.
+
+Content:
+
+Headline:
+"Start Your Project Today"
+
+Subtext:
+"Get a tailored quote from our experts within 24 hours"
+
+Buttons:
+
+* Request a Quote
+* Contact via WhatsApp
+
+Style:
+
+* clear
+* centered
+* strong contrast
+
+==================================================
+STYLE GUIDELINES
+================
+
+* short sentences
+* no generic text
+* business-focused language
+* premium tone
+* no exaggeration
+
+==================================================
+FINAL RESULT
+============
+
+The website must:
+
+* feel more professional
+* build trust instantly
+* guide user to action
+* convert visitors into leads
+
+==================================================
+EXECUTION STYLE
+===============
+
+Do not ask questions.
+Apply improvements directly.
+Keep everything clean and structured.

@@ -15,36 +15,44 @@ import { ShieldCheck, CheckCircle2, Layers } from "lucide-react";
 import type { BilingualString } from "@/data/services";
 
 // Order matches client-provided sequence: Residential → Commercial → Hospitality → Infrastructure
-const HERO_SLIDES: { headline: BilingualString; sub: BilingualString; cta: BilingualString; href: string; image: string; }[] = [
+const HERO_SLIDES: { eyebrow: BilingualString; headline: BilingualString; sub: BilingualString; cta: BilingualString; href: string; image: string; }[] = [
   {
-    headline: { en: "Your  Dream Home",            ar: "منزلك كما تحلم به" },
-    sub:      { en: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
-                ar: "نحوّل المساحات إلى بيئات متكاملة تجمع بين الجمال والراحة والعملية، مع عناية دقيقة بكل تفصيلة." },
-    cta:      { en: "Rsidential Services",         ar: "الخدمات السكنية" },
+    eyebrow:  { en: "Residential Fit-Out", ar: "تشطيبات سكنية" },
+    headline: { en: "Premium Residential Fit-Out, Delivered End-to-End",
+                ar: "تشطيبات سكنية فاخرة بحلول متكاملة من التصميم إلى التسليم" },
+    sub:      { en: "Design, supply, and installation across villas and luxury homes — finished to the highest standards, on time.",
+                ar: "تصميم وتوريد وتنفيذ للفلل والمنازل الفاخرة بأعلى المعايير وفي المواعيد المحددة." },
+    cta:      { en: "Residential Services", ar: "الخدمات السكنية" },
     href: "/sectors/residential",
     image: "/assets/uploads/media-uploader/cover021693834064.jpg",
   },
   {
-    headline: { en: "Your  Successful Business",   ar: "حلول احترافية لأعمالك" },
-    sub:      { en: "Architectural solutions tailored to your unique needs, preferences and project requirements",
-                ar: "نقدم حلولاً متكاملة للمشاريع التجارية تجمع بين الكفاءة والجودة وتدعم نمو أعمالك." },
-    cta:      { en: "Business Solutions",          ar: "حلول الأعمال" },
+    eyebrow:  { en: "Commercial Solutions", ar: "حلول تجارية" },
+    headline: { en: "Commercial Spaces Built for Performance",
+                ar: "مساحات تجارية مصممة للأداء والإنتاجية" },
+    sub:      { en: "Integrated fit-out for offices, retail, and business centers — engineered to support productivity and brand experience.",
+                ar: "حلول تشطيب وتجهيز متكاملة للمكاتب والمولات ومجمعات الأعمال تدعم الإنتاجية وتجربة العلامة." },
+    cta:      { en: "Business Solutions", ar: "حلول الأعمال" },
     href: "/sectors/commercial",
     image: "/assets/uploads/media-uploader/cover031693834151.jpg",
   },
   {
-    headline: { en: "Your  Hospitality Solutions", ar: "تجربة ضيافة متكاملة" },
-    sub:      { en: "We create a seamless harmony that blends functionality, comfort and aesthetics",
-                ar: "نصمم وننفذ حلول الضيافة بما يعزز تجربة الضيوف ويرفع مستوى التميز." },
-    cta:      { en: "Hospitality Solutions",       ar: "حلول الضيافة" },
+    eyebrow:  { en: "Hospitality Excellence", ar: "تميّز الضيافة" },
+    headline: { en: "Hospitality Interiors that Elevate Every Stay",
+                ar: "تشطيبات ضيافة ترتقي بكل تجربة" },
+    sub:      { en: "Hotels, resorts, and restaurants — fully fitted with technical systems, finishes, and FF&E that guests remember.",
+                ar: "فنادق ومنتجعات ومطاعم بتشطيبات وأنظمة فنية وأثاث يترك انطباعاً يدوم لدى الضيف." },
+    cta:      { en: "Hospitality Solutions", ar: "حلول الضيافة" },
     href: "/sectors/hospitality",
     image: "/assets/uploads/media-uploader/cover041693834210.jpg",
   },
   {
-    headline: { en: "Your  Smart Decision",        ar: "شريكك لتنفيذ المشاريع" },
-    sub:      { en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
-                ar: "نقدّم حلولاً متكاملة تشمل التصميم والتوريد والتنفيذ والتجهيز من البداية حتى التشغيل." },
-    cta:      { en: "Infrastructure Solutions",    ar: "حلول البنية التحتية" },
+    eyebrow:  { en: "One-Stop Project Partner", ar: "شريك واحد لمشروعك" },
+    headline: { en: "Complete Fit-Out & Project Solutions Across Saudi Arabia",
+                ar: "حلول مشاريع وتشطيبات متكاملة في كل أنحاء المملكة" },
+    sub:      { en: "From design to execution — one accountable partner for residential, commercial, hospitality, and infrastructure projects.",
+                ar: "من التصميم وحتى التنفيذ — شريك واحد مسؤول لمشاريعك السكنية والتجارية والضيافة والبنية التحتية." },
+    cta:      { en: "Infrastructure Solutions", ar: "حلول البنية التحتية" },
     href: "/sectors/infrastructure",
     image: "/assets/uploads/media-uploader/cover011693833991.jpg",
   },
@@ -98,9 +106,28 @@ const STATS: { v: string; k: BilingualString }[] = [
   { v: "7430", k: { en: "Salified Clients",      ar: "عملاء راضون" } },
 ];
 
+const PROOF_BAR: { v: BilingualString; k: BilingualString }[] = [
+  { v: { en: "3,000+", ar: "+٣٠٠٠" }, k: { en: "Projects Delivered",   ar: "مشروع منجز" } },
+  { v: { en: "400+",   ar: "+٤٠٠"  }, k: { en: "Clients Served",       ar: "عميل" } },
+  { v: { en: "25",     ar: "٢٥"    }, k: { en: "Integrated Services",  ar: "خدمة متكاملة" } },
+  { v: { en: "4",      ar: "٤"     }, k: { en: "Sectors of Expertise", ar: "قطاعات تخصص" } },
+];
+
+const SECTOR_LABEL: Record<string, BilingualString> = {
+  residential:    { en: "Residential",    ar: "سكني" },
+  commercial:     { en: "Commercial",     ar: "تجاري" },
+  hospitality:    { en: "Hospitality",    ar: "ضيافة" },
+  infrastructure: { en: "Infrastructure", ar: "بنية تحتية" },
+};
+
 const T = {
   badge:        { en: "Innovative One Stop Fit Out Solutions", ar: "حلول متكاملة للتشطيبات والتجهيزات" },
   reqQuote:     { en: "REQUEST QUOTE",                          ar: "اطلب عرض سعر" },
+  startProj:    { en: "Start Your Project Today",               ar: "ابدأ مشروعك اليوم" },
+  startProjSub: { en: "Get a tailored quote from our experts within 24 hours.",
+                  ar: "احصل على عرض سعر مخصّص من فريقنا خلال 24 ساعة." },
+  proofTitle:   { en: "Trusted by clients across Saudi Arabia",
+                  ar: "موثوقون من عملائنا في جميع أنحاء المملكة" },
   oneStop:      { en: "One-Stop Fit Out Solution",              ar: "حلول متكاملة للتشطيبات والتجهيزات" },
   oneStopSub:   { en: "We provide an integrated delivery model from concept to operation.",
                   ar: "نقدّم نموذج عمل متكامل يضمن تنفيذ المشروع بسلاسة وجودة عالية، من الفكرة وحتى التشغيل." },
@@ -188,7 +215,7 @@ export default function Home() {
               className="max-w-3xl"
             >
               <p className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-3 py-1 text-xs uppercase tracking-[0.18em] mb-6">
-                {bi(T.badge)}
+                {bi(cur.eyebrow)}
               </p>
               <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight whitespace-pre-line drop-shadow-md">
                 {bi(cur.headline)}
@@ -235,6 +262,23 @@ export default function Home() {
                 aria-label={`Slide ${i + 1}`}
                 className={`h-1.5 rounded-full transition-all ${i === slide ? "w-10 bg-white" : "w-4 bg-white/40"}`}
               />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROOF BAR — directly under hero */}
+      <section className="border-b bg-gradient-to-b from-muted/40 to-background">
+        <div className="container py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {PROOF_BAR.map((p) => (
+              <div key={p.k.en} className="flex items-center gap-3 px-3 py-3 rounded-md bg-card border border-border">
+                <CheckCircle2 className="size-6 text-primary shrink-0" />
+                <div className="min-w-0">
+                  <div className="font-serif text-2xl text-foreground leading-none">{bi(p.v)}</div>
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground mt-1">{bi(p.k)}</div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -364,14 +408,24 @@ export default function Home() {
                   <img src={`${baseUrl.replace(/\/$/, "")}${p.image}`} alt={bi(p.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
                 <CardContent className="p-6">
-                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.14em] text-muted-foreground mb-2">
-                    <span>{bi(p.location)}</span><span>{p.year}</span>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    {SECTOR_LABEL[p.sectorId] && (
+                      <span className="inline-flex items-center rounded-full bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-[0.14em] px-2.5 py-1">
+                        {bi(SECTOR_LABEL[p.sectorId])}
+                      </span>
+                    )}
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{bi(p.location)} • {p.year}</span>
                   </div>
                   <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(p.title)}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{bi(p.summary)}</p>
-                  {projectShortDesc[p.slug] && (
-                    <p className="text-xs text-foreground/70 leading-relaxed mt-2 border-t pt-2">{bi(projectShortDesc[p.slug])}</p>
+                  {projectShortDesc[p.slug] ? (
+                    <p className="text-sm text-foreground/80 leading-relaxed line-clamp-2">{bi(projectShortDesc[p.slug])}</p>
+                  ) : (
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{bi(p.summary)}</p>
                   )}
+                  <p className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary border-t pt-2 w-full">
+                    <CheckCircle2 className="size-3.5" />
+                    {lang === "ar" ? "تنفيذ متكامل وتسليم في الموعد المحدد" : "Delivered end-to-end, on time and to spec"}
+                  </p>
                 </CardContent>
               </Card>
             </Link>
@@ -450,22 +504,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* JOIN US */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-20 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl mb-3">{bi(T.joinUs)}</h2>
-          <p className="text-primary-foreground/85 max-w-2xl mx-auto mb-8">{bi(T.joinUsSub)}</p>
+      {/* FINAL CTA — Start Your Project */}
+      <section className="relative bg-gradient-to-br from-primary via-primary to-[#6e1432] text-primary-foreground overflow-hidden">
+        <div className="absolute -top-20 -right-20 size-80 rounded-full bg-secondary/15 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-24 -left-24 size-80 rounded-full bg-white/10 blur-3xl" aria-hidden />
+        <div className="container relative py-20 text-center">
+          <p className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10 backdrop-blur px-3 py-1 text-xs uppercase tracking-[0.18em] mb-5">
+            <Sparkles className="size-3 text-secondary" />
+            {lang === "ar" ? "ردّ خلال 24 ساعة" : "Reply within 24 hours"}
+          </p>
+          <h2 className="font-serif text-3xl md:text-5xl mb-4 leading-tight">{bi(T.startProj)}</h2>
+          <p className="text-primary-foreground/90 max-w-2xl mx-auto mb-3 text-base md:text-lg">{bi(T.startProjSub)}</p>
+          <p className="text-primary-foreground/70 max-w-2xl mx-auto mb-8 text-sm">{bi(T.joinUsSub)}</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Link href="/contact">
-              <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2">
-                {bi(T.contactNow)} <ChevronRight className="size-4" />
+            <Link href="/quote">
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 font-semibold gap-2 shadow-lg">
+                {bi(T.reqQuote)} <ChevronRight className="size-4" />
               </Button>
             </Link>
             <a href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button size="lg" variant="outline" className="border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 gap-2">
                 {bi(T.whatsapp)}
               </Button>
             </a>
+            <Link href="/contact">
+              <Button size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+                {bi(T.contactNow)}
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
