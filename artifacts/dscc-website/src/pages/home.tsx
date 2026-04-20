@@ -279,7 +279,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROOF BAR — directly under hero */}
+      {/* STATS — burgundy band directly under hero */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="container py-10 md:py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {STATS.map((s) => (
+              <div key={s.k.en}>
+                <div className="font-serif text-4xl md:text-5xl font-bold mb-2 leading-none" dir="ltr">{s.v}</div>
+                <div className="text-[11px] md:text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROOF BAR */}
       <section className="border-b bg-gradient-to-b from-muted/40 to-background">
         <div className="container py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -427,20 +441,6 @@ export default function Home() {
               </Card>
             </Link>
           ))}
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {STATS.map((s) => (
-              <div key={s.k.en}>
-                <div className="font-serif text-5xl mb-1" dir="ltr">{s.v}</div>
-                <div className="text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
