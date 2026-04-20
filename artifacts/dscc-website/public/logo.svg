@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" fill="none">
+  <rect x="0" y="0" width="56" height="56" rx="8" fill="#0A1A3D"/>
+  <path d="M14 16 L14 40 L24 40 C32 40 38 35 38 28 C38 21 32 16 24 16 Z" fill="#C9A968"/>
+  <path d="M22 22 L22 34 L25 34 C28.5 34 31 31.5 31 28 C31 24.5 28.5 22 25 22 Z" fill="#0A1A3D"/>
+  <text x="68" y="29" font-family="'Fraunces','Cairo',serif" font-size="22" font-weight="600" fill="#0A1A3D" letter-spacing="2">DSCC</text>
+  <text x="68" y="44" font-family="'Inter','Tajawal',sans-serif" font-size="6.5" font-weight="500" fill="#6B7280" letter-spacing="1.4">SAUDI ARABIA</text>
+</svg>

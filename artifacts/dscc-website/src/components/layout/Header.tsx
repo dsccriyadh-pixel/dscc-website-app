@@ -24,13 +24,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container flex h-20 items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3 shrink-0">
-          <span className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-serif text-sm font-semibold tracking-[0.05em] h-10 px-2.5">
-            DSCC
-          </span>
-          <span className="hidden md:inline text-[10px] uppercase tracking-[0.16em] text-muted-foreground max-w-[200px] leading-tight">
-            {t("brand.tagline")}
-          </span>
+        <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="DSCC">
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="DSCC" className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 text-sm">
