@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
 import { services, serviceCategories } from "@/data/services";
+import { serviceShortDesc } from "@/data/extras";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -59,7 +60,9 @@ export default function Services() {
                     )}
                     <div className="text-xs uppercase tracking-[0.14em] text-primary mb-2">{s.category}</div>
                     <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(s.name)}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{bi(s.tagline)}</p>
+                    {serviceShortDesc[s.slug] && (
+                      <p className="text-sm text-foreground/80 leading-relaxed line-clamp-3">{bi(serviceShortDesc[s.slug])}</p>
+                    )}
                   </CardContent>
                 </Card>
               </Link>

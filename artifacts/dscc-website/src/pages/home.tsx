@@ -10,6 +10,8 @@ import { sectors } from "@/data/sectors";
 import { services } from "@/data/services";
 import { projects } from "@/data/projects";
 import { clients } from "@/data/clients";
+import { serviceShortDesc, projectShortDesc, valueSupporting } from "@/data/extras";
+import { ShieldCheck, CheckCircle2, Layers } from "lucide-react";
 import type { BilingualString } from "@/data/services";
 
 // Order matches client-provided sequence: Residential → Commercial → Hospitality → Infrastructure
@@ -63,23 +65,30 @@ const FIT_OUT_STEPS: { title: BilingualString; desc: BilingualString; icon: any 
     icon: LifeBuoy },
 ];
 
-const VALUES: { title: BilingualString; desc: BilingualString; icon: any }[] = [
-  { title: { en: "Excellence",     ar: "التميّز" },
+const VALUES: { key: keyof typeof valueSupporting; title: BilingualString; desc: BilingualString; icon: any }[] = [
+  { key: "excellence",     title: { en: "Excellence",     ar: "التميّز" },
     desc:  { en: "High-quality designs that exceed expectations. Value creativity and attention to detail.",
              ar: "جودة عالية ومعايير دقيقة" },
     icon: Award },
-  { title: { en: "Client-Focus",   ar: "التركيز على العميل" },
+  { key: "client",         title: { en: "Client-Focus",   ar: "التركيز على العميل" },
     desc:  { en: "Make clients' needs our priority for developing trusted relationships, and customized solutions.",
              ar: "حلول مخصصة لكل مشروع" },
     icon: Users },
-  { title: { en: "Innovation",     ar: "الابتكار" },
+  { key: "innovation",     title: { en: "Innovation",     ar: "الابتكار" },
     desc:  { en: "Value creativity, innovation, and keeping up with the latest technologies and design trends.",
              ar: "استخدام أحدث التقنيات" },
     icon: Sparkles },
-  { title: { en: "Sustainability", ar: "الاستدامة" },
+  { key: "sustainability", title: { en: "Sustainability", ar: "الاستدامة" },
     desc:  { en: "We committed to design sustainable buildings & spaces that are environmentally responsible",
              ar: "حلول مسؤولة وطويلة الأمد" },
     icon: Leaf },
+];
+
+const TRUST_ITEMS: { title: BilingualString; icon: any }[] = [
+  { title: { en: "Execution expertise",  ar: "خبرة تنفيذية" },     icon: Award },
+  { title: { en: "High quality",         ar: "جودة عالية" },       icon: ShieldCheck },
+  { title: { en: "On-time delivery",     ar: "التزام بالمواعيد" }, icon: CheckCircle2 },
+  { title: { en: "Integrated solutions", ar: "حلول متكاملة" },     icon: Layers },
 ];
 
 const STATS: { v: string; k: BilingualString }[] = [
@@ -117,6 +126,10 @@ const T = {
   whatsapp:     { en: "What's App chat",                        ar: "واتساب" },
   downloadProf: { en: "Download Profile",                       ar: "تحميل الملف التعريفي" },
   talkSpec:     { en: "Talk to a Specialist",                   ar: "تحدث مع مختص" },
+  trustTitle:   { en: "Why Clients Trust Us",                   ar: "لماذا يثق بنا عملاؤنا" },
+  consultTitle: { en: "Request a Consultation",                 ar: "اطلب استشارة" },
+  consultSub:   { en: "Let us help turn your idea into a fully delivered project.",
+                  ar: "دعنا نساعدك في تحويل فكرتك إلى مشروع متكامل." },
 };
 
 export default function Home() {
@@ -249,7 +262,8 @@ export default function Home() {
               <CardContent className="p-6">
                 <v.icon className="size-7 text-primary mb-4" />
                 <h3 className="font-serif text-xl text-foreground mb-2">{bi(v.title)}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{bi(v.desc)}</p>
+                <p className="text-sm text-foreground/80 leading-relaxed mb-2">{bi(v.desc)}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed border-t pt-2">{bi(valueSupporting[v.key])}</p>
               </CardContent>
             </Card>
           ))}
@@ -274,7 +288,10 @@ export default function Home() {
                     {s.icon && (
                       <img src={`${baseUrl.replace(/\/$/, "")}${s.icon}`} alt="" className="mx-auto mb-3 h-12 w-12 object-contain" />
                     )}
-                    <div className="font-medium text-sm text-foreground group-hover:text-primary leading-snug">{bi(s.name)}</div>
+                    <div className="font-medium text-sm text-foreground group-hover:text-primary leading-snug mb-2">{bi(s.name)}</div>
+                    {serviceShortDesc[s.slug] && (
+                      <div className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{bi(serviceShortDesc[s.slug])}</div>
+                    )}
                   </CardContent>
                 </Card>
               </Link>
@@ -341,10 +358,46 @@ export default function Home() {
                   </div>
                   <h3 className="font-serif text-xl text-foreground mb-2 group-hover:text-primary">{bi(p.title)}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{bi(p.summary)}</p>
+                  {projectShortDesc[p.slug] && (
+                    <p className="text-xs text-foreground/70 leading-relaxed mt-2 border-t pt-2">{bi(projectShortDesc[p.slug])}</p>
+                  )}
                 </CardContent>
               </Card>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* TRUST */}
+      <section className="bg-muted/30 border-y">
+        <div className="container py-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground">{bi(T.trustTitle)}</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {TRUST_ITEMS.map((t) => (
+              <Card key={t.title.en}>
+                <CardContent className="p-6 text-center">
+                  <t.icon className="size-8 text-primary mx-auto mb-3" />
+                  <div className="font-serif text-lg text-foreground">{bi(t.title)}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA — Consultation block */}
+      <section className="border-y">
+        <div className="container py-14 grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-6">
+          <div>
+            <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-2">{bi(T.consultTitle)}</h3>
+            <p className="text-muted-foreground">{bi(T.consultSub)}</p>
+          </div>
+          <div className="flex gap-3 flex-wrap">
+            <Link href="/quote"><Button size="lg">{bi(T.reqQuote)}</Button></Link>
+            <Link href="/contact"><Button size="lg" variant="outline">{bi(T.talkSpec)}</Button></Link>
+          </div>
         </div>
       </section>
 

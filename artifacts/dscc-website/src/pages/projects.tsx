@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
 import { projects } from "@/data/projects";
+import { projectShortDesc } from "@/data/extras";
 import { sectors } from "@/data/sectors";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -60,6 +61,9 @@ export default function Projects() {
                   <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground mb-1.5">{bi(p.location)} • {p.year}</div>
                   <h3 className="font-serif text-lg text-foreground mb-1 group-hover:text-primary">{bi(p.title)}</h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">{bi(p.summary)}</p>
+                  {projectShortDesc[p.slug] && (
+                    <p className="text-xs text-foreground/70 mt-2 border-t pt-2 leading-relaxed">{bi(projectShortDesc[p.slug])}</p>
+                  )}
                 </CardContent>
               </Card>
             </Link>

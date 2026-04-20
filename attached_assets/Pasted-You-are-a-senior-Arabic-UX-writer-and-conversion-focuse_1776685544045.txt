@@ -1,0 +1,129 @@
+You are a senior Arabic UX writer and conversion-focused content architect.
+
+Your task is to COMPLETE missing or removed sections by ADDING content only.
+Do NOT modify or delete any existing Arabic content.
+
+==================================================
+CRITICAL RULES
+==============
+
+* Do NOT change existing Arabic text
+* Do NOT remove any section
+* ONLY add new sections or fill empty areas
+* Keep the same tone and style
+* Use professional Saudi-friendly Arabic
+* Avoid uncommon terms (e.g., do not use "تزجيج" — use "واجهات زجاجية")
+
+==================================================
+OBJECTIVE
+=========
+
+Upgrade the website from:
+"content-complete but minimal"
+
+to:
+"fully detailed, high-trust, conversion-ready corporate site"
+
+==================================================
+ADD THESE SECTIONS (IF MISSING)
+===============================
+
+1. EXPANDED ABOUT (extend current page)
+   Add 2 short paragraphs:
+
+* خبرة متعددة التخصصات
+* التكامل بين التصميم والتوريد والتنفيذ
+* الالتزام بالجودة والنتائج طويلة الأمد
+
+2. COMPANY PHILOSOPHY
+   Title: فلسفتنا
+   Short paragraph about:
+
+* فهم احتياج العميل
+* تقديم حلول عملية قابلة للتنفيذ
+* التركيز على الجودة والنتائج
+
+3. HOW WE WORK
+   Title: منهجية العمل
+   4 steps:
+
+* دراسة المشروع: تحليل المتطلبات
+* التخطيط: وضع خطة تنفيذ واضحة
+* التنفيذ: تطبيق الحلول وفق المعايير
+* التسليم: مراجعة الجودة والتسليم النهائي
+
+4. EXPERTISE
+   Title: خبراتنا
+   Paragraph about:
+
+* مشاريع سكنية / تجارية / ضيافة / بنية تحتية
+* فرق متعددة التخصصات
+* القدرة على إدارة المشاريع
+
+5. SERVICE SHORT DESCRIPTIONS
+   For EACH service (all 25):
+   Add 1 short line (no more than 12 words)
+   Style example:
+   حلول متكاملة تشمل التصميم والتنفيذ والتوريد بجودة عالية
+
+6. PROJECT CARD DESCRIPTIONS
+   For EACH project:
+   Add 1–2 lines:
+
+* نوع المشروع
+* نطاق العمل
+* نتيجة مختصرة
+
+7. TRUST SECTION
+   Title: لماذا يثق بنا عملاؤنا
+   Bullets:
+
+* خبرة تنفيذية
+* جودة عالية
+* التزام بالمواعيد
+* حلول متكاملة
+
+8. ENHANCE WHY US (light expansion only)
+   Keep original lines
+   Add 1 short supporting sentence under each value
+
+9. CTA BLOCKS (add between sections)
+   Examples:
+
+ابدأ مشروعك معنا اليوم
+تواصل مع فريقنا للحصول على عرض سعر مخصص
+
+---
+
+اطلب استشارة
+دعنا نساعدك في تحويل فكرتك إلى مشروع متكامل
+
+==================================================
+STYLE GUIDELINES
+================
+
+* Short sentences
+* Clear meaning
+* No repetition
+* Business tone
+* No exaggeration
+
+==================================================
+FINAL GOAL
+==========
+
+Make the website feel:
+
+* complete
+* professional
+* trustworthy
+* ready for real clients
+
+==================================================
+EXECUTION STYLE
+===============
+
+Do not ask questions.
+Detect missing areas automatically.
+Add content precisely where needed.
+Keep layout clean.
