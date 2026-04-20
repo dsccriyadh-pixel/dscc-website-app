@@ -24,7 +24,13 @@ export default function Sectors() {
           <Link key={s.id} href={`/sectors/${s.slug}`}>
             <Card className="group overflow-hidden hover:border-secondary transition cursor-pointer">
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={`${baseUrl}${s.image}`} alt={bi(s.name)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
+                <img
+                  src={`${baseUrl.replace(/\/$/, "")}${s.image}`}
+                  alt={bi(s.name)}
+                  className="size-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
               </div>
               <CardContent className="p-7">
                 <h2 className="font-serif text-2xl text-foreground mb-2 group-hover:text-primary">{bi(s.name)}</h2>

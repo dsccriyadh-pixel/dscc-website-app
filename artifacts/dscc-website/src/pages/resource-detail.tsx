@@ -34,7 +34,7 @@ export default function ResourceDetail() {
       <article>
         <section className="relative isolate overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <img src={`${baseUrl}${r.image}`} alt="" className="size-full object-cover" />
+            <img src={`${baseUrl.replace(/\/$/, "")}${r.image}`} alt="" className="size-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/40" />
           </div>
           <div className="container py-24 text-primary-foreground">

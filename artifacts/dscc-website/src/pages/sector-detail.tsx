@@ -29,7 +29,7 @@ export default function SectorDetail() {
 
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={`${baseUrl}${sec.image}`} alt="" className="size-full object-cover" />
+          <img src={`${baseUrl.replace(/\/$/, "")}${sec.image}`} alt="" className="size-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/40" />
         </div>
         <div className="container py-28 text-primary-foreground">
@@ -98,7 +98,7 @@ export default function SectorDetail() {
                 <Link key={p.id} href={`/projects/${p.slug}`}>
                   <Card className="overflow-hidden group hover:border-secondary transition cursor-pointer">
                     <div className="aspect-[16/9] overflow-hidden">
-                      <img src={`${baseUrl}${p.image}`} alt={bi(p.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
+                      <img src={`${baseUrl.replace(/\/$/, "")}${p.image}`} alt={bi(p.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
                     </div>
                     <CardContent className="p-5">
                       <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground mb-1">{bi(p.location)} • {p.year}</div>

@@ -55,7 +55,7 @@ export default function Projects() {
             <Link key={p.id} href={`/projects/${p.slug}`}>
               <Card className="group overflow-hidden h-full hover:border-secondary transition cursor-pointer">
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img src={`${baseUrl}${p.image}`} alt={bi(p.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
+                  <img src={`${baseUrl.replace(/\/$/, "")}${p.image}`} alt={bi(p.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
                 <CardContent className="p-5">
                   <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground mb-1.5">{bi(p.location)} • {p.year}</div>

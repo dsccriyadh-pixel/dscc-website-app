@@ -38,7 +38,7 @@ export default function ProjectDetail() {
 
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={`${baseUrl}${p.image}`} alt="" className="size-full object-cover" />
+          <img src={`${baseUrl.replace(/\/$/, "")}${p.image}`} alt="" className="size-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/75 to-primary/30" />
         </div>
         <div className="container py-28 text-primary-foreground">
@@ -97,7 +97,7 @@ export default function ProjectDetail() {
           {p.gallery.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {p.gallery.map((g, i) => (
-                <img key={i} src={`${baseUrl}${g}`} alt="" className="aspect-[4/3] w-full object-cover rounded-md border" />
+                <img key={i} src={`${baseUrl.replace(/\/$/, "")}${g}`} alt="" className="aspect-[4/3] w-full object-cover rounded-md border" />
               ))}
             </div>
           )}

@@ -24,7 +24,7 @@ export default function Resources() {
           <Link key={r.id} href={`/resources/${r.slug}`}>
             <Card className="overflow-hidden h-full group hover:border-secondary transition cursor-pointer">
               <div className="aspect-[16/9] overflow-hidden">
-                <img src={`${baseUrl}${r.image}`} alt={bi(r.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
+                <img src={`${baseUrl.replace(/\/$/, "")}${r.image}`} alt={bi(r.title)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
               </div>
               <CardContent className="p-5">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.14em] text-muted-foreground mb-2">
