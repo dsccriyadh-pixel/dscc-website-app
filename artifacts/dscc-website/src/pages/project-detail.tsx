@@ -78,7 +78,7 @@ export default function ProjectDetail() {
             <div className="space-y-5">
               {p.narratives.map((n, i) => (
                 <div key={i}>
-                  <p className="text-xs uppercase tracking-[0.14em] text-primary mb-2">cutting-edge technologies, collaborative thinking{i > 0 ? ` ${i + 1}` : ""}</p>
+                  <p className="text-xs uppercase tracking-[0.14em] text-primary mb-2">{t("common.approach")}{i > 0 ? ` ${i + 1}` : ""}</p>
                   <p className="text-foreground/85 leading-relaxed">{bi(n)}</p>
                 </div>
               ))}
@@ -117,7 +117,7 @@ export default function ProjectDetail() {
 
           <Card className="bg-primary text-primary-foreground">
             <CardContent className="p-6">
-              <h3 className="font-serif text-lg mb-3">Plan a similar project</h3>
+              <h3 className="font-serif text-lg mb-3">{t("common.plan_similar")}</h3>
               <Link href={`/quote?type=${p.sectorId}`}><Button variant="secondary" className="w-full gap-2">{t("nav.quote")} <ArrowRight className="size-4" /></Button></Link>
             </CardContent>
           </Card>

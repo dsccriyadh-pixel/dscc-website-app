@@ -47,6 +47,8 @@
     "location": "Location",
     "client": "Client",
     "summary": "Summary",
+    "approach": "Approach",
+    "plan_similar": "Plan a similar project",
     "send_via_whatsapp": "Send via WhatsApp",
     "email_us": "Email us"
   },

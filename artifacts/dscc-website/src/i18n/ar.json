@@ -50,6 +50,8 @@
     "location": "الموقع",
     "client": "العميل",
     "summary": "نظرة عامة",
+    "approach": "منهجية التنفيذ",
+    "plan_similar": "خطّط لمشروع مماثل",
     "send_via_whatsapp": "واتساب",
     "email_us": "راسلنا عبر البريد"
   },
