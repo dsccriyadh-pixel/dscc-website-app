@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en_US"  dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="canonical" href="https://dsccsaudia.com/about">
+	<link rel="icon" type="image/svg+xml" href="https://dsccsaudia.com/assets/images/fav/favicon.svg">
+	<link rel="icon" type="image/png" href="https://dsccsaudia.com/assets/images/fav/favicon.png">
+	
+    <link rel="stylesheet" href="https://dsccsaudia.com/assets/css/plugins/fontawesome/css/fontawesome_all.css">
+    <link rel="stylesheet" href="https://dsccsaudia.com/assets/css/plugins/unicons.css">
+    <link rel="stylesheet" href="https://dsccsaudia.com/assets/css/plugins/swiper.min.css">
+    <link rel="stylesheet" href="https://dsccsaudia.com/assets/css/plugins/animate.min.css">
+	
+    		<link rel="stylesheet" href="https://dsccsaudia.com/assets/css/vendor/bootstrap.min.css">
+		<link rel="stylesheet" href="https://dsccsaudia.com/assets/css/style.css?0">		
+    	
+    <!-- scripts start form hear -->
+    <script src="https://dsccsaudia.com/assets/js/vendor/jquery.min.js"></script>
+	
+    <meta name="description" content="">
+    <meta name="tags" content="">
+    
+    <title>
+            WHO WE ARE
+         -         DSCC
+    </title>
+        <script>var siteurl = "https://dsccsaudia.com"</script>
+
+</head>
+
+<body class="about index-seven hr">
+<div class="modal fade" tabindex="-1" id="GetProfile">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content p-4 pb-5">
+				<div class="modal-header border-0">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body px-3 pb-5">
+					<div class="title-area-style-six text-center mb-5">
+						<img src="https://dsccsaudia.com/assets/images/svg/getprofile.svg" alt="Get  DSCC Profile" width="160">
+						<h3 class="text-primary mt-2 mb-4 fw-normal">
+							<strong class="fw-bolder">Get</strong> DSCC Profile
+						</h3>
+						<p>
+							Enter your information to send profile to your inbox
+						</p>
+					</div>
+					<div class="rts-contact-fluid">
+                        <div class="form-wrapper">
+							<ul class="nav nav-tabs d-none" id="profileTab" role="tablist">
+								<li class="nav-item" role="presentation">
+									<button class="nav-link active" id="cr_form-tab" data-bs-toggle="tab" data-bs-target="#cr_form" type="button" role="tab" aria-controls="cr_form" aria-selected="true">Home</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="guest_form-tab" data-bs-toggle="tab" data-bs-target="#guest_form" type="button" role="tab" aria-controls="guest_form" aria-selected="false">Profile</button>
+								</li>
+							</ul>
+							<div class="tab-content" id="profileTabForm">
+								<div class="tab-pane fade show active" id="cr_form" role="tabpanel" aria-labelledby="cr-tab">
+								
+									<form id="profile-form" action="/sendProfile.php" method="post">
+										<div class="row">
+											<div class="col-md-6 mb-5">
+												<input type="text" name="name" class="mb-0" placeholder="Your Name" required data-val="true" data-val-required="Please Enter Your Name.">
+												<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="name" data-valmsg-replace="true"> </div>
+											</div>
+											<div class="col-md-6 mb-5">
+												<input type="phone" name="mobile" class="mb-0" placeholder="Mobile No."  required data-val="true" data-val-required="Please Enter Your Mobile No." pattern="[1-9]{1}[0-9]{9}">
+												<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="mobile" data-valmsg-replace="true"> </div>
+											</div>
+										</div>
+										<div class="mb-5">
+											<input type="email" name="email" class="mb-0" placeholder="Email Address" required data-val="true" data-val-required="Please Enter Your Email." data-val-email="Please Enter a Valid Email.">
+											<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="email" data-valmsg-replace="true"> </div>
+										</div>
+
+										<div class="mb-2">
+											<div class="input-group flex-nowrap mb-0">
+												<input type="number" name="crnumber" class="mb-0" placeholder="Company CR number" required minlength="10" maxlength="10"
+													required
+													data-val-required="Please Company CR Number."
+													data-val-maxlength="Max Length 10 Digits"
+													data-val-minlength="Min Length 10 Digits">
+												<div class="input-group-append">
+													<button class="btn btn-light rounded-1 validate-btn" type="button" onclick="validateCrNumber();">
+														<span class="reset">
+															Validate
+														</span>
+														<span class="loading d-none">
+															<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Validating ...
+														</span>
+													</button>
+												</div>
+											</div>
+											<span class="text-danger form-text field-validation-valid px-3" data-valmsg-for="crnumber" data-valmsg-replace="true"></span>
+										</div>
+										<div class="mb-5">
+											<input type="text" class="bg-light mb-0 ar-font" name="company_name" placeholder="Company name" required readonly required data-val="true" data-val-required="Validate Company CR Number to Enter Company Name">
+											<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="company_name" data-valmsg-replace="true"> </div>
+										</div>
+
+										<input type="hidden" name="activities" />
+										<input type="hidden" name="businessType" />
+										<input type="hidden" name="location" />
+										<input type="hidden" name="status" />
+
+										<div id="profile-form-messages"></div>
+										
+										<div class="d-flex justify-content-center flex-column flex-md-row align-items-center">
+											<button type="submit" class="rts-btn btn-primary-3 mx-2">
+												<span class="reset">
+													Send Profile
+													<i class="fa-light fa-arrow-up-right ms-2 fa-lg"></i>
+												</span>
+												<span class="loading d-none">
+													<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Sending ...
+												</span>
+											</button>
+											<a href="javascript:void(0);" onclick="$('#guest_form-tab').trigger('click');" class="rts-btn btn-primary mx-2">Register as a Guest</a>
+										</div>
+									</form>
+								
+								</div>
+								<div class="tab-pane fade" id="guest_form" role="tabpanel" aria-labelledby="guest-tab">
+									<form id="profile_guest_form" action="/sendProfileRequest.php" method="post">
+										<div class="row">
+											<div class="col-md-6 mb-5">
+												<input type="text" name="name" class="mb-0" placeholder="Your Name" required data-val="true" data-val-required="Please Enter Your Name.">
+												<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="name" data-valmsg-replace="true"> </div>
+											</div>
+											<div class="col-md-6 mb-5">
+												<input type="phone" name="mobile" class="mb-0" placeholder="Mobile No."  required data-val="true" data-val-required="Please Enter Your Mobile No." pattern="[1-9]{1}[0-9]{9}">
+												<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="mobile" data-valmsg-replace="true"> </div>
+											</div>
+										</div>
+										<div class="mb-5">
+											<input type="email" name="email" class="mb-0" placeholder="Email Address" required data-val="true" data-val-required="Please Enter Your Email." data-val-email="Please Enter a Valid Email.">
+											<div class="text-danger form-text field-validation-valid px-3" data-valmsg-for="email" data-valmsg-replace="true"> </div>
+										</div>
+
+										<div id="guest-form-messages"></div>
+										
+										<div class="d-flex justify-content-center flex-column flex-md-row align-items-center">
+											<button type="submit" class="rts-btn btn-primary-3 mx-2">
+												<span class="reset">
+													Send Request
+													<i class="fa-light fa-arrow-up-right ms-2 fa-lg"></i>
+												</span>
+												<span class="loading d-none">
+													<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Sending ...
+												</span>
+											</button>
+											<a href="javascript:void(0);" onclick="$('#cr_form-tab').trigger('click');" class="rts-btn btn-primary mx-2">Register as a Company</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer border-0 justify-content-center">
+					<span class="fw-light">
+						Having Problem ?
+						<a target="_blank" class="d-inline-block mx-2 fw-bold text-success" href="https://api.whatsapp.com/send?phone=966559846519&text=I'm%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"><i class="fa-brands fa-whatsapp fa-lg"></i> Click here</a>
+						to get help
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- start header area -->
+    <header class="header--sticky header-one six">
+        <div class="header-main-one">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
+                        <div class="thumbnail">
+                            <a href="https://dsccsaudia.com">
+                                <img src="https://dsccsaudia.com/assets/images/svg/logo_light.svg" alt="DSCC-logo" class="sticky-hidden" width="193">
+								<img src="https://dsccsaudia.com/assets/images/svg/logo.svg" alt="DSCC-logo" class="sticky-visible" width="156">
+                            </a>
+                        </div>
+                    </div>
+                    <div class=" col-xl-8 col-lg-8 col-md-6 col-sm-6 col-6">
+                        <div class="main-header">
+                            <nav class="nav-main mainmenu-nav d-none d-xl-block">
+                                <ul class="mainmenu">
+                                    
+	<li class="nav-item" class=" current-menu-item "> 
+		<a href="https://dsccsaudia.com/about">WHO WE ARE</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/service">OUR SOLUTIONS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/projects">PROJECTS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="#WhoWithUs">WHO WITH US</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/contact">GET IN TOUCH</a>
+</li>
+																																																															<li><a class="nav-item ar-font langchangelink" href="#" data-lang-code="ar">العربية</a></li>
+																														                                </ul>
+                            </nav>
+                            <div class="button-area">
+																	<a href="https://dsccsaudia.com/contact" class="rts-btn btn-primary ml--5 ml_sm--5 header-one-btn quote-btn">REQUEST QUOTE</a>
+								                                <button id="menu-btn" class="menu rts-btn btn-primary-alta ml--20 ml_sm--5 d-flex d-xl-none">
+                                    <img class="menu-dark" src="https://dsccsaudia.com/assets/images/icon/menu.png" alt="Menu-icon">
+                                    <img class="menu-light" src="https://dsccsaudia.com/assets/images/icon/menu-light.png" alt="Menu-icon">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End header area -->
+	
+    <div id="anywhere-home"></div>
+    <div id="side-bar" class="side-bar">
+        <button class="close-icon-menu"><i class="far fa-times"></i></button>
+        <!-- inner menu area desktop start -->
+        <div class="rts-sidebar-menu-desktop">
+            <a class="logo-1" href="index.html"><img class="logo" src="https://dsccsaudia.com/assets/images/svg/logo.svg" alt="DSCC_logo" width="193"></a>
+            
+            <div class="body-mobile d-block d-xl-none">
+                <nav class="nav-main mainmenu-nav">
+                    <ul class="mainmenu">
+						
+	<li class="nav-item" class=" current-menu-item "> 
+		<a href="https://dsccsaudia.com/about">WHO WE ARE</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/service">OUR SOLUTIONS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/projects">PROJECTS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="#WhoWithUs">WHO WITH US</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/contact">GET IN TOUCH</a>
+</li>
+																																													<li><a class="nav-item ar-font langchangelink" href="#" data-lang-code="ar">العربية</a></li>
+																					                    </ul>
+                </nav>
+									<a href="https://dsccsaudia.com/contact" class="rts-btn btn-primary ml--20 ml_sm--5 header-one-btn quote-btnmenu btn-block">REQUEST QUOTE</a>
+				            </div>
+        </div>
+        <!-- inner menu area desktop End -->
+    </div>
+    <!-- ENd Header Area --><!-- start breadcrumb area -->
+    <div class="rts-breadcrumb-area breadcrumb-bg bg_image
+         	">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 breadcrumb-1">
+					<h6 class="text-white mb-0 fw-light">
+													<a href="https://dsccsaudia.com" class="text-white"><i class="fa-solid fa-arrow-left me-3"></i> Home</a> 
+												
+					</h6>
+                    <h1 class="title fw-light"><strong><b>    WHO WE ARE
+</b></strong></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb area -->
+
+
+
+    <div class="bg-shape-wrapper-inner">
+        <!-- rts about area start -->
+        <div class="rts-about-area-start rts-section-gap">
+            <div class="container">
+				<div class="rts-section-gapBottom">
+				
+					<div class="row g-5 align-items-center">
+						<div class="col-lg-4">
+							<div class="about-image-v-inner">
+								<div class="image-area">
+									<img class="img-1" src="https://dsccsaudia.com/assets/images/about/who_dscc.jpg" alt="BUsiness_image">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="about-progress-inner">
+								<div class="title-area">
+									<span class="text-secondary fs-3 fw-bold">OUR MESSAGE</span>
+									<h2 class="title text-capitalize text-primary fw-bolder">
+										DSCC .. creativity, Functionality and architectural excellence
+									</h2>
+								</div>
+								<!-- inner start -->
+								<div class="inner">
+									<p class="disc text-capitalize">
+										Welcome to DSCC Innovative One Stop Fit Out Solutions, where we believe that One Stop Fit Out Solutions is not just about structures; it's about creating inspiring spaces that push the boundaries of design, function, and innovation. With a passion for reimagining the built environment, we are committed to crafting architectural solutions that captivate, inspire, and transform.
+									</p>
+								</div>
+								<!-- end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="title-area-style-six text-start">
+							<h5 class="m-0 text-secondary">OUR TEAMS</h5>
+                            <h2 class="title fw-light mb-4 text-primary">
+                                <strong class="fw-bolder">DSCC</strong> Specialized Teams
+                            </h2>
+                        </div>
+                        <div class="about-content-inner-style-six mt-5 pt-5">
+							<div class="row g-4 row-cols-lg-5">
+								<div class="col-lg">
+									<div class="card h-100 rounded-2 p-4 shadow">
+										<div class="card-body d-flex text-center align-items-center">
+											<div class="flex-grow-1">
+												<h5 class="mb-0 text-primary py-4 fw-normal">
+													<b class="fw-bolder">Architecture</b><br/>
+													Team
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg">
+									<div class="card h-100 rounded-2 p-4 shadow">
+										<div class="card-body d-flex text-center align-items-center">
+											<div class="flex-grow-1">
+												<h5 class="mb-0 text-primary py-4 fw-normal">
+													<b class="fw-bolder">Interior Design</b><br/>
+													Team
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg">
+									<div class="card h-100 rounded-2 p-4 shadow">
+										<div class="card-body d-flex text-center align-items-center">
+											<div class="flex-grow-1">
+												<h5 class="mb-0 text-primary py-4 fw-normal">
+													<b class="fw-bolder">Engineering</b><br/>
+													Team
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg">
+									<div class="card h-100 rounded-2 p-4 shadow">
+										<div class="card-body d-flex text-center align-items-center">
+											<div class="flex-grow-1">
+												<h5 class="mb-0 text-primary py-4 fw-normal">
+													<b class="fw-bolder">Project Management</b><br/>
+													Team
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg">
+									<div class="card h-100 rounded-2 p-4 shadow">
+										<div class="card-body d-flex text-center align-items-center">
+											<div class="flex-grow-1">
+												<h5 class="mb-0 text-primary py-4 fw-normal">
+													<b class="fw-bolder">Execution</b><br/>
+													Team
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- rts about area end -->
+    </div>
+
+
+    <!-- start client area -->
+    <div class="rts-client-area ptb--100 client-bg">
+        <div class="container">
+            <div class="row mb--30 align-items-center g-5">
+                <div class="col-lg-3">
+					<div class="about-image-v-inner">
+						<div class="image-area">
+							<img class="img-1 rounded-0" src="https://dsccsaudia.com/assets/images/about/brand.svg" alt="DSCC Brand">
+						</div>
+					</div>
+				</div>
+                <div class="col-lg-9">
+					<div class="title-area-style-six">
+						<h5 class="m-0 text-secondary">
+							OUR LOGO
+						</h5>
+						<h4 class="title text-primary fw-bolder mb-5">
+							Brand to reflect our Message
+						</h4>
+					</div>
+					<h6>
+						DSCC logo is reflection of our company philosophy and what we believe, who we are, what we bring values for the society :
+					</h6>
+					<ul class="liststyle ps-0">
+						<li>
+							the base is the earth soil, for this it should be the black color, this layer is our company land foundation and our believe seeds were planted into: contacting for empower values, more values we can add to our clients and empower them, our soil will become more rich to grow the seeds into tree the into forest
+						</li>
+						<li>
+							second layer DSCC is in green color because we consider our company as one of the tree in the forest, if we are able to survive and live healthy, we must grow toward to the bright sunlight, means we must engage a bright legal business under the sunshine, we must absorb the positive energy and continue absorb nutritious from our land to grow bigger and bigger and become a prosperous forest in the end and contribute for the society
+						</li>
+						<li>
+							the third layer is sunshine symbol , means bright business, positive energy, blossom future, it is made of many files and books, means we must have system work flow and always learn more, u can also consider it as stairs, we believe continuous grow and move forward practical walk steps by steps, different color means different stages, continuous land touch efforts will accumulate our power to reach our targets
+						</li>
+					</ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- start client area End -->
+	
+    <!-- rts Projects area start -->
+    <div class="rts-portfolio-area rts-section-gap">
+        <div class="container">
+			<div class="row g-5 mt--30">
+				<div class="col-lg-12">
+					<div class="row g-5 align-items-center">
+						<div class="col-lg-4 col-md-6">
+							<div class="about-image-v-inner">
+								<div class="image-area">
+									<img class="img-1" src="https://dsccsaudia.com/assets/images/about/mission.jpg" alt="Our Mission">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-8 col-md-6">
+							<div class="about-progress-inner">
+								<div class="title-area">
+									<span class="text-secondary fs-3 fw-bold">OUR MISSION</span>
+									<h4 class="title text-capitalize text-primary fw-bolder">
+										to redefine the possibilities of One Stop Fit Out Solutions through innovation and creativity
+									</h4>
+								</div>
+								<!-- inner start -->
+								<div class="inner">
+									<p class="disc text-capitalize">
+										At DSCC, our mission is simple yet profound: to redefine the possibilities of One Stop fit out solution through innovation and creativity. We strive to challenge conventional norms and explore uncharted territories in architectural design, all while maintaining a deep respect for cultural heritage, sustainability, and the unique needs of each project.
+									</p>
+								</div>
+								<!-- end -->
+							</div>
+						</div>
+					</div>
+					<div class="row g-5 align-items-center mt--50">
+						<div class="col-lg-8 col-md-6">
+							<div class="about-progress-inner">
+								<div class="title-area">
+									<span class="text-secondary fs-3 fw-bold">OUR APPROACH</span>
+									<h4 class="title text-capitalize text-primary fw-bolder">
+										cutting-edge technologies, collaborative thinking
+									</h4>
+								</div>
+								<!-- inner start -->
+								<div class="inner">
+									<p class="disc text-capitalize">
+										Our approach is rooted in the fusion of innovation and One Stop Fit Out Solutions. We leverage cutting-edge technologies, collaborative thinking, and a deep understanding of spatial dynamics to craft designs that are as functional as they are visually striking. From conceptualization to realization, every project is a testament to our dedication to pushing the boundaries of architectural imagination.
+									</p>
+								</div>
+								<!-- end -->
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="about-image-v-inner">
+								<div class="image-area">
+									<img class="img-1" src="https://dsccsaudia.com/assets/images/about/approch.jpg" alt="Our Approach">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <!-- rts Projects area end -->
+	
+    <!-- rts counter up section area -->
+    <div class="pb--120 pb_md--80 pb_sm--60 rts-counter-up-area rts-section-gapTop bg-white">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="counter-wrapper-two">
+                        <div class="single-counter">
+                            <img src="https://dsccsaudia.com/assets/images/svg/icons/total_projects.svg" alt="Total Projects">
+                            <div class="counter-details">
+                                <h2 class="title"><span class="counter animated fadeInDownBig">3250</span></h2>
+                                <p class="disc">Total Projects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="counter-wrapper-two">
+                        <div class="single-counter">
+                            <img src="https://dsccsaudia.com/assets/images/svg/icons/architects.svg" alt="Architects">
+                            <div class="counter-details">
+                                <h2 class="title"><span class="counter animated fadeInDownBig">425</span></h2>
+                                <p class="disc">Visionary Architects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="counter-wrapper-two">
+                        <div class="single-counter">
+                            <img src="https://dsccsaudia.com/assets/images/svg/icons/locations.svg" alt="Locations">
+                            <div class="counter-details">
+                                <h2 class="title"><span class="counter animated fadeInDownBig">38</span></h2>
+                                <p class="disc">Company locations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="counter-wrapper-two">
+                        <div class="single-counter">
+                            <img src="https://dsccsaudia.com/assets/images/svg/icons/clients.svg" alt="Clients">
+                            <div class="counter-details">
+                                <h2 class="title"><span class="counter animated fadeInDownBig">7430</span></h2>
+                                <p class="disc">Salified Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- rts counter up section area -->
+	
+    <div class="rts-portfolio-area rts-section-gap">
+        <!-- rts Solutions area start -->
+        <div class="">
+            <div class="container">
+                <div class="row gy-5 align-items-center justify-content-center">
+                    <div class="col-12 col-lg-6">
+                        <div class="title-area-style-six text-center">
+                            <h3 class="text-primary mb-5 fw-light">
+                                <strong class="fw-bolder">Join Us</strong> on this Journey
+                            </h3>
+							<p class="fw-light text-capitalize">
+								Connect with us today to explore how DSCC Innovative One Stop Fit Out Solutions can transform your vision into reality.
+							</p>
+                        </div>
+                    </div>
+					<div class="col-12 rts-contact-fluid">
+						<div class="d-flex justify-content-center flex-column flex-md-row align-items-center">
+							<a href="https://dsccsaudia.com/contact" class="rts-btn btn-secondary mx-2">
+								Lets Contact Now
+								<i class="fa-light fa-arrow-up-right ms-2 fa-lg"></i>
+							</a>
+							<a href="https://api.whatsapp.com/send?phone=966559846519&text=I'm%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" class="rts-btn btn-primary-4 mx-2">
+								What's App chat
+								<i class="fa-brands fa-whatsapp ms-2 fa-lg"></i>
+							</a>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <!-- rts Solutions area end -->
+	</div>
+		
+
+
+<footer class="rts-footer-area footer-one bg-footer-one">
+	<div class="container bg-shape-f1">
+		<div class="row align-items-center py-5 justify-content-between">
+			<div class="col-lg-2">
+				<img src="../assets/images/svg/logo_light.svg" alt="DSCC-logo" class="sticky-hidden" width="163">
+			</div>
+			<div class="col-lg-10">
+								<nav class="navbar navbar-dark">
+					<ul class="navbar-nav flex-column flex-lg-row flex-wrap">
+						
+	<li class="nav-item" class=" current-menu-item "> 
+		<a href="https://dsccsaudia.com/about">WHO WE ARE</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/service">OUR SOLUTIONS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/projects">PROJECTS</a>
+</li>
+	<li class="nav-item" > 
+		<a href="#WhoWithUs">WHO WITH US</a>
+</li>
+	<li class="nav-item" > 
+		<a href="https://dsccsaudia.com/contact">GET IN TOUCH</a>
+</li>
+					</ul>
+					<ul class="social-wrapper-one d-block d-md-flex">
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://www.facebook.com/profile.php?id=100093187917575"><i class="fa-brands fa-facebook-f"></i></a></li>
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://www.tiktok.com/@dsccsaudia"><i class="fab fa-tiktok"></i></a></li>
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://twitter.com/dsccsaudia"><i class="fa-brands fa-twitter"></i></a></li>
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://api.whatsapp.com/send?phone=966559846519&text=I'm%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"><i class="fa-brands fa-whatsapp"></i></a></li>
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://www.instagram.com/dsccsaudia"><i class="fa-brands fa-instagram"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+
+	<!-- copyright area start -->
+	<div class="rts-copyright-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="d-flex gap-5 justify-content-between">
+						<p>All Rights Reserved to <b>DSCC</b> &copy;  2026</p>
+						<p>Powered By <a href="https://www.imaunited.com/" target="_blank"><b>IMAUnited</b></a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- copyright area end -->
+</footer>
+
+<!-- start loader -->
+<div class="loader-wrapper">
+	<div class="loader">
+	</div>
+	<div class="loader-section section-left"></div>
+	<div class="loader-section section-right"></div>
+</div>
+<!-- End loader -->
+
+<!-- progress Back to top -->
+<div class="progress-wrap">
+	<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+	</svg>
+</div>
+<!-- progress Back to top End -->
+
+<!-- scripts start form hear -->
+<script src="https://dsccsaudia.com/assets/js/vendor/jqueryui.js"></script>
+<script src="https://dsccsaudia.com/assets/js/vendor/waypoint.js"></script>
+<script src="https://dsccsaudia.com/assets/js/vendor/isotope.pkgd.min.js"></script>
+<script src="https://dsccsaudia.com/assets/js/plugins/swiper.js"></script>
+<script src="https://dsccsaudia.com/assets/js/plugins/counterup.js"></script>
+<script src="https://dsccsaudia.com/assets/js/plugins/sal.min.js"></script>
+<script src="https://dsccsaudia.com/assets/js/vendor/bootstrap.min.js"></script>
+<script src="https://dsccsaudia.com/assets/js/vendor/jquery.validate.min.js"></script>
+<script src="https://dsccsaudia.com/assets/js/vendor/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://dsccsaudia.com/assets/js/plugins/contact.form.js"></script>
+<script src="https://dsccsaudia.com/assets/js/plugins/profile.form.js"></script>
+
+<!-- main Js -->
+<script src="https://dsccsaudia.com/assets/js/main.js"></script>
+
+<script>
+    //Home Addvertisement Click Store
+    $(document).on('click','.home_advertisement',function(){
+        let id = $('#add_id').val();
+        $.ajax({
+            url : "https://dsccsaudia.com/home/advertisement/click/store",
+            type: "GET",
+            data:{
+                'id':id
+            },
+            success:function (data){
+                console.log(data);
+            }
+        })
+    });
+
+    //Home Addvertisement Click Store
+    $(document).on('mouseover','.home_advertisement',function(){
+        let id = $('#add_id').val();
+        $.ajax({
+            url : "https://dsccsaudia.com/home/advertisement/impression/store",
+            type: "GET",
+            data:{
+                'id':id
+            },
+            success:function (data){
+                console.log(data);
+            }
+        })
+    });
+</script>
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    (function ($) {
+        "use strict";
+
+        var allProgress = $('.donation-progress');
+        $.each(allProgress, function (index, value) {
+            $(this).rProgressbar({
+                percentage: $(this).data('percent'),
+                fillBackgroundColor: "#921b43"
+            });
+        })
+
+                $(window).on('scroll', function () {
+
+            if ($(window).width() > 992) {
+                /*--------------------------
+                sticky menu activation
+               -------------------------*/
+                var st = $(this).scrollTop();
+                var mainMenuTop = $('.navbar-area');
+                if ($(window).scrollTop() > 1000) {
+                    // active sticky menu on scrollup
+                    mainMenuTop.addClass('nav-fixed');
+                } else {
+                    mainMenuTop.removeClass('nav-fixed ');
+                }
+            }
+        });
+                $(document).on('change', '.search-form-warp', function (e) {
+            e.preventDefault();
+            var el = $(this);
+            var searchType = $('#search_popup_search_type').val();
+            if (searchType == 'blog') {
+                el.attr('action', "https://dsccsaudia.com/blog-search");
+                el.find('.search-field').attr('name', 'search');
+            } else if (searchType == 'event') {
+                el.attr('action', "https://dsccsaudia.com/events-search");
+                el.find('.search-field').attr('name', 'search');
+            } else if (searchType == 'knowledgebase') {
+                el.attr('action', "https://dsccsaudia.com/knowledgebase-search");
+                el.find('.search-field').attr('name', 'search');
+            } else if (searchType == 'product') {
+                el.attr('action', "https://dsccsaudia.com/products");
+                el.find('.search-field').attr('name', 'q');
+            }
+
+        });
+        $(document).on('change', '#langchange', function (e) {
+            $.ajax({
+                url: "https://dsccsaudia.com/lang",
+                type: "GET",
+                data: {
+                    'lang': $(this).val()
+                },
+                success: function (data) {
+                    window.location = "https://dsccsaudia.com";
+                }
+            })
+        });
+        $(document).on('click', '.langchangelink', function (e) {
+			$('body').removeClass('loaded');
+            $.ajax({
+                url: "https://dsccsaudia.com/lang",
+                type: "GET",
+                data: {
+                    'lang': $(this).data("lang-code")
+                },
+                success: function (data) {
+                    window.location = "https://dsccsaudia.com";
+                }
+            })
+        });
+        $(document).on('click', '.newsletter-form-wrap .submit-btn', function (e) {
+            e.preventDefault();
+            var email = $('.newsletter-form-wrap input[type="email"]').val();
+            $('.newsletter-widget .form-message-show').html('');
+
+            $.ajax({
+                url: "https://dsccsaudia.com/subscribe-newsletter",
+                type: "POST",
+                data: {
+                    _token: "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                    email: email
+                },
+                success: function (data) {
+                    $('.newsletter-widget .form-message-show').html('<div class="alert alert-success">' + data + '</div>');
+                },
+                error: function (data) {
+                    var errors = data.responseJSON.errors;
+                    $('.newsletter-widget .form-message-show').html('<div class="alert alert-danger">' + errors.email[0] + '</div>');
+                }
+            });
+        });
+
+        $(document).on('submit', '.custom-form-builder-form', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var formID = form.attr('id');
+            var msgContainer =  form.find('.error-message');
+            var formSelector = document.getElementById(formID);
+            var formData = new FormData(formSelector);
+            msgContainer.html('');
+            $.ajax({
+                url: "https://dsccsaudia.com/submit-custom-form",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                },
+                beforeSend:function (){
+                    form.find('.ajax-loading-wrap').addClass('show').removeClass('hide');
+                },
+                processData: false,
+                contentType: false,
+                data:formData,
+                success: function (data) {
+                    form.find('.ajax-loading-wrap').removeClass('show').addClass('hide');
+                    msgContainer.html('<div class="alert alert-'+data.type+'">' + data.msg + '</div>');
+                },
+                error: function (data) {
+                    form.find('.ajax-loading-wrap').removeClass('show').addClass('hide');
+                    var errors = data.responseJSON.errors;
+                    var markup = '<ul class="alert alert-danger">';
+                    $.each(errors,function (index,value){
+                        markup += '<li>'+value+'</li>';
+                    })
+                    markup += '</ul>';
+                    msgContainer.html(markup);
+                }
+            });
+        });
+/*
+		var $solutionsGrid = $('.solution-grid').isotope({
+			// options
+			itemSelector: '.solution-item',
+			layoutMode: 'fitRows',
+			percentPosition: true,
+			fitRows: {
+				equalheight: true
+			},
+			filter: '*'
+		});
+		// filter items on button click
+		$('.filter-button-group').on( 'click', 'button', function() {
+			$('.filter-button-group .active').removeClass('active');
+			$(this).addClass('active');
+			var filterValue = $(this).attr('data-filter');
+			$solutionsGrid.isotope({ filter: filterValue });
+		});*/
+
+    }(jQuery));
+</script>
+
+
+
+
+
+<script>
+    (function () {
+        "use strict";
+
+        $(document).on('click','.ajax_add_to_cart_with_icon_product_slider_addon',function (e) {
+            e.preventDefault();
+            var allData = $(this).data();
+            var el = $(this);
+            $.ajax({
+                url : "https://dsccsaudia.com/products-item/ajax/add-to-cart",
+                type: "POST",
+                data: {
+                    _token : "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                    'product_id' : allData.product_id,
+                    'quantity' : allData.product_quantity,
+                },
+                beforeSend: function(){
+                    el.html('<i class="fas fa-spinner fa-spin mr-1"></i> ');
+                },
+                success: function (data) {
+                    el.html('<i class="fa fa-shopping-bag" aria-hidden="true"></i>'+"Add To Cart");
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.success(data.msg);
+                    el.html('<i class="fas fa-shopping-cart"></i>');
+                    $('.home-page-21-cart-icon-top').text(data.total_cart_item);
+                    $('.cart_global .pcount').text(data.total_cart_item);
+                }
+            });
+        });
+
+
+    })(jQuery);
+</script><script>
+    (function () {
+        "use strict";
+
+        $(document).on('click','.ajax_add_to_wishlist_with_icon_addon_product_slider',function (e) {
+
+            e.preventDefault();
+            var allData = $(this).data();
+            var el = $(this);
+            $.ajax({
+                url : "https://dsccsaudia.com/products-item/ajax/add-to-wishlist",
+                type: "POST",
+                data: {
+                    _token : "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                    'product_id' : allData.product_id,
+                },
+                beforeSend: function(){
+                    el.html('<i class="fas fa-spinner fa-spin mr-1"></i> ');
+                },
+                success: function (data) {
+                    el.html('<i class="fa fa-shopping-bag" aria-hidden="true"></i>'+"Add To Cart");
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.success(data.msg);
+                    el.html('<i class="fas fa-heart"></i>');
+                    $('.home-page-21-wishlist-icon-top').text(data.total_wishlist_item);
+                }
+            });
+        });
+
+
+    })(jQuery);
+</script>
+<script>
+    $(document).on('click','.addon_product_slider_quick_view',function(){
+        let el = $(this);
+        quick_view_data(el);
+    });
+
+    function quick_view_data(el)
+    {
+        let modal = $('.quick_view_modal');
+
+        modal.find('.add_cart_from_quick_view').attr('data-product_id',el.data('id'));
+        modal.find('.add_cart_from_quick_view').attr('data-product_title',el.data('title'));
+
+        modal.find('.product-title').text(el.data('title'));
+        modal.find('.title').text(el.data('title'));
+        modal.find('.availability').text(el.data('in_stock'));
+        modal.find('.image_category').text(el.data('category'));
+        modal.find('.sale_price').text(el.data('sale_price'));
+        modal.find('.regular_price').text(el.data('regular_price'));
+        modal.find('.short_description').text(el.data('short_description'));
+        modal.find('.product_category').text(el.data('category'));
+        modal.find('.product_subcategory').text(el.data('subcategory'));
+        modal.find('.img_con').attr('src',el.data('image'));
+        modal.find('.ajax_add_to_cart_with_icon').data('src',el.data('image'));
+    }
+
+    $(document).on('keyup change','#quantity_single_quick_view_btn',function(){
+        let modal = $('.quick_view_modal');
+        let el = $(this).val();
+        modal.find('.add_cart_from_quick_view').attr('data-product_quantity',el);
+    });
+</script><div class="modal fade home-variant-19 quick_view_modal" id="quick_view" tabindex="-1" role="dialog" aria-labelledby="productModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content p-5">
+            <div class="quick-view-close-btn-wrapper">
+                <button class="quick-view-close-btn close" data-dismiss="modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product_details">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="product-view-wrap product-img">
+                                    <ul class="other-content">
+                                        <li>
+                                            <span class="badge-tag image_category"></span>
+                                        </li>
+                                    </ul>
+                                    <img src="" alt="" class="img_con">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <div class="product-summery">
+                                    <!-- <span class="product-meta pricing">
+                                         <span id="unit">1</span> <span id="uom">Piece</span>
+                                    </span> -->
+                                    <h3 class="product-title title"></h3>
+                                    <div>
+                                        <span class="availability is_available text-success"></span>
+                                    </div>
+                                    <div class="price-wrap">
+                                        <span class="price sale_price font-weight-bold"></span>
+                                        <del class="del-price del_price regular_price"></del>
+                                    </div>
+                                    <div class="rating-wrap ratings" style="display: none">
+                                        <i class="fa fa-star icon"></i>
+                                        <i class="fa fa-star icon"></i>
+                                        <i class="fa fa-star icon"></i>
+                                        <i class="fa fa-star icon"></i>
+                                        <i class="fa fa-star icon"></i>
+                                    </div>
+                                    <div class="short-description">
+                                        <p class="info short_description"></p>
+                                    </div>
+                                    <div class="cart-option"><div class="user-select-option">
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="input-group">
+                                                <input class="quantity form-control" type="number" min="1" max="10000000" value="1" id="quantity_single_quick_view_btn">
+                                            </div>
+                                            <div class="btn-wrapper">
+                                                <a href="#" data-attributes="[]"
+                                                   class="btn-default rounded-btn add-cart-style-02 add_cart_from_quick_view ajax_add_to_cart"
+                                                   data-product_id=""
+                                                   data-product_title=""
+                                                   data-product_quantity=""
+                                                >
+                                                    Add to cart
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="category">
+                                        <p class="name">Category: </p>
+                                        <a href="" class="product_category"></a>
+                                    </div>
+                                    <div class="product-details-tag-and-social-link">
+                                        <div class="tag d-flex">
+                                            <p class="name">Subcategory:  </p>
+                                            <div class="subcategory_container">
+                                                <a href="" class="tag-btn product_subcategory" rel="tag"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    (function () {
+        "use strict";
+
+        $(document).on('click','.ajax_add_to_cart_with_icon',function (e) {
+            e.preventDefault();
+            var allData = $(this).data();
+            var el = $(this);
+            $.ajax({
+                url : "https://dsccsaudia.com/products-item/ajax/add-to-cart",
+                type: "POST",
+                data: {
+                    _token : "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                    'product_id' : allData.product_id,
+                    'quantity' : allData.product_quantity,
+                },
+                beforeSend: function(){
+                    el.html('<i class="fas fa-spinner fa-spin mr-1"></i> ');
+                },
+                success: function (data) {
+                    el.html('<i class="fa fa-shopping-bag" aria-hidden="true"></i>'+"Add To Cart");
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.success(data.msg);
+                    el.html('<i class="fas fa-shopping-cart"></i>');
+                    $('.home-page-21-cart-icon-top').text(data.total_cart_item);
+                    $('.cart_global .pcount').text(data.total_cart_item);
+                }
+            });
+        });
+
+
+    })(jQuery);
+</script><script>
+    (function () {
+        "use strict";
+
+        $(document).on('click','.ajax_add_to_wishlist_with_icon',function (e) {
+
+            e.preventDefault();
+            var allData = $(this).data();
+            var el = $(this);
+            $.ajax({
+                url : "https://dsccsaudia.com/products-item/ajax/add-to-wishlist",
+                type: "POST",
+                data: {
+                    _token : "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                    'product_id' : allData.product_id,
+                },
+                beforeSend: function(){
+                    el.html('<i class="fas fa-spinner fa-spin mr-1"></i> ');
+                },
+                success: function (data) {
+                    el.html('<i class="fa fa-shopping-bag" aria-hidden="true"></i>'+"Add To Cart");
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.success(data.msg);
+                    el.html('<i class="fas fa-heart"></i>');
+                    $('.home-page-21-wishlist-icon-top').text(data.total_wishlist_item);
+                }
+            });
+        });
+
+
+    })(jQuery);
+</script>
+
+
+<script>
+    $(document).on('click','.product-variant-list li',function (){
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var price = $(this).data('price');
+        var termprice = $(this).data('termprice');
+        $('.quick_view_sale_price').text(termprice);
+        var allSelectedValue = $('.product-variant-list li.selected');
+        var variantVal = [];
+        $.each(allSelectedValue,function (index,value){
+            var elData = $(this).data();
+            variantVal.push({
+                'variantID' : elData.variantid,
+                'variantName' : elData.variantname,
+                'term' : elData.term,
+                'price' :  elData.price =! 'undefined' ? elData.price : '',
+            })
+        });
+
+        $(".add_cart_from_quick_view").attr("data-selected-variant", JSON.stringify(variantVal))
+        $('input[name="product_variants"]').val(JSON.stringify(variantVal));
+    });
+
+    $(document).on('click','.add_cart_from_quick_view',function (e){
+        e.preventDefault();
+        
+        var variants = $('.product-variant-list').length;
+        var variantSelected = $('.product-variant-list li.selected').length;
+     
+        if(variants != variantSelected){
+            $(this).parent().parent().append('<br><p class="text-danger">Select Product Variants</p>');
+        }else {
+            hit_ajax_for_add_to_cart(this);
+        }
+    });
+
+
+    function hit_ajax_for_add_to_cart(element){
+        var allData = $(element).data();
+        var el = $(element);
+        $.ajax({
+            url : "https://dsccsaudia.com/products-item/add-to-cart",
+            type: "POST",
+            data: {
+                _token : "tkXl4UQIQ9ifEsLGRgxwAGgpIREWs1k7nrq41DP2",
+                'product_id' : allData.product_id,
+                'quantity' : allData.product_quantity,
+                'product_variants' : $(element).attr("data-selected-variant")
+            },
+            beforeSend: function(){
+                el.text("Adding");
+            },
+            success: function (data) {
+                el.html('<i class="fa fa-shopping-bag" aria-hidden="true"></i>'+"Add To Cart");
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr.success('Product added to cart');
+                $('.navbar-area .nav-container .nav-right-content ul li.cart .pcount').text(data.total_cart_item);
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>

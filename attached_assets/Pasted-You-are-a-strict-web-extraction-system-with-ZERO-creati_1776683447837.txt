@@ -1,0 +1,514 @@
+You are a strict web extraction system with ZERO creative freedom.
+
+Your task is to extract and reuse ALL original visual assets, branding elements, hero content, projects content, services content, icons, client logos, partner logos, contact information, and social links EXACTLY as they exist on this website:
+https://dsccsaudia.com/
+and especially from this services page:
+https://dsccsaudia.com/service
+
+This is NOT a design task.
+This is NOT a rewriting task.
+This is NOT a branding task.
+
+This is:
+EXTRACT → PRESERVE → ORGANIZE → REUSE
+
+==================================================
+CRITICAL RULES (NON-NEGOTIABLE)
+===============================
+
+* Do NOT invent anything
+* Do NOT redesign anything
+* Do NOT generate new images
+* Do NOT use stock assets
+* Do NOT rewrite text
+* Do NOT modify brand identity
+* Do NOT replace logos
+* Do NOT guess missing data
+* Do NOT paraphrase service text
+* Do NOT paraphrase project text
+* Do NOT rename service tabs or categories
+* Do NOT rename project tabs or categories
+* Do NOT fix grammar in extracted text
+* Do NOT fix spelling in extracted text
+
+If something is missing → report it
+Do NOT create a replacement
+
+==================================================
+MISSION
+=======
+
+Extract and reuse EXACTLY:
+
+1. Logo
+2. Hero images
+3. Hero marketing text (exact wording)
+4. All site images
+5. Project images
+6. Project text content
+7. Project tabs / categories / filters
+8. Services page content
+9. Services tabs / categories / filters
+10. Service cards/items
+11. Service page icons
+12. Service page images
+13. Icons across the website
+14. Client logos
+15. Partner logos
+16. Contact information
+17. Social media links
+18. Brand color identity
+
+==================================================
+HERO SECTION (STRICT)
+=====================
+
+For EACH hero slide:
+
+Extract:
+
+* image
+* headline (EXACT TEXT)
+* subheadline (EXACT TEXT)
+* CTA text (EXACT TEXT)
+
+Rules:
+
+* copy text EXACTLY (even if wrong)
+* do NOT fix grammar
+* do NOT rephrase
+
+Create:
+hero-slides.json
+
+==================================================
+SERVICES PAGE (VERY IMPORTANT)
+==============================
+
+Extract ALL services-related content exactly as it appears from:
+https://dsccsaudia.com/service
+
+A. SERVICES PAGE HEADINGS
+Extract EXACTLY:
+
+* page title
+* section headings
+* breadcrumb text
+* CTA text if present
+
+B. SERVICE TABS / FILTERS / CATEGORIES
+Extract EXACTLY:
+
+* all tab names
+* all filter labels
+* all category labels
+* all grouping labels
+* all section headings related to service navigation
+
+Preserve order EXACTLY as shown on the source page.
+
+Examples may include labels such as:
+
+* All Soultions
+* Residential
+* Infrastructure
+* Commercial
+* Hospitality
+
+Rules:
+
+* copy labels exactly
+* preserve spelling exactly
+* preserve order exactly
+* do NOT rename tabs
+* do NOT reorganize categories creatively
+
+C. SERVICE ITEMS / CARDS
+For each visible service item, extract EXACTLY:
+
+* service title
+* service URL/link
+* associated icon if any
+* associated image if any
+* associated category/tab if detectable
+* any short description if visible
+* any CTA text if visible
+
+D. SERVICE PAGE IMAGES
+Extract:
+
+* all service card images
+* all service-related thumbnails
+* all background visuals used in services page
+* all service detail page images if linked and accessible
+
+E. SERVICE PAGE ICONS
+Extract:
+
+* icons used in service cards
+* icons used in service tabs
+* icons used in service navigation
+* icons used in service detail pages if accessible
+
+F. SERVICE DETAIL PAGES
+Visit each linked service page and extract EXACTLY:
+
+* service page title
+* hero text
+* descriptions
+* section headings
+* bullet points
+* CTA text
+* visible images
+* visible icons
+* tabs/labels if present
+
+Rules:
+
+* copy all visible service text exactly
+* do NOT rewrite
+* do NOT summarize
+* do NOT correct spelling or grammar
+
+Create:
+services.json
+service-tabs.json
+service-pages.json
+
+Each service entry should include:
+
+* title
+* slug
+* url
+* category/tab if found
+* images[]
+* icons[]
+* visible text fields
+* source mapping
+
+==================================================
+PROJECTS SECTION (VERY IMPORTANT)
+=================================
+
+Extract ALL project-related content exactly as it appears.
+
+This includes:
+
+A. PROJECT IMAGES
+
+* all project thumbnails
+* all project gallery images
+* all project cover images
+* all project preview images
+* all project background visuals if used
+
+Store in:
+/public/assets/projects/[project-slug]
+
+B. PROJECT TEXT
+For each project, extract EXACTLY:
+
+* project title
+* project subtitle if exists
+* project short description
+* project long description
+* project labels/tags if visible
+* project sector/category if visible
+* project location if visible
+* project service scope if visible
+* any CTA text associated with the project
+
+Rules:
+
+* copy text exactly
+* do NOT rewrite
+* do NOT summarize
+* do NOT correct spelling or grammar
+
+C. PROJECT TABS / FILTERS / CATEGORIES
+Extract EXACTLY:
+
+* all project tab names
+* all filter labels
+* all category labels
+* all grouping labels
+* all section headings related to project navigation
+
+Rules:
+
+* copy labels exactly
+* preserve order exactly
+* do NOT rename tabs
+* do NOT reorganize categories creatively
+
+D. PROJECT LINKS / STRUCTURE
+Extract:
+
+* project page URLs
+* any clickable project cards
+* any project detail page links
+
+Create:
+projects.json
+project-tabs.json
+
+Each project entry should include:
+
+* title
+* slug
+* images[]
+* description fields
+* tags[]
+* category/tab if found
+* URL
+* source mapping
+
+==================================================
+CLIENTS & PARTNERS (VERY IMPORTANT)
+===================================
+
+Extract ALL logos and visuals from:
+
+* Who With Us
+* Partners
+* Clients
+* any logo wall or brand section
+
+For EACH logo:
+
+Extract:
+
+* logo image
+* brand name (if visible)
+* link (if clickable)
+
+Organize into:
+
+/public/assets/clients
+/public/assets/partners
+
+Create structured files:
+
+clients.json
+partners.json
+
+Each entry:
+
+* name (if available)
+* logo path
+* original source (optional)
+* link (if exists)
+
+Rules:
+
+* Do NOT replace logos
+* Do NOT recolor logos
+* Do NOT generate fake clients
+* Do NOT invent brand names
+
+==================================================
+ALL IMAGES
+==========
+
+Extract from:
+
+* homepage
+* services
+* projects
+* sections
+* backgrounds
+* cards
+
+Store:
+/public/assets/images
+
+==================================================
+ICONS
+=====
+
+Extract ALL icons used in:
+
+* services
+* features
+* process
+* UI
+* project navigation if applicable
+* service navigation if applicable
+
+Types:
+
+* SVG
+* font icons
+* images
+
+Store:
+/public/assets/icons
+
+==================================================
+CONTACT INFORMATION
+===================
+
+Extract EXACTLY:
+
+* phone numbers
+* emails
+* WhatsApp links
+* addresses
+* map links
+* contact form fields and labels
+
+Create:
+contact-info.json
+
+Do NOT modify anything.
+
+==================================================
+SOCIAL MEDIA LINKS
+==================
+
+Extract EXACT links:
+
+* Facebook
+* Instagram
+* Twitter/X
+* LinkedIn
+* YouTube
+* any other visible platform
+
+Create:
+social-links.json
+
+NO guessing.
+NO replacement.
+
+==================================================
+COLOR PALETTE
+=============
+
+Extract REAL colors from:
+
+* CSS
+* buttons
+* backgrounds
+* logo
+* overlays
+* text styles
+
+Create:
+color-palette.json
+
+Do NOT invent colors.
+
+==================================================
+FILE STRUCTURE
+==============
+
+/public/assets/logo
+/public/assets/hero
+/public/assets/images
+/public/assets/projects
+/public/assets/services
+/public/assets/icons
+/public/assets/clients
+/public/assets/partners
+/public/assets/contact
+/public/assets/social
+
+==================================================
+REPORTS (MANDATORY)
+===================
+
+Generate:
+
+1. hero-slides.json
+2. services.json
+3. service-tabs.json
+4. service-pages.json
+5. projects.json
+6. project-tabs.json
+7. clients.json
+8. partners.json
+9. asset-manifest.json
+10. missing-assets-report.md
+11. contact-info.json
+12. social-links.json
+13. color-palette.json
+14. source-mapping-report.md
+
+==================================================
+FAILSAFE RULES
+==============
+
+If assets or content fail to extract:
+
+* retry with rendered DOM
+* check lazy-loaded images
+* check CSS background-image
+* inspect script-rendered content
+* inspect clickable cards and detail links
+
+If still unavailable:
+
+* record as missing
+* do NOT replace
+* do NOT invent missing service text
+* do NOT invent missing project text
+* do NOT invent missing categories
+
+==================================================
+FINAL OUTPUT
+============
+
+The rebuilt site must use:
+
+* original logo
+* original hero images
+* original hero text (exact)
+* original services tabs/categories/filters
+* original service titles and service page text
+* original service images
+* original service icons
+* original images
+* original project images
+* original project text
+* original project tabs/categories/filters
+* original icons
+* original client logos
+* original partner logos
+* original contact details
+* original social links
+* original color palette
+
+Allowed improvements:
+
+* layout
+* spacing
+* responsiveness
+* organization
+* image optimization
+
+NOT allowed:
+
+* rewriting
+* redesigning branding
+* replacing logos/images
+* renaming service tabs
+* renaming project tabs
+* changing service wording
+* changing project wording
+
+==================================================
+EXECUTION STYLE
+===============
+
+Act as a strict extraction system.
+
+No creativity.
+No guessing.
+No replacement.
+
+If it exists → extract it
+If it does not exist → report it
+
+Start with:
+hero → services (tabs + titles + images + icons + detail pages) → projects (images + text + tabs) → client logos → partner logos → images → icons → contact → social → colors
