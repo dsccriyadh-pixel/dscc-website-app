@@ -1,0 +1,36 @@
+{
+  "source": "https://dsccsaudia.com/contact",
+  "extracted_at": "2026-04-20",
+  "preserve_text_exactly": true,
+  "offices": [
+    {
+      "name": "Saudi HQ Office",
+      "address": "123 King Abdulaziz St., Riyadh 12345, Saudi Arabia",
+      "po_box": "P.O. Box 6789 Riyadh 52145",
+      "phone": "+966 11 1234 5678",
+      "fax": "+966 11 1234 5678",
+      "email": "contact@dsccarchitecture.com"
+    },
+    {
+      "name": "Shanghai Office",
+      "address": "456 Park Avenue, Shanghai 54321, China",
+      "po_box": "P.O. Box 5321 Shanghai 21111",
+      "phone": "+86 21 9876 5432",
+      "fax": "+966 11 1234 5678",
+      "email": "contact@dsccarchitecture.com"
+    }
+  ],
+  "whatsapp": {
+    "number": "+966 55 984 6519",
+    "url": "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
+  },
+  "contact_form_options": [
+    "Service inquiry",
+    "Question about a project",
+    "Complaint or suggestion"
+  ],
+  "headings": {
+    "page_title": "GET IN TOUCH",
+    "intro": "DSCC always welcomes all your inquiries, consultations, or any further services details."
+  }
+}

@@ -6,13 +6,29 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { submitLead, buildWhatsAppLink } from "@/lib/leads";
+import { submitLead } from "@/lib/leads";
 
 const offices = [
-  { city: "Riyadh", address: "Olaya Towers, King Fahd Road, Riyadh 12244", phone: "+966 11 200 1234", email: "riyadh@dscc-sa.com" },
-  { city: "Jeddah", address: "Jameel Square, Tahlia Street, Jeddah 21442", phone: "+966 12 660 4567", email: "jeddah@dscc-sa.com" },
-  { city: "Dammam", address: "Khobar-Dammam Highway, Dammam 31952", phone: "+966 13 833 2345", email: "dammam@dscc-sa.com" },
+  {
+    city: "Saudi HQ Office",
+    address: "123 King Abdulaziz St., Riyadh 12345, Saudi Arabia",
+    poBox: "P.O. Box 6789 Riyadh 52145",
+    phone: "+966 11 1234 5678",
+    fax: "+966 11 1234 5678",
+    email: "contact@dsccarchitecture.com",
+  },
+  {
+    city: "Shanghai Office",
+    address: "456 Park Avenue, Shanghai 54321, China",
+    poBox: "P.O. Box 5321 Shanghai 21111",
+    phone: "+86 21 9876 5432",
+    fax: "+966 11 1234 5678",
+    email: "contact@dsccarchitecture.com",
+  },
 ];
+
+const WHATSAPP_LINK =
+  "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)";
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -45,15 +61,17 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="container py-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <section className="container py-16 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {offices.map((o) => (
           <Card key={o.city}>
             <CardContent className="p-6">
               <h3 className="font-serif text-2xl text-foreground mb-4">{o.city}</h3>
               <ul className="space-y-3 text-sm text-foreground/85">
-                <li className="flex gap-2"><MapPin className="size-4 text-secondary mt-0.5 shrink-0" /> {o.address}</li>
-                <li className="flex gap-2"><Phone className="size-4 text-secondary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`}>{o.phone}</a></li>
-                <li className="flex gap-2"><Mail className="size-4 text-secondary mt-0.5 shrink-0" /> <a href={`mailto:${o.email}`}>{o.email}</a></li>
+                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> {o.address}</li>
+                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> {o.poBox}</li>
+                <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`}>{o.phone}</a></li>
+                <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> Fax: {o.fax}</li>
+                <li className="flex gap-2"><Mail className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`mailto:${o.email}`}>{o.email}</a></li>
               </ul>
             </CardContent>
           </Card>
@@ -80,34 +98,34 @@ export default function Contact() {
         </div>
 
         <div className="space-y-4">
-          <a href={buildWhatsAppLink("Hello DSCC, I would like to discuss a project.")} target="_blank" rel="noreferrer">
-            <Card className="hover:border-secondary transition">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
+            <Card className="hover:border-primary transition">
               <CardContent className="p-6 flex items-center gap-4">
-                <MessageCircle className="size-8 text-secondary" />
+                <MessageCircle className="size-8 text-primary" />
                 <div>
                   <div className="font-serif text-lg">{t("common.send_via_whatsapp")}</div>
-                  <div className="text-sm text-muted-foreground">+966 11 200 1234</div>
+                  <div className="text-sm text-muted-foreground">+966 55 984 6519</div>
                 </div>
               </CardContent>
             </Card>
           </a>
-          <a href="mailto:hello@dscc-sa.com">
-            <Card className="hover:border-secondary transition">
+          <a href="mailto:contact@dsccarchitecture.com">
+            <Card className="hover:border-primary transition">
               <CardContent className="p-6 flex items-center gap-4">
-                <Mail className="size-8 text-secondary" />
+                <Mail className="size-8 text-primary" />
                 <div>
                   <div className="font-serif text-lg">{t("common.email_us")}</div>
-                  <div className="text-sm text-muted-foreground">hello@dscc-sa.com</div>
+                  <div className="text-sm text-muted-foreground">contact@dsccarchitecture.com</div>
                 </div>
               </CardContent>
             </Card>
           </a>
-          <a href="tel:+966112001234">
-            <Card className="hover:border-secondary transition">
+          <a href="tel:+966111234578">
+            <Card className="hover:border-primary transition">
               <CardContent className="p-6 flex items-center gap-4">
-                <Phone className="size-8 text-secondary" />
+                <Phone className="size-8 text-primary" />
                 <div>
-                  <div className="font-serif text-lg">+966 11 200 1234</div>
+                  <div className="font-serif text-lg">+966 11 1234 5678</div>
                   <div className="text-sm text-muted-foreground">Sun–Thu 08:00–18:00 KSA</div>
                 </div>
               </CardContent>
