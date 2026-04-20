@@ -571,7 +571,7 @@ export default function Home() {
           <p className="text-primary-foreground/70 max-w-2xl mx-auto mb-8 text-sm">{bi(T.joinUsSub)}</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/quote">
-              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 font-semibold gap-2 shadow-lg">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold gap-2 shadow-lg">
                 {bi(T.reqQuote)} <ChevronRight className="size-4" />
               </Button>
             </Link>
