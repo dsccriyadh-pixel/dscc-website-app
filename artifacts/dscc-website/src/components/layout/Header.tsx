@@ -23,24 +23,24 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="container flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="font-serif text-2xl font-semibold tracking-tight text-primary">
+      <div className="container flex h-20 items-center justify-between gap-6">
+        <Link href="/" className="flex items-center gap-3 shrink-0">
+          <span className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-serif text-sm font-semibold tracking-[0.05em] h-10 px-2.5">
             DSCC
           </span>
-          <span className="hidden md:inline text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <span className="hidden md:inline text-[10px] uppercase tracking-[0.16em] text-muted-foreground max-w-[200px] leading-tight">
             {t("brand.tagline")}
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-sm">
+        <nav className="hidden lg:flex items-center gap-6 text-sm">
           {NAV.slice(1).map((n) => {
             const active = location === n.href;
             return (
               <Link
                 key={n.href}
                 href={n.href}
-                className={`transition-colors hover:text-primary ${
+                className={`whitespace-nowrap transition-colors hover:text-primary ${
                   active ? "text-primary font-medium" : "text-foreground/75"
                 }`}
               >
