@@ -10,62 +10,104 @@ import { sectors } from "@/data/sectors";
 import { services } from "@/data/services";
 import { projects } from "@/data/projects";
 import { clients } from "@/data/clients";
+import type { BilingualString } from "@/data/services";
 
-const HERO_SLIDES = [
+const HERO_SLIDES: { headline: BilingualString; sub: BilingualString; cta: BilingualString; href: string; image: string; }[] = [
   {
-    headline: "Your  Smart Decision",
-    sub: "One-stop solution provider of consultancy, design, building supplies and equipment.",
-    cta: "Infrastructure Solutions",
+    headline: { en: "Your  Smart Decision",        ar: "قرارك الذكي" },
+    sub:      { en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
+                ar: "مزوّد متكامل لخدمات الاستشارة والتصميم وتوريد مواد ومعدّات البناء." },
+    cta:      { en: "Infrastructure Solutions",     ar: "حلول البنية التحتية" },
     href: "/sectors/infrastructure",
     image: "/assets/uploads/media-uploader/cover011693833991.jpg",
   },
   {
-    headline: "Your  Dream Home",
-    sub: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
-    cta: "Rsidential Services",
+    headline: { en: "Your  Dream Home",             ar: "منزل أحلامك" },
+    sub:      { en: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
+                ar: "نُتقن كلّ تفصيل لخلق مساحات متناغمة تعكس شخصيّتك وأسلوب حياتك" },
+    cta:      { en: "Rsidential Services",          ar: "الخدمات السكنية" },
     href: "/sectors/residential",
     image: "/assets/uploads/media-uploader/cover021693834064.jpg",
   },
   {
-    headline: "Your  Successful Business",
-    sub: "Architectural solutions tailored to your unique needs, preferences and project requirements",
-    cta: "Business Solutions",
+    headline: { en: "Your  Successful Business",    ar: "أعمالك الناجحة" },
+    sub:      { en: "Architectural solutions tailored to your unique needs, preferences and project requirements",
+                ar: "حلول معمارية مفصّلة وفق احتياجاتك وتفضيلاتك ومتطلبات مشروعك" },
+    cta:      { en: "Business Solutions",           ar: "حلول الأعمال" },
     href: "/sectors/commercial",
     image: "/assets/uploads/media-uploader/cover031693834151.jpg",
   },
   {
-    headline: "Your  Hospitality Solutions",
-    sub: "We create a seamless harmony that blends functionality, comfort and aesthetics",
-    cta: "Hospitality Solutions",
+    headline: { en: "Your  Hospitality Solutions",  ar: "حلول الضيافة" },
+    sub:      { en: "We create a seamless harmony that blends functionality, comfort and aesthetics",
+                ar: "نخلق انسجاماً سلساً يمزج بين الوظيفة والراحة والجمال" },
+    cta:      { en: "Hospitality Solutions",        ar: "حلول الضيافة" },
     href: "/sectors/hospitality",
     image: "/assets/uploads/media-uploader/cover041693834210.jpg",
   },
 ];
 
-const FIT_OUT_STEPS = [
-  { title: "Design", icon: ClipboardList },
-  { title: "Materials Supply", icon: Truck },
-  { title: "Installation", icon: Wrench },
-  { title: "After Sale Services", icon: LifeBuoy },
+const FIT_OUT_STEPS: { title: BilingualString; icon: any }[] = [
+  { title: { en: "Design",              ar: "التصميم" },               icon: ClipboardList },
+  { title: { en: "Materials Supply",    ar: "توريد المواد" },          icon: Truck },
+  { title: { en: "Installation",        ar: "التركيب" },               icon: Wrench },
+  { title: { en: "After Sale Services", ar: "خدمات ما بعد البيع" },    icon: LifeBuoy },
 ];
 
-const VALUES = [
-  { title: "Excellence",     icon: Award,    desc: "High-quality designs that exceed expectations. Value creativity and attention to detail." },
-  { title: "Client-Focus",   icon: Users,    desc: "Make clients' needs our priority for developing trusted relationships, and customized solutions." },
-  { title: "Innovation",     icon: Sparkles, desc: "Value creativity, innovation, and keeping up with the latest technologies and design trends." },
-  { title: "Sustainability", icon: Leaf,     desc: "We committed to design sustainable buildings & spaces that are environmentally responsible" },
+const VALUES: { title: BilingualString; desc: BilingualString; icon: any }[] = [
+  { title: { en: "Excellence",     ar: "التميّز" },
+    desc:  { en: "High-quality designs that exceed expectations. Value creativity and attention to detail.",
+             ar: "تصاميم عالية الجودة تتجاوز التوقّعات. نُثمّن الإبداع والاهتمام بالتفاصيل." },
+    icon: Award },
+  { title: { en: "Client-Focus",   ar: "التركيز على العميل" },
+    desc:  { en: "Make clients' needs our priority for developing trusted relationships, and customized solutions.",
+             ar: "نضع احتياجات العميل في المقدّمة لبناء علاقات موثوقة وحلول مخصّصة." },
+    icon: Users },
+  { title: { en: "Innovation",     ar: "الابتكار" },
+    desc:  { en: "Value creativity, innovation, and keeping up with the latest technologies and design trends.",
+             ar: "نُثمّن الإبداع والابتكار، ومواكبة أحدث التقنيات واتجاهات التصميم." },
+    icon: Sparkles },
+  { title: { en: "Sustainability", ar: "الاستدامة" },
+    desc:  { en: "We committed to design sustainable buildings & spaces that are environmentally responsible",
+             ar: "نلتزم بتصميم مبانٍ ومساحات مستدامة ومسؤولة بيئياً." },
+    icon: Leaf },
 ];
 
-const STATS = [
-  { v: "3250", k: "Total Projects" },
-  { v: "425",  k: "Visionary Architects" },
-  { v: "38",   k: "Company locations" },
-  { v: "7430", k: "Salified Clients" },
+const STATS: { v: string; k: BilingualString }[] = [
+  { v: "3250", k: { en: "Total Projects",        ar: "إجمالي المشاريع" } },
+  { v: "425",  k: { en: "Visionary Architects",  ar: "معماريّون مبدعون" } },
+  { v: "38",   k: { en: "Company locations",     ar: "مواقع الشركة" } },
+  { v: "7430", k: { en: "Salified Clients",      ar: "عملاء راضون" } },
 ];
+
+const T = {
+  badge:       { en: "Innovative One Stop Fit Out Solutions", ar: "حلول تجهيز متكاملة ومبتكرة" },
+  reqQuote:    { en: "REQUEST QUOTE",                          ar: "طلب عرض سعر" },
+  oneStop:     { en: "One-Stop Fit Out Solution",              ar: "حل التجهيز المتكامل" },
+  whyTitle:    { en: "Why You choose us ?",                    ar: "لماذا تختارنا؟" },
+  whySub:      { en: "We provide complete architectural solutions, Guided by our core values",
+                 ar: "نُقدّم حلولاً معمارية متكاملة، مستوحاة من قيمنا الأساسية" },
+  solutionsKik:{ en: "OUR SOLUTIONS",                          ar: "حلولنا" },
+  solutionsTitle: { en: "Wide Range Of Innovative Modern Services And Solutions To Fit Your Needs",
+                    ar: "تشكيلة واسعة من الخدمات والحلول العصرية المبتكرة لتلبية احتياجاتك" },
+  viewAll:     { en: "View All",                               ar: "عرض الكل" },
+  innovHeading:{ en: "DSCC .. Innovative One Stop Fit Out Solutions",
+                 ar: "DSCC .. حلول تجهيز متكاملة مبتكرة" },
+  latest:      { en: "Latest Projects",                        ar: "أحدث المشاريع" },
+  featuredProj:{ en: "Featured Projects",                      ar: "مشاريع مميّزة" },
+  ourClients:  { en: "Our Clients",                            ar: "عملاؤنا" },
+  ourPartners: { en: "Our Partners",                           ar: "شركاؤنا" },
+  joinUs:      { en: "Join Us on this Journey",                ar: "انضمّ إلينا في هذه الرحلة" },
+  joinUsSub:   { en: "Connect with us today to explore how DSCC Innovative One Stop Fit Out Solutions can transform your vision into reality.",
+                 ar: "تواصل معنا اليوم لاستكشاف كيف يمكن لحلول DSCC المتكاملة المبتكرة أن تحوّل رؤيتك إلى واقع." },
+  contactNow:  { en: "Lets Contact Now",                       ar: "تواصل معنا الآن" },
+  whatsapp:    { en: "What's App chat",                        ar: "محادثة واتساب" },
+  downloadProf:{ en: "Download Profile",                       ar: "تحميل ملف الشركة" },
+};
 
 export default function Home() {
-  const { t } = useLanguage();
   const bi = useBilingual();
+  const { lang } = useLanguage();
   const baseUrl = import.meta.env.BASE_URL;
 
   const [slide, setSlide] = useState(0);
@@ -83,8 +125,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="DSCC - Contracting For Empower Values"
-        description="DSCC .. Innovative One Stop Fit Out Solutions"
+        title={lang === "ar" ? "DSCC — تعاقد لتمكين القيم" : "DSCC - Contracting For Empower Values"}
+        description={bi(T.innovHeading)}
         path="/"
         jsonLd={[
           ORG_JSONLD,
@@ -92,7 +134,7 @@ export default function Home() {
         ]}
       />
 
-      {/* HERO */}
+      {/* HERO — clean image, soft top/bottom shade only for legibility */}
       <section className="relative isolate overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
@@ -104,38 +146,39 @@ export default function Home() {
             className="absolute inset-0 -z-10"
           >
             <img src={`${baseUrl.replace(/\/$/, "")}${cur.image}`} alt="" className="size-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/75 to-primary/30" />
+            {/* Subtle gradient only behind text — not over the whole image */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
-        <div className="container py-32 lg:py-44 text-primary-foreground">
+        <div className="container py-32 lg:py-44 text-white">
           <AnimatePresence mode="wait">
             <motion.div
-              key={cur.headline}
+              key={`${slide}-${lang}`}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.6 }}
               className="max-w-3xl"
             >
-              <p className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/5 px-3 py-1 text-xs uppercase tracking-[0.18em] mb-6">
-                Innovative One Stop Fit Out Solutions
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-3 py-1 text-xs uppercase tracking-[0.18em] mb-6">
+                {bi(T.badge)}
               </p>
-              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight whitespace-pre-line">
-                {cur.headline}
+              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight whitespace-pre-line drop-shadow-md">
+                {bi(cur.headline)}
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-primary-foreground/90 max-w-2xl leading-relaxed">
-                {cur.sub}
+              <p className="mt-6 text-lg md:text-xl text-white/95 max-w-2xl leading-relaxed drop-shadow">
+                {bi(cur.sub)}
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link href={cur.href}>
-                  <Button size="lg" variant="outline" className="border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 gap-2">
-                    {cur.cta}<ArrowRight className="size-4" />
+                  <Button size="lg" variant="outline" className="border-white/50 bg-white/10 text-white hover:bg-white/20 gap-2">
+                    {bi(cur.cta)}<ArrowRight className="size-4" />
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                    REQUEST QUOTE
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                    {bi(T.reqQuote)}
                   </Button>
                 </Link>
               </div>
@@ -148,60 +191,60 @@ export default function Home() {
                 key={i}
                 onClick={() => setSlide(i)}
                 aria-label={`Slide ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all ${i === slide ? "w-10 bg-primary-foreground" : "w-4 bg-primary-foreground/40"}`}
+                className={`h-1.5 rounded-full transition-all ${i === slide ? "w-10 bg-white" : "w-4 bg-white/40"}`}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ONE-STOP FIT OUT SOLUTION */}
+      {/* ONE-STOP FIT OUT */}
       <section className="border-b">
         <div className="container py-14">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-2xl md:text-3xl text-foreground">One-Stop Fit Out Solution</h2>
+            <h2 className="font-serif text-2xl md:text-3xl text-foreground">{bi(T.oneStop)}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {FIT_OUT_STEPS.map((step, i) => (
-              <div key={step.title} className="text-center">
+              <div key={step.title.en} className="text-center">
                 <div className="mx-auto mb-3 size-16 rounded-full bg-primary/5 border border-primary/15 flex items-center justify-center text-primary">
                   <step.icon className="size-7" />
                 </div>
-                <div className="text-sm font-medium text-foreground">{i + 1}. {step.title}</div>
+                <div className="text-sm font-medium text-foreground">{i + 1}. {bi(step.title)}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY US — 4 VALUES */}
+      {/* WHY US */}
       <section className="container py-20">
         <div className="max-w-2xl mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">Why You choose us ?</h2>
-          <p className="text-muted-foreground">We provide complete architectural solutions, Guided by our core values</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">{bi(T.whyTitle)}</h2>
+          <p className="text-muted-foreground">{bi(T.whySub)}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {VALUES.map((v) => (
-            <Card key={v.title}>
+            <Card key={v.title.en}>
               <CardContent className="p-6">
                 <v.icon className="size-7 text-primary mb-4" />
-                <h3 className="font-serif text-xl text-foreground mb-2">{v.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+                <h3 className="font-serif text-xl text-foreground mb-2">{bi(v.title)}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{bi(v.desc)}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* OUR SOLUTIONS GRID */}
+      {/* SOLUTIONS GRID */}
       <section className="bg-muted/30 border-y">
         <div className="container py-20">
           <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
             <div className="max-w-2xl">
-              <p className="text-xs uppercase tracking-[0.18em] text-primary mb-2">OUR SOLUTIONS</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-foreground">Wide Range Of Innovative Modern Services And Solutions To Fit Your Needs</h2>
+              <p className="text-xs uppercase tracking-[0.18em] text-primary mb-2">{bi(T.solutionsKik)}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground">{bi(T.solutionsTitle)}</h2>
             </div>
-            <Link href="/services"><Button variant="ghost" className="gap-1">View All <ArrowRight className="size-4" /></Button></Link>
+            <Link href="/services"><Button variant="ghost" className="gap-1">{bi(T.viewAll)} <ArrowRight className="size-4" /></Button></Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {featured.map((s) => (
@@ -220,23 +263,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTORS */}
+      {/* SECTORS — clean images, label below */}
       <section className="container py-20">
         <div className="max-w-2xl mb-10">
-          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">DSCC .. Innovative One Stop Fit Out Solutions</h2>
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">{bi(T.innovHeading)}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {sectors.map((s) => (
             <Link key={s.id} href={`/sectors/${s.slug}`}>
               <Card className="group overflow-hidden h-full hover:border-primary transition cursor-pointer">
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="aspect-[4/5] overflow-hidden">
                   <img src={`${baseUrl.replace(/\/$/, "")}${s.image}`} alt={bi(s.name)} className="size-full object-cover transition duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent" />
-                  <div className="absolute bottom-5 left-5 right-5 text-primary-foreground">
-                    <div className="font-serif text-xl mb-1">{bi(s.name)}</div>
-                    <div className="text-xs text-primary-foreground/80 line-clamp-2">{bi(s.tagline)}</div>
-                  </div>
                 </div>
+                <CardContent className="p-5">
+                  <div className="font-serif text-xl text-foreground mb-1 group-hover:text-primary">{bi(s.name)}</div>
+                  <div className="text-xs text-muted-foreground line-clamp-2">{bi(s.tagline)}</div>
+                </CardContent>
               </Card>
             </Link>
           ))}
@@ -248,9 +290,9 @@ export default function Home() {
         <div className="container py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {STATS.map((s) => (
-              <div key={s.k}>
+              <div key={s.k.en}>
                 <div className="font-serif text-5xl mb-1">{s.v}</div>
-                <div className="text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{s.k}</div>
+                <div className="text-xs uppercase tracking-[0.16em] text-primary-foreground/80">{bi(s.k)}</div>
               </div>
             ))}
           </div>
@@ -261,10 +303,10 @@ export default function Home() {
       <section className="container py-20">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.18em] text-primary mb-2">Latest Projects</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground">{t("home.featured_projects")}</h2>
+            <p className="text-xs uppercase tracking-[0.18em] text-primary mb-2">{bi(T.latest)}</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground">{bi(T.featuredProj)}</h2>
           </div>
-          <Link href="/projects"><Button variant="ghost" className="gap-1">View All <ArrowRight className="size-4" /></Button></Link>
+          <Link href="/projects"><Button variant="ghost" className="gap-1">{bi(T.viewAll)} <ArrowRight className="size-4" /></Button></Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {featuredProjects.map((p) => (
@@ -289,7 +331,7 @@ export default function Home() {
       {/* CLIENTS */}
       <section className="bg-muted/30 border-y">
         <div className="container py-16">
-          <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">Our Clients</p>
+          <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">{bi(T.ourClients)}</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center">
             {clientLogos.map((c) => (
               <div key={c.id} className="flex items-center justify-center p-3 bg-card rounded-md border h-20">
@@ -307,7 +349,7 @@ export default function Home() {
 
       {/* PARTNERS */}
       <section className="container py-16">
-        <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">Our Partners</p>
+        <p className="text-center text-xs uppercase tracking-[0.18em] text-primary mb-8">{bi(T.ourPartners)}</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
           {partnerLogos.map((p) => (
             <div key={p.id} className="flex items-center justify-center p-4 bg-card rounded-md border h-24">
@@ -322,31 +364,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* JOIN US CTA */}
+      {/* JOIN US */}
       <section className="bg-primary text-primary-foreground">
         <div className="container py-20 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl mb-3">Join Us on this Journey</h2>
-          <p className="text-primary-foreground/85 max-w-2xl mx-auto mb-8">
-            Connect with us today to explore how DSCC Innovative One Stop Fit Out Solutions can transform your vision into reality.
-          </p>
+          <h2 className="font-serif text-3xl md:text-4xl mb-3">{bi(T.joinUs)}</h2>
+          <p className="text-primary-foreground/85 max-w-2xl mx-auto mb-8">{bi(T.joinUsSub)}</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/contact">
               <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2">
-                Lets Contact Now <ChevronRight className="size-4" />
+                {bi(T.contactNow)} <ChevronRight className="size-4" />
               </Button>
             </Link>
-            <a
-              href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
               <Button size="lg" variant="outline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10">
-                What's App chat
+                {bi(T.whatsapp)}
               </Button>
             </a>
             <a href={`${baseUrl}downloads/dscc-company-profile.pdf`} download>
               <Button size="lg" variant="outline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 gap-2">
-                <Download className="size-4" /> Download Profile
+                <Download className="size-4" /> {bi(T.downloadProf)}
               </Button>
             </a>
           </div>

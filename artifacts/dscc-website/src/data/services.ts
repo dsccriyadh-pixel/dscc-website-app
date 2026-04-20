@@ -42,7 +42,7 @@
       sourceUrl: "https://dsccsaudia.com/service/aluminum-steel-glazing",
       icon: "/assets/uploads/media-uploader/aluminum-steel-glazing1693906879.svg",
       category: "Architecture & Envelope",
-      name: { en: `Aluminum & Steel Glazing`, ar: `Aluminum & Steel Glazing` },
+      name: { en: `Aluminum & Steel Glazing`, ar: `الألمنيوم وتزجيج الفولاذ` },
       tagline: { en: `Aluminum & Steel Glazing`, ar: `Aluminum & Steel Glazing` },
       overview: { en: `At DSCC, we take pride in offering top-notch Aluminum & Steel Glazing services that combine aesthetics, durability, and functionality. With years of expertise and a commitment to excellence, we are your trusted partner for all your glazing needs. Our team of skilled professionals specializes in Aluminum & Steel Glazing, providing a wide range of solutions for both residential and commercial spaces. Whether you're looking to enhance the beauty of your home or add a touch of sophistication to your business premises, our services are tailored to meet your specific requirements.`, ar: `At DSCC, we take pride in offering top-notch Aluminum & Steel Glazing services that combine aesthetics, durability, and functionality. With years of expertise and a commitment to excellence, we are your trusted partner for all your glazing needs. Our team of skilled professionals specializes in Aluminum & Steel Glazing, providing a wide range of solutions for both residential and commercial spaces. Whether you're looking to enhance the beauty of your home or add a touch of sophistication to your business premises, our services are tailored to meet your specific requirements.` },
       features: [
@@ -64,7 +64,7 @@
       sourceUrl: "https://dsccsaudia.com/service/indoor-and-outdoor-furniture",
       icon: "/assets/uploads/media-uploader/indoor-and-outdoor-furniture1694200160.svg",
       category: "Hospitality",
-      name: { en: `Indoor and Outdoor Furniture`, ar: `Indoor and Outdoor Furniture` },
+      name: { en: `Indoor and Outdoor Furniture`, ar: `الأثاث الداخلي والخارجي` },
       tagline: { en: `Indoor and Outdoor Furniture`, ar: `Indoor and Outdoor Furniture` },
       overview: { en: `Welcome to DSCC Indoor and Outdoor Furniture Services, where we specialize in enhancing the comfort, functionality, and aesthetics of your living spaces through expertly crafted furniture solutions. Our experienced team is dedicated to providing high-quality indoor and outdoor furniture that reflects your unique style while ensuring durability and elegance.`, ar: `Welcome to DSCC Indoor and Outdoor Furniture Services, where we specialize in enhancing the comfort, functionality, and aesthetics of your living spaces through expertly crafted furniture solutions. Our experienced team is dedicated to providing high-quality indoor and outdoor furniture that reflects your unique style while ensuring durability and elegance.` },
       features: [
@@ -88,7 +88,7 @@
       sourceUrl: "https://dsccsaudia.com/service/window-&-door",
       icon: "/assets/uploads/media-uploader/doors1695226337.svg",
       category: "Architecture & Envelope",
-      name: { en: `Window & Door`, ar: `Window & Door` },
+      name: { en: `Window & Door`, ar: `النوافذ والأبواب` },
       tagline: { en: `Window & Door`, ar: `Window & Door` },
       overview: { en: `Welcome to DSCC Window & Door Services, where we specialize in enhancing the aesthetics, functionality, and security of your residential or commercial spaces through expert window and door solutions. Our experienced team is dedicated to creating welcoming entrances and stunning views while prioritizing energy efficiency and durability. With an eye for design and a commitment to quality, our skilled technicians bring years of expertise to every project. Whether you're seeking to upgrade your windows and doors for better insulation, security, or aesthetics, we have the knowledge to bring your vision to life.`, ar: `Welcome to DSCC Window & Door Services, where we specialize in enhancing the aesthetics, functionality, and security of your residential or commercial spaces through expert window and door solutions. Our experienced team is dedicated to creating welcoming entrances and stunning views while prioritizing energy efficiency and durability. With an eye for design and a commitment to quality, our skilled technicians bring years of expertise to every project. Whether you're seeking to upgrade your windows and doors for better insulation, security, or aesthetics, we have the knowledge to bring your vision to life.` },
       features: [
@@ -110,7 +110,7 @@
       sourceUrl: "https://dsccsaudia.com/service/lighting-switch-socket",
       icon: "/assets/uploads/media-uploader/lamp1695226338.svg",
       category: "MEP",
-      name: { en: `Lighting / Switch / Socket`, ar: `Lighting / Switch / Socket` },
+      name: { en: `Lighting / Switch / Socket`, ar: `الإنارة والمفاتيح والمآخذ` },
       tagline: { en: `Lighting / Switch / Socket`, ar: `Lighting / Switch / Socket` },
       overview: { en: `Welcome to DSCC Lighting, Switch, and Socket Services, where we specialize in enhancing the functionality and ambiance of your residential or commercial spaces through expert lighting design, installation, and maintenance. Our experienced team is dedicated to creating well-lit environments that blend style, energy efficiency, and convenience. With a passion for lighting design and a commitment to excellence, our skilled technicians bring years of expertise to every project. Whether you're looking to brighten up a room, create a specific mood, or enhance energy efficiency, we have the knowledge to transform your vision into reality.`, ar: `Welcome to DSCC Lighting, Switch, and Socket Services, where we specialize in enhancing the functionality and ambiance of your residential or commercial spaces through expert lighting design, installation, and maintenance. Our experienced team is dedicated to creating well-lit environments that blend style, energy efficiency, and convenience. With a passion for lighting design and a commitment to excellence, our skilled technicians bring years of expertise to every project. Whether you're looking to brighten up a room, create a specific mood, or enhance energy efficiency, we have the knowledge to transform your vision into reality.` },
       features: [
@@ -132,7 +132,7 @@
       sourceUrl: "https://dsccsaudia.com/service/wall-&-floor-covering",
       icon: "/assets/uploads/media-uploader/parquet1695226339.svg",
       category: "Architecture & Envelope",
-      name: { en: `Wall & Floor Covering`, ar: `Wall & Floor Covering` },
+      name: { en: `Wall & Floor Covering`, ar: `تغطية الجدران والأرضيات` },
       tagline: { en: `Wall & Floor Covering`, ar: `Wall & Floor Covering` },
       overview: { en: `Welcome to DSCC Wall & Floor Covering Services, where we specialize in transforming your interiors with exquisite wall and floor treatments that combine beauty, functionality, and innovation. Our expert team is dedicated to enhancing your spaces with premium coverings that reflect your style, elevate aesthetics, and create inviting atmospheres. With an eye for design and a commitment to quality, our skilled artisans and technicians bring years of expertise to every project. Whether you're envisioning a cozy home environment or a sophisticated commercial space, we have the knowledge and creativity to bring your ideas to life.`, ar: `Welcome to DSCC Wall & Floor Covering Services, where we specialize in transforming your interiors with exquisite wall and floor treatments that combine beauty, functionality, and innovation. Our expert team is dedicated to enhancing your spaces with premium coverings that reflect your style, elevate aesthetics, and create inviting atmospheres. With an eye for design and a commitment to quality, our skilled artisans and technicians bring years of expertise to every project. Whether you're envisioning a cozy home environment or a sophisticated commercial space, we have the knowledge and creativity to bring your ideas to life.` },
       features: [
@@ -154,7 +154,7 @@
       sourceUrl: "https://dsccsaudia.com/service/hvac-system",
       icon: "/assets/uploads/media-uploader/hvac-system1694201795.svg",
       category: "MEP",
-      name: { en: `HVAC System`, ar: `HVAC System` },
+      name: { en: `HVAC System`, ar: `نظام التكييف والتهوية` },
       tagline: { en: `HVAC System`, ar: `HVAC System` },
       overview: { en: `At DSCC, we understand that a well-functioning HVAC (Heating, Ventilation, and Air Conditioning) system is essential for maintaining a comfortable and productive environment in your residential or commercial space. Our HVAC System Services are designed to provide you with top-notch installation, maintenance, repair, and consultation services to ensure optimal indoor air quality and temperature control.`, ar: `At DSCC, we understand that a well-functioning HVAC (Heating, Ventilation, and Air Conditioning) system is essential for maintaining a comfortable and productive environment in your residential or commercial space. Our HVAC System Services are designed to provide you with top-notch installation, maintenance, repair, and consultation services to ensure optimal indoor air quality and temperature control.` },
       features: [
@@ -179,7 +179,7 @@
       sourceUrl: "https://dsccsaudia.com/service/audio-video-system",
       icon: "/assets/uploads/media-uploader/sound-system1695226341.svg",
       category: "Smart & Tech",
-      name: { en: `Audio/Video System`, ar: `Audio/Video System` },
+      name: { en: `Audio/Video System`, ar: `أنظمة الصوت والصورة` },
       tagline: { en: `Audio/Video System`, ar: `Audio/Video System` },
       overview: { en: `Welcome to DSCC Audio/Video System Services, where we specialize in creating captivating audio and video experiences that elevate your residential and commercial spaces. Our expert team is dedicated to providing cutting-edge audio and video solutions that immerse you in high-quality entertainment, communication, and collaboration.`, ar: `Welcome to DSCC Audio/Video System Services, where we specialize in creating captivating audio and video experiences that elevate your residential and commercial spaces. Our expert team is dedicated to providing cutting-edge audio and video solutions that immerse you in high-quality entertainment, communication, and collaboration.` },
       features: [
@@ -201,7 +201,7 @@
       sourceUrl: "https://dsccsaudia.com/service/building-automation-system",
       icon: "/assets/uploads/media-uploader/smart-city1695226340.svg",
       category: "Smart & Tech",
-      name: { en: `Building Automation System`, ar: `Building Automation System` },
+      name: { en: `Building Automation System`, ar: `نظام أتمتة المباني` },
       tagline: { en: `Building Automation System`, ar: `Building Automation System` },
       overview: { en: `Welcome to DSCC Building Automation System Services, your partner in harnessing the power of technology to optimize the functionality, comfort, and energy efficiency of your building. Our expert team specializes in designing, implementing, and maintaining cutting-edge Building Automation Systems (BAS) that put you in control and enhance the overall performance of your facility.`, ar: `Welcome to DSCC Building Automation System Services, your partner in harnessing the power of technology to optimize the functionality, comfort, and energy efficiency of your building. Our expert team specializes in designing, implementing, and maintaining cutting-edge Building Automation Systems (BAS) that put you in control and enhance the overall performance of your facility.` },
       features: [
@@ -223,7 +223,7 @@
       sourceUrl: "https://dsccsaudia.com/service/smart-room-services",
       icon: "/assets/uploads/media-uploader/smart-room-control-systems1694201268.svg",
       category: "Smart & Tech",
-      name: { en: `Smart Room Services`, ar: `Smart Room Services` },
+      name: { en: `Smart Room Services`, ar: `خدمات الغرف الذكية` },
       tagline: { en: `Smart Room Services`, ar: `Smart Room Services` },
       overview: { en: `Welcome to DSCC Smart Room Services, where we specialize in transforming your living and working spaces into innovative and technologically advanced environments. Our expert team is dedicated to creating smart rooms that seamlessly integrate cutting-edge technology to enhance your comfort, convenience, and overall lifestyle.`, ar: `Welcome to DSCC Smart Room Services, where we specialize in transforming your living and working spaces into innovative and technologically advanced environments. Our expert team is dedicated to creating smart rooms that seamlessly integrate cutting-edge technology to enhance your comfort, convenience, and overall lifestyle.` },
       features: [
@@ -252,7 +252,7 @@
       sourceUrl: "https://dsccsaudia.com/service/kitchen-&-laundry-equipment",
       icon: "/assets/uploads/media-uploader/kitchen1695226338.svg",
       category: "Hospitality",
-      name: { en: `Kitchen & Laundry Equipment`, ar: `Kitchen & Laundry Equipment` },
+      name: { en: `Kitchen & Laundry Equipment`, ar: `معدّات المطابخ والمغاسل` },
       tagline: { en: `Kitchen & Laundry Equipment`, ar: `Kitchen & Laundry Equipment` },
       overview: { en: `Welcome to DSCC Kitchen & Laundry Equipment Services, where we specialize in providing top-tier solutions for the installation, maintenance, and repair of kitchen and laundry equipment. Our skilled team is dedicated to ensuring that your commercial or residential spaces are equipped with reliable, efficient, and high-performance equipment that enhances your operations and daily life.`, ar: `Welcome to DSCC Kitchen & Laundry Equipment Services, where we specialize in providing top-tier solutions for the installation, maintenance, and repair of kitchen and laundry equipment. Our skilled team is dedicated to ensuring that your commercial or residential spaces are equipped with reliable, efficient, and high-performance equipment that enhances your operations and daily life.` },
       features: [
@@ -274,7 +274,7 @@
       sourceUrl: "https://dsccsaudia.com/service/security-system",
       icon: "/assets/uploads/media-uploader/security-systems1694201625.svg",
       category: "Smart & Tech",
-      name: { en: `Security System`, ar: `Security System` },
+      name: { en: `Security System`, ar: `أنظمة الأمن` },
       tagline: { en: `Security System`, ar: `Security System` },
       overview: { en: `Welcome to DSCC Security System Services, where we specialize in providing comprehensive and advanced security solutions for residential and commercial spaces. Our expert team is dedicated to enhancing your safety and peace of mind through the design, installation, and maintenance of cutting-edge security systems.`, ar: `Welcome to DSCC Security System Services, where we specialize in providing comprehensive and advanced security solutions for residential and commercial spaces. Our expert team is dedicated to enhancing your safety and peace of mind through the design, installation, and maintenance of cutting-edge security systems.` },
       features: [
@@ -298,7 +298,7 @@
       sourceUrl: "https://dsccsaudia.com/service/fire-protection-system",
       icon: "/assets/uploads/media-uploader/fire1695226337.svg",
       category: "MEP",
-      name: { en: `Fire Protection System`, ar: `Fire Protection System` },
+      name: { en: `Fire Protection System`, ar: `أنظمة الحماية من الحريق` },
       tagline: { en: `Fire Protection System`, ar: `Fire Protection System` },
       overview: { en: `Welcome to DSCC Fire Protection System Services, your dedicated partner in ensuring the safety and security of your residential or commercial space. Our expert team specializes in the design, installation, inspection, and maintenance of fire protection systems that are tailored to effectively detect, suppress, and mitigate the risk of fire emergencies. With a deep understanding of the critical importance of fire safety, our experienced technicians bring years of expertise to every project. From designing comprehensive fire protection strategies to implementing state-of-the-art systems, we are committed to safeguarding lives, property, and peace of mind.`, ar: `Welcome to DSCC Fire Protection System Services, your dedicated partner in ensuring the safety and security of your residential or commercial space. Our expert team specializes in the design, installation, inspection, and maintenance of fire protection systems that are tailored to effectively detect, suppress, and mitigate the risk of fire emergencies. With a deep understanding of the critical importance of fire safety, our experienced technicians bring years of expertise to every project. From designing comprehensive fire protection strategies to implementing state-of-the-art systems, we are committed to safeguarding lives, property, and peace of mind.` },
       features: [
@@ -320,7 +320,7 @@
       sourceUrl: "https://dsccsaudia.com/service/electrical-system",
       icon: "/assets/uploads/media-uploader/wire1695226342.svg",
       category: "MEP",
-      name: { en: `Electrical System`, ar: `Electrical System` },
+      name: { en: `Electrical System`, ar: `الأنظمة الكهربائية` },
       tagline: { en: `Electrical System`, ar: `Electrical System` },
       overview: { en: `Welcome to DSCC Electrical System Services, your trusted partner in designing, installing, and maintaining reliable and safe electrical systems for residential and commercial spaces. Our experienced team specializes in providing comprehensive electrical solutions that ensure efficient power distribution, enhance safety, and comply with industry standards.`, ar: `Welcome to DSCC Electrical System Services, your trusted partner in designing, installing, and maintaining reliable and safe electrical systems for residential and commercial spaces. Our experienced team specializes in providing comprehensive electrical solutions that ensure efficient power distribution, enhance safety, and comply with industry standards.` },
       features: [
@@ -342,7 +342,7 @@
       sourceUrl: "https://dsccsaudia.com/service/bathroom-solutions",
       icon: "/assets/uploads/media-uploader/toilet1695226341.svg",
       category: "MEP",
-      name: { en: `Bathroom Solutions`, ar: `Bathroom Solutions` },
+      name: { en: `Bathroom Solutions`, ar: `حلول الحمّامات` },
       tagline: { en: `Bathroom Solutions`, ar: `Bathroom Solutions` },
       overview: { en: `Welcome to DSCC Bathroom Solutions, where we bring a blend of creativity, expertise, and quality craftsmanship to create bathrooms that are both luxurious and functional. Our dedicated team specializes in designing, remodeling, and enhancing bathroom spaces to meet your unique needs and preferences.`, ar: `Welcome to DSCC Bathroom Solutions, where we bring a blend of creativity, expertise, and quality craftsmanship to create bathrooms that are both luxurious and functional. Our dedicated team specializes in designing, remodeling, and enhancing bathroom spaces to meet your unique needs and preferences.` },
       features: [
@@ -364,7 +364,7 @@
       sourceUrl: "https://dsccsaudia.com/service/water-supply-and-drainage-system",
       icon: "/assets/uploads/media-uploader/waste1695226342.svg",
       category: "MEP",
-      name: { en: `Water Supply and Drainage System`, ar: `Water Supply and Drainage System` },
+      name: { en: `Water Supply and Drainage System`, ar: `أنظمة التغذية المائية والصرف` },
       tagline: { en: `Water Supply and Drainage System`, ar: `Water Supply and Drainage System` },
       overview: { en: `Welcome to DSCC Water Supply and Drainage System Services, your trusted partner in creating, maintaining, and optimizing water management systems that ensure the smooth flow of water in and out of your residential or commercial spaces. Our experienced team specializes in providing comprehensive solutions for water supply and drainage needs, tailored to enhance efficiency and reliability. With a deep understanding of the importance of well-designed and properly functioning water supply and drainage systems, our skilled technicians bring years of expertise to every project. From planning and installation to maintenance and repairs, we prioritize effective water management that meets your requirements.`, ar: `Welcome to DSCC Water Supply and Drainage System Services, your trusted partner in creating, maintaining, and optimizing water management systems that ensure the smooth flow of water in and out of your residential or commercial spaces. Our experienced team specializes in providing comprehensive solutions for water supply and drainage needs, tailored to enhance efficiency and reliability. With a deep understanding of the importance of well-designed and properly functioning water supply and drainage systems, our skilled technicians bring years of expertise to every project. From planning and installation to maintenance and repairs, we prioritize effective water management that meets your requirements.` },
       features: [
@@ -386,7 +386,7 @@
       sourceUrl: "https://dsccsaudia.com/service/boiler-system",
       icon: "/assets/uploads/media-uploader/boiler1695226343.svg",
       category: "MEP",
-      name: { en: `Boiler System`, ar: `Boiler System` },
+      name: { en: `Boiler System`, ar: `أنظمة الغلّايات` },
       tagline: { en: `Boiler System`, ar: `Boiler System` },
       overview: { en: `Welcome to DSCC Boiler System Services, your trusted partner in providing efficient, reliable, and safe boiler solutions for residential and commercial spaces. Our expert team specializes in designing, installing, and maintaining boiler systems that deliver optimal heating performance while prioritizing energy efficiency and safety.`, ar: `Welcome to DSCC Boiler System Services, your trusted partner in providing efficient, reliable, and safe boiler solutions for residential and commercial spaces. Our expert team specializes in designing, installing, and maintaining boiler systems that deliver optimal heating performance while prioritizing energy efficiency and safety.` },
       features: [
@@ -408,7 +408,7 @@
       sourceUrl: "https://dsccsaudia.com/service/special-equipment",
       icon: "/assets/uploads/media-uploader/special-equipment1695226341.svg",
       category: "Outdoor & Lifestyle",
-      name: { en: `Special Equipment`, ar: `Special Equipment` },
+      name: { en: `Special Equipment`, ar: `المعدّات الخاصّة` },
       tagline: { en: `Special Equipment`, ar: `Special Equipment` },
       overview: { en: `DSCC Special Equipment Services, where we specialize in the installation, maintenance, and repair of specialized equipment such as elevators. With a strong commitment to safety, efficiency, and quality, our experienced technicians are dedicated to ensuring that your specialized equipment operates flawlessly, providing convenience and peace of mind.`, ar: `DSCC Special Equipment Services, where we specialize in the installation, maintenance, and repair of specialized equipment such as elevators. With a strong commitment to safety, efficiency, and quality, our experienced technicians are dedicated to ensuring that your specialized equipment operates flawlessly, providing convenience and peace of mind.` },
       features: [
@@ -430,7 +430,7 @@
       sourceUrl: "https://dsccsaudia.com/service/swimming-pool-system",
       icon: "/assets/uploads/media-uploader/swimming-pool-system1694201022.svg",
       category: "Outdoor & Lifestyle",
-      name: { en: `Swimming Pool System`, ar: `Swimming Pool System` },
+      name: { en: `Swimming Pool System`, ar: `أنظمة المسابح` },
       tagline: { en: `Swimming Pool System`, ar: `Swimming Pool System` },
       overview: { en: `Welcome to DSCC Swimming Pool System Services, your dedicated partner in creating, maintaining, and enhancing the ultimate aquatic oasis. Our expert technicians are here to ensure that your swimming pool system operates flawlessly, providing you with a serene and enjoyable environment for relaxation and recreation.`, ar: `Welcome to DSCC Swimming Pool System Services, your dedicated partner in creating, maintaining, and enhancing the ultimate aquatic oasis. Our expert technicians are here to ensure that your swimming pool system operates flawlessly, providing you with a serene and enjoyable environment for relaxation and recreation.` },
       features: [
@@ -455,7 +455,7 @@
       sourceUrl: "https://dsccsaudia.com/service/it-system-services",
       icon: "/assets/uploads/media-uploader/data-management1695226336.svg",
       category: "Smart & Tech",
-      name: { en: `IT System Services`, ar: `IT System Services` },
+      name: { en: `IT System Services`, ar: `خدمات أنظمة تقنية المعلومات` },
       tagline: { en: `IT System Services`, ar: `IT System Services` },
       overview: { en: `Welcome to DSCC IT System Services, your partner in harnessing the potential of technology to drive your business forward. Our expert team specializes in providing comprehensive IT solutions that empower your organization, enhance efficiency, and ensure seamless digital operations. With a deep understanding of the ever-evolving IT landscape, our experienced technicians bring years of expertise to every project. From designing and implementing IT systems to managing complex networks, we are committed to optimizing your digital infrastructure for success.`, ar: `Welcome to DSCC IT System Services, your partner in harnessing the potential of technology to drive your business forward. Our expert team specializes in providing comprehensive IT solutions that empower your organization, enhance efficiency, and ensure seamless digital operations. With a deep understanding of the ever-evolving IT landscape, our experienced technicians bring years of expertise to every project. From designing and implementing IT systems to managing complex networks, we are committed to optimizing your digital infrastructure for success.` },
       features: [
@@ -477,7 +477,7 @@
       sourceUrl: "https://dsccsaudia.com/service/fitness-equipment",
       icon: "/assets/uploads/media-uploader/bike1695226343.svg",
       category: "Outdoor & Lifestyle",
-      name: { en: `Fitness Equipment`, ar: `Fitness Equipment` },
+      name: { en: `Fitness Equipment`, ar: `معدّات اللياقة البدنية` },
       tagline: { en: `Fitness Equipment`, ar: `Fitness Equipment` },
       overview: { en: `Welcome to DSCC Fitness Equipment Services, where we specialize in providing top-of-the-line fitness equipment that empowers you to achieve your health and wellness goals. Our expert team is dedicated to delivering high-quality fitness solutions for both residential and commercial spaces, ensuring that you have the tools you need to lead an active and balanced lifestyle.`, ar: `Welcome to DSCC Fitness Equipment Services, where we specialize in providing top-of-the-line fitness equipment that empowers you to achieve your health and wellness goals. Our expert team is dedicated to delivering high-quality fitness solutions for both residential and commercial spaces, ensuring that you have the tools you need to lead an active and balanced lifestyle.` },
       features: [
@@ -499,7 +499,7 @@
       sourceUrl: "https://dsccsaudia.com/service/outdoor-&-landscape-solutions",
       icon: "/assets/uploads/media-uploader/field1695226337.svg",
       category: "Outdoor & Lifestyle",
-      name: { en: `Outdoor & Landscape Solutions`, ar: `Outdoor & Landscape Solutions` },
+      name: { en: `Outdoor & Landscape Solutions`, ar: `حلول التنسيق الخارجي والمساحات` },
       tagline: { en: `Outdoor & Landscape Solutions`, ar: `Outdoor & Landscape Solutions` },
       overview: { en: `Welcome to DSCC Outdoor & Landscape Solutions, your partner in creating captivating outdoor environments that blend natural beauty with artistic design. Our expert team specializes in crafting outdoor spaces that reflect your lifestyle, enhance the appeal of your property, and provide a sanctuary for relaxation and enjoyment.`, ar: `Welcome to DSCC Outdoor & Landscape Solutions, your partner in creating captivating outdoor environments that blend natural beauty with artistic design. Our expert team specializes in crafting outdoor spaces that reflect your lifestyle, enhance the appeal of your property, and provide a sanctuary for relaxation and enjoyment.` },
       features: [
@@ -521,7 +521,7 @@
       sourceUrl: "https://dsccsaudia.com/service/hospitality-supplies",
       icon: "/assets/uploads/media-uploader/room-service1695226339.svg",
       category: "Hospitality",
-      name: { en: `Hospitality Supplies`, ar: `Hospitality Supplies` },
+      name: { en: `Hospitality Supplies`, ar: `مستلزمات الضيافة` },
       tagline: { en: `Hospitality Supplies`, ar: `Hospitality Supplies` },
       overview: { en: `Welcome to DSCC Hospitality Supplies Solution, where we specialize in providing comprehensive and tailored hospitality supplies that enhance the comfort, convenience, and overall experience for your guests. Our expert team understands the importance of every detail in creating memorable stays and events, and we are dedicated to delivering high-quality supplies that reflect your establishment's standards and values.`, ar: `Welcome to DSCC Hospitality Supplies Solution, where we specialize in providing comprehensive and tailored hospitality supplies that enhance the comfort, convenience, and overall experience for your guests. Our expert team understands the importance of every detail in creating memorable stays and events, and we are dedicated to delivering high-quality supplies that reflect your establishment's standards and values.` },
       features: [
@@ -543,7 +543,7 @@
       sourceUrl: "https://dsccsaudia.com/service/linen-chute-solution",
       icon: "/assets/uploads/media-uploader/linen-chute-solution1695226338.svg",
       category: "Hospitality",
-      name: { en: `Linen Chute Solution`, ar: `Linen Chute Solution` },
+      name: { en: `Linen Chute Solution`, ar: `حلول شلّالات البياضات` },
       tagline: { en: `Linen Chute Solution`, ar: `Linen Chute Solution` },
       overview: { en: `Welcome to DSCC Linen Chute Solutions, where we specialize in providing innovative and efficient solutions for the disposal of linens and other materials in various commercial and residential settings. Our expert team is dedicated to simplifying waste management processes while maintaining high standards of hygiene, safety, and convenience. With a deep understanding of waste management challenges and a commitment to excellence, our skilled professionals have developed specialized expertise in designing, installing, and maintaining linen chutes that cater to the unique needs of different environments. From hotels and hospitals to apartment complexes and commercial buildings, our solutions are tailored to enhance waste disposal efficiency.`, ar: `Welcome to DSCC Linen Chute Solutions, where we specialize in providing innovative and efficient solutions for the disposal of linens and other materials in various commercial and residential settings. Our expert team is dedicated to simplifying waste management processes while maintaining high standards of hygiene, safety, and convenience. With a deep understanding of waste management challenges and a commitment to excellence, our skilled professionals have developed specialized expertise in designing, installing, and maintaining linen chutes that cater to the unique needs of different environments. From hotels and hospitals to apartment complexes and commercial buildings, our solutions are tailored to enhance waste disposal efficiency.` },
       features: [
@@ -565,7 +565,7 @@
       sourceUrl: "https://dsccsaudia.com/service/decoration-and-artwork",
       icon: "/assets/uploads/media-uploader/living-room1695226339.svg",
       category: "Hospitality",
-      name: { en: `Decoration and Artwork`, ar: `Decoration and Artwork` },
+      name: { en: `Decoration and Artwork`, ar: `الديكور والأعمال الفنية` },
       tagline: { en: `Decoration and Artwork`, ar: `Decoration and Artwork` },
       overview: { en: `Welcome to DSCC Decoration and Artwork Services, where we specialize in curating and creating captivating decor and artwork solutions that infuse your spaces with personality, elegance, and visual intrigue. Our expert team is dedicated to enhancing the aesthetics and ambiance of your residential or commercial environments through thoughtfully selected and curated decorations and artwork. With an eye for design and a deep appreciation for aesthetics, our skilled curators and designers bring years of expertise to every project. Whether you're seeking to elevate a room's ambiance, add a touch of sophistication to your business space, or express your individual style, we have the knowledge and creativity to turn your vision into reality.`, ar: `Welcome to DSCC Decoration and Artwork Services, where we specialize in curating and creating captivating decor and artwork solutions that infuse your spaces with personality, elegance, and visual intrigue. Our expert team is dedicated to enhancing the aesthetics and ambiance of your residential or commercial environments through thoughtfully selected and curated decorations and artwork. With an eye for design and a deep appreciation for aesthetics, our skilled curators and designers bring years of expertise to every project. Whether you're seeking to elevate a room's ambiance, add a touch of sophistication to your business space, or express your individual style, we have the knowledge and creativity to turn your vision into reality.` },
       features: [
@@ -587,7 +587,7 @@
       sourceUrl: "https://dsccsaudia.com/service/hospitality-signage-&-wayfinding",
       icon: "/assets/uploads/media-uploader/hotel1694202447.svg",
       category: "Hospitality",
-      name: { en: `Hospitality Signage & Wayfinding1`, ar: `Hospitality Signage & Wayfinding1` },
+      name: { en: `Hospitality Signage & Wayfinding1`, ar: `لوحات الضيافة وإرشاد المسارات` },
       tagline: { en: `Hospitality Signage & Wayfinding1`, ar: `Hospitality Signage & Wayfinding1` },
       overview: { en: `Welcome to DSCC Hospitality Signage & Wayfinding Services, where we specialize in creating elegant and effective signage solutions that enhance the guest experience in your hospitality establishment. Our expert team understands the importance of clear communication and seamless navigation, and we are dedicated to providing signage that reflects your brand while guiding your guests with precision.`, ar: `Welcome to DSCC Hospitality Signage & Wayfinding Services, where we specialize in creating elegant and effective signage solutions that enhance the guest experience in your hospitality establishment. Our expert team understands the importance of clear communication and seamless navigation, and we are dedicated to providing signage that reflects your brand while guiding your guests with precision.` },
       features: [

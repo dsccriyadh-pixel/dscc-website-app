@@ -1,6 +1,5 @@
 // Sector taxonomy mirrored from dsccsaudia.com service-page tabs.
-// English text is from source. Arabic intentionally identical pending
-// human Arabic review (see public/extract/source-mapping-report.md).
+// Arabic provided manually since source has no Arabic content.
 
 import type { BilingualString, Faq } from "./services";
 import { services } from "./services";
@@ -21,25 +20,25 @@ export interface Sector {
 const allServiceSlugs = services.map((s) => s.slug);
 
 export const sectorTabs: BilingualString[] = [
-  { en: "All Soultions", ar: "All Soultions" },
-  { en: "Residential", ar: "Residential" },
-  { en: "Infrastructure", ar: "Infrastructure" },
-  { en: "Commercial", ar: "Commercial" },
-  { en: "Hospitality", ar: "Hospitality" },
+  { en: "All Soultions",  ar: "جميع الحلول" },
+  { en: "Residential",    ar: "السكني" },
+  { en: "Infrastructure", ar: "البنية التحتية" },
+  { en: "Commercial",     ar: "التجاري" },
+  { en: "Hospitality",    ar: "الضيافة" },
 ];
 
 export const sectors: Sector[] = [
   {
     id: "residential",
     slug: "residential",
-    name: { en: "Residential", ar: "Residential" },
+    name: { en: "Residential", ar: "السكني" },
     tagline: {
       en: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
-      ar: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
+      ar: "نُتقن كلّ تفصيل لخلق مساحات متناغمة تعكس شخصيّتك وأسلوب حياتك",
     },
     overview: {
       en: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
-      ar: "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
+      ar: "نُتقن كلّ تفصيل لخلق مساحات متناغمة تعكس شخصيّتك وأسلوب حياتك",
     },
     needs: [],
     process: [],
@@ -50,14 +49,14 @@ export const sectors: Sector[] = [
   {
     id: "infrastructure",
     slug: "infrastructure",
-    name: { en: "Infrastructure", ar: "Infrastructure" },
+    name: { en: "Infrastructure", ar: "البنية التحتية" },
     tagline: {
       en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
-      ar: "One-stop solution provider of consultancy, design, building supplies and equipment.",
+      ar: "مزوّد متكامل لخدمات الاستشارة والتصميم وتوريد مواد ومعدّات البناء.",
     },
     overview: {
       en: "One-stop solution provider of consultancy, design, building supplies and equipment.",
-      ar: "One-stop solution provider of consultancy, design, building supplies and equipment.",
+      ar: "مزوّد متكامل لخدمات الاستشارة والتصميم وتوريد مواد ومعدّات البناء.",
     },
     needs: [],
     process: [],
@@ -68,14 +67,14 @@ export const sectors: Sector[] = [
   {
     id: "commercial",
     slug: "commercial",
-    name: { en: "Commercial", ar: "Commercial" },
+    name: { en: "Commercial", ar: "التجاري" },
     tagline: {
       en: "Architectural solutions tailored to your unique needs, preferences and project requirements",
-      ar: "Architectural solutions tailored to your unique needs, preferences and project requirements",
+      ar: "حلول معمارية مفصّلة وفق احتياجاتك وتفضيلاتك ومتطلبات مشروعك",
     },
     overview: {
       en: "Architectural solutions tailored to your unique needs, preferences and project requirements",
-      ar: "Architectural solutions tailored to your unique needs, preferences and project requirements",
+      ar: "حلول معمارية مفصّلة وفق احتياجاتك وتفضيلاتك ومتطلبات مشروعك",
     },
     needs: [],
     process: [],
@@ -86,14 +85,14 @@ export const sectors: Sector[] = [
   {
     id: "hospitality",
     slug: "hospitality",
-    name: { en: "Hospitality", ar: "Hospitality" },
+    name: { en: "Hospitality", ar: "الضيافة" },
     tagline: {
       en: "We create a seamless harmony that blends functionality, comfort and aesthetics",
-      ar: "We create a seamless harmony that blends functionality, comfort and aesthetics",
+      ar: "نخلق انسجاماً سلساً يمزج بين الوظيفة والراحة والجمال",
     },
     overview: {
       en: "We create a seamless harmony that blends functionality, comfort and aesthetics",
-      ar: "We create a seamless harmony that blends functionality, comfort and aesthetics",
+      ar: "نخلق انسجاماً سلساً يمزج بين الوظيفة والراحة والجمال",
     },
     needs: [],
     process: [],
