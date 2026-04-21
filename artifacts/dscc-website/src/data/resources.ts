@@ -27,7 +27,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC MEP Engineering Team", ar: "فريق هندسة MEP في دي إس سي سي" },
     category: { en: "Engineering", ar: "هندسة" },
     relatedServices: ["hvac-systems", "building-automation-systems"],
-    image: "img/sector-hospitality.png",
+    image: "assets/uploads/media-uploader/cover041693834210.jpg",
   },
   {
     id: "2",
@@ -42,7 +42,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Hospitality Studio", ar: "استوديو الضيافة في دي إس سي سي" },
     category: { en: "Hospitality", ar: "الضيافة" },
     relatedServices: ["smart-room-solutions", "indoor-outdoor-furniture", "decoration-artwork", "hospitality-supplies"],
-    image: "img/sector-hospitality.png",
+    image: "assets/uploads/media-uploader/hilton-swiss-palms1694250386.jpg",
   },
   {
     id: "3",
@@ -57,7 +57,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Smart Systems Practice", ar: "ممارسة الأنظمة الذكية في دي إس سي سي" },
     category: { en: "Smart & Tech", ar: "ذكي وتقني" },
     relatedServices: ["smart-room-solutions", "audio-video-systems", "building-automation-systems"],
-    image: "img/sector-hospitality.png",
+    image: "assets/uploads/media-uploader/cover021693834064.jpg",
   },
   {
     id: "4",
