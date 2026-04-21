@@ -75,55 +75,78 @@ export default function Contact() {
         ))}
       </section>
 
-      <section className="container pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div>
-          <h2 className="font-serif text-3xl mb-4">{t("contact_page.send_message")}</h2>
-          {done ? (
-            <div className="rounded-lg border bg-card p-6 text-foreground">{t("contact_page.thanks")}</div>
-          ) : (
-            <form onSubmit={onSubmit} className="space-y-4">
-              <Input name="name" required placeholder={t("contact_page.name")} />
-              <Input name="company" placeholder={t("contact_page.company")} />
-              <div className="grid grid-cols-2 gap-3">
-                <Input name="phone" required placeholder={t("contact_page.phone")} />
-                <Input name="email" type="email" required placeholder={t("contact_page.email")} />
-              </div>
-              <Textarea name="message" rows={5} required placeholder={t("contact_page.message")} />
-              <Button type="submit" disabled={submitting}>{submitting ? t("common.loading") : t("contact_page.send")}</Button>
-            </form>
-          )}
-        </div>
+      <section className="container pb-20 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+        <Card className="lg:col-span-3">
+          <CardContent className="p-8">
+            <h2 className="font-serif text-3xl mb-2">{t("contact_page.send_message")}</h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              {t("contact_page.subtitle")}
+            </p>
+            {done ? (
+              <div className="rounded-lg border bg-muted/40 p-6 text-foreground">{t("contact_page.thanks")}</div>
+            ) : (
+              <form onSubmit={onSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <Input name="name" required placeholder={t("contact_page.name")} />
+                  <Input name="company" placeholder={t("contact_page.company")} />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <Input name="phone" required placeholder={t("contact_page.phone")} />
+                  <Input name="email" type="email" required placeholder={t("contact_page.email")} />
+                </div>
+                <Textarea name="message" rows={6} required placeholder={t("contact_page.message")} />
+                <Button type="submit" disabled={submitting} size="lg" className="w-full md:w-auto">
+                  {submitting ? t("common.loading") : t("contact_page.send")}
+                </Button>
+              </form>
+            )}
+          </CardContent>
+        </Card>
 
-        <div className="space-y-4">
-          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
-            <Card className="hover:border-primary transition">
-              <CardContent className="p-6 flex items-center gap-4">
-                <MessageCircle className="size-8 text-primary" />
-                <div>
-                  <div className="font-serif text-lg">{t("common.send_via_whatsapp")}</div>
-                  <div className="text-sm text-muted-foreground">+966 55 984 6519</div>
+        <div className="lg:col-span-2 space-y-4">
+          <h2 className="font-serif text-2xl mb-1">
+            {t("common.send_via_whatsapp").includes("واتساب") ? "طرق التواصل السريعة" : "Quick Contact"}
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            {t("common.send_via_whatsapp").includes("واتساب")
+              ? "اختر القناة الأنسب لك — نرد خلال ساعات العمل"
+              : "Choose the channel that suits you best — we reply within business hours"}
+          </p>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="block">
+            <Card className="hover:border-primary hover:shadow-md transition group">
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition">
+                  <MessageCircle className="size-6 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-serif text-lg leading-tight">{t("common.send_via_whatsapp")}</div>
+                  <div className="text-sm text-muted-foreground mt-0.5" dir="ltr">+966 55 984 6519</div>
                 </div>
               </CardContent>
             </Card>
           </a>
-          <a href="mailto:contact@dsccarchitecture.com">
-            <Card className="hover:border-primary transition">
-              <CardContent className="p-6 flex items-center gap-4">
-                <Mail className="size-8 text-primary" />
-                <div>
-                  <div className="font-serif text-lg">{t("common.email_us")}</div>
-                  <div className="text-sm text-muted-foreground">contact@dsccarchitecture.com</div>
+          <a href="mailto:contact@dsccarchitecture.com" className="block">
+            <Card className="hover:border-primary hover:shadow-md transition group">
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition">
+                  <Mail className="size-6 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-serif text-lg leading-tight">{t("common.email_us")}</div>
+                  <div className="text-sm text-muted-foreground mt-0.5 truncate">contact@dsccarchitecture.com</div>
                 </div>
               </CardContent>
             </Card>
           </a>
-          <a href="tel:+966111234578">
-            <Card className="hover:border-primary transition">
-              <CardContent className="p-6 flex items-center gap-4">
-                <Phone className="size-8 text-primary" />
-                <div>
-                  <div className="font-serif text-lg">+966 11 1234 5678</div>
-                  <div className="text-sm text-muted-foreground">Sun–Thu 08:00–18:00 KSA</div>
+          <a href="tel:+966111234578" className="block">
+            <Card className="hover:border-primary hover:shadow-md transition group">
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition">
+                  <Phone className="size-6 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-serif text-lg leading-tight" dir="ltr">+966 11 1234 5678</div>
+                  <div className="text-sm text-muted-foreground mt-0.5">Sun–Thu 08:00–18:00 KSA</div>
                 </div>
               </CardContent>
             </Card>
