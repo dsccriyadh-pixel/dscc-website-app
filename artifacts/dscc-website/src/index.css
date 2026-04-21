@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;400;500;600&family=Tajawal:wght@300;400;500;700&family=Cairo:wght@300;400;600;700&display=swap');
+/* Fonts are loaded via <link> in index.html (preloaded) — no @import here to avoid mobile latency */
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -125,8 +125,8 @@
   --chart-4: 338 50% 55%;
   --chart-5: 200 35% 45%;
 
-  --app-font-sans: 'Inter', 'Cairo', 'Tajawal', sans-serif;
-  --app-font-serif: 'Fraunces', 'Cairo', serif;
+  --app-font-sans: 'Cairo', 'Inter', 'Tajawal', system-ui, sans-serif;
+  --app-font-serif: 'Cairo', 'Fraunces', system-ui, serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.25rem;
 
@@ -265,12 +265,12 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
-  /* Arabic: force Cairo on every element so mobile (esp. iOS) doesn't fall back
-     to system Arabic fonts via the Tajawal fallback in --font-sans. */
-  html[lang="ar"],
-  html[lang="ar"] body,
-  html[lang="ar"] *:not(i):not(svg):not(.font-arabic) {
-    font-family: 'Cairo', 'Tajawal', system-ui, sans-serif !important;
+  /* Apply Cairo unconditionally so mobile (esp. iOS) never falls back to a
+     system Arabic font. Cairo also has full Latin coverage so English text
+     stays readable; explicit Inter/Fraunces still works via .font-arabic /
+     .font-serif and Latin-only blocks where Inter is listed first. */
+  html, body, button, input, textarea, select, p, span, div, li, a, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', 'Inter', 'Tajawal', system-ui, -apple-system, sans-serif;
   }
 
   html[lang="ar"] .font-serif,
