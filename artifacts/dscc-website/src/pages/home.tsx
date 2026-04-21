@@ -223,8 +223,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
         </div>
 
-        <div className="container py-32 lg:py-44 text-white">
-          <div className="relative max-w-3xl grid [&>*]:[grid-area:1/1]">
+        <div className="container py-32 lg:py-44 text-white min-h-[640px] lg:min-h-[720px] flex flex-col justify-center">
+          <div className="relative max-w-3xl grid [&>*]:[grid-area:1/1] min-h-[420px] lg:min-h-[460px]">
           <AnimatePresence>
             <motion.div
               key={`${slide}-${lang}`}
