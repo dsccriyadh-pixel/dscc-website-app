@@ -27,7 +27,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC MEP Engineering Team", ar: "فريق هندسة MEP في دي إس سي سي" },
     category: { en: "Engineering", ar: "هندسة" },
     relatedServices: ["hvac-systems", "building-automation-systems"],
-    image: "assets/uploads/media-uploader/cover041693834210.jpg",
+    image: "assets/insights/hvac-red-sea.png",
   },
   {
     id: "2",
@@ -42,7 +42,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Hospitality Studio", ar: "استوديو الضيافة في دي إس سي سي" },
     category: { en: "Hospitality", ar: "الضيافة" },
     relatedServices: ["smart-room-solutions", "indoor-outdoor-furniture", "decoration-artwork", "hospitality-supplies"],
-    image: "assets/uploads/media-uploader/hilton-swiss-palms1694250386.jpg",
+    image: "assets/insights/vision-2030-hospitality.png",
   },
   {
     id: "3",
@@ -57,7 +57,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Smart Systems Practice", ar: "ممارسة الأنظمة الذكية في دي إس سي سي" },
     category: { en: "Smart & Tech", ar: "ذكي وتقني" },
     relatedServices: ["smart-room-solutions", "audio-video-systems", "building-automation-systems"],
-    image: "assets/uploads/media-uploader/cover021693834064.jpg",
+    image: "assets/insights/smart-room.png",
   },
   {
     id: "4",
@@ -72,7 +72,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Envelope Engineering", ar: "هندسة الأغلفة في دي إس سي سي" },
     category: { en: "Engineering", ar: "هندسة" },
     relatedServices: ["aluminum-steel-glazing", "windows-and-doors"],
-    image: "img/hero-skyline.png",
+    image: "assets/insights/facade-glazing.png",
   },
   {
     id: "5",
@@ -87,7 +87,7 @@ export const resources: Resource[] = [
     author: { en: "DSCC Fire Protection Practice", ar: "ممارسة الحماية من الحريق في دي إس سي سي" },
     category: { en: "Compliance", ar: "الامتثال" },
     relatedServices: ["fire-protection-systems", "security-systems"],
-    image: "img/sector-infrastructure.png",
+    image: "assets/insights/fire-protection.png",
   },
 ];
 

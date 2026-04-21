@@ -36,3 +36,33 @@ id = "2wyEMbW1JnGftQhYYGaQz"
 uri = "file://artifacts/dscc-website/public/img/hq-exterior.png"
 type = "image"
 title = "Premium corporate headquarters exterior"
+
+[[generated]]
+id = "Z8c_CEv0LQO0iZ6VtHRh1"
+uri = "file://artifacts/dscc-website/public/assets/insights/hvac-red-sea.png"
+type = "image"
+title = "hvac red sea coastal"
+
+[[generated]]
+id = "SEbIFR05_zB3VU-tYC3yO"
+uri = "file://artifacts/dscc-website/public/assets/insights/vision-2030-hospitality.png"
+type = "image"
+title = "vision 2030 hospitality"
+
+[[generated]]
+id = "pY0RdSW-CFmoXM51LEmUc"
+uri = "file://artifacts/dscc-website/public/assets/insights/smart-room.png"
+type = "image"
+title = "smart hotel room"
+
+[[generated]]
+id = "2sL7_I8z1SDaS6RIUxjO2"
+uri = "file://artifacts/dscc-website/public/assets/insights/facade-glazing.png"
+type = "image"
+title = "facade glazing skyscraper"
+
+[[generated]]
+id = "px8TpW5Q23hh_z_Cwcj85"
+uri = "file://artifacts/dscc-website/public/assets/insights/fire-protection.png"
+type = "image"
+title = "fire protection sprinkler system"
