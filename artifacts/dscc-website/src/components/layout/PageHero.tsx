@@ -11,7 +11,8 @@ type Props = {
 
 export function PageHero({ title, subtitle, image, eyebrow, children, align = "start" }: Props) {
   const baseUrl = import.meta.env.BASE_URL;
-  const src = `${baseUrl.replace(/\/$/, "")}${image}`;
+  const normalized = image.startsWith("/") ? image : `/${image}`;
+  const src = `${baseUrl.replace(/\/$/, "")}${normalized}`;
   return (
     <section className="relative isolate overflow-hidden bg-neutral-900 text-white">
       <div className="absolute inset-0 -z-10">
