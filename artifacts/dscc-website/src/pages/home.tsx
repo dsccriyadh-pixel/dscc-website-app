@@ -201,20 +201,33 @@ export default function Home() {
       />
 
       {/* HERO */}
-      <section className="relative isolate overflow-hidden">
-        <AnimatePresence mode="wait">
+      <section className="relative isolate overflow-hidden bg-neutral-900">
+        {/* Solid dark background prevents any white flash if a frame is ever empty. */}
+        <AnimatePresence initial={false}>
           <motion.div
             key={cur.image}
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.1 }}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1, transition: { opacity: { duration: 1.4, ease: "easeInOut" }, scale: { duration: 7, ease: "easeOut" } } }}
+            exit={{ opacity: 0, transition: { duration: 1.4, ease: "easeInOut" } }}
             className="absolute inset-0 -z-10"
           >
-            <img src={`${baseUrl.replace(/\/$/, "")}${cur.image}`} alt="" className="size-full object-cover" />
+            <img
+              src={`${baseUrl.replace(/\/$/, "")}${cur.image}`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              className="size-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
           </motion.div>
         </AnimatePresence>
+
+        {/* Preload the other slide images so the next crossfade is instant. */}
+        <div className="hidden" aria-hidden>
+          {HERO_SLIDES.map((s) => (
+            <img key={s.image} src={`${baseUrl.replace(/\/$/, "")}${s.image}`} alt="" />
+          ))}
+        </div>
 
         <div className="container py-32 lg:py-44 text-white">
           <AnimatePresence mode="wait">
