@@ -213,9 +213,10 @@ export default function Home() {
               <img
                 src={`${baseUrl.replace(/\/$/, "")}${s.image}`}
                 alt=""
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className="size-full object-cover"
+                loading="eager"
+                decoding="sync"
+                fetchPriority={i === 0 ? "high" : "low"}
+                className="absolute inset-0 size-full object-cover"
               />
             </div>
           ))}
