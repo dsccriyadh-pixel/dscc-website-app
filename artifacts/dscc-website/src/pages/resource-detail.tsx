@@ -1,6 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
+import { PageHero } from "@/components/layout/PageHero";
 import { getResourceBySlug } from "@/data/resources";
 import { services } from "@/data/services";
 import NotFound from "./not-found";
@@ -11,7 +12,6 @@ export default function ResourceDetail() {
   const r = getResourceBySlug(slug);
   const { t } = useLanguage();
   const bi = useBilingual();
-  const baseUrl = import.meta.env.BASE_URL;
 
   if (!r) return <NotFound />;
 
@@ -32,17 +32,12 @@ export default function ResourceDetail() {
       <Seo title={bi(r.title)} description={bi(r.excerpt)} path={`/resources/${r.slug}`} type="article" jsonLd={jsonLd} />
 
       <article>
-        <section className="relative isolate overflow-hidden">
-          <div className="absolute inset-0 -z-10">
-            <img src={`${baseUrl.replace(/\/$/, "")}${r.image}`} alt="" className="size-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/40" />
-          </div>
-          <div className="container py-24 text-primary-foreground">
-            <div className="text-xs uppercase tracking-[0.18em] text-secondary mb-3">{bi(r.category)} • {r.date}</div>
-            <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">{bi(r.title)}</h1>
-            <p className="mt-4 text-primary-foreground/80">{bi(r.author)}</p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={`${bi(r.category)} • ${r.date}`}
+          title={bi(r.title)}
+          subtitle={bi(r.author)}
+          image={r.image}
+        />
 
         <div className="container py-16 max-w-3xl">
           <p className="text-lg text-foreground/85 mb-8 italic">{bi(r.excerpt)}</p>
