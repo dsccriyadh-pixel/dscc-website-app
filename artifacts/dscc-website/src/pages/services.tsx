@@ -8,6 +8,7 @@ import { serviceShortDesc } from "@/data/extras";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/layout/PageHero";
 
 export default function Services() {
   const { t, lang } = useLanguage();
@@ -27,12 +28,12 @@ export default function Services() {
   return (
     <>
       <Seo title={t("services_page.title")} description={t("services_page.subtitle")} path="/services" />
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-20">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("services_page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/80">{t("services_page.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "خدماتنا" : "Our Services"}
+        title={t("services_page.title")}
+        subtitle={t("services_page.subtitle")}
+        image="/assets/uploads/media-uploader/project021695242947.jpg"
+      />
 
       <section className="container py-12">
         <div className="flex flex-col md:flex-row gap-4 mb-8">

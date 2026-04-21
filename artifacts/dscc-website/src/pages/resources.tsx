@@ -1,23 +1,24 @@
 import { Link } from "wouter";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
+import { PageHero } from "@/components/layout/PageHero";
 import { resources } from "@/data/resources";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Resources() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const bi = useBilingual();
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
     <>
       <Seo title={t("resources_page.title")} description={t("resources_page.subtitle")} path="/resources" />
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-20">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("resources_page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/80">{t("resources_page.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "مكتبة المعرفة" : "Knowledge Hub"}
+        title={t("resources_page.title")}
+        subtitle={t("resources_page.subtitle")}
+        image="/assets/uploads/media-uploader/cover011693833991.jpg"
+      />
 
       <section className="container py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((r) => (

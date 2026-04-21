@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle, ClipboardList, Map, Hammer, CheckCircle2, ShieldCheck, Users, Award, Layers } from "lucide-react";
 import { useBilingual, useLanguage } from "@/i18n/LanguageProvider";
+import { PageHero } from "@/components/layout/PageHero";
 import type { BilingualString } from "@/data/services";
 
 const STATS: { v: string; k: BilingualString }[] = [
@@ -90,12 +91,12 @@ export default function About() {
       />
 
       {/* HERO */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-24">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight max-w-3xl">{bi(T.hero)}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/85">{bi(T.heroSub)}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "من نحن" : "About Us"}
+        title={bi(T.hero)}
+        subtitle={bi(T.heroSub)}
+        image="/assets/uploads/media-uploader/cover021693834064.jpg"
+      />
 
       {/* MESSAGE — paragraphs */}
       <section className="container py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

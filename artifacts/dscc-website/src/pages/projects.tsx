@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { Search } from "lucide-react";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
+import { PageHero } from "@/components/layout/PageHero";
 import { Seo } from "@/components/seo/Seo";
 import { projects } from "@/data/projects";
 import { projectShortDesc } from "@/data/extras";
@@ -29,12 +30,12 @@ export default function Projects() {
   return (
     <>
       <Seo title={t("projects_page.title")} description={t("projects_page.subtitle")} path="/projects" />
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-20">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("projects_page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/80">{t("projects_page.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "أعمالنا" : "Our Work"}
+        title={t("projects_page.title")}
+        subtitle={t("projects_page.subtitle")}
+        image="/assets/uploads/media-uploader/project041695242949.jpg"
+      />
 
       <section className="container py-12">
         <div className="flex flex-col md:flex-row gap-4 mb-8">

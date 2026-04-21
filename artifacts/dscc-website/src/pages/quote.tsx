@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, CheckCircle2, Upload, X, Download, MessageCircle, Mail } from "lucide-react";
 import { useLanguage, useBilingual } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
+import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,7 +39,7 @@ const empty: QuoteState = {
 };
 
 export default function Quote() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const bi = useBilingual();
   const search = useSearch();
   const [step, setStep] = useState(1);
@@ -110,12 +111,12 @@ export default function Quote() {
   return (
     <>
       <Seo title={t("quote.title")} description={t("quote.subtitle")} path="/quote" />
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-16">
-          <h1 className="font-serif text-4xl md:text-5xl font-semibold">{t("quote.title")}</h1>
-          <p className="mt-3 text-primary-foreground/80">{t("quote.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "طلب عرض سعر" : "Request a Quote"}
+        title={t("quote.title")}
+        subtitle={t("quote.subtitle")}
+        image="/assets/uploads/media-uploader/project031695242949.jpg"
+      />
 
       <section className="container py-12 max-w-3xl">
         <div className="mb-8">

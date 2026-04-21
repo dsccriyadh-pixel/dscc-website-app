@@ -1,5 +1,6 @@
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Seo } from "@/components/seo/Seo";
+import { PageHero } from "@/components/layout/PageHero";
 import { clients, type Client } from "@/data/clients";
 
 function LogoCard({ c }: { c: Client }) {
@@ -20,19 +21,19 @@ function LogoCard({ c }: { c: Client }) {
 }
 
 export default function Clients() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const our = clients.filter((c) => c.type === "client");
   const partners = clients.filter((c) => c.type === "partner");
 
   return (
     <>
       <Seo title={t("clients_page.title")} description={t("clients_page.subtitle")} path="/clients" />
-      <section className="bg-primary text-primary-foreground">
-        <div className="container py-20">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("clients_page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/80">{t("clients_page.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "عملاؤنا" : "Our Clients"}
+        title={t("clients_page.title")}
+        subtitle={t("clients_page.subtitle")}
+        image="/assets/uploads/media-uploader/hilton-swiss-palms1694250386.jpg"
+      />
 
       <section className="container py-16">
         <p className="text-xs uppercase tracking-[0.18em] text-primary mb-6">{t("clients_page.our_clients")}</p>

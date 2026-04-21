@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { submitLead } from "@/lib/leads";
+import { PageHero } from "@/components/layout/PageHero";
 
 const offices = [
   {
@@ -31,7 +32,7 @@ const WHATSAPP_LINK =
   "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)";
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const baseUrl = import.meta.env.BASE_URL;
@@ -50,16 +51,12 @@ export default function Contact() {
   return (
     <>
       <Seo title={t("contact_page.title")} description={t("contact_page.subtitle")} path="/contact" />
-      <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <img src={`${baseUrl}img/hq-exterior.png`} alt="" className="size-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/30" />
-        </div>
-        <div className="container py-24 text-primary-foreground">
-          <h1 className="font-serif text-5xl md:text-6xl font-semibold tracking-tight">{t("contact_page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/85">{t("contact_page.subtitle")}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={lang === "ar" ? "تواصل معنا" : "Get in Touch"}
+        title={t("contact_page.title")}
+        subtitle={t("contact_page.subtitle")}
+        image="/assets/uploads/media-uploader/cover041693834210.jpg"
+      />
 
       <section className="container py-16 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {offices.map((o) => (
