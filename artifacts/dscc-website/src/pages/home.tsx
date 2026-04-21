@@ -224,14 +224,14 @@ export default function Home() {
         </div>
 
         <div className="container py-32 lg:py-44 text-white">
-          <AnimatePresence mode="wait">
+          <div className="relative max-w-3xl grid [&>*]:[grid-area:1/1]">
+          <AnimatePresence>
             <motion.div
               key={`${slide}-${lang}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-3xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
             >
               <p className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-3 py-1 text-xs uppercase tracking-[0.18em] mb-6">
                 {bi(cur.eyebrow)}
@@ -272,6 +272,7 @@ export default function Home() {
               </div>
             </motion.div>
           </AnimatePresence>
+          </div>
 
           <div className="mt-12 flex gap-2">
             {HERO_SLIDES.map((_, i) => (
