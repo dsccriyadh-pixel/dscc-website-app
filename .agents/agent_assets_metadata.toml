@@ -66,3 +66,9 @@ id = "px8TpW5Q23hh_z_Cwcj85"
 uri = "file://artifacts/dscc-website/public/assets/insights/fire-protection.png"
 type = "image"
 title = "fire protection sprinkler system"
+
+[[generated]]
+id = "V8dmf5SBm5hRn0Pdz127x"
+uri = "file://artifacts/dscc-website/public/assets/sara-avatar.png"
+type = "image"
+title = "sara avatar"

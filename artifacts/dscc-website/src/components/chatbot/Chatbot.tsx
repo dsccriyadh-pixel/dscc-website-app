@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Send, Sparkles, RotateCcw, X, Zap, Clock, Globe2, ShieldCheck, Bot, FileText, MessageCircle as WhatsIcon } from "lucide-react";
+import { Send, Sparkles, RotateCcw, X, Zap, Clock, Globe2, ShieldCheck, FileText, MessageCircle as WhatsIcon } from "lucide-react";
+
+const SARA_AVATAR = "/assets/sara-avatar.png";
+
+function cleanReply(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/__(.+?)__/g, "$1")
+    .replace(/^\s*#{1,6}\s+/gm, "")
+    .replace(/^\s*\*\s+/gm, "- ")
+    .replace(/(^|\s)\*(?!\s)([^*\n]+?)\*(?!\w)/g, "$1$2")
+    .replace(/`([^`]+)`/g, "$1")
+    .trim();
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
@@ -84,7 +97,7 @@ export function Chatbot() {
       });
       const data = await res.json();
       if (!res.ok || !data?.ok) throw new Error(data?.error || "chat failed");
-      const reply = String(data.reply || "").trim();
+      const reply = cleanReply(String(data.reply || ""));
       setMsgs((m) => [...m, { role: "assistant", content: reply || t("chatbot.empty_reply") }]);
 
       // Capture as soft lead so internal team sees the conversation
@@ -140,8 +153,8 @@ export function Chatbot() {
               <X className="size-3.5" />
             </button>
             <div className="flex items-start gap-3">
-              <div className="size-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                <Bot className="size-5" />
+              <div className="size-10 rounded-full overflow-hidden ring-2 ring-primary/30 shrink-0">
+                <img src={SARA_AVATAR} alt="Sara" className="size-full object-cover" />
               </div>
               <div className="min-w-0">
                 <div className="font-serif text-sm font-semibold text-foreground mb-0.5">{t("chatbot.teaser_title")}</div>
@@ -164,10 +177,12 @@ export function Chatbot() {
           className={`group fixed bottom-6 z-50 ${isRtl ? "left-6" : "right-6"}`}
         >
           <span className="absolute inset-1 rounded-full bg-primary/30 animate-ping opacity-40" aria-hidden />
-          <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 px-5 py-3 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
-            <span className="relative">
-              <Bot className="size-5" />
-              <span className="absolute -top-1 -right-1 size-2 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
+          <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 ps-1.5 pe-4 py-1.5 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
+            <span className="relative shrink-0">
+              <span className="block size-9 rounded-full overflow-hidden ring-2 ring-secondary/60 bg-white/10">
+                <img src={SARA_AVATAR} alt="Sara" className="size-full object-cover" />
+              </span>
+              <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
             </span>
             <span className="text-sm font-medium whitespace-nowrap">{t("chatbot.launcher")}</span>
             <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-secondary/90 text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5">
@@ -186,8 +201,8 @@ export function Chatbot() {
           <div className="relative flex items-start justify-between gap-3">
             <div className="flex items-start gap-3 min-w-0">
               <div className="relative shrink-0">
-                <div className="size-12 rounded-full bg-primary-foreground/15 ring-2 ring-secondary/60 backdrop-blur flex items-center justify-center">
-                  <Bot className="size-6 text-primary-foreground" />
+                <div className="size-14 rounded-full overflow-hidden ring-2 ring-secondary/60 bg-primary-foreground/10">
+                  <img src={SARA_AVATAR} alt="Sara" className="size-full object-cover" />
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
               </div>
