@@ -13,6 +13,43 @@ function cleanReply(text: string): string {
     .replace(/`([^`]+)`/g, "$1")
     .trim();
 }
+
+const LINK_REGEX =
+  /(\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*)\))|(https?:\/\/[^\s<>"']+)|((?:^|\s)(\/(?:quote|services|sectors|projects|clients|resources|about|contact)(?:\/[A-Za-z0-9\-_/]*)?))|(\+?\d[\d\s\-]{7,}\d)/g;
+
+function renderMessage(text: string) {
+  const nodes: (string | JSX.Element)[] = [];
+  let last = 0;
+  let key = 0;
+  const linkClass = "underline underline-offset-2 font-medium text-primary hover:text-primary/80 break-all";
+  text.replace(LINK_REGEX, (match, _md, mdLabel, mdHref, bareUrl, _pathWrap, pathHref, phone, offset: number) => {
+    if (offset > last) nodes.push(text.slice(last, offset));
+    if (mdHref) {
+      nodes.push(
+        <a key={`l${key++}`} href={mdHref} target={mdHref.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className={linkClass}>{mdLabel}</a>
+      );
+    } else if (bareUrl) {
+      nodes.push(
+        <a key={`l${key++}`} href={bareUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>{bareUrl}</a>
+      );
+    } else if (pathHref) {
+      const lead = match.startsWith(" ") || match.startsWith("\n") ? match[0] : "";
+      if (lead) nodes.push(lead);
+      nodes.push(
+        <a key={`l${key++}`} href={pathHref} className={linkClass}>{pathHref}</a>
+      );
+    } else if (phone) {
+      const tel = phone.replace(/[^\d+]/g, "");
+      nodes.push(
+        <a key={`l${key++}`} href={`tel:${tel}`} className={linkClass} dir="ltr">{phone}</a>
+      );
+    }
+    last = offset + match.length;
+    return match;
+  });
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
@@ -274,7 +311,7 @@ export function Chatbot() {
           {msgs.map((m, i) => (
             <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line ${m.role === "user" ? "bg-primary text-primary-foreground" : "bg-card border border-border"}`}>
-                {m.content}
+                {m.role === "assistant" ? renderMessage(m.content) : m.content}
               </div>
             </div>
           ))}
