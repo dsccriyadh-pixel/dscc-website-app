@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { submitLead } from "@/lib/leads";
 
 interface Msg { role: "user" | "assistant"; content: string }
@@ -219,9 +219,22 @@ export function Chatbot() {
                 <p className="text-[11px] text-primary-foreground/70 mt-1">{t("chatbot.tagline")}</p>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={reset} title={t("chatbot.reset")} className="text-primary-foreground hover:bg-primary-foreground/10 shrink-0">
-              <RotateCcw className="size-4" />
-            </Button>
+            <div className="flex items-center gap-1 shrink-0">
+              <Button variant="ghost" size="icon" onClick={reset} title={t("chatbot.reset")} className="text-primary-foreground hover:bg-primary-foreground/10">
+                <RotateCcw className="size-4" />
+              </Button>
+              <SheetClose asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  title={t("chatbot.teaser_dismiss")}
+                  aria-label={t("chatbot.teaser_dismiss")}
+                  className="text-primary-foreground hover:bg-primary-foreground/15 ring-1 ring-primary-foreground/30"
+                >
+                  <X className="size-5" />
+                </Button>
+              </SheetClose>
+            </div>
           </div>
           <div className="relative mt-4 grid grid-cols-3 gap-2 text-[10.5px] text-primary-foreground/85">
             <div className="flex items-center gap-1.5 rounded-md bg-primary-foreground/10 px-2 py-1.5">
