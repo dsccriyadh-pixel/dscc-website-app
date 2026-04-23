@@ -1,0 +1,79 @@
+Scope: all 10 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +492
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 492, reused 492, downloaded 0, added 286
+Progress: resolved 492, reused 492, downloaded 0, added 438
+Progress: resolved 492, reused 492, downloaded 0, added 489
+Progress: resolved 492, reused 492, downloaded 0, added 492, done
+
+devDependencies:
++ prettier 3.8.1
++ typescript 5.9.3
+
+. preinstall$ sh -c 'rm -f package-lock.json yarn.lock; case "$npm_config_user_agent" in pnpm/*) ;; *) echo "Use pnpm instead" >&2; exit 1 ;; esac'
+. preinstall: Done
+Done in 4.9s using pnpm v10.33.2
+
+> workspace@0.0.0 build /home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository
+> npx -y pnpm@10 --filter @workspace/dscc-website build
+
+
+> @workspace/dscc-website@0.0.0 build /home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/artifacts/dscc-website
+> vite build --config vite.config.ts
+
+vite v7.3.2 building client environment for production...
+transforming...
+src/components/ui/tooltip.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+src/components/ui/sheet.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+src/components/ui/select.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+✓ 2261 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/public/index.html                                          1.27 kB │ gzip:   0.59 kB
+dist/public/assets/cairo-latin-ext-300-normal-CXsaobd9.woff2    7.22 kB
+dist/public/assets/cairo-latin-ext-400-normal-xCL67Y2R.woff2    7.34 kB
+dist/public/assets/cairo-latin-ext-800-normal-ChnkP8hn.woff2    7.43 kB
+dist/public/assets/cairo-latin-ext-700-normal-Cscux539.woff2    7.46 kB
+dist/public/assets/cairo-latin-ext-500-normal-DxXN6Mb5.woff2    7.46 kB
+dist/public/assets/cairo-latin-ext-600-normal-DuRnqffh.woff2    7.48 kB
+dist/public/assets/cairo-latin-ext-300-normal-jdltcJAs.woff     9.94 kB
+dist/public/assets/cairo-latin-ext-400-normal-C_BIE9Qe.woff    10.16 kB
+dist/public/assets/cairo-latin-ext-600-normal-DAfLYaOC.woff    10.24 kB
+dist/public/assets/cairo-latin-ext-700-normal-htXca11Z.woff    10.25 kB
+dist/public/assets/cairo-latin-ext-800-normal-RObK5hVW.woff    10.26 kB
+dist/public/assets/cairo-latin-ext-500-normal-De4OTi8O.woff    10.26 kB
+dist/public/assets/cairo-arabic-400-normal-DN15VWMM.woff2      13.29 kB
+dist/public/assets/cairo-arabic-300-normal-BzG0LTj1.woff2      13.48 kB
+dist/public/assets/cairo-arabic-800-normal-G1qvPr6G.woff2      13.89 kB
+dist/public/assets/cairo-arabic-500-normal-DDl0i4Xv.woff2      13.89 kB
+dist/public/assets/cairo-arabic-600-normal-rkrvveqO.woff2      13.90 kB
+dist/public/assets/cairo-arabic-700-normal-D3nDedWX.woff2      13.95 kB
+dist/public/assets/cairo-latin-300-normal-khA8zevC.woff2       14.81 kB
+dist/public/assets/cairo-latin-400-normal-Dh7otpdh.woff2       15.02 kB
+dist/public/assets/cairo-latin-500-normal-D-WQsSKQ.woff2       15.24 kB
+dist/public/assets/cairo-latin-600-normal-mGS0uvCM.woff2       15.28 kB
+dist/public/assets/cairo-latin-700-normal-C3GYtKbV.woff2       15.28 kB
+dist/public/assets/cairo-latin-800-normal-BBdTpBXf.woff2       15.32 kB
+dist/public/assets/cairo-arabic-400-normal-CAYwymWN.woff       16.81 kB
+dist/public/assets/cairo-arabic-300-normal-BiQKz1YY.woff       17.00 kB
+dist/public/assets/cairo-arabic-700-normal-CyOqhaeK.woff       17.26 kB
+dist/public/assets/cairo-arabic-800-normal-CVTPwINa.woff       17.31 kB
+dist/public/assets/cairo-arabic-600-normal-B3EOalmC.woff       17.34 kB
+dist/public/assets/cairo-arabic-500-normal-BADfnM6v.woff       17.34 kB
+dist/public/assets/cairo-latin-300-normal-ikjlCWX1.woff        19.08 kB
+dist/public/assets/cairo-latin-400-normal-b1R3q6Pf.woff        19.49 kB
+dist/public/assets/cairo-latin-500-normal-DkdkMETP.woff        19.66 kB
+dist/public/assets/cairo-latin-600-normal-buYOP1M3.woff        19.68 kB
+dist/public/assets/cairo-latin-700-normal-6fcUy4Rc.woff        19.74 kB
+dist/public/assets/cairo-latin-800-normal-ReWrxM5E.woff        19.75 kB
+dist/public/assets/index-D23AXbCE.css                         163.42 kB │ gzip:  23.56 kB
+dist/public/assets/index-B18wNHKP.js                          764.07 kB │ gzip: 222.12 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.48s
+[31mERROR: No output directory found after build[0m
