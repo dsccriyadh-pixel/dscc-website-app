@@ -1,0 +1,42 @@
+Scope: all 10 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +492
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 492, reused 492, downloaded 0, added 285
+Progress: resolved 492, reused 492, downloaded 0, added 427
+Progress: resolved 492, reused 492, downloaded 0, added 490
+Progress: resolved 492, reused 492, downloaded 0, added 492, done
+
+devDependencies:
++ prettier 3.8.1
++ typescript 5.9.3
+
+. preinstall$ sh -c 'rm -f package-lock.json yarn.lock; case "$npm_config_user_agent" in pnpm/*) ;; *) echo "Use pnpm instead" >&2; exit 1 ;; esac'
+. preinstall: Done
+Done in 5s using pnpm v10.33.2
+
+> workspace@0.0.0 build /home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository
+> npx -y pnpm@10 --filter @workspace/dscc-website build
+
+
+> @workspace/dscc-website@0.0.0 build /home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/artifacts/dscc-website
+> vite build --config vite.config.ts
+
+failed to load config from /home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/artifacts/dscc-website/vite.config.ts
+error during build:
+Error: PORT environment variable is required but was not provided.
+    at file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/artifacts/dscc-website/node_modules/.vite-temp/vite.config.ts.timestamp-1776949779013-df06ee46c212a.mjs:10:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async loadConfigFromBundledFile (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/config.js:35920:12)
+    at async bundleAndLoadConfigFile (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/config.js:35808:17)
+    at async loadConfigFromFile (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/config.js:35775:42)
+    at async resolveConfig (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/config.js:35424:22)
+    at async createBuilder (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/config.js:33879:19)
+    at async CAC.<anonymous> (file:///home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/node_modules/.pnpm/vite@7.3.2_@types+node@25.3.5_jiti@2.6.1_lightningcss@1.31.1_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/cli.js:629:10)
+/home/u414735893/domains/darkslateblue-duck-212689.hostingersite.com/public_html/.builds/source/repository/artifacts/dscc-website:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/dscc-website@0.0.0 build: `vite build --config vite.config.ts`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+[31mERROR: Failed to build the application[0m
