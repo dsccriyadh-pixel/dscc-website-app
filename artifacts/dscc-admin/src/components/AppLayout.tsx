@@ -107,7 +107,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="start" className="w-72 p-0 bg-sidebar text-sidebar-foreground">
+              <SheetContent
+                side={typeof document !== "undefined" && document.documentElement.dir === "rtl" ? "right" : "left"}
+                className="w-72 p-0 bg-sidebar text-sidebar-foreground flex flex-col"
+              >
                 <SheetTitle className="sr-only">{t("brand")}</SheetTitle>
                 <div className="px-5 py-5 border-b border-sidebar-border">
                   <div className="flex items-center gap-3">
