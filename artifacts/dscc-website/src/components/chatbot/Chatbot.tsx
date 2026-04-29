@@ -151,8 +151,8 @@ export function Chatbot() {
   }
 
   const greet = lang === "ar"
-    ? "أهلاً بك! أنا سارة، مساعدتك الذكية لدى DSCC. اسألني عن خدماتنا، قطاعاتنا، مشاريعنا، أو منهجية العمل — وسأساعدك خلال ثوانٍ."
-    : "Hi there! I'm Sara, the DSCC AI assistant. Ask me about our services, sectors, projects, or how we work — I'll help in seconds.";
+    ? "أهلاً بك! أنا سارة، مساعدتك الذكية لدى DSCC. تحدّث معي بأي لغة تريد — العربية، الإنجليزية، الفرنسية، التركية، الأوردية، الفارسية، الهندية، الصينية أو غيرها — وسأردّ بنفس لغتك. اسألني عن خدماتنا، قطاعاتنا، مشاريعنا، أو منهجية العمل."
+    : "Hi there! I'm Sara, the DSCC AI assistant. Talk to me in any language — English, Arabic, French, Spanish, Turkish, Urdu, Hindi, Chinese, and more — and I'll reply in your language. Ask me about our services, sectors, projects, or how we work.";
 
   const suggestions = lang === "ar"
     ? [
@@ -248,6 +248,9 @@ export function Chatbot() {
                   <h3 className="font-serif text-lg font-semibold leading-tight">{t("chatbot.title")}</h3>
                   <span className="inline-flex items-center gap-1 rounded-full bg-secondary text-primary text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5">
                     <Sparkles className="size-2.5" /> AI
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-400/15 text-emerald-100 ring-1 ring-emerald-300/40 text-[10px] font-semibold tracking-wide px-1.5 py-0.5">
+                    <Globe2 className="size-2.5" /> {t("chatbot.multilang_badge")}
                   </span>
                 </div>
                 <p className="text-xs text-primary-foreground/80 mt-1 flex items-center gap-1.5">
