@@ -37,6 +37,7 @@ import {
 } from "@/lib/types";
 import { getToken } from "@/lib/auth";
 import { useI18n, type TKey } from "@/lib/i18n";
+import { T } from "@/components/T";
 
 const API_BASE =
   ((import.meta as unknown as { env?: { VITE_API_BASE?: string } }).env?.VITE_API_BASE) ||
@@ -370,9 +371,15 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
                   <TableCell>
                     <Link href={`/leads/${lead.id}`}>
                       <a className="block" onClick={(e) => e.stopPropagation()}>
-                        <div className="font-medium">{lead.fullName || t("unnamed")}</div>
+                        <div className="font-medium">
+                          {lead.fullName ? <T text={lead.fullName} /> : t("unnamed")}
+                        </div>
                         <div className="text-xs text-muted-foreground">
-                          {lead.company || lead.email || lead.phone || lead.ref}
+                          {lead.company ? (
+                            <T text={lead.company} />
+                          ) : (
+                            lead.email || lead.phone || lead.ref
+                          )}
                         </div>
                       </a>
                     </Link>
@@ -385,7 +392,9 @@ export default function LeadsList({ fixedSource, titleKey, descriptionKey }: Pro
                       {t(sourceKey(lead.source))}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm">{lead.city || "—"}</TableCell>
+                  <TableCell className="text-sm">
+                    {lead.city ? <T text={lead.city} /> : "—"}
+                  </TableCell>
                   <TableCell className="text-sm">
                     {lead.assignedTo ? (
                       <span className="inline-flex items-center gap-1">

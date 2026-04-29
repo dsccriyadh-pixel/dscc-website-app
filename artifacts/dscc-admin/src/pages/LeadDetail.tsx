@@ -47,6 +47,7 @@ import {
   type LeadStatus,
 } from "@/lib/types";
 import { useI18n, type TKey } from "@/lib/i18n";
+import { T } from "@/components/T";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -183,7 +184,7 @@ export default function LeadDetail() {
         <div>
           <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-2xl font-semibold tracking-tight" data-testid="text-lead-name">
-              {lead.fullName || t("unnamed_lead")}
+              {lead.fullName ? <T text={lead.fullName} /> : t("unnamed_lead")}
             </h1>
             <StatusBadge status={lead.status} />
             <Badge variant="outline">{t(sourceKey(lead.source))}</Badge>
@@ -306,8 +307,8 @@ export default function LeadDetail() {
             </CardHeader>
             <CardContent>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
-                <Field icon={User} label={t("full_name")} value={lead.fullName} />
-                <Field icon={Building2} label={t("company")} value={lead.company} />
+                <Field icon={User} label={t("full_name")} value={lead.fullName} translate />
+                <Field icon={Building2} label={t("company")} value={lead.company} translate />
                 <Field
                   icon={Mail}
                   label={t("email")}
@@ -320,7 +321,7 @@ export default function LeadDetail() {
                   value={lead.phone}
                   href={lead.phone ? `tel:${lead.phone}` : undefined}
                 />
-                <Field icon={MapPin} label={t("city")} value={lead.city} />
+                <Field icon={MapPin} label={t("city")} value={lead.city} translate />
                 <Field icon={Calendar} label={t("created")} value={formatDate(lead.createdAt, dateLocale)} />
               </dl>
             </CardContent>
@@ -336,12 +337,12 @@ export default function LeadDetail() {
             </CardHeader>
             <CardContent>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4">
-                <Field label={t("project_type")} value={lead.projectType} />
-                <Field label={t("project_size")} value={lead.projectSize} />
-                <Field label={t("budget")} value={lead.budget} />
-                <Field label={t("timeline")} value={lead.timeline} />
-                <Field label={t("source_action")} value={lead.sourceAction} />
-                <Field label={t("intent")} value={lead.intent} />
+                <Field label={t("project_type")} value={lead.projectType} translate />
+                <Field label={t("project_size")} value={lead.projectSize} translate />
+                <Field label={t("budget")} value={lead.budget} translate />
+                <Field label={t("timeline")} value={lead.timeline} translate />
+                <Field label={t("source_action")} value={lead.sourceAction} translate />
+                <Field label={t("intent")} value={lead.intent} translate />
               </dl>
               {lead.services && lead.services.length > 0 && (
                 <div className="mb-4">
@@ -350,7 +351,7 @@ export default function LeadDetail() {
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {lead.services.map((s) => (
-                      <Badge key={s} variant="secondary">{s}</Badge>
+                      <Badge key={s} variant="secondary"><T text={s} /></Badge>
                     ))}
                   </div>
                 </div>
@@ -362,7 +363,7 @@ export default function LeadDetail() {
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {lead.recommendedServices.map((s) => (
-                      <Badge key={s} variant="outline">{s}</Badge>
+                      <Badge key={s} variant="outline"><T text={s} /></Badge>
                     ))}
                   </div>
                 </div>
@@ -373,7 +374,7 @@ export default function LeadDetail() {
                     {t("message")}
                   </div>
                   <div className="text-sm whitespace-pre-wrap bg-muted/40 rounded-md p-3 border">
-                    {lead.message}
+                    <T text={lead.message} inline={false} />
                   </div>
                 </div>
               )}
@@ -383,7 +384,7 @@ export default function LeadDetail() {
                     {t("conv_summary")}
                   </div>
                   <div className="text-sm whitespace-pre-wrap bg-muted/40 rounded-md p-3 border">
-                    {lead.chatbotSummary}
+                    <T text={lead.chatbotSummary} inline={false} />
                   </div>
                 </div>
               )}
@@ -509,7 +510,7 @@ export default function LeadDetail() {
                           )}
                         </div>
                       </div>
-                      <div className="whitespace-pre-wrap">{n.body}</div>
+                      <div className="whitespace-pre-wrap"><T text={n.body} inline={false} /></div>
                     </div>
                   ))
                 )}
@@ -527,11 +528,13 @@ function Field({
   label,
   value,
   href,
+  translate,
 }: {
   icon?: React.ComponentType<{ className?: string }>;
   label: string;
   value?: string;
   href?: string;
+  translate?: boolean;
 }) {
   return (
     <div>
@@ -545,6 +548,8 @@ function Field({
             <a href={href} className="text-primary hover:underline">
               {value}
             </a>
+          ) : translate ? (
+            <T text={value} />
           ) : (
             <span>{value}</span>
           )
