@@ -214,7 +214,15 @@ export function Chatbot() {
           className={`group fixed bottom-20 lg:bottom-6 z-50 ${isRtl ? "left-4 lg:left-6" : "right-4 lg:right-6"}`}
         >
           <span className="absolute inset-1 rounded-full bg-primary/30 animate-ping opacity-40" aria-hidden />
-          <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 ps-1.5 pe-4 py-1.5 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
+          {/* Mobile: compact circular button */}
+          <span className="lg:hidden relative grid place-items-center size-14 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_30px_-8px_rgba(146,27,67,0.7)] ring-2 ring-secondary/50 active:scale-95 transition">
+            <span className="block size-11 rounded-full overflow-hidden ring-2 ring-secondary/60 bg-white/10">
+              <img src={SARA_AVATAR} alt="Sara" className="size-full object-cover" />
+            </span>
+            <span className="absolute top-0.5 right-0.5 size-3 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
+          </span>
+          {/* Desktop: expanded pill */}
+          <span className="hidden lg:flex relative items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 ps-1.5 pe-4 py-1.5 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">
             <span className="relative shrink-0">
               <span className="block size-9 rounded-full overflow-hidden ring-2 ring-secondary/60 bg-white/10">
                 <img src={SARA_AVATAR} alt="Sara" className="size-full object-cover" />
@@ -222,7 +230,7 @@ export function Chatbot() {
               <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-400 ring-2 ring-primary" aria-hidden />
             </span>
             <span className="text-sm font-medium whitespace-nowrap">{t("chatbot.launcher")}</span>
-            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-secondary/90 text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5">
+            <span className="inline-flex items-center gap-1 rounded-full bg-secondary/90 text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5">
               <Sparkles className="size-2.5" /> AI
             </span>
           </span>
