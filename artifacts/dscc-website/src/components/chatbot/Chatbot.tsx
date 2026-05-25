@@ -18,7 +18,7 @@ const LINK_REGEX =
   /(\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*)\))|(https?:\/\/[^\s<>"']+)|((?:^|\s)(\/(?:quote|services|sectors|projects|clients|resources|about|contact)(?:\/[A-Za-z0-9\-_/]*)?))|(\+?\d[\d\s\-]{7,}\d)/g;
 
 function renderMessage(text: string) {
-  const nodes: (string | JSX.Element)[] = [];
+  const nodes: React.ReactNode[] = [];
   let last = 0;
   let key = 0;
   const linkClass = "underline underline-offset-2 font-medium text-primary hover:text-primary/80 break-all";
@@ -211,7 +211,7 @@ export function Chatbot() {
       <SheetTrigger asChild>
         <button
           aria-label={t("chatbot.launcher")}
-          className={`group fixed bottom-6 z-50 ${isRtl ? "left-6" : "right-6"}`}
+          className={`group fixed bottom-20 lg:bottom-6 z-50 ${isRtl ? "left-4 lg:left-6" : "right-4 lg:right-6"}`}
         >
           <span className="absolute inset-1 rounded-full bg-primary/30 animate-ping opacity-40" aria-hidden />
           <span className="relative flex items-center gap-2 rounded-full bg-gradient-to-br from-primary to-[#6e1432] text-primary-foreground shadow-[0_10px_40px_-10px_rgba(146,27,67,0.6)] ring-2 ring-secondary/40 ps-1.5 pe-4 py-1.5 hover:shadow-[0_14px_48px_-10px_rgba(146,27,67,0.8)] hover:scale-[1.03] active:scale-100 transition">

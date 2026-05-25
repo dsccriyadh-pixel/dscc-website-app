@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const SOCIAL = [
-  { href: "https://www.facebook.com/profile.php?id=100093187917575", label: "Facebook", Icon: Facebook },
-  { href: "https://www.instagram.com/dsccsaudia", label: "Instagram", Icon: Instagram },
-  { href: "https://twitter.com/dsccsaudia", label: "Twitter", Icon: Twitter },
-  { href: "https://www.tiktok.com/@dsccsaudia", label: "TikTok", Icon: Music2 },
+  { href: "https://www.facebook.com/dscc.sa", label: "Facebook", Icon: Facebook },
+  { href: "https://www.instagram.com/dscc.sa/", label: "Instagram", Icon: Instagram },
+  { href: "https://x.com/dsccsa", label: "X", Icon: Twitter },
+  { href: "https://www.tiktok.com/@dscc.sa", label: "TikTok", Icon: Music2 },
   {
     href: "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)",
     label: "WhatsApp",

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { Chatbot } from "@/components/chatbot/Chatbot";
 
 import Home from "@/pages/home";
@@ -48,6 +49,8 @@ function Router() {
       </main>
       <Footer />
       <Chatbot />
+      <MobileTabBar />
+      <div className="lg:hidden h-16" aria-hidden />
     </div>
   );
 }
