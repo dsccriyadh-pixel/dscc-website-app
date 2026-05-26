@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "echo skip",
-    "build": "echo prebuilt",
+    "build": "mkdir -p artifacts/dscc-website/dist/public && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && echo built",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
