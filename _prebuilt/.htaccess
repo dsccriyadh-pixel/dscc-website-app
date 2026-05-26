@@ -3,8 +3,9 @@
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
 
-  # API: map clean /api/chat to /api/chat.php
-  RewriteRule ^api/chat/?$ /api/chat.php [L]
+  # API: map clean paths to PHP handlers
+  RewriteRule ^api/chat/?$  /api/chat.php  [L]
+  RewriteRule ^api/leads/?$ /api/leads.php [L]
 
   # Never rewrite /api/* to the SPA — let PHP / 404 handle it
   RewriteRule ^api(/.*)?$ - [L]
