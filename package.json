@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "echo skip",
-    "build": "mkdir -p artifacts/dscc-website/dist/public && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && echo built",
+    "build": "set -x; echo PWD=$PWD; ls -la; echo ---_prebuilt---; ls -la _prebuilt | head; mkdir -p artifacts/dscc-website/dist/public; cp -r _prebuilt/. artifacts/dscc-website/dist/public/; echo ---OUTPUT---; ls -la artifacts/dscc-website/dist/public | head -20; echo ---ASSETS---; ls artifacts/dscc-website/dist/public/assets | head -5; echo done",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
