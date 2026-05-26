@@ -47,3 +47,7 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# OpenAI key — server-only, never commit
+_prebuilt/api/config.php
+_prebuilt/api/.openai_key

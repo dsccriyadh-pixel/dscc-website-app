@@ -1,0 +1,15 @@
+# Deny access to anything in /api/ except *.php
+<FilesMatch "\.(php)$">
+  Require all granted
+</FilesMatch>
+<FilesMatch "^(?!.*\.php$).*$">
+  Require all denied
+</FilesMatch>
+# Explicitly hide the key file even if FilesMatch order changes
+<Files "config.php">
+  # config.php is *executed* (not served) by Apache+PHP, so contents stay private.
+  Require all granted
+</Files>
+<Files ".openai_key">
+  Require all denied
+</Files>

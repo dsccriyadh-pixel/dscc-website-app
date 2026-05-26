@@ -3,6 +3,12 @@
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
 
+  # API: map clean /api/chat to /api/chat.php
+  RewriteRule ^api/chat/?$ /api/chat.php [L]
+
+  # Never rewrite /api/* to the SPA — let PHP / 404 handle it
+  RewriteRule ^api(/.*)?$ - [L]
+
   # /admin/* fallback (only if not a real file/dir)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
