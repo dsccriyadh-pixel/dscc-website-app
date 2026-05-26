@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; exit 0'",    "build": "npx -y pnpm@10 --filter @workspace/dscc-website build",
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; exit 0'",
+    "build": "npx -y pnpm@10 --filter @workspace/dscc-website build",
     "typecheck:libs": "tsc --build",
     "typecheck": "npx -y pnpm@10 run typecheck:libs && npx -y pnpm@10 -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
@@ -11,5 +12,12 @@
   "devDependencies": {
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "@swc/core",
+      "sharp"
+    ]
   }
 }
