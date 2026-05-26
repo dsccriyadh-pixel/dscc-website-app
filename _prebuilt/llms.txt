@@ -63,3 +63,17 @@
 
 ## Insights
 - /resources — Engineering and hospitality fit-out articles
+
+## Locations (city landing pages)
+- /locations — index of all served cities and regions
+- /locations/riyadh — Riyadh (HQ): KAFD, DQ, North Riyadh, Diriyah, Qiddiya, New Murabba. Same-day site visits. Local Civil Defense compliance.
+- /locations/jeddah — Jeddah (Red Sea): coastal/marine-grade engineering for hotels, resorts, waterfront residences. Specialist HVAC for Red Sea humidity.
+- /locations/dammam — Dammam, Khobar, Dhahran, Jubail (Eastern Province): industrial MEP, Aramco SAES standards, MoH-grade medical fit-out.
+- /locations/neom — NEOM, Tabuk: modular MEP, façade glazing, smart-room and staff village fit-out for The Line, Oxagon, Trojena, Sindalah. NEC4/FIDIC frameworks, BIM L2.
+
+## Common questions
+- Coverage: all of Saudi Arabia; HQ Riyadh; teams in Jeddah, Dammam, NEOM.
+- Response time: 24 hours; same-day Riyadh site visits; quotation within 1 business day.
+- Scopes: turnkey OR standalone MEP, fit-out, façade, or hospitality FF&E.
+- Compliance: Saudi Building Code (SBC), Civil Defense, NFPA, SASO, Aramco SAES, NEOM standards.
+- Vision 2030: active on NEOM, Diriyah, Qiddiya, KAFD, New Murabba projects.
