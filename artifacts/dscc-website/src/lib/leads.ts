@@ -44,7 +44,7 @@ function persistLocal(p: LeadPayload & { ref: string }) {
   } catch {}
 }
 
-export function buildWhatsAppLink(message: string, phone = "966112001234") {
+export function buildWhatsAppLink(message: string, phone = "966553117884") {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 

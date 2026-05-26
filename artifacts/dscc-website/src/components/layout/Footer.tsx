@@ -10,7 +10,7 @@ const SOCIAL = [
   { href: "https://x.com/dsccsa", label: "X", Icon: Twitter },
   { href: "https://www.tiktok.com/@dscc.sa", label: "TikTok", Icon: Music2 },
   {
-    href: "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)",
+    href: "https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)",
     label: "WhatsApp",
     Icon: MessageCircle,
   },

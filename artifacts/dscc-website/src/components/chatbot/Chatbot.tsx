@@ -363,7 +363,7 @@ export function Chatbot() {
               </Button>
             </a>
             <a
-              href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
+              href="https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
               target="_blank"
               rel="noreferrer"
               className="inline-flex"

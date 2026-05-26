@@ -195,7 +195,7 @@ export default function About() {
               {bi(T.contactNow)} <ArrowRight className="size-4" />
             </Button>
           </Link>
-          <a href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
+          <a href="https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
             <Button size="lg" variant="outline" className="gap-2">
               <MessageCircle className="size-4" /> {bi(T.whatsapp)}
             </Button>

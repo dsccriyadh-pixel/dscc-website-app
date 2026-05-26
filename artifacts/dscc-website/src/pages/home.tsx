@@ -583,7 +583,7 @@ export default function Home() {
                 {bi(T.reqQuote)} <ChevronRight className="size-4" />
               </Button>
             </Link>
-            <a href="https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)" target="_blank" rel="noreferrer">
               <Button size="lg" variant="outline" className="border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 gap-2">
                 {bi(T.whatsapp)}
               </Button>

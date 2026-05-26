@@ -29,7 +29,7 @@ const offices = [
 ];
 
 const WHATSAPP_LINK =
-  "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)";
+  "https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)";
 
 export default function Contact() {
   const { t, lang } = useLanguage();
@@ -120,7 +120,7 @@ export default function Contact() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="font-serif text-lg leading-tight">{t("common.send_via_whatsapp")}</div>
-                  <div className="text-sm text-muted-foreground mt-0.5" dir="ltr">+966 55 984 6519</div>
+                  <div className="text-sm text-muted-foreground mt-0.5" dir="ltr">+966 55 311 7884</div>
                 </div>
               </CardContent>
             </Card>
