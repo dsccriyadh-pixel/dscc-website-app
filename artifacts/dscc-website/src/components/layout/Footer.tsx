@@ -93,7 +93,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail className="size-4" />
-              <a href="mailto:contact@dsccarchitecture.com">contact@dsccarchitecture.com</a>
+              <a href="mailto:contact@dsccsaudia.com">contact@dsccsaudia.com</a>
             </li>
           </ul>
 

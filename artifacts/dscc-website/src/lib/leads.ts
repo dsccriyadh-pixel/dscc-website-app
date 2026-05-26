@@ -48,6 +48,6 @@ export function buildWhatsAppLink(message: string, phone = "966553117884") {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildMailtoLink(subject: string, body: string, to = "hello@dscc-sa.com") {
+export function buildMailtoLink(subject: string, body: string, to = "contact@dsccsaudia.com") {
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -19,8 +19,16 @@
       "city": "Riyadh",
       "country": "Saudi Arabia",
       "phone": "+966 55 311 7884",
-      "email": "contact@dsccarchitecture.com",
+      "email": "contact@dsccsaudia.com",
       "map_url": "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7"
+    },
+    {
+      "name": "Shanghai Office",
+      "name_ar": "مكتب شنغهاي",
+      "address": "456 Park Avenue, Shanghai 54321, China",
+      "address_ar": "456 بارك أفينيو، شنغهاي 54321، الصين",
+      "phone": "+86 21 9876 5432",
+      "email": "contact@dsccsaudia.com"
     }
   ],
   "whatsapp": {

@@ -11,17 +11,35 @@ import { PageHero } from "@/components/layout/PageHero";
 
 const MAPS_LINK = "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7";
 
-const offices = [
+type Office = {
+  city: string;
+  cityAr: string;
+  address: string;
+  addressAr: string;
+  shortAddress?: string;
+  phone: string;
+  email: string;
+  mapUrl?: string;
+};
+
+const offices: Office[] = [
   {
     city: "Saudi HQ Office",
     cityAr: "المقر الرئيسي — الرياض",
     address: "Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia",
     addressAr: "مبنى 7878، امتداد الدائري الشرقي الفرعي، حي المناخ، الرياض 14314، المملكة العربية السعودية",
     shortAddress: "RNCA7878",
-    poBox: "",
     phone: "+966 55 311 7884",
-    email: "contact@dsccarchitecture.com",
+    email: "contact@dsccsaudia.com",
     mapUrl: MAPS_LINK,
+  },
+  {
+    city: "Shanghai Office",
+    cityAr: "مكتب شنغهاي",
+    address: "456 Park Avenue, Shanghai 54321, China",
+    addressAr: "456 بارك أفينيو، شنغهاي 54321، الصين",
+    phone: "+86 21 9876 5432",
+    email: "contact@dsccsaudia.com",
   },
 ];
 
@@ -73,10 +91,14 @@ export default function Contact() {
               <h3 className="font-serif text-2xl text-foreground mb-4">{lang === "ar" ? o.cityAr : o.city}</h3>
               <ul className="space-y-3 text-sm text-foreground/85">
                 <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <span>{lang === "ar" ? o.addressAr : o.address}</span></li>
-                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <span dir="ltr">{lang === "ar" ? "العنوان الوطني المختصر: " : "Short Address: "}{o.shortAddress}</span></li>
+                {o.shortAddress && (
+                  <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <span dir="ltr">{lang === "ar" ? "العنوان الوطني المختصر: " : "Short Address: "}{o.shortAddress}</span></li>
+                )}
                 <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`} dir="ltr">{o.phone}</a></li>
                 <li className="flex gap-2"><Mail className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`mailto:${o.email}`}>{o.email}</a></li>
-                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <a href={o.mapUrl} target="_blank" rel="noreferrer" className="text-primary hover:underline">{lang === "ar" ? "افتح في خرائط جوجل" : "Open in Google Maps"}</a></li>
+                {o.mapUrl && (
+                  <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <a href={o.mapUrl} target="_blank" rel="noreferrer" className="text-primary hover:underline">{lang === "ar" ? "افتح في خرائط جوجل" : "Open in Google Maps"}</a></li>
+                )}
               </ul>
             </CardContent>
           </Card>
@@ -136,7 +158,7 @@ export default function Contact() {
               </CardContent>
             </Card>
           </a>
-          <a href="mailto:contact@dsccarchitecture.com" className="block">
+          <a href="mailto:contact@dsccsaudia.com" className="block">
             <Card className="hover:border-primary hover:shadow-md transition group">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition">
@@ -144,20 +166,20 @@ export default function Contact() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="font-serif text-lg leading-tight">{t("common.email_us")}</div>
-                  <div className="text-sm text-muted-foreground mt-0.5 truncate">contact@dsccarchitecture.com</div>
+                  <div className="text-sm text-muted-foreground mt-0.5 truncate">contact@dsccsaudia.com</div>
                 </div>
               </CardContent>
             </Card>
           </a>
-          <a href="tel:+966111234578" className="block">
+          <a href="tel:+966553117884" className="block">
             <Card className="hover:border-primary hover:shadow-md transition group">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition">
                   <Phone className="size-6 text-primary" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="font-serif text-lg leading-tight" dir="ltr">+966 11 1234 5678</div>
-                  <div className="text-sm text-muted-foreground mt-0.5">Sun–Thu 08:00–18:00 KSA</div>
+                  <div className="font-serif text-lg leading-tight" dir="ltr">+966 55 311 7884</div>
+                  <div className="text-sm text-muted-foreground mt-0.5">{lang === "ar" ? "الأحد – الخميس 8:00 – 18:00 بتوقيت السعودية" : "Sun–Thu 08:00–18:00 KSA"}</div>
                 </div>
               </CardContent>
             </Card>
