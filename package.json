@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; exit 0'",
-    "build": "pnpm --filter @workspace/dscc-website build",
+    "build": "cd artifacts/dscc-website && node_modules/.bin/vite build --config vite.config.ts",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
