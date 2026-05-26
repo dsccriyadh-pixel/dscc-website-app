@@ -1,10 +1,9 @@
 <?php
-// DSCC Sara chatbot — OpenAI proxy for Hostinger static hosting.
-// Setup once on Hostinger:
-//   1) Create /api/config.php (via File Manager) with one line:
-//        <?php define('OPENAI_API_KEY', 'sk-...your-key...'); ?>
-//   2) Optionally override DSCC_OPENAI_MODEL (default: gpt-4o-mini).
-// Never commit config.php — it stays only on the server.
+// DSCC Sara chatbot. OpenAI proxy for Hostinger static hosting.
+// Setup once on Hostinger: create /api/config.php (via File Manager)
+// containing only:  define('OPENAI_API_KEY', 'sk-your-key');
+// Optionally also:  define('DSCC_OPENAI_MODEL', 'gpt-4o-mini');
+// Never commit config.php; it stays only on the server.
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
