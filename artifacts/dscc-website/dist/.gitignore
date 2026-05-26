@@ -1,0 +1,3 @@
+# Force-track prebuilt deploy output (Hostinger picks it up from here)
+!*
+!**/*

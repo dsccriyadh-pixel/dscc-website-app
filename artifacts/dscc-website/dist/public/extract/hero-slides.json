@@ -1,0 +1,36 @@
+{
+  "source": "https://dsccsaudia.com/",
+  "extracted_at": "2026-04-20",
+  "preserve_text_exactly": true,
+  "slides": [
+    {
+      "headline": "Your  Smart Decision",
+      "subheadline": "One-stop solution provider of consultancy, design, building supplies and equipment.",
+      "cta_text": "Infrastructure Solutions",
+      "cta_url": "/sectors/infrastructure",
+      "image": "/assets/uploads/media-uploader/cover011693833991.jpg"
+    },
+    {
+      "headline": "Your  Dream Home",
+      "subheadline": "Crafting every detail to create harmonious spaces that reflect your personality & lifestyle",
+      "cta_text": "Rsidential Services",
+      "cta_url": "/sectors/residential",
+      "image": "/assets/uploads/media-uploader/cover021693834064.jpg",
+      "note": "Original CTA text contains typo 'Rsidential' — preserved as-is per extraction rules."
+    },
+    {
+      "headline": "Your  Successful Business",
+      "subheadline": "Architectural solutions tailored to your unique needs, preferences and project requirements",
+      "cta_text": "Business Solutions",
+      "cta_url": "/sectors/commercial",
+      "image": "/assets/uploads/media-uploader/cover031693834151.jpg"
+    },
+    {
+      "headline": "Your  Hospitality Solutions",
+      "subheadline": "We create a seamless harmony that blends functionality, comfort and aesthetics",
+      "cta_text": "Hospitality Solutions",
+      "cta_url": "/sectors/hospitality",
+      "image": "/assets/uploads/media-uploader/cover041693834210.jpg"
+    }
+  ]
+}

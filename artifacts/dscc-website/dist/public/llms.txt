@@ -1,0 +1,65 @@
+# DSCC Saudi Arabia
+
+> DSCC is a Saudi-headquartered enterprise contracting, fit-out, MEP engineering, hospitality, and turnkey building solutions company serving residential, commercial, hospitality, and infrastructure clients across the Kingdom of Saudi Arabia and the wider GCC.
+
+## Company
+- Name: DSCC Saudi Arabia
+- Headquarters: Riyadh, Saudi Arabia (Olaya Towers, King Fahd Road)
+- Additional offices: Jeddah, Dammam
+- Languages: English, Arabic
+- Sectors: Residential, Commercial, Hospitality, Infrastructure
+- Disciplines: Architecture & envelope, MEP engineering, smart & technology, hospitality fit-out, outdoor & lifestyle
+- Email: hello@dscc-sa.com — Phone: +966 11 200 1234
+
+## Services
+- /services/aluminum-steel-glazing — Aluminum & Steel Glazing
+- /services/indoor-outdoor-furniture — Indoor & Outdoor Furniture
+- /services/windows-and-doors — Windows & Doors
+- /services/lighting-switches-sockets — Lighting, Switches & Sockets
+- /services/wall-floor-coverings — Wall & Floor Coverings
+- /services/hvac-systems — HVAC Systems
+- /services/audio-video-systems — Audio / Video Systems
+- /services/building-automation-systems — Building Automation Systems
+- /services/smart-room-solutions — Smart Room Solutions
+- /services/kitchen-laundry-equipment — Kitchen & Laundry Equipment
+- /services/security-systems — Security Systems
+- /services/fire-protection-systems — Fire Protection Systems
+- /services/electrical-systems — Electrical Systems
+- /services/bathroom-solutions — Bathroom Solutions
+- /services/water-supply-drainage — Water Supply & Drainage
+- /services/boiler-systems — Boiler Systems
+- /services/special-equipment — Special Equipment
+- /services/swimming-pool-systems — Swimming Pool Systems
+- /services/it-systems-networking — IT Systems & Networking
+- /services/fitness-equipment — Fitness Equipment
+- /services/outdoor-landscape-solutions — Outdoor & Landscape Solutions
+- /services/hospitality-supplies — Hospitality Supplies
+- /services/linen-chute-solutions — Linen Chute Solutions
+- /services/decoration-artwork — Decoration & Artwork
+- /services/hospitality-signage-wayfinding — Hospitality Signage & Wayfinding
+
+## Sectors
+- /sectors/residential — Luxury villas and palaces
+- /sectors/commercial — Office towers and corporate fit-out
+- /sectors/hospitality — 5-star hotels, resorts, and F&B
+- /sectors/infrastructure — Public, healthcare, and giga-project MEP
+
+## Featured projects
+- /projects/kafd-financial-tower — KAFD Financial Tower fit-out, Riyadh
+- /projects/red-sea-resort-villas — Red Sea Coastal Villas, Tabuk
+- /projects/neom-staff-village-facade — NEOM Staff Village facade
+- /projects/diriyah-boutique-hotel — Diriyah Boutique Hotel
+- /projects/jeddah-corniche-mixed-use — Jeddah Corniche pavilion
+- /projects/riyadh-palace-residence — Riyadh palace
+- /projects/alula-resort-spa — AlUla heritage resort
+- /projects/dammam-medical-tower — Dammam medical tower
+- /projects/khobar-corporate-hq — Khobar energy HQ
+- /projects/qiddiya-entertainment-pavilion — Qiddiya entertainment anchor
+
+## Contact and quotation
+- /quote — Structured RFQ form (responds within one business day)
+- /contact — Riyadh, Jeddah, Dammam offices, WhatsApp, email
+- WhatsApp: +966 11 200 1234
+
+## Insights
+- /resources — Engineering and hospitality fit-out articles
