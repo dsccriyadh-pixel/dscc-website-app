@@ -1,28 +1,31 @@
 {
   "source": "https://dsccsaudia.com/contact",
-  "extracted_at": "2026-04-20",
+  "extracted_at": "2026-05-26",
   "preserve_text_exactly": true,
   "offices": [
     {
       "name": "Saudi HQ Office",
-      "address": "123 King Abdulaziz St., Riyadh 12345, Saudi Arabia",
-      "po_box": "P.O. Box 6789 Riyadh 52145",
-      "phone": "+966 11 1234 5678",
-      "fax": "+966 11 1234 5678",
-      "email": "contact@dsccarchitecture.com"
-    },
-    {
-      "name": "Shanghai Office",
-      "address": "456 Park Avenue, Shanghai 54321, China",
-      "po_box": "P.O. Box 5321 Shanghai 21111",
-      "phone": "+86 21 9876 5432",
-      "fax": "+966 11 1234 5678",
-      "email": "contact@dsccarchitecture.com"
+      "name_ar": "المقر الرئيسي — الرياض",
+      "company_name": "alhulul almutawara Company For Contracting (Sharikat Shakhs Wahid)",
+      "company_name_ar": "شركة الحلول المطورة للمقاولات — شركة شخص واحد",
+      "address": "Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia",
+      "address_ar": "مبنى 7878، امتداد الدائري الشرقي الفرعي، حي المناخ، الرياض 14314، المملكة العربية السعودية",
+      "short_address": "RNCA7878",
+      "building_no": "7878",
+      "street": "Eastern Ring Road (Extension)",
+      "district": "Al Manakh",
+      "secondary_no": "3993",
+      "postal_code": "14314",
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "phone": "+966 55 311 7884",
+      "email": "contact@dsccarchitecture.com",
+      "map_url": "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7"
     }
   ],
   "whatsapp": {
-    "number": "+966 55 984 6519",
-    "url": "https://api.whatsapp.com/send?phone=966559846519&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
+    "number": "+966 55 311 7884",
+    "url": "https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
   },
   "contact_form_options": [
     "Service inquiry",

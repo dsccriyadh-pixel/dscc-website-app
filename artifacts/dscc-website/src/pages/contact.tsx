@@ -9,22 +9,19 @@ import { Button } from "@/components/ui/button";
 import { submitLead } from "@/lib/leads";
 import { PageHero } from "@/components/layout/PageHero";
 
+const MAPS_LINK = "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7";
+
 const offices = [
   {
     city: "Saudi HQ Office",
-    address: "123 King Abdulaziz St., Riyadh 12345, Saudi Arabia",
-    poBox: "P.O. Box 6789 Riyadh 52145",
-    phone: "+966 11 1234 5678",
-    fax: "+966 11 1234 5678",
+    cityAr: "المقر الرئيسي — الرياض",
+    address: "Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia",
+    addressAr: "مبنى 7878، امتداد الدائري الشرقي الفرعي، حي المناخ، الرياض 14314، المملكة العربية السعودية",
+    shortAddress: "RNCA7878",
+    poBox: "",
+    phone: "+966 55 311 7884",
     email: "contact@dsccarchitecture.com",
-  },
-  {
-    city: "Shanghai Office",
-    address: "456 Park Avenue, Shanghai 54321, China",
-    poBox: "P.O. Box 5321 Shanghai 21111",
-    phone: "+86 21 9876 5432",
-    fax: "+966 11 1234 5678",
-    email: "contact@dsccarchitecture.com",
+    mapUrl: MAPS_LINK,
   },
 ];
 
@@ -34,18 +31,29 @@ const WHATSAPP_LINK =
 export default function Contact() {
   const { t, lang } = useLanguage();
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const baseUrl = import.meta.env.BASE_URL;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
-    const fd = new FormData(e.currentTarget);
+    setError(null);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
-    await submitLead({ source: "contact", data, at: new Date().toISOString() });
+    const res = await submitLead({ source: "contact", data, at: new Date().toISOString() });
     setSubmitting(false);
-    setDone(true);
-    (e.currentTarget as HTMLFormElement).reset();
+    if (res.ok) {
+      setDone(true);
+      form.reset();
+    } else {
+      setError(
+        lang === "ar"
+          ? "تعذّر إرسال رسالتك. يرجى المحاولة لاحقاً أو التواصل عبر واتساب."
+          : "We couldn't send your message. Please try again or contact us via WhatsApp.",
+      );
+    }
   }
 
   return (
@@ -62,13 +70,13 @@ export default function Contact() {
         {offices.map((o) => (
           <Card key={o.city}>
             <CardContent className="p-6">
-              <h3 className="font-serif text-2xl text-foreground mb-4">{o.city}</h3>
+              <h3 className="font-serif text-2xl text-foreground mb-4">{lang === "ar" ? o.cityAr : o.city}</h3>
               <ul className="space-y-3 text-sm text-foreground/85">
-                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> {o.address}</li>
-                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> {o.poBox}</li>
-                <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`}>{o.phone}</a></li>
-                <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> Fax: {o.fax}</li>
+                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <span>{lang === "ar" ? o.addressAr : o.address}</span></li>
+                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <span dir="ltr">{lang === "ar" ? "العنوان الوطني المختصر: " : "Short Address: "}{o.shortAddress}</span></li>
+                <li className="flex gap-2"><Phone className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`tel:${o.phone.replace(/\s/g, "")}`} dir="ltr">{o.phone}</a></li>
                 <li className="flex gap-2"><Mail className="size-4 text-primary mt-0.5 shrink-0" /> <a href={`mailto:${o.email}`}>{o.email}</a></li>
+                <li className="flex gap-2"><MapPin className="size-4 text-primary mt-0.5 shrink-0" /> <a href={o.mapUrl} target="_blank" rel="noreferrer" className="text-primary hover:underline">{lang === "ar" ? "افتح في خرائط جوجل" : "Open in Google Maps"}</a></li>
               </ul>
             </CardContent>
           </Card>
@@ -95,6 +103,9 @@ export default function Contact() {
                   <Input name="email" type="email" required placeholder={t("contact_page.email")} />
                 </div>
                 <Textarea name="message" rows={6} required placeholder={t("contact_page.message")} />
+                {error && (
+                  <p className="text-sm text-destructive" role="alert">{error}</p>
+                )}
                 <Button type="submit" disabled={submitting} size="lg" className="w-full md:w-auto">
                   {submitting ? t("common.loading") : t("contact_page.send")}
                 </Button>

@@ -78,11 +78,18 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-primary-foreground/85">
             <li className="flex items-start gap-2">
               <MapPin className="size-4 mt-0.5 shrink-0" />
-              123 King Abdulaziz St., Riyadh 12345, Saudi Arabia
+              <a
+                href="https://maps.app.goo.gl/hi8vD8A5agjrpmaT7"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-secondary-foreground/90 transition-colors"
+              >
+                {t("footer.address")}
+              </a>
             </li>
             <li className="flex items-center gap-2">
               <Phone className="size-4" />
-              <a href="tel:+96611123456578">+966 11 1234 5678</a>
+              <a href="tel:+966553117884" dir="ltr">+966 55 311 7884</a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="size-4" />

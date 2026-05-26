@@ -98,12 +98,13 @@ export const ORG_JSONLD = {
   sameAs: [],
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Olaya Towers, King Fahd Road",
+    streetAddress: "Building 7878, Eastern Ring Road (Extension), Al Manakh District",
     addressLocality: "Riyadh",
-    postalCode: "12244",
+    postalCode: "14314",
     addressCountry: "SA",
   },
+  hasMap: "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7",
   contactPoint: [
-    { "@type": "ContactPoint", telephone: "+966-11-200-1234", contactType: "sales", areaServed: "SA", availableLanguage: ["en", "ar"] },
+    { "@type": "ContactPoint", telephone: "+966-55-311-7884", contactType: "sales", areaServed: "SA", availableLanguage: ["en", "ar"] },
   ],
 };
