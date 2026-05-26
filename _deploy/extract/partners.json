@@ -1,0 +1,10 @@
+{
+  "source": "https://dsccsaudia.com/",
+  "extracted_at": "2026-04-20",
+  "partners": [
+    { "name": "Saudi Aramco", "logo_svg": "/assets/images/partners/aramco.svg", "logo_jpg": "/assets/images/partners/aramco.jpg" },
+    { "name": "Ma'aden",      "logo_svg": "/assets/images/partners/maaden.svg", "logo_jpg": "/assets/images/partners/maaden.jpg" },
+    { "name": "SABIC",        "logo_svg": "/assets/images/partners/sabic.svg",  "logo_jpg": "/assets/images/partners/sabic.jpg" },
+    { "name": "STC",          "logo_svg": "/assets/images/partners/stc.svg",    "logo_jpg": "/assets/images/partners/stc.jpg" }
+  ]
+}

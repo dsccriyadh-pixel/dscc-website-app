@@ -1,0 +1,6 @@
+{
+  "source": "https://dsccsaudia.com/projects",
+  "preserve_text_exactly": true,
+  "tabs": ["All", "Residential", "Infrastructure", "Commercial", "Hospitality"],
+  "note": "Project listing index page returned 404 template on extraction. Tabs mirror the service-page sector taxonomy used by source."
+}

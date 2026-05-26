@@ -1,0 +1,19 @@
+{
+  "source": "https://dsccsaudia.com/",
+  "extracted_at": "2026-04-20",
+  "clients": [
+    { "name": "Hilton",        "logo": "/assets/images/svg/clients/hilton.svg" },
+    { "name": "Hyatt",         "logo": "/assets/images/svg/clients/hayatt.svg" },
+    { "name": "Kempinski",     "logo": "/assets/images/svg/clients/kempinski.svg" },
+    { "name": "Marriott",      "logo": "/assets/images/svg/clients/marriott.svg" },
+    { "name": "Shangri-La",    "logo": "/assets/images/svg/clients/shangri.svg" },
+    { "name": "Sheraton",      "logo": "/assets/images/svg/clients/sheraton.svg" },
+    { "name": "Floor & Decor", "logo": "/assets/images/svg/clients/floorndecor.svg" },
+    { "name": null, "logo": "/assets/images/svg/clients/01.svg" },
+    { "name": null, "logo": "/assets/images/svg/clients/02.svg" },
+    { "name": null, "logo": "/assets/images/svg/clients/03.svg" },
+    { "name": null, "logo": "/assets/images/svg/clients/04.svg" },
+    { "name": null, "logo": "/assets/images/svg/clients/05.svg" }
+  ],
+  "note": "Five client logos (01-05.svg) appeared without visible brand names on source. Preserved without name fabrication."
+}
