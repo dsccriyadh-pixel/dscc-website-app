@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- ============ Core pages (priority 1.0–0.7) ============ -->
+  <url><loc>https://dsccsaudia.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://dsccsaudia.com/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://dsccsaudia.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dsccsaudia.com/"/>
+  </url>
+  <url><loc>https://dsccsaudia.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/services</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dsccsaudia.com/projects</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dsccsaudia.com/clients</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/resources</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/quote</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dsccsaudia.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- ============ 25 Services ============ -->
+  <url><loc>https://dsccsaudia.com/services/aluminum-steel-glazing</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/services/indoor-and-outdoor-furniture</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/window-and-door</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/services/lighting-switch-socket</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/wall-and-floor-covering</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hvac-system</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/services/audio-video-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/building-automation-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/smart-room-services</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/kitchen-and-laundry-equipment</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/security-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fire-protection-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/electrical-system</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/services/bathroom-solutions</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/water-supply-and-drainage-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/boiler-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/special-equipment</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/services/swimming-pool-system</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/it-system-services</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fitness-equipment</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/services/outdoor-and-landscape-solutions</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-supplies</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/linen-chute-solution</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/services/decoration-and-artwork</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-signage-and-wayfinding</loc><priority>0.6</priority></url>
+
+  <!-- ============ 4 Sectors ============ -->
+  <url><loc>https://dsccsaudia.com/sectors/residential</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/commercial</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/hospitality</loc><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/infrastructure</loc><priority>0.8</priority></url>
+
+  <!-- ============ 6 Projects ============ -->
+  <url><loc>https://dsccsaudia.com/projects/hilton-swiss-palms</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/casa-verde</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/harmony-haven</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/rooftop-escapes</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/sea-shell-hotel</loc><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/square-workspaces</loc><priority>0.7</priority></url>
+
+  <!-- ============ 5 Insights / Resources ============ -->
+  <url><loc>https://dsccsaudia.com/resources/hvac-design-for-red-sea-humidity</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/resources/vision-2030-hospitality-fitout-trends</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/resources/smart-room-standards-ksa-5-star</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/resources/facade-glazing-saudi-extreme-heat</loc><priority>0.6</priority></url>
+  <url><loc>https://dsccsaudia.com/resources/civil-defense-fire-protection-saudi</loc><priority>0.6</priority></url>
+</urlset>
