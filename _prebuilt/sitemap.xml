@@ -75,4 +75,144 @@
   <url><loc>https://dsccsaudia.com/resources/smart-room-standards-ksa-5-star</loc><priority>0.6</priority></url>
   <url><loc>https://dsccsaudia.com/resources/facade-glazing-saudi-extreme-heat</loc><priority>0.6</priority></url>
   <url><loc>https://dsccsaudia.com/resources/civil-defense-fire-protection-saudi</loc><priority>0.6</priority></url>
+
+  <!-- ============ Trust pages (Phase 3) ============ -->
+  <url><loc>https://dsccsaudia.com/process</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/quality</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/warranty</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/safety</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/sustainability</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ============ Insights / Blog ============ -->
+  <url><loc>https://dsccsaudia.com/insights</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://dsccsaudia.com/insights/villa-fit-out-cost-riyadh-2026</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/insights/hospitality-fit-out-saudi-vision-2030</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/insights/mep-systems-saudi-building-code-guide</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- ============ Service × City (96 combos) ============ -->
+  <url><loc>https://dsccsaudia.com/services/aluminum-steel-glazing/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/aluminum-steel-glazing/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/aluminum-steel-glazing/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/aluminum-steel-glazing/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/audio-video-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/audio-video-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/audio-video-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/audio-video-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/bathroom-solutions/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/bathroom-solutions/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/bathroom-solutions/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/bathroom-solutions/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/boiler-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/boiler-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/boiler-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/boiler-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/building-automation-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/building-automation-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/building-automation-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/building-automation-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/decoration-and-artwork/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/decoration-and-artwork/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/decoration-and-artwork/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/decoration-and-artwork/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/electrical-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/electrical-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/electrical-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/electrical-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fire-protection-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fire-protection-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fire-protection-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fire-protection-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fitness-equipment/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fitness-equipment/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fitness-equipment/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/fitness-equipment/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-signage-and-wayfinding/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-signage-and-wayfinding/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-signage-and-wayfinding/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-signage-and-wayfinding/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-supplies/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-supplies/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-supplies/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hospitality-supplies/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hvac-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hvac-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hvac-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/hvac-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/indoor-and-outdoor-furniture/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/indoor-and-outdoor-furniture/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/indoor-and-outdoor-furniture/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/indoor-and-outdoor-furniture/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/it-system-services/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/it-system-services/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/it-system-services/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/it-system-services/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/kitchen-and-laundry-equipment/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/kitchen-and-laundry-equipment/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/kitchen-and-laundry-equipment/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/kitchen-and-laundry-equipment/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/lighting-switch-socket/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/lighting-switch-socket/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/lighting-switch-socket/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/lighting-switch-socket/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/linen-chute-solution/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/linen-chute-solution/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/linen-chute-solution/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/linen-chute-solution/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/outdoor-and-landscape-solutions/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/outdoor-and-landscape-solutions/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/outdoor-and-landscape-solutions/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/outdoor-and-landscape-solutions/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/security-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/security-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/security-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/security-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/smart-room-services/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/smart-room-services/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/smart-room-services/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/smart-room-services/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/special-equipment/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/special-equipment/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/special-equipment/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/special-equipment/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/swimming-pool-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/swimming-pool-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/swimming-pool-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/swimming-pool-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/wall-and-floor-covering/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/wall-and-floor-covering/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/wall-and-floor-covering/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/wall-and-floor-covering/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/water-supply-and-drainage-system/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/water-supply-and-drainage-system/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/water-supply-and-drainage-system/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/water-supply-and-drainage-system/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/window-and-door/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/window-and-door/jeddah</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/window-and-door/dammam</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://dsccsaudia.com/services/window-and-door/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+
+  <!-- ============ Sector × City (16 combos) ============ -->
+  <url><loc>https://dsccsaudia.com/sectors/residential/riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/residential/jeddah</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/residential/dammam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/residential/neom</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/commercial/riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/commercial/jeddah</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/commercial/dammam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/commercial/neom</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/hospitality/riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/hospitality/jeddah</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/hospitality/dammam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/hospitality/neom</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/infrastructure/riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/infrastructure/jeddah</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/infrastructure/dammam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/sectors/infrastructure/neom</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+
+  <!-- Legal & Help -->
+  <url><loc>https://dsccsaudia.com/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dsccsaudia.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
 </urlset>
