@@ -118,13 +118,14 @@ curl_close($ch);
 
 if ($resp === false) {
     error_log('chat.php curl error: ' . $err);
-    out(502, ['ok' => false, 'error' => 'Chat failed.']);
+    out(502, ['ok' => false, 'error' => 'Network error', 'detail' => $err]);
 }
 
 $data = json_decode($resp, true);
 if ($status !== 200 || !isset($data['choices'][0]['message']['content'])) {
-    error_log('chat.php upstream error ' . $status . ': ' . substr($resp, 0, 500));
-    out(502, ['ok' => false, 'error' => 'Chat failed.']);
+    $upstreamMsg = $data['error']['message'] ?? substr((string) $resp, 0, 400);
+    error_log('chat.php upstream error ' . $status . ': ' . $upstreamMsg);
+    out(502, ['ok' => false, 'error' => 'Chat failed.', 'status' => $status, 'detail' => $upstreamMsg]);
 }
 
 $reply = (string) $data['choices'][0]['message']['content'];
