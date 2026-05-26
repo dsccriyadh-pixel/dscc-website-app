@@ -105,6 +105,42 @@ export default function Contact() {
         ))}
       </section>
 
+      <section className="container pb-16">
+        <Card className="overflow-hidden">
+          <CardContent className="p-0">
+            <div className="px-6 py-4 border-b bg-muted/30 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 className="font-serif text-xl text-foreground">
+                  {lang === "ar" ? "موقعنا على الخريطة" : "Find us on the map"}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {lang === "ar"
+                    ? "مبنى 7878، امتداد الدائري الشرقي الفرعي، حي المناخ، الرياض 14314"
+                    : "Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314"}
+                </p>
+              </div>
+              <a
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
+                <MapPin className="size-4" />
+                {lang === "ar" ? "افتح في خرائط جوجل" : "Open in Google Maps"}
+              </a>
+            </div>
+            <iframe
+              title={lang === "ar" ? "خريطة جوجل لموقع DSCC" : "Google Maps - DSCC location"}
+              src="https://www.google.com/maps?q=Building%207878%2C%20Eastern%20Ring%20Road%2C%20Al%20Manakh%2C%20Riyadh%2014314%2C%20Saudi%20Arabia&output=embed"
+              className="w-full h-[420px] border-0 block"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </CardContent>
+        </Card>
+      </section>
+
       <section className="container pb-20 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
         <Card className="lg:col-span-3">
           <CardContent className="p-8">
