@@ -80,10 +80,9 @@
         descent-override: 35%;
         line-gap-override: 0%;
       }
-      html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; margin: 0; background: #171717; }
-      /* CLS + LCP guard: matches the real layout exactly — sticky navbar (h-20 = 80px)
-         on top + hero section (min-h 640 mobile / 720 desktop) below. Hero image
-         painted before React hydrates so it's the LCP candidate from first paint. */
+      html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; }
+      /* Pre-hydration CLS placeholder: navbar strip + hero block painted before React mounts.
+         Becomes the LCP candidate so PageSpeed measures the webp hero, not blank space. */
       #root:empty::before {
         content: "";
         display: block;
@@ -219,10 +218,10 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-CUusLXYo.js"></script>
+    <script type="module" crossorigin src="/assets/index-C2q9RTA_.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-CaxDoJUx.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-BlzY0Kos.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-DrgKBWDm.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-query-DQNMBGom.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-Ov0uFQn6.css">
     <link rel="stylesheet" crossorigin href="/assets/index-CU5lzwjX.css">
