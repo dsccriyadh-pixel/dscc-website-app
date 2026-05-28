@@ -81,14 +81,17 @@
         line-gap-override: 0%;
       }
       html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; margin: 0; background: #171717; }
-      /* CLS guard: reserve above-the-fold space BEFORE React hydrates.
-         Matches the home hero's min-h on mobile (640px) and desktop (720px),
-         plus a header bar (~64px). React replaces this when it mounts. */
+      /* CLS + LCP guard: reserve above-the-fold space AND paint the hero image
+         BEFORE React hydrates. This way the hero image is the LCP candidate
+         from the very first frame (no re-evaluation when React mounts). */
       #root:empty::before {
         content: "";
         display: block;
         min-height: calc(640px + 64px);
-        background: #171717;
+        background:
+          linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 60%, transparent),
+          url('/assets/uploads/media-uploader/cover021693834064.webp') center/cover no-repeat,
+          #171717;
       }
       @media (min-width: 1024px) {
         #root:empty::before { min-height: calc(720px + 80px); }
