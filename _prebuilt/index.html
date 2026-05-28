@@ -47,8 +47,8 @@
     <meta name="apple-mobile-web-app-title" content="DSCC" />
     <meta name="application-name" content="DSCC" />
 
-    <!-- ============ LCP hero preload (first slide shown on home) ============ -->
-    <link rel="preload" as="image" href="/assets/uploads/media-uploader/cover021693834064.webp" fetchpriority="high" type="image/webp">
+    <!-- ============ LCP hero preload (responsive: mobile picks 32KB variant) ============ -->
+    <link rel="preload" as="image" href="/assets/uploads/media-uploader/cover02-d.webp" imagesrcset="/assets/uploads/media-uploader/cover02-m.webp 768w, /assets/uploads/media-uploader/cover02-d.webp 1600w" imagesizes="100vw" fetchpriority="high" type="image/webp">
 
     <!-- ============ Fonts (preconnect + non-blocking load) ============ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,11 +96,17 @@
         min-height: 640px;
         background:
           linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 60%, transparent),
-          url('/assets/uploads/media-uploader/cover021693834064.webp') center/cover no-repeat,
+          url('/assets/uploads/media-uploader/cover02-m.webp') center/cover no-repeat,
           #171717;
       }
       @media (min-width: 1024px) {
-        #root:empty::after { min-height: 720px; }
+        #root:empty::after {
+          min-height: 720px;
+          background:
+            linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 60%, transparent),
+            url('/assets/uploads/media-uploader/cover02-d.webp') center/cover no-repeat,
+            #171717;
+        }
       }
     </style>
 
@@ -218,7 +224,7 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-C2q9RTA_.js"></script>
+    <script type="module" crossorigin src="/assets/index-B_Dt4kCz.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-CaxDoJUx.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DrgKBWDm.js">
