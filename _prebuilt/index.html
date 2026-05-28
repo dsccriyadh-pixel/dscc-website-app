@@ -81,20 +81,27 @@
         line-gap-override: 0%;
       }
       html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; margin: 0; background: #171717; }
-      /* CLS + LCP guard: reserve above-the-fold space AND paint the hero image
-         BEFORE React hydrates. This way the hero image is the LCP candidate
-         from the very first frame (no re-evaluation when React mounts). */
+      /* CLS + LCP guard: matches the real layout exactly — sticky navbar (h-20 = 80px)
+         on top + hero section (min-h 640 mobile / 720 desktop) below. Hero image
+         painted before React hydrates so it's the LCP candidate from first paint. */
       #root:empty::before {
         content: "";
         display: block;
-        min-height: calc(640px + 64px);
+        height: 80px;
+        background: #ffffff;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+      }
+      #root:empty::after {
+        content: "";
+        display: block;
+        min-height: 640px;
         background:
           linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 60%, transparent),
           url('/assets/uploads/media-uploader/cover021693834064.webp') center/cover no-repeat,
           #171717;
       }
       @media (min-width: 1024px) {
-        #root:empty::before { min-height: calc(720px + 80px); }
+        #root:empty::after { min-height: 720px; }
       }
     </style>
 
