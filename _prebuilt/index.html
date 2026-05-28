@@ -80,7 +80,19 @@
         descent-override: 35%;
         line-gap-override: 0%;
       }
-      html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; }
+      html, body { font-family: 'Cairo', 'Cairo Fallback', 'Tajawal', system-ui, -apple-system, sans-serif; margin: 0; background: #171717; }
+      /* CLS guard: reserve above-the-fold space BEFORE React hydrates.
+         Matches the home hero's min-h on mobile (640px) and desktop (720px),
+         plus a header bar (~64px). React replaces this when it mounts. */
+      #root:empty::before {
+        content: "";
+        display: block;
+        min-height: calc(640px + 64px);
+        background: #171717;
+      }
+      @media (min-width: 1024px) {
+        #root:empty::before { min-height: calc(720px + 80px); }
+      }
     </style>
 
     <!-- ============ Structured Data — Organization + LocalBusiness ============ -->
