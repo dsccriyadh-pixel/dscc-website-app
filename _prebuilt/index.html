@@ -94,14 +94,17 @@
       #root:empty::after {
         content: "";
         display: block;
-        min-height: 640px;
+        /* over-reserve: hero with py-32 (256px) + Arabic headline (3 lines) + sub + buttons
+           ≈ 760-820px actual on mobile. Reserving 780px keeps the rest of the page in place. */
+        min-height: 780px;
         background:
           linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 60%, transparent),
           url('/assets/uploads/media-uploader/cover021693834064.webp') center/cover no-repeat,
           #171717;
       }
       @media (min-width: 1024px) {
-        #root:empty::after { min-height: 720px; }
+        /* desktop: py-44 (352px) + content ≈ 820-880px */
+        #root:empty::after { min-height: 840px; }
       }
     </style>
 
