@@ -58,6 +58,10 @@
   RewriteCond %{REQUEST_URI} \.(pdf|png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|json|xml|txt|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|zip)$ [NC]
   RewriteRule ^ - [L]
 
+  # Map clean /api/chat to /api/chat.php (Sara chatbot — OpenAI proxy)
+  RewriteRule ^api/chat/?$ /api/chat.php [L]
+  RewriteRule ^api/leads/?$ /api/leads.php [L]
+
   # Skip API and static asset directories
   RewriteRule ^(api|assets|img|downloads|fonts)/ - [L]
 
