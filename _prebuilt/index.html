@@ -50,26 +50,8 @@
     <!-- ============ LCP hero preload (responsive: mobile picks 32KB variant) ============ -->
     <link rel="preload" as="image" href="/assets/uploads/media-uploader/cover02-d.webp" imagesrcset="/assets/uploads/media-uploader/cover02-m.webp 768w, /assets/uploads/media-uploader/cover02-d.webp 1600w" imagesizes="100vw" fetchpriority="high" type="image/webp">
 
-    <!-- ============ Fonts (preconnect + non-blocking load) ============ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Cairo body font: display=optional eliminates CLS (no late font swap) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=optional" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=optional"></noscript>
-    <!-- Display/accent fonts: deferred (used in chatbot + intro which mount post-load) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fraunces:opsz,wght@9..144,600&display=swap" onload="this.onload=null;this.rel='stylesheet'" media="print">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fraunces:opsz,wght@9..144,600&display=swap"></noscript>
-    <script>
-      // Promote print-media font to all once page is idle
-      (function(){
-        function promote(){
-          var l = document.querySelector('link[media="print"][href*="Fraunces"]');
-          if (l) l.media = 'all';
-        }
-        if (document.readyState === 'complete') setTimeout(promote, 100);
-        else window.addEventListener('load', function(){ setTimeout(promote, 100); }, { once: true });
-      })();
-    </script>
+    <!-- ============ Fonts: Cairo is self-hosted via @fontsource (see main.tsx) ============ -->
+    <!-- No Google Fonts network round-trip; saves render-blocking requests on mobile. -->
     <style>
       /* size-adjust + override metrics so system fallback occupies the same space as Cairo (zero CLS) */
       @font-face {
@@ -224,13 +206,13 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-CgAukrHA.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-CaxDoJUx.js">
+    <script type="module" crossorigin src="/assets/index-Dj6fMBN5.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-Bat3migM.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-EsHFY5Fn.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Bz-0errw.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-query-DQNMBGom.js">
-    <link rel="stylesheet" crossorigin href="/assets/vendor-Ov0uFQn6.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-Dxf98cF2.css">
+    <link rel="stylesheet" crossorigin href="/assets/vendor-BzgM1a7D.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-Cwzc4DBh.css">
   </head>
   <body>
     <div id="root"></div>
