@@ -58,9 +58,22 @@
   RewriteCond %{REQUEST_URI} \.(pdf|png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|json|xml|txt|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|zip)$ [NC]
   RewriteRule ^ - [L]
 
+  # Pass the Authorization header through to PHP (admin Bearer token)
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
   # Map clean /api/chat to /api/chat.php (Sara chatbot — OpenAI proxy)
   RewriteRule ^api/chat/?$ /api/chat.php [L]
   RewriteRule ^api/leads/?$ /api/leads.php [L]
+
+  # Admin dashboard API → single PHP front controller
+  RewriteRule ^api/admin(/.*)?$ /api/admin.php [L,QSA]
+  RewriteRule ^api/translate/?$ /api/translate.php [L]
+
+  # Admin SPA (React) deep links → /admin/index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^admin(/.*)?$ /admin/index.html [L]
 
   # Skip API and static asset directories
   RewriteRule ^(api|assets|img|downloads|fonts)/ - [L]

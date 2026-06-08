@@ -1,5 +1,6 @@
 <?php
-// DSCC leads receiver. Emails every form/chatbot submission to contact@dsccsaudia.com.
+// DSCC leads receiver. Persists every submission to the lead store (for the
+// admin dashboard) AND emails it to contact@dsccsaudia.com.
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -28,6 +29,18 @@ $source = is_string($body['source'] ?? null) ? $body['source'] : 'unknown';
 $ref    = is_string($body['ref'] ?? null) ? $body['ref'] : '';
 $at     = is_string($body['at'] ?? null) ? $body['at'] : gmdate('c');
 $data   = is_array($body['data'] ?? null) ? $body['data'] : [];
+
+// Persist the lead so the admin dashboard can manage it. Never let a storage
+// failure block the email notification below.
+try {
+    require_once __DIR__ . '/_store.php';
+    if (function_exists('dscc_store_append_lead')) {
+        $saved = dscc_store_append_lead($body);
+        if (empty($ref) && !empty($saved['ref'])) $ref = $saved['ref'];
+    }
+} catch (Throwable $e) {
+    error_log('leads.php store failed: ' . $e->getMessage());
+}
 
 $sourceLabels = [
     'quote'      => 'طلب عرض سعر / Quote request',
