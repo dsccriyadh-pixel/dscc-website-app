@@ -19,9 +19,12 @@ function adm_out($code, $payload) {
 }
 
 function adm_token() {
-    if (defined('DSCC_ADMIN_TOKEN') && DSCC_ADMIN_TOKEN) return DSCC_ADMIN_TOKEN;
-    $env = getenv('DSCC_ADMIN_TOKEN');
-    if ($env) return $env;
+    // Accept either DSCC_ADMIN_TOKEN or ADMIN_TOKEN (define() in config.php or env).
+    foreach (['DSCC_ADMIN_TOKEN', 'ADMIN_TOKEN'] as $name) {
+        if (defined($name) && constant($name)) return constant($name);
+        $env = getenv($name);
+        if ($env) return $env;
+    }
     $f = __DIR__ . '/.admin_token';
     if (is_file($f)) { $t = trim(@file_get_contents($f)); if ($t !== '') return $t; }
     return null;
@@ -46,7 +49,7 @@ function adm_bearer() {
 function adm_require_auth() {
     $expected = adm_token();
     if (!$expected) {
-        adm_out(500, ['error' => "Admin token not configured. Add  define('DSCC_ADMIN_TOKEN', 'your-secret');  to api/config.php"]);
+        adm_out(500, ['error' => "Admin token not configured. Add  define('ADMIN_TOKEN', 'your-secret');  to api/config.php"]);
     }
     $got = adm_bearer();
     if ($got === '' || !hash_equals((string) $expected, (string) $got)) {
