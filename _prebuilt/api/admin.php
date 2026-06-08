@@ -127,7 +127,8 @@ if ($sub === '/leads.csv' && $method === 'GET') {
     }
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="dscc-leads-' . time() . '.csv"');
-    echo implode("\n", $out);
+    // UTF-8 BOM so Excel renders Arabic correctly; CRLF line endings for Excel.
+    echo "\xEF\xBB\xBF" . implode("\r\n", $out);
     exit;
 }
 
