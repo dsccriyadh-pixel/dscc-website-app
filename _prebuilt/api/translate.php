@@ -11,6 +11,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     exit;
 }
 
+require_once __DIR__ . '/_store.php';
 if (file_exists(__DIR__ . '/config.php')) { @require_once __DIR__ . '/config.php'; }
 
 $body = json_decode(file_get_contents('php://input'), true);
@@ -18,6 +19,27 @@ $text = (is_array($body) && isset($body['text']) && is_string($body['text'])) ? 
 $target = (is_array($body) && ($body['target'] ?? '') === 'ar') ? 'ar' : 'en';
 
 if ($text === '') { echo json_encode(['ok' => true, 'translated' => '']); exit; }
+
+// Cap length and rate-limit per IP to prevent abuse of the OpenAI proxy.
+if (mb_strlen($text) > 5000) $text = mb_substr($text, 0, 5000);
+$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+$ip = trim(explode(',', $ip)[0]);
+try {
+    $hits = dscc_file_mutate(dscc_data_dir() . '/translate_rl.json', [], function (&$s) use ($ip) {
+        $now = time();
+        foreach ($s as $k => $v) { if (!is_array($v) || ($v['ts'] ?? 0) < $now - 60) unset($s[$k]); }
+        $e = (isset($s[$ip]) && is_array($s[$ip])) ? $s[$ip] : ['ts' => $now, 'n' => 0];
+        if ($now - ($e['ts'] ?? 0) >= 60) $e = ['ts' => $now, 'n' => 0];
+        $e['n'] = ($e['n'] ?? 0) + 1;
+        $s[$ip] = $e;
+        return $e['n'];
+    });
+    if ($hits > 60) {
+        http_response_code(429);
+        echo json_encode(['ok' => false, 'translated' => $text], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+} catch (Throwable $e) { /* never block translation on rate-limit bookkeeping */ }
 
 function tr_key() {
     if (defined('OPENAI_API_KEY') && OPENAI_API_KEY) return OPENAI_API_KEY;

@@ -111,9 +111,15 @@ if ($ref !== '') $subject .= ' [' . $ref . ']';
 
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
+// Guard against mail header (CRLF) injection via the client-supplied email.
+$replyTo = $MAIL_FROM;
+if ($clientEmail !== '' && !preg_match('/[\r\n]/', $clientEmail) && filter_var($clientEmail, FILTER_VALIDATE_EMAIL)) {
+    $replyTo = $clientEmail;
+}
+
 $headers   = [];
 $headers[] = 'From: DSCC Website <' . $MAIL_FROM . '>';
-$headers[] = 'Reply-To: ' . ($clientEmail !== '' ? $clientEmail : $MAIL_FROM);
+$headers[] = 'Reply-To: ' . $replyTo;
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
 $headers[] = 'Content-Transfer-Encoding: 8bit';

@@ -423,9 +423,6 @@ function dscc_notif_state() {
         'allAt' => isset($s['allAt']) && is_string($s['allAt']) ? $s['allAt'] : null,
     ];
 }
-function dscc_notif_save_state($s) {
-    dscc_write_json_atomic(dscc_notif_read_file(), $s);
-}
 function dscc_notif_id_for_lead($lead) {
     return 'n_' . ($lead['id'] ?? '');
 }
@@ -472,21 +469,25 @@ function dscc_list_notifications($limit, $unreadOnly) {
     return ['items' => $items, 'unread' => $unread, 'total' => $total];
 }
 function dscc_notif_mark_read($id) {
-    $s = dscc_notif_state();
-    if (!in_array($id, $s['ids'], true)) { $s['ids'][] = $id; dscc_notif_save_state($s); }
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) use ($id) {
+        if (!isset($s['ids']) || !is_array($s['ids'])) $s['ids'] = [];
+        if (!in_array($id, $s['ids'], true)) $s['ids'][] = $id;
+    });
     return true;
 }
 function dscc_notif_mark_all_read() {
     $items = dscc_build_notifications();
     $count = 0;
     foreach ($items as $it) if (!$it['read']) $count++;
-    $s = dscc_notif_state();
-    $s['allAt'] = gmdate('c');
-    dscc_notif_save_state($s);
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) {
+        $s['allAt'] = gmdate('c');
+    });
     return $count;
 }
 function dscc_notif_delete($id) {
-    $s = dscc_notif_state();
-    if (!in_array($id, $s['deleted'], true)) { $s['deleted'][] = $id; dscc_notif_save_state($s); }
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) use ($id) {
+        if (!isset($s['deleted']) || !is_array($s['deleted'])) $s['deleted'] = [];
+        if (!in_array($id, $s['deleted'], true)) $s['deleted'][] = $id;
+    });
     return true;
 }

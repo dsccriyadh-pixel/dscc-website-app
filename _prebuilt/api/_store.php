@@ -33,19 +33,29 @@ function dscc_write_json_atomic($file, $data) {
     return @rename($tmp, $file);
 }
 
-// Mutate the leads array under an exclusive lock. $fn receives the array by
-// reference and may return a value, which is returned to the caller.
-function dscc_leads_mutate(callable $fn) {
-    $file = dscc_leads_file();
+// Generic locked read-modify-write for a JSON file. $fn receives the decoded
+// data by reference and may return a value, returned to the caller. Throws if
+// the persisted write fails, so callers never report false success.
+function dscc_file_mutate($file, $default, callable $fn) {
     $dir = dirname($file);
     if (!is_dir($dir)) @mkdir($dir, 0775, true);
     $lf = @fopen($file . '.lock', 'c');
     if ($lf) { @flock($lf, LOCK_EX); }
-    $leads = dscc_read_json($file, []);
-    $result = $fn($leads);
-    dscc_write_json_atomic($file, $leads);
-    if ($lf) { @flock($lf, LOCK_UN); @fclose($lf); }
-    return $result;
+    try {
+        $data = dscc_read_json($file, $default);
+        $result = $fn($data);
+        if (dscc_write_json_atomic($file, $data) === false) {
+            throw new RuntimeException('Failed to persist ' . basename($file));
+        }
+        return $result;
+    } finally {
+        if ($lf) { @flock($lf, LOCK_UN); @fclose($lf); }
+    }
+}
+
+// Mutate the leads array under an exclusive lock.
+function dscc_leads_mutate(callable $fn) {
+    return dscc_file_mutate(dscc_leads_file(), [], $fn);
 }
 
 function dscc_pick_str($v) {
