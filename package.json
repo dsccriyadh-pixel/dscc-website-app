@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "echo skip",
-    "build": "mkdir -p dist artifacts/dscc-website/dist/public && cp -r _prebuilt/. dist/ && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && echo built",
+    "build": "mkdir -p dist artifacts/dscc-website/dist/public && cp -r _prebuilt/. dist/ && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && node gen-config.cjs && echo built",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
