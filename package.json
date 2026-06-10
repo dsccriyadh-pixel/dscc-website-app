@@ -1,17 +1,15 @@
 {
-  "name": "workspace",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "dscc-cards",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
-    "preinstall": "echo skip",
-    "build": "mkdir -p dist artifacts/dscc-website/dist/public && cp -r _prebuilt/. dist/ && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && node gen-config.cjs && echo built",
-    "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "start": "node index.mjs"
   },
-  "private": true,
-  "packageManager": "pnpm@11.3.0",
-  "devDependencies": {
-    "typescript": "~5.9.2",
-    "prettier": "^3.8.1"
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }
