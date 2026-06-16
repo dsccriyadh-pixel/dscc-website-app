@@ -94,3 +94,7 @@
 
 # ---------- Disable directory listing ----------
 Options -Indexes
+
+# Do not 301 directory URLs to add a trailing slash — keeps SPA routes
+# (e.g. /projects/ayan-al-shatie) on the no-slash path React Router expects.
+DirectorySlash Off
