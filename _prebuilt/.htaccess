@@ -78,6 +78,11 @@
   # Skip API and static asset directories
   RewriteRule ^(api|assets|img|downloads|fonts)/ - [L]
 
+  # Project detail deep-links: the asset folder shares the route path
+  # (e.g. /projects/ayan-al-shatie). Serve the SPA shell for the folder root;
+  # real asset files (with an extension) are already passed through above.
+  RewriteRule ^projects/[^/]+/?$ /index.html [L]
+
   # Skip existing files and directories
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
