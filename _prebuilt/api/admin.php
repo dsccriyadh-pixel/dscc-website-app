@@ -1,0 +1,497 @@
+<?php
+// DSCC admin API front controller. Routes /api/admin/* requests for the
+// dscc-admin dashboard. Bearer-token auth against DSCC_ADMIN_TOKEN (config.php).
+
+require_once __DIR__ . '/_store.php';
+if (file_exists(__DIR__ . '/config.php')) { @require_once __DIR__ . '/config.php'; }
+
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+header('X-Content-Type-Options: nosniff');
+
+date_default_timezone_set('UTC');
+define('BIZ_TZ', 'Asia/Riyadh');
+
+function adm_out($code, $payload) {
+    http_response_code($code);
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+function adm_token() {
+    // Accept either DSCC_ADMIN_TOKEN or ADMIN_TOKEN (define() in config.php or env).
+    foreach (['DSCC_ADMIN_TOKEN', 'ADMIN_TOKEN'] as $name) {
+        if (defined($name) && constant($name)) return constant($name);
+        $env = getenv($name);
+        if ($env) return $env;
+    }
+    $f = __DIR__ . '/.admin_token';
+    if (is_file($f)) { $t = trim(@file_get_contents($f)); if ($t !== '') return $t; }
+    return null;
+}
+
+function adm_bearer() {
+    $h = '';
+    if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        $h = $_SERVER['HTTP_AUTHORIZATION'];
+    } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $h = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    } elseif (function_exists('getallheaders')) {
+        foreach (getallheaders() as $k => $v) {
+            if (strtolower($k) === 'authorization') { $h = $v; break; }
+        }
+    }
+    if (stripos($h, 'Bearer ') === 0) return trim(substr($h, 7));
+    if (!empty($_SERVER['HTTP_X_ADMIN_TOKEN'])) return trim($_SERVER['HTTP_X_ADMIN_TOKEN']);
+    return '';
+}
+
+function adm_require_auth() {
+    $expected = adm_token();
+    if (!$expected) {
+        adm_out(500, ['error' => "Admin token not configured. Add  define('ADMIN_TOKEN', 'your-secret');  to api/config.php"]);
+    }
+    $got = adm_bearer();
+    if ($got === '' || !hash_equals((string) $expected, (string) $got)) {
+        adm_out(401, ['error' => 'Unauthorized']);
+    }
+}
+
+function adm_body() {
+    $raw = file_get_contents('php://input');
+    $b = json_decode($raw, true);
+    return is_array($b) ? $b : [];
+}
+
+function adm_query($k) {
+    $v = $_GET[$k] ?? null;
+    return is_string($v) ? $v : null;
+}
+
+// ---------- routing ----------
+$uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '';
+$uri = rawurldecode($uri);
+$pos = strpos($uri, '/api/admin');
+$sub = $pos !== false ? substr($uri, $pos + strlen('/api/admin')) : '';
+$sub = '/' . trim($sub, '/');
+$method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
+
+adm_require_auth();
+
+// ---------- helpers ----------
+function dscc_ymd_in_tz($ts, $tz) {
+    try {
+        $d = new DateTime('@' . $ts);
+        $d->setTimezone(new DateTimeZone($tz));
+        return $d->format('Y-m-d');
+    } catch (Throwable $e) {
+        return gmdate('Y-m-d', $ts);
+    }
+}
+
+function dscc_find_index(&$leads, $id) {
+    foreach ($leads as $i => $l) {
+        if (($l['id'] ?? null) === $id) return $i;
+    }
+    return -1;
+}
+
+// ---------- AUTH CHECK ----------
+if ($sub === '/auth/check' && $method === 'POST') {
+    adm_out(200, ['ok' => true]);
+}
+
+// ---------- OPERATORS ----------
+if ($sub === '/operators' && $method === 'GET') {
+    $raw = getenv('OPERATORS') ?: (defined('DSCC_OPERATORS') ? DSCC_OPERATORS : '');
+    $ops = array_values(array_filter(array_map('trim', explode(',', (string) $raw))));
+    adm_out(200, ['operators' => $ops]);
+}
+
+// ---------- CSV EXPORT ----------
+if ($sub === '/leads.csv' && $method === 'GET') {
+    $leads = dscc_read_json(dscc_leads_file(), []);
+    $cols = ['id','ref','createdAt','source','status','priority','fullName','company','email','phone','city','projectType','services','budget','timeline','sourcePage','message'];
+    $esc = function ($v) {
+        if ($v === null) return '';
+        $s = is_array($v) ? implode('; ', $v) : (string) $v;
+        if (preg_match('/^[=+\-@\t\r]/', $s)) $s = "'" . $s;
+        if (preg_match('/[",\n]/', $s)) return '"' . str_replace('"', '""', $s) . '"';
+        return $s;
+    };
+    $out = [implode(',', $cols)];
+    foreach ($leads as $l) {
+        $row = [];
+        foreach ($cols as $c) $row[] = $esc($l[$c] ?? null);
+        $out[] = implode(',', $row);
+    }
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="dscc-leads-' . time() . '.csv"');
+    // UTF-8 BOM so Excel renders Arabic correctly; CRLF line endings for Excel.
+    echo "\xEF\xBB\xBF" . implode("\r\n", $out);
+    exit;
+}
+
+// ---------- STATS ----------
+if ($sub === '/stats' && $method === 'GET') {
+    adm_out(200, dscc_compute_stats());
+}
+
+// ---------- NOTIFICATIONS ----------
+if ($sub === '/notifications' && $method === 'GET') {
+    $limit = isset($_GET['limit']) ? min(200, max(1, (int) $_GET['limit'])) : 50;
+    $unreadOnly = (($_GET['unread'] ?? '') === '1' || ($_GET['unread'] ?? '') === 'true');
+    adm_out(200, dscc_list_notifications($limit, $unreadOnly));
+}
+if ($sub === '/notifications/read-all' && $method === 'POST') {
+    $count = dscc_notif_mark_all_read();
+    adm_out(200, ['ok' => true, 'count' => $count]);
+}
+if (preg_match('#^/notifications/([^/]+)/read$#', $sub, $m) && $method === 'POST') {
+    dscc_notif_mark_read($m[1]);
+    adm_out(200, ['ok' => true]);
+}
+if (preg_match('#^/notifications/([^/]+)$#', $sub, $m) && $method === 'DELETE') {
+    dscc_notif_delete($m[1]);
+    adm_out(200, ['ok' => true]);
+}
+
+// ---------- DEMO CLEAR (no-op on prod, kept for contract parity) ----------
+if ($sub === '/demo/clear' && $method === 'POST') {
+    $removed = dscc_leads_mutate(function (&$leads) {
+        $before = count($leads);
+        $leads = array_values(array_filter($leads, fn($l) => strpos($l['id'] ?? '', 'L_demo_') !== 0));
+        return $before - count($leads);
+    });
+    adm_out(200, ['ok' => true, 'removed' => $removed]);
+}
+
+// ---------- LEADS LIST ----------
+if ($sub === '/leads' && $method === 'GET') {
+    $all = dscc_read_json(dscc_leads_file(), []);
+    $q = adm_query('q'); $q = $q !== null ? mb_strtolower(trim($q)) : null;
+    $status = adm_query('status');
+    $source = adm_query('source');
+    $city = adm_query('city');
+    $service = adm_query('service');
+    $assigned = adm_query('assigned');
+    $priority = adm_query('priority');
+
+    $filtered = array_values(array_filter($all, function ($l) use ($q, $status, $source, $city, $service, $assigned, $priority) {
+        if ($status && $status !== 'all' && ($l['status'] ?? null) !== $status) return false;
+        if ($source && $source !== 'all' && ($l['source'] ?? null) !== $source) return false;
+        if ($city && $city !== 'all' && ($l['city'] ?? null) !== $city) return false;
+        if ($service && $service !== 'all' && !in_array($service, $l['services'] ?? [], true)) return false;
+        if ($priority && $priority !== 'all' && ($l['priority'] ?? null) !== $priority) return false;
+        if ($assigned && $assigned !== 'all') {
+            if ($assigned === 'unassigned') {
+                if (!empty($l['assignedTo'])) return false;
+            } elseif (($l['assignedTo'] ?? '') !== $assigned) {
+                return false;
+            }
+        }
+        if ($q) {
+            $noteBlob = '';
+            foreach ($l['notes'] ?? [] as $n) $noteBlob .= ' ' . ($n['body'] ?? '') . ' ' . ($n['outcome'] ?? '');
+            $parts = [
+                $l['fullName'] ?? '', $l['company'] ?? '', $l['email'] ?? '', $l['phone'] ?? '',
+                $l['city'] ?? '', $l['projectType'] ?? '', $l['message'] ?? '', $l['chatbotSummary'] ?? '',
+                $l['ref'] ?? '', $l['assignedTo'] ?? '', $noteBlob,
+                implode(' ', $l['services'] ?? []), implode(' ', $l['tags'] ?? []),
+            ];
+            $blob = mb_strtolower(implode(' ', array_filter($parts)));
+            if (strpos($blob, $q) === false) return false;
+        }
+        return true;
+    }));
+    adm_out(200, ['leads' => $filtered]);
+}
+
+// ---------- LEAD GET ----------
+if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'GET') {
+    $all = dscc_read_json(dscc_leads_file(), []);
+    foreach ($all as $l) {
+        if (($l['id'] ?? null) === $m[1]) adm_out(200, ['lead' => $l]);
+    }
+    adm_out(404, ['error' => 'Not found']);
+}
+
+// ---------- LEAD UPDATE ----------
+if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
+    $id = $m[1];
+    $body = adm_body();
+    $allowed = ['status','priority','assignedTo','tags','fullName','company','email','phone','city','projectType','services','budget','timeline'];
+    $patch = [];
+    foreach ($allowed as $k) if (array_key_exists($k, $body)) $patch[$k] = $body[$k];
+
+    if (array_key_exists('status', $patch) && !in_array($patch['status'], ['new','contacted','qualified','quotation_sent','negotiation','won','lost','archived'], true)) {
+        adm_out(400, ['error' => 'Invalid status']);
+    }
+    if (array_key_exists('priority', $patch) && !in_array($patch['priority'], ['low','normal','high','urgent'], true)) {
+        adm_out(400, ['error' => 'Invalid priority']);
+    }
+    if (array_key_exists('assignedTo', $patch)) {
+        $v = $patch['assignedTo'];
+        if ($v !== '' && (!is_string($v) || strlen($v) > 80)) adm_out(400, ['error' => 'Invalid assignedTo']);
+        if ($v === '') unset($patch['assignedTo']);
+    }
+
+    $updated = dscc_leads_mutate(function (&$leads) use ($id, $patch) {
+        $idx = dscc_find_index($leads, $id);
+        if ($idx === -1) return null;
+        foreach ($patch as $k => $v) {
+            if ($k === 'assignedTo' && $v === '') { unset($leads[$idx]['assignedTo']); continue; }
+            $leads[$idx][$k] = $v;
+        }
+        $leads[$idx]['updatedAt'] = gmdate('c');
+        return $leads[$idx];
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['lead' => $updated]);
+}
+
+// ---------- LEAD DELETE ----------
+if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'DELETE') {
+    $id = $m[1];
+    $ok = dscc_leads_mutate(function (&$leads) use ($id) {
+        $before = count($leads);
+        $leads = array_values(array_filter($leads, fn($l) => ($l['id'] ?? null) !== $id));
+        return count($leads) < $before;
+    });
+    if (!$ok) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['ok' => true]);
+}
+
+// ---------- ADD NOTE ----------
+if (preg_match('#^/leads/([^/]+)/notes$#', $sub, $m) && $method === 'POST') {
+    $id = $m[1];
+    $body = adm_body();
+    $text = $body['body'] ?? null;
+    if (!is_string($text) || $text === '' || strlen($text) > 4000) {
+        adm_out(400, ['error' => 'Note body required']);
+    }
+    $normalizedFu = null;
+    if (isset($body['followUpAt']) && $body['followUpAt'] !== null && $body['followUpAt'] !== '') {
+        if (!is_string($body['followUpAt'])) adm_out(400, ['error' => 'Invalid followUpAt']);
+        $t = strtotime($body['followUpAt']);
+        if ($t === false) adm_out(400, ['error' => 'Invalid followUpAt']);
+        $normalizedFu = gmdate('c', $t);
+    }
+    $note = [
+        'id' => dscc_rid('N_'),
+        'body' => $text,
+        'createdAt' => gmdate('c'),
+    ];
+    if (isset($body['author']) && is_string($body['author'])) $note['author'] = $body['author'];
+    if (isset($body['outcome']) && is_string($body['outcome'])) $note['outcome'] = $body['outcome'];
+    if ($normalizedFu !== null) $note['followUpAt'] = $normalizedFu;
+
+    $updated = dscc_leads_mutate(function (&$leads) use ($id, $note) {
+        $idx = dscc_find_index($leads, $id);
+        if ($idx === -1) return null;
+        $existing = $leads[$idx]['notes'] ?? [];
+        array_unshift($existing, $note);
+        $leads[$idx]['notes'] = $existing;
+        $leads[$idx]['updatedAt'] = gmdate('c');
+        return $leads[$idx];
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['lead' => $updated]);
+}
+
+adm_out(404, ['error' => 'Unknown admin route: ' . $method . ' ' . $sub]);
+
+// ============================================================
+// Stats
+// ============================================================
+function dscc_compute_stats() {
+    $all = dscc_read_json(dscc_leads_file(), []);
+    $byStatus = []; $bySource = []; $byPriority = []; $svc = []; $cities = []; $assignees = [];
+    $now = time();
+    $todayYmd = dscc_ymd_in_tz($now, BIZ_TZ);
+    $in7days = $now + 7 * 86400;
+    $last7 = 0; $last30 = 0; $assignedCount = 0; $unassignedCount = 0;
+    $frTotal = 0; $frSamples = 0;
+    $overdue = []; $todayItems = []; $upcoming = [];
+
+    foreach ($all as $l) {
+        $st = $l['status'] ?? 'new'; $byStatus[$st] = ($byStatus[$st] ?? 0) + 1;
+        $sr = $l['source'] ?? 'other'; $bySource[$sr] = ($bySource[$sr] ?? 0) + 1;
+        $pr = $l['priority'] ?? 'normal'; $byPriority[$pr] = ($byPriority[$pr] ?? 0) + 1;
+        foreach ($l['services'] ?? [] as $s) $svc[$s] = ($svc[$s] ?? 0) + 1;
+        if (!empty($l['city'])) $cities[$l['city']] = ($cities[$l['city']] ?? 0) + 1;
+        if (!empty($l['assignedTo'])) { $assignedCount++; $assignees[$l['assignedTo']] = ($assignees[$l['assignedTo']] ?? 0) + 1; }
+        else { $unassignedCount++; }
+
+        $t = isset($l['createdAt']) ? strtotime($l['createdAt']) : false;
+        if ($t !== false) {
+            $days = ($now - $t) / 86400;
+            if ($days <= 7) $last7++;
+            if ($days <= 30) $last30++;
+        }
+        $notes = $l['notes'] ?? [];
+        if (count($notes) > 0 && $t !== false) {
+            $oldest = 0;
+            foreach ($notes as $n) {
+                $tn = isset($n['createdAt']) ? strtotime($n['createdAt']) : false;
+                if ($tn !== false && ($oldest === 0 || $tn < $oldest)) $oldest = $tn;
+            }
+            if ($oldest > 0) {
+                $delta = $oldest - $t;
+                if ($delta > 0) { $frTotal += $delta; $frSamples++; }
+            }
+        }
+        foreach ($notes as $n) {
+            if (empty($n['followUpAt'])) continue;
+            $fu = strtotime($n['followUpAt']);
+            if ($fu === false) continue;
+            $item = [
+                'leadId' => $l['id'] ?? '',
+                'leadRef' => $l['ref'] ?? '',
+                'leadName' => $l['fullName'] ?? ($l['company'] ?? ($l['email'] ?? ($l['phone'] ?? ($l['ref'] ?? '')))),
+                'noteId' => $n['id'] ?? '',
+                'body' => $n['body'] ?? '',
+                'followUpAt' => $n['followUpAt'],
+            ];
+            if (!empty($l['assignedTo'])) $item['assignedTo'] = $l['assignedTo'];
+            $fuYmd = dscc_ymd_in_tz($fu, BIZ_TZ);
+            if ($fuYmd === $todayYmd) {
+                $todayItems[] = $item;
+            } elseif ($fu < $now) {
+                if (!in_array($st, ['won','lost','archived'], true)) $overdue[] = $item;
+            } elseif ($fu <= $in7days) {
+                $upcoming[] = $item;
+            }
+        }
+    }
+
+    $top = function ($m) {
+        arsort($m);
+        $out = [];
+        foreach (array_slice($m, 0, 10, true) as $name => $count) $out[] = ['name' => (string) $name, 'count' => $count];
+        return $out;
+    };
+
+    $wonCount = $byStatus['won'] ?? 0;
+    $lostCount = $byStatus['lost'] ?? 0;
+    $denom = $wonCount + $lostCount;
+    $conversionRate = $denom > 0 ? round(($wonCount / $denom) * 1000) / 10 : 0;
+    $avgFr = $frSamples > 0 ? round(($frTotal / $frSamples / 3600) * 10) / 10 : null;
+
+    $stages = ['new','contacted','qualified','quotation_sent','negotiation','won'];
+    $pipelineTotal = 0;
+    foreach ($stages as $s) $pipelineTotal += ($byStatus[$s] ?? 0);
+    $pipeline = [];
+    foreach ($stages as $stage) {
+        $count = $byStatus[$stage] ?? 0;
+        $pct = $pipelineTotal > 0 ? round(($count / $pipelineTotal) * 1000) / 10 : 0;
+        $pipeline[] = ['stage' => $stage, 'count' => $count, 'pct' => $pct];
+    }
+
+    $sortFu = function (&$arr) { usort($arr, fn($a, $b) => strtotime($a['followUpAt']) - strtotime($b['followUpAt'])); };
+    $sortFu($overdue); $sortFu($todayItems); $sortFu($upcoming);
+
+    return [
+        'total' => count($all),
+        'byStatus' => (object) $byStatus,
+        'bySource' => (object) $bySource,
+        'byPriority' => (object) $byPriority,
+        'topServices' => $top($svc),
+        'topCities' => $top($cities),
+        'newLast7Days' => $last7,
+        'newLast30Days' => $last30,
+        'recent' => array_slice($all, 0, 8),
+        'conversionRate' => $conversionRate,
+        'wonCount' => $wonCount,
+        'lostCount' => $lostCount,
+        'avgFirstResponseHours' => $avgFr,
+        'firstResponseSampleSize' => $frSamples,
+        'pipelineValueByStage' => $pipeline,
+        'assignedCount' => $assignedCount,
+        'unassignedCount' => $unassignedCount,
+        'byAssignee' => $top($assignees),
+        'overdueFollowUps' => array_slice($overdue, 0, 50),
+        'todayFollowUps' => array_slice($todayItems, 0, 50),
+        'upcomingFollowUps' => array_slice($upcoming, 0, 50),
+    ];
+}
+
+// ============================================================
+// Notifications — derived from leads + a read/deleted state file
+// ============================================================
+function dscc_notif_state() {
+    $s = dscc_read_json(dscc_notif_read_file(), []);
+    return [
+        'ids' => isset($s['ids']) && is_array($s['ids']) ? $s['ids'] : [],
+        'deleted' => isset($s['deleted']) && is_array($s['deleted']) ? $s['deleted'] : [],
+        'allAt' => isset($s['allAt']) && is_string($s['allAt']) ? $s['allAt'] : null,
+    ];
+}
+function dscc_notif_id_for_lead($lead) {
+    return 'n_' . ($lead['id'] ?? '');
+}
+function dscc_build_notifications() {
+    $all = dscc_read_json(dscc_leads_file(), []);
+    $state = dscc_notif_state();
+    $allAt = $state['allAt'] ? strtotime($state['allAt']) : 0;
+    $sourceAr = ['quote'=>'طلب عرض سعر','contact'=>'نموذج تواصل','chatbot'=>'محادثة الروبوت','newsletter'=>'نشرة بريدية','other'=>'طلب عام'];
+    $sourceEn = ['quote'=>'Quote request','contact'=>'Contact message','chatbot'=>'Chatbot lead','newsletter'=>'Newsletter signup','other'=>'Inquiry'];
+    $items = [];
+    foreach ($all as $l) {
+        $nid = dscc_notif_id_for_lead($l);
+        if (in_array($nid, $state['deleted'], true)) continue;
+        $who = $l['fullName'] ?? ($l['company'] ?? ($l['email'] ?? ($l['phone'] ?? 'بدون اسم')));
+        $src = $l['source'] ?? 'other';
+        $created = $l['createdAt'] ?? gmdate('c');
+        $createdTs = strtotime($created);
+        $read = in_array($nid, $state['ids'], true) || ($allAt > 0 && $createdTs !== false && $createdTs <= $allAt);
+        $items[] = [
+            'id' => $nid,
+            'type' => 'lead_new',
+            'titleAr' => ($sourceAr[$src] ?? 'طلب جديد') . ' · ' . $who,
+            'titleEn' => ($sourceEn[$src] ?? 'New lead') . ' · ' . $who,
+            'bodyAr' => $l['message'] ?? ($l['chatbotSummary'] ?? ('مرجع: ' . ($l['ref'] ?? ''))),
+            'bodyEn' => $l['message'] ?? ($l['chatbotSummary'] ?? ('Ref: ' . ($l['ref'] ?? ''))),
+            'leadId' => $l['id'] ?? '',
+            'leadRef' => $l['ref'] ?? '',
+            'read' => $read,
+            'createdAt' => $created,
+            '_ts' => $createdTs === false ? 0 : $createdTs,
+        ];
+    }
+    usort($items, fn($a, $b) => $b['_ts'] - $a['_ts']);
+    return $items;
+}
+function dscc_list_notifications($limit, $unreadOnly) {
+    $items = dscc_build_notifications();
+    $total = count($items);
+    $unread = 0;
+    foreach ($items as $it) if (!$it['read']) $unread++;
+    if ($unreadOnly) $items = array_values(array_filter($items, fn($i) => !$i['read']));
+    $items = array_slice($items, 0, $limit);
+    foreach ($items as &$it) unset($it['_ts']);
+    return ['items' => $items, 'unread' => $unread, 'total' => $total];
+}
+function dscc_notif_mark_read($id) {
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) use ($id) {
+        if (!isset($s['ids']) || !is_array($s['ids'])) $s['ids'] = [];
+        if (!in_array($id, $s['ids'], true)) $s['ids'][] = $id;
+    });
+    return true;
+}
+function dscc_notif_mark_all_read() {
+    $items = dscc_build_notifications();
+    $count = 0;
+    foreach ($items as $it) if (!$it['read']) $count++;
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) {
+        $s['allAt'] = gmdate('c');
+    });
+    return $count;
+}
+function dscc_notif_delete($id) {
+    dscc_file_mutate(dscc_notif_read_file(), [], function (&$s) use ($id) {
+        if (!isset($s['deleted']) || !is_array($s['deleted'])) $s['deleted'] = [];
+        if (!in_array($id, $s['deleted'], true)) $s['deleted'][] = $id;
+    });
+    return true;
+}

@@ -1,0 +1,32 @@
+{
+  "source": "https://dsccsaudia.com/service",
+  "extracted_at": "2026-04-20",
+  "preserve_text_exactly": true,
+  "services": [
+    { "title": "Aluminum & Steel Glazing", "slug": "aluminum-steel-glazing", "url": "https://dsccsaudia.com/service/aluminum-steel-glazing", "icon": "/assets/uploads/media-uploader/aluminum-steel-glazing1693906879.svg" },
+    { "title": "Indoor and Outdoor Furniture", "slug": "indoor-and-outdoor-furniture", "url": "https://dsccsaudia.com/service/indoor-and-outdoor-furniture", "icon": "/assets/uploads/media-uploader/indoor-and-outdoor-furniture1694200160.svg" },
+    { "title": "Window & Door", "slug": "window-&-door", "url": "https://dsccsaudia.com/service/window-&-door", "icon": "/assets/uploads/media-uploader/doors1695226337.svg" },
+    { "title": "Lighting / Switch / Socket", "slug": "lighting-switch-socket", "url": "https://dsccsaudia.com/service/lighting-switch-socket", "icon": "/assets/uploads/media-uploader/lamp1695226338.svg" },
+    { "title": "Wall & Floor Covering", "slug": "wall-&-floor-covering", "url": "https://dsccsaudia.com/service/wall-&-floor-covering", "icon": "/assets/uploads/media-uploader/parquet1695226339.svg" },
+    { "title": "HVAC System", "slug": "hvac-system", "url": "https://dsccsaudia.com/service/hvac-system", "icon": "/assets/uploads/media-uploader/hvac-system1694201795.svg" },
+    { "title": "Audio/Video System", "slug": "audio-video-system", "url": "https://dsccsaudia.com/service/audio-video-system", "icon": "/assets/uploads/media-uploader/sound-system1695226341.svg" },
+    { "title": "Building Automation System", "slug": "building-automation-system", "url": "https://dsccsaudia.com/service/building-automation-system", "icon": "/assets/uploads/media-uploader/smart-city1695226340.svg" },
+    { "title": "Smart Room Services", "slug": "smart-room-services", "url": "https://dsccsaudia.com/service/smart-room-services", "icon": "/assets/uploads/media-uploader/smart-room-control-systems1694201268.svg" },
+    { "title": "Kitchen & Laundry Equipment", "slug": "kitchen-&-laundry-equipment", "url": "https://dsccsaudia.com/service/kitchen-&-laundry-equipment", "icon": "/assets/uploads/media-uploader/kitchen1695226338.svg" },
+    { "title": "Security System", "slug": "security-system", "url": "https://dsccsaudia.com/service/security-system", "icon": "/assets/uploads/media-uploader/security-systems1694201625.svg" },
+    { "title": "Fire Protection System", "slug": "fire-protection-system", "url": "https://dsccsaudia.com/service/fire-protection-system", "icon": "/assets/uploads/media-uploader/fire1695226337.svg" },
+    { "title": "Electrical System", "slug": "electrical-system", "url": "https://dsccsaudia.com/service/electrical-system", "icon": "/assets/uploads/media-uploader/wire1695226342.svg" },
+    { "title": "Bathroom Solutions", "slug": "bathroom-solutions", "url": "https://dsccsaudia.com/service/bathroom-solutions", "icon": "/assets/uploads/media-uploader/toilet1695226341.svg" },
+    { "title": "Water Supply and Drainage System", "slug": "water-supply-and-drainage-system", "url": "https://dsccsaudia.com/service/water-supply-and-drainage-system", "icon": "/assets/uploads/media-uploader/waste1695226342.svg" },
+    { "title": "Boiler System", "slug": "boiler-system", "url": "https://dsccsaudia.com/service/boiler-system", "icon": "/assets/uploads/media-uploader/boiler1695226343.svg" },
+    { "title": "Special Equipment", "slug": "special-equipment", "url": "https://dsccsaudia.com/service/special-equipment", "icon": "/assets/uploads/media-uploader/special-equipment1695226341.svg" },
+    { "title": "Swimming Pool System", "slug": "swimming-pool-system", "url": "https://dsccsaudia.com/service/swimming-pool-system", "icon": "/assets/uploads/media-uploader/swimming-pool-system1694201022.svg" },
+    { "title": "IT System Services", "slug": "it-system-services", "url": "https://dsccsaudia.com/service/it-system-services", "icon": "/assets/uploads/media-uploader/data-management1695226336.svg" },
+    { "title": "Fitness Equipment", "slug": "fitness-equipment", "url": "https://dsccsaudia.com/service/fitness-equipment", "icon": "/assets/uploads/media-uploader/bike1695226343.svg" },
+    { "title": "Outdoor & Landscape Solutions", "slug": "outdoor-&-landscape-solutions", "url": "https://dsccsaudia.com/service/outdoor-&-landscape-solutions", "icon": "/assets/uploads/media-uploader/field1695226337.svg" },
+    { "title": "Hospitality Supplies", "slug": "hospitality-supplies", "url": "https://dsccsaudia.com/service/hospitality-supplies", "icon": "/assets/uploads/media-uploader/room-service1695226339.svg" },
+    { "title": "Linen Chute Solution", "slug": "linen-chute-solution", "url": "https://dsccsaudia.com/service/linen-chute-solution", "icon": "/assets/uploads/media-uploader/linen-chute-solution1695226338.svg" },
+    { "title": "Decoration and Artwork", "slug": "decoration-and-artwork", "url": "https://dsccsaudia.com/service/decoration-and-artwork", "icon": "/assets/uploads/media-uploader/living-room1695226339.svg" },
+    { "title": "Hospitality Signage & Wayfinding1", "slug": "hospitality-signage-&-wayfinding", "url": "https://dsccsaudia.com/service/hospitality-signage-&-wayfinding", "icon": "/assets/uploads/media-uploader/hotel1694202447.svg", "note": "Original title ends with stray '1' — preserved as-is per extraction rules." }
+  ]
+}
