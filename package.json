@@ -1,15 +1,9 @@
 {
-  "name": "dscc-cards",
+  "name": "dscc-website",
   "version": "1.0.0",
-  "type": "module",
-  "main": "index.mjs",
+  "private": true,
   "scripts": {
-    "start": "node index.mjs"
-  },
-  "dependencies": {
-    "express": "^5.2.1"
-  },
-  "engines": {
-    "node": ">=20.9.0"
+    "preinstall": "echo skip",
+    "build": "mkdir -p dist && cp -r _prebuilt/. dist/ && node gen-config.cjs && echo built"
   }
 }
