@@ -30,6 +30,19 @@ function adm_token() {
     return null;
 }
 
+function adm_cred() {
+    // Username/password for the login screen. Falls back to a default username
+    // and to the bearer token as the password so older single-secret setups work.
+    $user = null; $pass = null;
+    if (defined('ADMIN_USERNAME') && constant('ADMIN_USERNAME') !== '') { $user = constant('ADMIN_USERNAME'); }
+    elseif (($e = getenv('ADMIN_USERNAME')) !== false && $e !== '') { $user = $e; }
+    if (defined('ADMIN_PASSWORD') && constant('ADMIN_PASSWORD') !== '') { $pass = constant('ADMIN_PASSWORD'); }
+    elseif (($e = getenv('ADMIN_PASSWORD')) !== false && $e !== '') { $pass = $e; }
+    if ($user === null) $user = 'admin';
+    if ($pass === null) $pass = adm_token();
+    return [$user, $pass];
+}
+
 function adm_bearer() {
     $h = '';
     if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
@@ -75,6 +88,24 @@ $pos = strpos($uri, '/api/admin');
 $sub = $pos !== false ? substr($uri, $pos + strlen('/api/admin')) : '';
 $sub = '/' . trim($sub, '/');
 $method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
+
+// ---------- LOGIN (no auth required) ----------
+if ($sub === '/login' && $method === 'POST') {
+    $expected = adm_token();
+    if (!$expected) {
+        adm_out(500, ['error' => 'Admin token not configured.']);
+    }
+    list($u, $p) = adm_cred();
+    $body = adm_body();
+    $gotU = isset($body['username']) && is_string($body['username']) ? $body['username'] : '';
+    $gotP = isset($body['password']) && is_string($body['password']) ? $body['password'] : '';
+    $okU = hash_equals((string) $u, (string) $gotU);
+    $okP = hash_equals((string) $p, (string) $gotP);
+    if (!$okU || !$okP) {
+        adm_out(401, ['error' => 'Invalid credentials']);
+    }
+    adm_out(200, ['token' => $expected]);
+}
 
 adm_require_auth();
 
