@@ -4,72 +4,71 @@
 
 ## Company
 - Name: DSCC Saudi Arabia
-- Headquarters: Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia (short address RNCA7878) — Google Maps: https://maps.app.goo.gl/hi8vD8A5agjrpmaT7
+- Headquarters: Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia (short address RNCA7878) — [Google Maps](https://maps.app.goo.gl/hi8vD8A5agjrpmaT7)
 - Additional offices: Jeddah, Dammam
 - Languages: English, Arabic
 - Sectors: Residential, Commercial, Hospitality, Infrastructure
 - Disciplines: Architecture & envelope, MEP engineering, smart & technology, hospitality fit-out, outdoor & lifestyle
 - Email: contact@dsccsaudia.com — Phone / WhatsApp: +966 55 311 7884
+- [About DSCC](https://dsccsaudia.com/about)
 
 ## Services
-- /services/aluminum-steel-glazing — Aluminum & Steel Glazing
-- /services/indoor-outdoor-furniture — Indoor & Outdoor Furniture
-- /services/windows-and-doors — Windows & Doors
-- /services/lighting-switches-sockets — Lighting, Switches & Sockets
-- /services/wall-floor-coverings — Wall & Floor Coverings
-- /services/hvac-systems — HVAC Systems
-- /services/audio-video-systems — Audio / Video Systems
-- /services/building-automation-systems — Building Automation Systems
-- /services/smart-room-solutions — Smart Room Solutions
-- /services/kitchen-laundry-equipment — Kitchen & Laundry Equipment
-- /services/security-systems — Security Systems
-- /services/fire-protection-systems — Fire Protection Systems
-- /services/electrical-systems — Electrical Systems
-- /services/bathroom-solutions — Bathroom Solutions
-- /services/water-supply-drainage — Water Supply & Drainage
-- /services/boiler-systems — Boiler Systems
-- /services/special-equipment — Special Equipment
-- /services/swimming-pool-systems — Swimming Pool Systems
-- /services/it-systems-networking — IT Systems & Networking
-- /services/fitness-equipment — Fitness Equipment
-- /services/outdoor-landscape-solutions — Outdoor & Landscape Solutions
-- /services/hospitality-supplies — Hospitality Supplies
-- /services/linen-chute-solutions — Linen Chute Solutions
-- /services/decoration-artwork — Decoration & Artwork
-- /services/hospitality-signage-wayfinding — Hospitality Signage & Wayfinding
+- [Aluminum & Steel Glazing](https://dsccsaudia.com/services/aluminum-steel-glazing)
+- [Indoor & Outdoor Furniture](https://dsccsaudia.com/services/indoor-outdoor-furniture)
+- [Windows & Doors](https://dsccsaudia.com/services/windows-and-doors)
+- [Lighting, Switches & Sockets](https://dsccsaudia.com/services/lighting-switches-sockets)
+- [Wall & Floor Coverings](https://dsccsaudia.com/services/wall-floor-coverings)
+- [HVAC Systems](https://dsccsaudia.com/services/hvac-systems)
+- [Audio / Video Systems](https://dsccsaudia.com/services/audio-video-systems)
+- [Building Automation Systems](https://dsccsaudia.com/services/building-automation-systems)
+- [Smart Room Solutions](https://dsccsaudia.com/services/smart-room-solutions)
+- [Kitchen & Laundry Equipment](https://dsccsaudia.com/services/kitchen-laundry-equipment)
+- [Security Systems](https://dsccsaudia.com/services/security-systems)
+- [Fire Protection Systems](https://dsccsaudia.com/services/fire-protection-systems)
+- [Electrical Systems](https://dsccsaudia.com/services/electrical-systems)
+- [Bathroom Solutions](https://dsccsaudia.com/services/bathroom-solutions)
+- [Water Supply & Drainage](https://dsccsaudia.com/services/water-supply-drainage)
+- [Boiler Systems](https://dsccsaudia.com/services/boiler-systems)
+- [Special Equipment](https://dsccsaudia.com/services/special-equipment)
+- [Swimming Pool Systems](https://dsccsaudia.com/services/swimming-pool-systems)
+- [IT Systems & Networking](https://dsccsaudia.com/services/it-systems-networking)
+- [Fitness Equipment](https://dsccsaudia.com/services/fitness-equipment)
+- [Outdoor & Landscape Solutions](https://dsccsaudia.com/services/outdoor-landscape-solutions)
+- [Hospitality Supplies](https://dsccsaudia.com/services/hospitality-supplies)
+- [Linen Chute Solutions](https://dsccsaudia.com/services/linen-chute-solutions)
+- [Decoration & Artwork](https://dsccsaudia.com/services/decoration-artwork)
+- [Hospitality Signage & Wayfinding](https://dsccsaudia.com/services/hospitality-signage-wayfinding)
 
 ## Sectors
-- /sectors/residential — Luxury villas and palaces
-- /sectors/commercial — Office towers and corporate fit-out
-- /sectors/hospitality — 5-star hotels, resorts, and F&B
-- /sectors/infrastructure — Public, healthcare, and giga-project MEP
+- [Residential](https://dsccsaudia.com/sectors/residential): Luxury villas and palaces
+- [Commercial](https://dsccsaudia.com/sectors/commercial): Office towers and corporate fit-out
+- [Hospitality](https://dsccsaudia.com/sectors/hospitality): 5-star hotels, resorts, and F&B
+- [Infrastructure](https://dsccsaudia.com/sectors/infrastructure): Public, healthcare, and giga-project MEP
 
 ## Featured projects
-- /projects/kafd-financial-tower — KAFD Financial Tower fit-out, Riyadh
-- /projects/red-sea-resort-villas — Red Sea Coastal Villas, Tabuk
-- /projects/neom-staff-village-facade — NEOM Staff Village facade
-- /projects/diriyah-boutique-hotel — Diriyah Boutique Hotel
-- /projects/jeddah-corniche-mixed-use — Jeddah Corniche pavilion
-- /projects/riyadh-palace-residence — Riyadh palace
-- /projects/alula-resort-spa — AlUla heritage resort
-- /projects/dammam-medical-tower — Dammam medical tower
-- /projects/khobar-corporate-hq — Khobar energy HQ
-- /projects/qiddiya-entertainment-pavilion — Qiddiya entertainment anchor
+- [Ayan Al Shatie — Project No. 112](https://dsccsaudia.com/projects/ayan-al-shatie): Luxury residential villas, Al-Shati District, Jeddah
+- [Hilton Swiss Palms](https://dsccsaudia.com/projects/hilton-swiss-palms): Luxury hotel with smart building technology, Jeddah
+- [Casa Verde](https://dsccsaudia.com/projects/casa-verde): Smart residential development, Jeddah
+- [Harmony Haven](https://dsccsaudia.com/projects/harmony-haven): Residential community, Jeddah
+- [Rooftop Escapes](https://dsccsaudia.com/projects/rooftop-escapes): Rooftop hospitality spaces, Jeddah
+- [Sea Shell Hotel](https://dsccsaudia.com/projects/sea-shell-hotel): Seafront hospitality hotel, Jeddah
+- [Square Workspaces](https://dsccsaudia.com/projects/square-workspaces): Flexible commercial workspaces, Jeddah
+- [All projects](https://dsccsaudia.com/projects)
 
 ## Contact and quotation
-- /quote — Structured RFQ form (responds within one business day)
-- /contact — Riyadh, Jeddah, Dammam offices, WhatsApp, email
+- [Request a quote](https://dsccsaudia.com/quote): Structured RFQ form (responds within one business day)
+- [Contact](https://dsccsaudia.com/contact): Riyadh, Jeddah, Dammam offices, WhatsApp, email
 - WhatsApp: +966 55 311 7884
 
 ## Insights
-- /resources — Engineering and hospitality fit-out articles
+- [Resources](https://dsccsaudia.com/resources): Engineering and hospitality fit-out articles
 
 ## Locations (city landing pages)
-- /locations — index of all served cities and regions
-- /locations/riyadh — Riyadh (HQ): KAFD, DQ, North Riyadh, Diriyah, Qiddiya, New Murabba. Same-day site visits. Local Civil Defense compliance.
-- /locations/jeddah — Jeddah (Red Sea): coastal/marine-grade engineering for hotels, resorts, waterfront residences. Specialist HVAC for Red Sea humidity.
-- /locations/dammam — Dammam, Khobar, Dhahran, Jubail (Eastern Province): industrial MEP, Aramco SAES standards, MoH-grade medical fit-out.
-- /locations/neom — NEOM, Tabuk: modular MEP, façade glazing, smart-room and staff village fit-out for The Line, Oxagon, Trojena, Sindalah. NEC4/FIDIC frameworks, BIM L2.
+- [All locations](https://dsccsaudia.com/locations): index of all served cities and regions
+- [Riyadh](https://dsccsaudia.com/locations/riyadh): Riyadh (HQ) — KAFD, DQ, North Riyadh, Diriyah, Qiddiya, New Murabba. Same-day site visits. Local Civil Defense compliance.
+- [Jeddah](https://dsccsaudia.com/locations/jeddah): Jeddah (Red Sea) — coastal/marine-grade engineering for hotels, resorts, waterfront residences. Specialist HVAC for Red Sea humidity.
+- [Dammam](https://dsccsaudia.com/locations/dammam): Dammam, Khobar, Dhahran, Jubail (Eastern Province) — industrial MEP, Aramco SAES standards, MoH-grade medical fit-out.
+- [NEOM](https://dsccsaudia.com/locations/neom): NEOM, Tabuk — modular MEP, façade glazing, smart-room and staff village fit-out for The Line, Oxagon, Trojena, Sindalah. NEC4/FIDIC frameworks, BIM L2.
 
 ## Common questions
 - Coverage: all of Saudi Arabia; HQ Riyadh; teams in Jeddah, Dammam, NEOM.
