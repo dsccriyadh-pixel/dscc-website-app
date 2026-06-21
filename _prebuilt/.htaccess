@@ -82,6 +82,7 @@
   # (e.g. /projects/ayan-al-shatie). Serve the SPA shell for the folder root;
   # real asset files (with an extension) are already passed through above.
   RewriteRule ^projects/[^/]+/?$ /index.html [L]
+  RewriteRule ^projects/?$ /index.html [L]
 
   # Skip existing files and directories
   RewriteCond %{REQUEST_FILENAME} -f [OR]
