@@ -28,6 +28,9 @@ if (process.env.ADMIN_PASSWORD) {
 if (process.env.ADMIN_NOTIFY_EMAIL) {
   lines.push("define('ADMIN_NOTIFY_EMAIL', " + phpStr(process.env.ADMIN_NOTIFY_EMAIL) + ");");
 }
+if (process.env.OPENAI_API_KEY) {
+  lines.push("define('OPENAI_API_KEY', " + phpStr(process.env.OPENAI_API_KEY) + ");");
+}
 const content = lines.join("\n") + "\n";
 
 const targets = ["dist/api", "artifacts/dscc-website/dist/public/api"];
