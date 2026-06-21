@@ -114,7 +114,9 @@ if (empty($msgs) || end($msgs)['role'] !== 'user') {
 }
 
 // Rate limit per IP (40 requests / minute) to protect the OpenAI proxy.
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+// Prefer REMOTE_ADDR (the real connecting IP on Apache); X-Forwarded-For is
+// client-supplied and spoofable, so only use it as a last-resort fallback.
+$ip = $_SERVER['REMOTE_ADDR'] ?? ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? 'unknown');
 $ip = trim(explode(',', $ip)[0]);
 try {
     $hits = dscc_file_mutate(dscc_data_dir() . '/chat_rl.json', [], function (&$s) use ($ip) {
