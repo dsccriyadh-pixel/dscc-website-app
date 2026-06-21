@@ -19,6 +19,12 @@ if (!token) {
 const phpStr = (v) => "'" + String(v).replace(/\\/g, "\\\\").replace(/'/g, "\\'") + "'";
 
 const lines = ["<?php", "define('ADMIN_TOKEN', " + phpStr(token) + ");"];
+if (process.env.ADMIN_USERNAME) {
+  lines.push("define('ADMIN_USERNAME', " + phpStr(process.env.ADMIN_USERNAME) + ");");
+}
+if (process.env.ADMIN_PASSWORD) {
+  lines.push("define('ADMIN_PASSWORD', " + phpStr(process.env.ADMIN_PASSWORD) + ");");
+}
 if (process.env.ADMIN_NOTIFY_EMAIL) {
   lines.push("define('ADMIN_NOTIFY_EMAIL', " + phpStr(process.env.ADMIN_NOTIFY_EMAIL) + ");");
 }
