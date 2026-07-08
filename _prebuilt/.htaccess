@@ -84,6 +84,11 @@
   RewriteRule ^projects/[^/]+/?$ /index.html [L]
   RewriteRule ^projects/?$ /index.html [L]
 
+  # News detail deep-links: media folders live under /news/<dir>/ and can
+  # share the route path — same guard as /projects above.
+  RewriteRule ^news/[^/]+/?$ /index.html [L]
+  RewriteRule ^news/?$ /index.html [L]
+
   # Skip existing files and directories
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
