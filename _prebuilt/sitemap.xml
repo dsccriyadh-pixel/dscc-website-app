@@ -63,6 +63,7 @@
 
   <!-- ============ Projects ============ -->
   <url><loc>https://dsccsaudia.com/projects/adrena</loc><lastmod>2026-02-15</lastmod><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/projects/voco-jeddah-gate</loc><lastmod>2024-12-10</lastmod><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/hilton-swiss-palms</loc><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/casa-verde</loc><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/harmony-haven</loc><priority>0.7</priority></url>
@@ -219,6 +220,7 @@
   <!-- ============ News & Achievements ============ -->
   <url><loc>https://dsccsaudia.com/news</loc><lastmod>2026-07-09</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/news/dscc-adrena-red-sea-ffe-completion</loc><lastmod>2026-02-15</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/news/dscc-voco-jeddah-gate-fitout-completion</loc><lastmod>2024-12-10</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/news/dscc-rasan-village-nhc-owners-ceremony</loc><lastmod>2026-07-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://dsccsaudia.com/news/amaala-hotel-red-sea-fit-out</loc><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://dsccsaudia.com/news/ayan-al-shatie-villas-jeddah</loc><lastmod>2025-03-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
