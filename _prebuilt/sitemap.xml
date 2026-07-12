@@ -61,7 +61,8 @@
   <url><loc>https://dsccsaudia.com/sectors/hospitality</loc><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/sectors/infrastructure</loc><priority>0.8</priority></url>
 
-  <!-- ============ 6 Projects ============ -->
+  <!-- ============ Projects ============ -->
+  <url><loc>https://dsccsaudia.com/projects/adrena</loc><lastmod>2026-02-15</lastmod><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/hilton-swiss-palms</loc><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/casa-verde</loc><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/projects/harmony-haven</loc><priority>0.7</priority></url>
