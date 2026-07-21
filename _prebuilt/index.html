@@ -4,29 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5V53WMCS');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Snap Pixel Code -->
-    <script type='text/javascript'>
-    (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
-    {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
-    a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
-    r.src=n;var u=t.getElementsByTagName(s)[0];
-    u.parentNode.insertBefore(r,u);})(window,document,
-    'https://sc-static.net/scevent.min.js');
-
-    snaptr('init', '9f7d12c2-8d07-42f7-93b6-b4529c66b3f1', {});
-
-    snaptr('track', 'PAGE_VIEW');
-
+    <!-- Deferred analytics: GTM + Snap Pixel load after page is interactive (or first user interaction).
+         Stub queues capture every early event, so no data is lost — but the heavy third-party JS
+         no longer competes with page rendering (keeps PageSpeed score high). -->
+    <script>
+    (function(w,d){
+      // --- Stub queues (capture events immediately) ---
+      w.dataLayer=w.dataLayer||[];
+      w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+      var sn=w.snaptr=w.snaptr||function(){sn.handleRequest?sn.handleRequest.apply(sn,arguments):sn.queue.push(arguments)};
+      sn.queue=sn.queue||[];
+      w.snaptr('init','9f7d12c2-8d07-42f7-93b6-b4529c66b3f1',{});
+      w.snaptr('track','PAGE_VIEW');
+      // --- Deferred loader ---
+      var loaded=false;
+      function addScript(src){var s=d.createElement('script');s.async=true;s.src=src;d.head.appendChild(s);}
+      function loadAll(){
+        if(loaded)return;loaded=true;
+        addScript('https://www.googletagmanager.com/gtm.js?id=GTM-5V53WMCS');
+        addScript('https://sc-static.net/scevent.min.js');
+        ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){d.removeEventListener(ev,loadAll,{passive:true});});
+      }
+      // Load on first interaction, or 3s after full page load — whichever comes first
+      ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){d.addEventListener(ev,loadAll,{passive:true,once:true});});
+      if(d.readyState==='complete'){setTimeout(loadAll,3000);}
+      else{w.addEventListener('load',function(){setTimeout(loadAll,3000);});}
+    })(window,document);
     </script>
-    <!-- End Snap Pixel Code -->
+    <!-- End deferred analytics -->
 
     <!-- ============ Primary SEO (Riyadh / KSA) ============ -->
     <title>DSCC شركة الحلول الديناميكية للمقاولات | تشطيبات و MEP في الرياض</title>
