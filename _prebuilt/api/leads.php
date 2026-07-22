@@ -47,6 +47,7 @@ $sourceLabels = [
     'contact'    => 'رسالة تواصل / Contact message',
     'chatbot'    => 'محادثة شات بوت / Chatbot conversation',
     'newsletter' => 'اشتراك نشرة / Newsletter signup',
+    'showroom'   => 'حجز زيارة معرض / Showroom visit booking',
 ];
 $sourceLabel = $sourceLabels[$source] ?? $source;
 
@@ -105,6 +106,7 @@ $subjectMap = [
     'contact'    => 'رسالة تواصل جديدة',
     'chatbot'    => 'محادثة شات بوت جديدة',
     'newsletter' => 'اشتراك نشرة جديد',
+    'showroom'   => 'حجز زيارة معرض جديد',
 ];
 $subject = 'DSCC: ' . ($subjectMap[$source] ?? 'إرسال جديد من الموقع');
 if ($ref !== '') $subject .= ' [' . $ref . ']';

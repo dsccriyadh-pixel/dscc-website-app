@@ -65,6 +65,9 @@
   # Map clean /api/chat to /api/chat.php (Sara chatbot — OpenAI proxy)
   RewriteRule ^api/chat/?$ /api/chat.php [L]
   RewriteRule ^api/leads/?$ /api/leads.php [L]
+  RewriteRule ^api/visit/?$ /api/visits.php [L]
+  RewriteRule ^api/event/?$ /api/events.php [L]
+  RewriteRule ^api/chatlog/?$ /api/chatlog.php [L]
 
   # Admin dashboard API → single PHP front controller
   RewriteRule ^api/admin(/.*)?$ /api/admin.php [L,QSA]

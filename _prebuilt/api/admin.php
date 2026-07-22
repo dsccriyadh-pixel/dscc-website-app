@@ -168,6 +168,114 @@ if ($sub === '/stats' && $method === 'GET') {
     adm_out(200, dscc_compute_stats());
 }
 
+// ---------- VISITS ----------
+if ($sub === '/visits' && $method === 'GET') {
+    $window = isset($_GET['days']) ? min(90, max(1, (int) $_GET['days'])) : 30;
+    $data = dscc_read_json(dscc_data_dir() . '/visits.json', ['days' => []]);
+    $daysMap = isset($data['days']) && is_array($data['days']) ? $data['days'] : [];
+    try { $tz = new DateTimeZone(BIZ_TZ); } catch (Throwable $e) { $tz = new DateTimeZone('UTC'); }
+    $today = new DateTime('now', $tz);
+    $series = [];
+    $srcAgg = []; $pageAgg = [];
+    $totToday = 0; $tot7 = 0; $tot30 = 0;
+    for ($i = $window - 1; $i >= 0; $i--) {
+        $d = (clone $today)->modify("-$i days")->format('Y-m-d');
+        $rec = isset($daysMap[$d]) && is_array($daysMap[$d]) ? $daysMap[$d] : null;
+        $t = $rec ? (int) ($rec['t'] ?? 0) : 0;
+        $series[] = ['date' => $d, 'total' => $t];
+        if ($i === 0) $totToday = $t;
+        if ($i <= 6) $tot7 += $t;
+        if ($i <= 29) $tot30 += $t;
+        if ($rec) {
+            foreach (($rec['src'] ?? []) as $k => $v) $srcAgg[$k] = ($srcAgg[$k] ?? 0) + (int) $v;
+            foreach (($rec['p'] ?? []) as $k => $v) $pageAgg[$k] = ($pageAgg[$k] ?? 0) + (int) $v;
+        }
+    }
+    $top = function ($m, $n) {
+        arsort($m);
+        $out = [];
+        foreach (array_slice($m, 0, $n, true) as $name => $count) $out[] = ['name' => (string) $name, 'count' => $count];
+        return $out;
+    };
+    adm_out(200, [
+        'days' => $series,
+        'today' => $totToday,
+        'last7Days' => $tot7,
+        'last30Days' => $tot30,
+        'topSources' => $top($srcAgg, 10),
+        'topPages' => $top($pageAgg, 10),
+    ]);
+}
+
+// ---------- EVENTS (site actions) ----------
+if ($sub === '/events' && $method === 'GET') {
+    $window = isset($_GET['days']) ? min(90, max(1, (int) $_GET['days'])) : 30;
+    $limit = isset($_GET['limit']) ? min(500, max(1, (int) $_GET['limit'])) : 100;
+    $data = dscc_read_json(dscc_data_dir() . '/events.json', ['recent' => [], 'days' => []]);
+    $recent = isset($data['recent']) && is_array($data['recent']) ? array_slice($data['recent'], 0, $limit) : [];
+    $daysMap = isset($data['days']) && is_array($data['days']) ? $data['days'] : [];
+    try { $tz = new DateTimeZone(BIZ_TZ); } catch (Throwable $e) { $tz = new DateTimeZone('UTC'); }
+    $today = new DateTime('now', $tz);
+    $typeAgg = [];
+    $totToday = 0; $tot7 = 0; $tot30 = 0;
+    for ($i = $window - 1; $i >= 0; $i--) {
+        $d = (clone $today)->modify("-$i days")->format('Y-m-d');
+        $rec = isset($daysMap[$d]) && is_array($daysMap[$d]) ? $daysMap[$d] : null;
+        if (!$rec) continue;
+        $dayTotal = 0;
+        foreach ($rec as $k => $v) { $typeAgg[$k] = ($typeAgg[$k] ?? 0) + (int) $v; $dayTotal += (int) $v; }
+        if ($i === 0) $totToday = $dayTotal;
+        if ($i <= 6) $tot7 += $dayTotal;
+        if ($i <= 29) $tot30 += $dayTotal;
+    }
+    arsort($typeAgg);
+    $byType = [];
+    foreach ($typeAgg as $name => $count) $byType[] = ['name' => (string) $name, 'count' => $count];
+    adm_out(200, [
+        'recent' => $recent,
+        'byType' => $byType,
+        'today' => $totToday,
+        'last7Days' => $tot7,
+        'last30Days' => $tot30,
+    ]);
+}
+
+// ---------- CHAT CONVERSATIONS ----------
+if ($sub === '/chats' && $method === 'GET') {
+    $limit = isset($_GET['limit']) ? min(300, max(1, (int) $_GET['limit'])) : 100;
+    $data = dscc_read_json(dscc_data_dir() . '/chats.json', ['sessions' => []]);
+    $sessions = isset($data['sessions']) && is_array($data['sessions']) ? array_values($data['sessions']) : [];
+    usort($sessions, function ($a, $b) {
+        return strcmp($b['updatedAt'] ?? '', $a['updatedAt'] ?? '');
+    });
+    $out = [];
+    foreach (array_slice($sessions, 0, $limit) as $s) {
+        $msgs = isset($s['messages']) && is_array($s['messages']) ? $s['messages'] : [];
+        $preview = '';
+        foreach ($msgs as $m) {
+            if (($m['role'] ?? '') === 'user') { $preview = (string) ($m['content'] ?? ''); break; }
+        }
+        if ($preview === '' && count($msgs) > 0) $preview = (string) ($msgs[0]['content'] ?? '');
+        $out[] = [
+            'id' => (string) ($s['id'] ?? ''),
+            'startedAt' => (string) ($s['startedAt'] ?? ''),
+            'updatedAt' => (string) ($s['updatedAt'] ?? ''),
+            'lang' => (string) ($s['lang'] ?? ''),
+            'src' => (string) ($s['src'] ?? ''),
+            'page' => (string) ($s['page'] ?? ''),
+            'messageCount' => count($msgs),
+            'preview' => mb_substr($preview, 0, 120),
+        ];
+    }
+    adm_out(200, ['sessions' => $out]);
+}
+if (preg_match('#^/chats/([^/]+)$#', $sub, $m) && $method === 'GET') {
+    $data = dscc_read_json(dscc_data_dir() . '/chats.json', ['sessions' => []]);
+    $s = $data['sessions'][$m[1]] ?? null;
+    if (!is_array($s)) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, $s);
+}
+
 // ---------- NOTIFICATIONS ----------
 if ($sub === '/notifications' && $method === 'GET') {
     $limit = isset($_GET['limit']) ? min(200, max(1, (int) $_GET['limit'])) : 50;
@@ -465,8 +573,8 @@ function dscc_build_notifications() {
     $all = dscc_read_json(dscc_leads_file(), []);
     $state = dscc_notif_state();
     $allAt = $state['allAt'] ? strtotime($state['allAt']) : 0;
-    $sourceAr = ['quote'=>'طلب عرض سعر','contact'=>'نموذج تواصل','chatbot'=>'محادثة الروبوت','newsletter'=>'نشرة بريدية','other'=>'طلب عام'];
-    $sourceEn = ['quote'=>'Quote request','contact'=>'Contact message','chatbot'=>'Chatbot lead','newsletter'=>'Newsletter signup','other'=>'Inquiry'];
+    $sourceAr = ['quote'=>'طلب عرض سعر','contact'=>'نموذج تواصل','chatbot'=>'محادثة الروبوت','newsletter'=>'نشرة بريدية','showroom'=>'حجز زيارة معرض','other'=>'طلب عام'];
+    $sourceEn = ['quote'=>'Quote request','contact'=>'Contact message','chatbot'=>'Chatbot lead','newsletter'=>'Newsletter signup','showroom'=>'Showroom visit booking','other'=>'Inquiry'];
     $items = [];
     foreach ($all as $l) {
         $nid = dscc_notif_id_for_lead($l);
