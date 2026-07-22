@@ -67,12 +67,28 @@ function dscc_visit_geo() {
     }
     // Rate limit external lookups (max 30/min) and back off after repeated
     // failures (skip lookups for 5 minutes after 3 recent failures).
-    $meta = isset($cache['_meta']) && is_array($cache['_meta']) ? $cache['_meta'] : [];
+    // Reserve the lookup slot atomically inside the locked mutate so
+    // concurrent requests cannot overwrite each other's counter.
     $minute = (int) floor($nowTs / 60);
-    $rlCount = ((int) ($meta['rlMin'] ?? 0)) === $minute ? (int) ($meta['rlN'] ?? 0) : 0;
-    $failN = (int) ($meta['failN'] ?? 0);
-    $failTs = (int) ($meta['failTs'] ?? 0);
-    if ($rlCount >= 30 || ($failN >= 3 && ($nowTs - $failTs) < 300)) {
+    $allowed = false;
+    try {
+        $allowed = (bool) dscc_file_mutate($cacheFile, [], function (&$c) use ($minute, $nowTs) {
+            if (!is_array($c)) $c = [];
+            $meta = isset($c['_meta']) && is_array($c['_meta']) ? $c['_meta'] : [];
+            $n = ((int) ($meta['rlMin'] ?? 0)) === $minute ? (int) ($meta['rlN'] ?? 0) : 0;
+            $failN = (int) ($meta['failN'] ?? 0);
+            $failTs = (int) ($meta['failTs'] ?? 0);
+            if ($n >= 30 || ($failN >= 3 && ($nowTs - $failTs) < 300)) {
+                return false;
+            }
+            $meta['rlMin'] = $minute;
+            $meta['rlN'] = $n + 1;
+            $c['_meta'] = $meta;
+            return true;
+        });
+    } catch (Throwable $e) {
+    }
+    if (!$allowed) {
         return ['cc' => '', 'city' => ''];
     }
     $cc = ''; $city = '';
@@ -94,11 +110,9 @@ function dscc_visit_geo() {
         // Geo is best-effort; never fail the beacon.
     }
     try {
-        dscc_file_mutate($cacheFile, [], function (&$c) use ($ip, $cc, $city, $nowTs, $minute, $rlCount, $lookupOk) {
+        dscc_file_mutate($cacheFile, [], function (&$c) use ($ip, $cc, $city, $nowTs, $lookupOk) {
             if (!is_array($c)) $c = [];
             $meta = isset($c['_meta']) && is_array($c['_meta']) ? $c['_meta'] : [];
-            $meta['rlMin'] = $minute;
-            $meta['rlN'] = $rlCount + 1;
             if ($lookupOk) {
                 $meta['failN'] = 0;
             } else {

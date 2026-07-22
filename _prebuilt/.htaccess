@@ -54,6 +54,10 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
+  RewriteRule ^api/data(/|$) - [F,L]
+  RewriteRule ^api/.*\.json$ - [F,L]
+
   # NEVER rewrite static file extensions — let Apache return real 404 if missing
   RewriteCond %{REQUEST_URI} \.(pdf|png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|json|xml|txt|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|zip)$ [NC]
   RewriteRule ^ - [L]

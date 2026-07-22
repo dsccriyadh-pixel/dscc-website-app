@@ -19,10 +19,47 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
 $NOTIFY_TO = 'contact@dsccsaudia.com';
 $MAIL_FROM = 'website@dsccsaudia.com';
 
+// Abuse guard: when a browser sends Origin/Referer, it must match our host.
+$reqHost = strtolower($_SERVER['HTTP_HOST'] ?? '');
+foreach (['HTTP_ORIGIN', 'HTTP_REFERER'] as $h) {
+    if (!empty($_SERVER[$h])) {
+        $host = strtolower((string) parse_url($_SERVER[$h], PHP_URL_HOST));
+        if ($host !== '' && $reqHost !== '' && $host !== $reqHost && $host !== 'www.' . $reqHost && 'www.' . $host !== $reqHost) {
+            out(403, ['ok' => false, 'error' => 'Forbidden.']);
+        }
+        break;
+    }
+}
+
 $raw = file_get_contents('php://input');
+// Payload ceiling: no legitimate lead is anywhere near 64 KB.
+if (strlen((string) $raw) > 65536) {
+    out(413, ['ok' => false, 'error' => 'Payload too large.']);
+}
 $body = json_decode($raw, true);
 if (!is_array($body)) {
     out(400, ['ok' => false, 'error' => 'Invalid JSON.']);
+}
+
+// Per-IP rate limit: 10 lead submissions per minute.
+require_once __DIR__ . '/_store.php';
+$rlIp = trim((string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+if ($rlIp === '') $rlIp = 'unknown';
+try {
+    $hits = dscc_file_mutate(dscc_data_dir() . '/leads_rl.json', [], function (&$s) use ($rlIp) {
+        $now = time();
+        foreach ($s as $k => $v) { if (!is_array($v) || ($v['ts'] ?? 0) < $now - 60) unset($s[$k]); }
+        $e = (isset($s[$rlIp]) && is_array($s[$rlIp]) && $now - ($s[$rlIp]['ts'] ?? 0) < 60)
+            ? $s[$rlIp] : ['ts' => $now, 'n' => 0];
+        $e['n'] = ($e['n'] ?? 0) + 1;
+        $s[$rlIp] = $e;
+        return $e['n'];
+    });
+    if ($hits > 10) {
+        out(429, ['ok' => false, 'error' => 'Too many requests.']);
+    }
+} catch (Throwable $e) {
+    error_log('leads.php rate limit failed: ' . $e->getMessage());
 }
 
 $source = is_string($body['source'] ?? null) ? $body['source'] : 'unknown';
@@ -32,11 +69,12 @@ $data   = is_array($body['data'] ?? null) ? $body['data'] : [];
 
 // Persist the lead so the admin dashboard can manage it. Never let a storage
 // failure block the email notification below.
+$persisted = false;
 try {
-    require_once __DIR__ . '/_store.php';
     if (function_exists('dscc_store_append_lead')) {
         $saved = dscc_store_append_lead($body);
         if (empty($ref) && !empty($saved['ref'])) $ref = $saved['ref'];
+        $persisted = true;
     }
 } catch (Throwable $e) {
     error_log('leads.php store failed: ' . $e->getMessage());
@@ -132,7 +170,12 @@ $headers[] = 'X-Mailer: dscc-leads-php';
 $ok = @mail($NOTIFY_TO, $encodedSubject, $message, implode("\r\n", $headers), '-f' . $MAIL_FROM);
 if (!$ok) {
     error_log('leads.php mail() failed for ref=' . $ref);
-    out(502, ['ok' => false, 'error' => 'Mail failed.', 'ref' => $ref]);
+    // Storage-first semantics: the lead is already saved for the admin
+    // dashboard, so report success — a 5xx here would make the client retry
+    // and create duplicate leads.
+    if (!$persisted) {
+        out(502, ['ok' => false, 'error' => 'Mail failed.', 'ref' => $ref]);
+    }
 }
 
 out(200, ['ok' => true, 'ref' => $ref]);

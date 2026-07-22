@@ -22,8 +22,10 @@ if ($text === '') { echo json_encode(['ok' => true, 'translated' => '']); exit; 
 
 // Cap length and rate-limit per IP to prevent abuse of the OpenAI proxy.
 if (mb_strlen($text) > 5000) $text = mb_substr($text, 0, 5000);
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
-$ip = trim(explode(',', $ip)[0]);
+// REMOTE_ADDR is the real connecting IP on Apache; X-Forwarded-For is
+// client-supplied and spoofable, so it must not drive the rate limit.
+$ip = trim((string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+if ($ip === '') $ip = 'unknown';
 try {
     $hits = dscc_file_mutate(dscc_data_dir() . '/translate_rl.json', [], function (&$s) use ($ip) {
         $now = time();
