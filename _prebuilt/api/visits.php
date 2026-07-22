@@ -36,17 +36,23 @@ if ($path === '' || $path[0] !== '/') $path = '/';
 $src = isset($body['src']) && is_string($body['src']) ? substr(trim($body['src']), 0, 60) : 'direct';
 $src = preg_replace('/[^a-z0-9_.\-]/i', '', $src);
 if ($src === '' || $src === null) $src = 'direct';
+$sid = isset($body['sid']) && is_string($body['sid']) ? substr(preg_replace('/[^a-z0-9]/i', '', $body['sid']), 0, 24) : '';
+if ($sid === '' || $sid === null) $sid = 'anon';
+$dev = isset($body['dev']) && is_string($body['dev']) && in_array($body['dev'], ['mobile', 'tablet', 'desktop'], true) ? $body['dev'] : 'other';
 
 try {
     $tz = new DateTimeZone('Asia/Riyadh');
-    $day = (new DateTime('now', $tz))->format('Y-m-d');
+    $now = new DateTime('now', $tz);
+    $day = $now->format('Y-m-d');
+    $hour = $now->format('H');
 } catch (Throwable $e) {
     $day = gmdate('Y-m-d');
+    $hour = gmdate('H');
 }
 
 $file = dscc_data_dir() . '/visits.json';
 try {
-    dscc_file_mutate($file, ['days' => []], function (&$data) use ($day, $path, $src) {
+    dscc_file_mutate($file, ['days' => []], function (&$data) use ($day, $hour, $path, $src, $sid, $dev) {
         if (!isset($data['days']) || !is_array($data['days'])) $data['days'] = [];
         if (!isset($data['days'][$day]) || !is_array($data['days'][$day])) {
             $data['days'][$day] = ['t' => 0, 'src' => [], 'p' => []];
@@ -61,6 +67,20 @@ try {
         if (count($d['p']) < 200 || isset($d['p'][$path])) {
             $d['p'][$path] = ($d['p'][$path] ?? 0) + 1;
         }
+        if (!isset($d['h']) || !is_array($d['h'])) $d['h'] = [];
+        $d['h'][$hour] = ($d['h'][$hour] ?? 0) + 1;
+        if (!isset($d['dev']) || !is_array($d['dev'])) $d['dev'] = [];
+        $d['dev'][$dev] = ($d['dev'][$dev] ?? 0) + 1;
+        // Rolling log of recent visits for the live dashboard (max 500).
+        if (!isset($data['recent']) || !is_array($data['recent'])) $data['recent'] = [];
+        array_unshift($data['recent'], [
+            'ts' => (int) round(microtime(true) * 1000),
+            'path' => $path,
+            'src' => $src,
+            'sid' => $sid,
+            'dev' => $dev,
+        ]);
+        if (count($data['recent']) > 500) $data['recent'] = array_slice($data['recent'], 0, 500);
         // Keep at most 400 days of history.
         if (count($data['days']) > 400) {
             ksort($data['days']);

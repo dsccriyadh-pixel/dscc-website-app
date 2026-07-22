@@ -168,6 +168,45 @@ if ($sub === '/stats' && $method === 'GET') {
     adm_out(200, dscc_compute_stats());
 }
 
+// ---------- VISITS LIVE (real-time snapshot) ----------
+if ($sub === '/visits/live' && $method === 'GET') {
+    $data = dscc_read_json(dscc_data_dir() . '/visits.json', ['days' => []]);
+    $recent = isset($data['recent']) && is_array($data['recent']) ? $data['recent'] : [];
+    $nowMs = (int) round(microtime(true) * 1000);
+    $activeSids = [];
+    $lastHour = 0;
+    foreach ($recent as $v) {
+        $ts = (int) ($v['ts'] ?? 0);
+        if ($nowMs - $ts <= 5 * 60000) $activeSids[(string) ($v['sid'] ?? 'anon')] = true;
+        if ($nowMs - $ts <= 60 * 60000) $lastHour++;
+    }
+    try { $tz = new DateTimeZone(BIZ_TZ); } catch (Throwable $e) { $tz = new DateTimeZone('UTC'); }
+    $todayKey = (new DateTime('now', $tz))->format('Y-m-d');
+    $day = isset($data['days'][$todayKey]) && is_array($data['days'][$todayKey]) ? $data['days'][$todayKey] : null;
+    $hourly = [];
+    for ($h = 0; $h < 24; $h++) {
+        $key = str_pad((string) $h, 2, '0', STR_PAD_LEFT);
+        $hourly[] = ['hour' => $key, 'total' => (int) ($day['h'][$key] ?? 0)];
+    }
+    $top = function ($m, $n) {
+        if (!is_array($m)) return [];
+        arsort($m);
+        $out = [];
+        foreach (array_slice($m, 0, $n, true) as $name => $count) $out[] = ['name' => (string) $name, 'count' => (int) $count];
+        return $out;
+    };
+    adm_out(200, [
+        'activeNow' => count($activeSids),
+        'lastHour' => $lastHour,
+        'today' => (int) ($day['t'] ?? 0),
+        'hourly' => $hourly,
+        'recent' => array_slice($recent, 0, 50),
+        'topSourcesToday' => $top($day['src'] ?? [], 10),
+        'topPagesToday' => $top($day['p'] ?? [], 10),
+        'devicesToday' => $top($day['dev'] ?? [], 4),
+    ]);
+}
+
 // ---------- VISITS ----------
 if ($sub === '/visits' && $method === 'GET') {
     $window = isset($_GET['days']) ? min(90, max(1, (int) $_GET['days'])) : 30;
