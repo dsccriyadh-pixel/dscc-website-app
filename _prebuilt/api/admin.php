@@ -359,7 +359,7 @@ if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'GET') {
 if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
     $id = $m[1];
     $body = adm_body();
-    $allowed = ['status','priority','assignedTo','tags','fullName','company','email','phone','city','projectType','services','budget','timeline'];
+    $allowed = ['status','priority','assignedTo','tags','fullName','company','email','phone','city','projectType','services','budget','timeline','visitStatus'];
     $patch = [];
     foreach ($allowed as $k) if (array_key_exists($k, $body)) $patch[$k] = $body[$k];
 
@@ -368,6 +368,9 @@ if (preg_match('#^/leads/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
     }
     if (array_key_exists('priority', $patch) && !in_array($patch['priority'], ['low','normal','high','urgent'], true)) {
         adm_out(400, ['error' => 'Invalid priority']);
+    }
+    if (array_key_exists('visitStatus', $patch) && !in_array($patch['visitStatus'], ['pending','confirmed','visited'], true)) {
+        adm_out(400, ['error' => 'Invalid visitStatus']);
     }
     if (array_key_exists('assignedTo', $patch)) {
         $v = $patch['assignedTo'];
