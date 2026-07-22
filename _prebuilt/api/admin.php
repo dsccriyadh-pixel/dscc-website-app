@@ -204,6 +204,8 @@ if ($sub === '/visits/live' && $method === 'GET') {
         'topSourcesToday' => $top($day['src'] ?? [], 10),
         'topPagesToday' => $top($day['p'] ?? [], 10),
         'devicesToday' => $top($day['dev'] ?? [], 4),
+        'topCountriesToday' => $top($day['cn'] ?? [], 10),
+        'topCitiesToday' => $top($day['ct'] ?? [], 10),
     ]);
 }
 
@@ -215,7 +217,7 @@ if ($sub === '/visits' && $method === 'GET') {
     try { $tz = new DateTimeZone(BIZ_TZ); } catch (Throwable $e) { $tz = new DateTimeZone('UTC'); }
     $today = new DateTime('now', $tz);
     $series = [];
-    $srcAgg = []; $pageAgg = [];
+    $srcAgg = []; $pageAgg = []; $cnAgg = []; $ctAgg = [];
     $totToday = 0; $tot7 = 0; $tot30 = 0;
     for ($i = $window - 1; $i >= 0; $i--) {
         $d = (clone $today)->modify("-$i days")->format('Y-m-d');
@@ -228,6 +230,8 @@ if ($sub === '/visits' && $method === 'GET') {
         if ($rec) {
             foreach (($rec['src'] ?? []) as $k => $v) $srcAgg[$k] = ($srcAgg[$k] ?? 0) + (int) $v;
             foreach (($rec['p'] ?? []) as $k => $v) $pageAgg[$k] = ($pageAgg[$k] ?? 0) + (int) $v;
+            foreach (($rec['cn'] ?? []) as $k => $v) $cnAgg[$k] = ($cnAgg[$k] ?? 0) + (int) $v;
+            foreach (($rec['ct'] ?? []) as $k => $v) $ctAgg[$k] = ($ctAgg[$k] ?? 0) + (int) $v;
         }
     }
     $top = function ($m, $n) {
@@ -243,6 +247,8 @@ if ($sub === '/visits' && $method === 'GET') {
         'last30Days' => $tot30,
         'topSources' => $top($srcAgg, 10),
         'topPages' => $top($pageAgg, 10),
+        'topCountries' => $top($cnAgg, 10),
+        'topCities' => $top($ctAgg, 10),
     ]);
 }
 

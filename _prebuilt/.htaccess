@@ -68,6 +68,7 @@
   RewriteRule ^api/visit/?$ /api/visits.php [L]
   RewriteRule ^api/event/?$ /api/events.php [L]
   RewriteRule ^api/chatlog/?$ /api/chatlog.php [L]
+  RewriteRule ^api/social/?$ /api/social.php [L]
 
   # Admin dashboard API → single PHP front controller
   RewriteRule ^api/admin(/.*)?$ /api/admin.php [L,QSA]
