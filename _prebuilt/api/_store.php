@@ -73,7 +73,7 @@ function dscc_rid($prefix = '') {
     return $prefix . base_convert((string) time(), 10, 36) . substr(bin2hex(random_bytes(4)), 0, 6);
 }
 function dscc_infer_source($s) {
-    return in_array($s, ['quote', 'contact', 'chatbot', 'newsletter', 'showroom'], true) ? $s : 'other';
+    return in_array($s, ['quote', 'contact', 'chatbot', 'newsletter', 'showroom', 'calculator'], true) ? $s : 'other';
 }
 
 // Normalize an incoming website payload into the Lead shape the admin expects.
