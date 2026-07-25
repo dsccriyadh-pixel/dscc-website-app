@@ -1,1058 +1,1078 @@
 [
  {
-  "id": "L_ms00f7v5seraz3",
-  "ref": "DSCC-MS00F7V54LPDVJ",
+  "id": "L_ms00id58jx6gm2",
+  "ref": "DSCC-MS00ID5874PN08",
   "source": "calculator",
   "status": "new",
-  "priority": "urgent",
-  "createdAt": "2026-07-25T05:20:25.547Z",
-  "updatedAt": "2026-07-25T08:08:25.547Z",
-  "fullName": "نورة السديري",
-  "phone": "+966568978400",
+  "priority": "normal",
+  "createdAt": "2026-07-25T05:22:52.358Z",
+  "updatedAt": "2026-07-25T08:23:52.358Z",
+  "fullName": "سارة الراشد",
+  "phone": "+966549320384",
   "city": "الرياض",
   "notes": [],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
   "projectType": "مكتب تجاري",
-  "projectSize": "314 م²",
-  "budget": "50,000 - 100,000 ريال",
-  "services": [
-   "تجديد مجلس"
-  ],
-  "sourcePage": "/calculator"
- },
- {
-  "id": "L_ms00f7v5ohr1k9",
-  "ref": "DSCC-MS00F7V5P53I0B",
-  "source": "showroom",
-  "status": "new",
-  "priority": "high",
-  "createdAt": "2026-07-25T04:50:25.547Z",
-  "updatedAt": "2026-07-25T09:06:25.547Z",
-  "fullName": "عبدالله الحربي",
-  "phone": "+966521126394",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true,
-   "preferredDay": "الأربعاء",
-   "preferredTime": "مساءً (7-10)"
-  },
-  "sourceAction": "showroom_booking",
-  "visitStatus": "pending",
-  "projectType": "فيلا سكنية"
- },
- {
-  "id": "L_ms00f7v5wrrdau",
-  "ref": "DSCC-MS00F7V5EYYFR9",
-  "source": "chatbot",
-  "status": "new",
-  "priority": "low",
-  "createdAt": "2026-07-25T04:20:25.547Z",
-  "updatedAt": "2026-07-25T08:39:25.547Z",
-  "fullName": "عادل باجابر",
-  "phone": "+966531685513",
-  "city": "الدرعية",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "chatbotSummary": "مهتم بملحق خارجي 60م² مع عزل وتكييف.",
-  "intent": "حجز زيارة"
- },
- {
-  "id": "L_ms00f7v55f7skj",
-  "ref": "DSCC-MS00F7V5NWMLWR",
-  "source": "quote",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-25T03:50:25.547Z",
-  "updatedAt": "2026-07-25T05:07:25.547Z",
-  "fullName": "منيرة الفهد",
-  "phone": "+966514083967",
-  "city": "جدة",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "فيلا سكنية",
-  "services": [
-   "جبس وديكورات"
-  ],
+  "projectSize": "364 م²",
   "budget": "أكثر من 400,000 ريال",
-  "timeline": "1-3 أشهر",
-  "message": "مطلوب تصميم وتنفيذ ديكور داخلي كامل."
- },
- {
-  "id": "L_ms00f7v5t0nlxs",
-  "ref": "DSCC-MS00F7V5MICIPR",
-  "source": "calculator",
-  "status": "new",
-  "priority": "high",
-  "createdAt": "2026-07-25T02:50:25.547Z",
-  "updatedAt": "2026-07-25T03:05:25.547Z",
-  "fullName": "ماجد الخالدي",
-  "phone": "+966546533959",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "مكتب تجاري",
-  "projectSize": "470 م²",
-  "budget": "50,000 - 100,000 ريال",
-  "services": [
-   "تشطيب فلل"
-  ],
-  "sourcePage": "/calculator"
- },
- {
-  "id": "L_ms00f7v5xko0cj",
-  "ref": "DSCC-MS00F7V595WYW7",
-  "source": "showroom",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-25T01:50:25.547Z",
-  "updatedAt": "2026-07-25T04:19:25.547Z",
-  "fullName": "عبدالعزيز الزهراني",
-  "phone": "+966561817080",
-  "city": "الخرج",
-  "notes": [],
-  "raw": {
-   "seeded": true,
-   "preferredDay": "الخميس",
-   "preferredTime": "صباحاً (9-12)"
-  },
-  "sourceAction": "showroom_booking",
-  "visitStatus": "pending",
-  "projectType": "مكتب تجاري"
- },
- {
-  "id": "L_ms00f7v5p0wx10",
-  "ref": "DSCC-MS00F7V5WLSLTR",
-  "source": "contact",
-  "status": "new",
-  "priority": "urgent",
-  "createdAt": "2026-07-25T00:50:25.547Z",
-  "updatedAt": "2026-07-25T01:00:25.547Z",
-  "fullName": "نورة السديري",
-  "phone": "+966521166424",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "message": "أبحث عن مصمم داخلي لمشروع استراحة.",
-  "email": "client294@gmail.com"
- },
- {
-  "id": "L_ms00f7v5yt5yfo",
-  "ref": "DSCC-MS00F7V5IBOFZM",
-  "source": "quote",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-24T23:50:25.547Z",
-  "updatedAt": "2026-07-25T00:46:25.547Z",
-  "fullName": "تركي المطيري",
-  "phone": "+966589764141",
-  "city": "الدرعية",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "فيلا سكنية",
-  "services": [
-   "ملحق خارجي"
-  ],
-  "budget": "50,000 - 100,000 ريال",
-  "timeline": "1-3 أشهر",
-  "message": "أرغب بعرض سعر لتشطيب فيلا جديدة عظم."
- },
- {
-  "id": "L_ms00f7v59fnkkg",
-  "ref": "DSCC-MS00F7V5PCIQF6",
-  "source": "showroom",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-24T22:50:25.547Z",
-  "updatedAt": "2026-07-24T23:12:25.547Z",
-  "fullName": "محمد العتيبي",
-  "phone": "+966523188922",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true,
-   "preferredDay": "الأحد",
-   "preferredTime": "عصراً (4-7)"
-  },
-  "sourceAction": "showroom_booking",
-  "visitStatus": "pending",
-  "projectType": "استراحة"
- },
- {
-  "id": "L_ms00f7v5mldqal",
-  "ref": "DSCC-MS00F7V5VZMATJ",
-  "source": "calculator",
-  "status": "new",
-  "priority": "urgent",
-  "createdAt": "2026-07-24T21:50:25.547Z",
-  "updatedAt": "2026-07-25T00:13:25.547Z",
-  "fullName": "إبراهيم النفيعي",
-  "phone": "+966518307326",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "شقة",
-  "projectSize": "232 م²",
-  "budget": "50,000 - 100,000 ريال",
   "services": [
    "تصميم وتنفيذ مقهى"
   ],
   "sourcePage": "/calculator"
  },
  {
-  "id": "L_ms00f7v58ghvbc",
-  "ref": "DSCC-MS00F7V5D4O2AK",
-  "source": "chatbot",
-  "status": "contacted",
-  "priority": "normal",
-  "createdAt": "2026-07-24T19:50:25.547Z",
-  "updatedAt": "2026-07-24T21:38:25.547Z",
-  "fullName": "سعود العنزي",
-  "phone": "+966568164448",
-  "city": "الدمام",
-  "notes": [
-   {
-    "id": "n_ms00f7v57vhjkg",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-24T21:38:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "chatbotSummary": "عميل مهتم بتشطيب فيلا 450م² طراز مودرن، حجز زيارة السبت.",
-  "intent": "حجز زيارة"
- },
- {
-  "id": "L_ms00f7v5e5xrhx",
-  "ref": "DSCC-MS00F7V5SHBPSO",
+  "id": "L_ms00id57j86abi",
+  "ref": "DSCC-MS00ID57R2STH1",
   "source": "showroom",
-  "status": "qualified",
-  "priority": "low",
-  "createdAt": "2026-07-24T18:50:25.547Z",
-  "updatedAt": "2026-07-24T20:43:25.547Z",
-  "fullName": "بندر الغامدي",
-  "phone": "+966553755233",
+  "status": "new",
+  "priority": "high",
+  "createdAt": "2026-07-25T04:52:52.358Z",
+  "updatedAt": "2026-07-25T07:55:52.358Z",
+  "fullName": "إبراهيم النفيعي",
+  "phone": "+966571205479",
   "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v53kbszz",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-24T20:43:25.547Z"
-   }
-  ],
+  "notes": [],
   "raw": {
-   "seeded": true,
-   "preferredDay": "الأربعاء",
-   "preferredTime": "عصراً (4-7)"
+   "batch": "s1",
+   "preferredDay": "الاثنين",
+   "preferredTime": "صباحاً (9-12)"
   },
   "sourceAction": "showroom_booking",
-  "visitStatus": "confirmed",
+  "visitStatus": "pending",
   "projectType": "مجلس رجال"
  },
  {
-  "id": "L_ms00f7v5f6yp07",
-  "ref": "DSCC-MS00F7V5I2DJ6Z",
-  "source": "quote",
-  "status": "contacted",
-  "priority": "urgent",
-  "createdAt": "2026-07-24T16:50:25.547Z",
-  "updatedAt": "2026-07-24T18:09:25.547Z",
-  "fullName": "ريم القاسم",
-  "phone": "+966548169693",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v5e0awxy",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-24T18:09:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "شقة",
-  "services": [
-   "تجديد مجلس"
-  ],
-  "budget": "100,000 - 200,000 ريال",
-  "timeline": "أقرب وقت",
-  "message": "أرغب بعرض سعر لتشطيب فيلا جديدة عظم."
- },
- {
-  "id": "L_ms00f7v5264pfy",
-  "ref": "DSCC-MS00F7V5TKVQMT",
-  "source": "calculator",
-  "status": "contacted",
-  "priority": "urgent",
-  "createdAt": "2026-07-24T14:50:25.547Z",
-  "updatedAt": "2026-07-24T19:06:25.547Z",
-  "fullName": "أمل الشهري",
-  "phone": "+966569614761",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v5bfr90o",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "quote",
-    "createdAt": "2026-07-24T19:06:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "ملحق خارجي",
-  "projectSize": "257 م²",
-  "budget": "أكثر من 400,000 ريال",
-  "services": [
-   "تصميم داخلي",
-   "تشطيب كامل"
-  ],
-  "sourcePage": "/calculator"
- },
- {
-  "id": "L_ms00f7v545v21i",
-  "ref": "DSCC-MS00F7V5QCZDNO",
-  "source": "contact",
+  "id": "L_ms00id58898mt2",
+  "ref": "DSCC-MS00ID58VS2LKS",
+  "source": "chatbot",
   "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-24T12:50:25.547Z",
-  "updatedAt": "2026-07-24T16:35:25.547Z",
-  "fullName": "ماجد الخالدي",
-  "phone": "+966585222296",
+  "priority": "urgent",
+  "createdAt": "2026-07-25T04:22:52.358Z",
+  "updatedAt": "2026-07-25T05:38:52.358Z",
+  "fullName": "خالد الشمري",
+  "phone": "+966565464328",
   "city": "الدمام",
   "notes": [],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "message": "أرغب بمعرفة مدة تنفيذ تشطيب دور كامل.",
-  "email": "client434@gmail.com"
+  "chatbotSummary": "مهتم بملحق خارجي 60م² مع عزل وتكييف.",
+  "intent": "استفسار تكلفة"
  },
  {
-  "id": "L_ms00f7v51iwx4e",
-  "ref": "DSCC-MS00F7V5N0K8NJ",
-  "source": "showroom",
+  "id": "L_ms00id58qdb14t",
+  "ref": "DSCC-MS00ID584VHWF3",
+  "source": "quote",
   "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-24T10:50:25.547Z",
-  "updatedAt": "2026-07-24T13:25:25.547Z",
-  "fullName": "يوسف الحمدان",
-  "phone": "+966553523998",
+  "priority": "high",
+  "createdAt": "2026-07-25T03:52:52.358Z",
+  "updatedAt": "2026-07-25T07:25:52.358Z",
+  "fullName": "بندر الغامدي",
+  "phone": "+966528482519",
   "city": "الرياض",
   "notes": [],
   "raw": {
-   "seeded": true,
-   "preferredDay": "الثلاثاء",
-   "preferredTime": "عصراً (4-7)"
-  },
-  "sourceAction": "showroom_booking",
-  "visitStatus": "confirmed",
-  "projectType": "شقة"
- },
- {
-  "id": "L_ms00f7v567w2iq",
-  "ref": "DSCC-MS00F7V5JTXR1F",
-  "source": "quote",
-  "status": "won",
-  "priority": "normal",
-  "createdAt": "2026-07-24T08:50:25.547Z",
-  "updatedAt": "2026-07-24T10:40:25.547Z",
-  "fullName": "نايف السبيعي",
-  "phone": "+966557302273",
-  "city": "الدمام",
-  "notes": [
-   {
-    "id": "n_ms00f7v59dl4ec",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "called",
-    "createdAt": "2026-07-24T10:40:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
+   "batch": "s1"
   },
   "projectType": "فيلا سكنية",
   "services": [
-   "تصميم داخلي",
-   "تشطيب كامل"
+   "تجديد مجلس"
   ],
-  "budget": "100,000 - 200,000 ريال",
-  "timeline": "أقرب وقت",
-  "message": "تصميم وتنفيذ مقهى صغير في شمال الرياض."
+  "budget": "200,000 - 400,000 ريال",
+  "timeline": "خلال شهر",
+  "message": "أرغب بعرض سعر لتشطيب فيلا جديدة عظم."
  },
  {
-  "id": "L_ms00f7v5yrz3cd",
-  "ref": "DSCC-MS00F7V5KEN6CY",
-  "source": "chatbot",
-  "status": "won",
-  "priority": "urgent",
-  "createdAt": "2026-07-24T06:50:25.547Z",
-  "updatedAt": "2026-07-24T07:12:25.547Z",
-  "fullName": "سارة الراشد",
-  "phone": "+966543776522",
-  "city": "جدة",
-  "notes": [
-   {
-    "id": "n_ms00f7v5zi9ge1",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "quote",
-    "createdAt": "2026-07-24T07:12:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "chatbotSummary": "طلب تصميم وتنفيذ مقهى 80م² في حي الياسمين.",
-  "intent": "حجز زيارة"
- },
- {
-  "id": "L_ms00f7v5ji8ogj",
-  "ref": "DSCC-MS00F7V5WI8YCF",
+  "id": "L_ms00id58u26x0k",
+  "ref": "DSCC-MS00ID58M3OGG2",
   "source": "calculator",
-  "status": "qualified",
+  "status": "new",
   "priority": "normal",
-  "createdAt": "2026-07-24T04:50:25.547Z",
-  "updatedAt": "2026-07-24T09:12:25.547Z",
-  "fullName": "هند العبدالله",
-  "phone": "+966596385813",
+  "createdAt": "2026-07-25T02:52:52.358Z",
+  "updatedAt": "2026-07-25T06:42:52.358Z",
+  "fullName": "سعود العنزي",
+  "phone": "+966570892408",
   "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v54nmyi4",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-24T09:12:25.547Z"
-   }
-  ],
+  "notes": [],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
   "projectType": "استراحة",
-  "projectSize": "469 م²",
+  "projectSize": "149 م²",
   "budget": "أكثر من 400,000 ريال",
   "services": [
-   "تجديد مجلس"
+   "تشطيب فلل"
   ],
   "sourcePage": "/calculator"
  },
  {
-  "id": "L_ms00f7v52zajfh",
-  "ref": "DSCC-MS00F7V5Y9OH1R",
+  "id": "L_ms00id57abqdf7",
+  "ref": "DSCC-MS00ID575SWB8S",
   "source": "showroom",
-  "status": "contacted",
-  "priority": "normal",
-  "createdAt": "2026-07-24T00:50:25.547Z",
-  "updatedAt": "2026-07-24T01:52:25.547Z",
-  "fullName": "عادل باجابر",
-  "phone": "+966574446866",
-  "city": "جدة",
-  "notes": [
-   {
-    "id": "n_ms00f7v5ikswho",
-    "body": "أُرسل عرض السعر وننتظر الرد.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-24T01:52:25.547Z"
-   }
-  ],
+  "status": "new",
+  "priority": "urgent",
+  "createdAt": "2026-07-25T01:52:52.358Z",
+  "updatedAt": "2026-07-25T02:37:52.358Z",
+  "fullName": "محمد العتيبي",
+  "phone": "+966517980314",
+  "city": "الرياض",
+  "notes": [],
   "raw": {
-   "seeded": true,
-   "preferredDay": "السبت",
-   "preferredTime": "مساءً (7-10)"
+   "batch": "s1",
+   "preferredDay": "الاثنين",
+   "preferredTime": "صباحاً (9-12)"
   },
   "sourceAction": "showroom_booking",
   "visitStatus": "pending",
   "projectType": "شقة"
  },
  {
-  "id": "L_ms00f7v5vekf2j",
-  "ref": "DSCC-MS00F7V51XGTP5",
+  "id": "L_ms00id5aqswp15",
+  "ref": "DSCC-MS00ID5A1E1J91",
   "source": "contact",
   "status": "new",
+  "priority": "normal",
+  "createdAt": "2026-07-25T00:52:52.358Z",
+  "updatedAt": "2026-07-25T03:15:52.358Z",
+  "fullName": "سارة الراشد",
+  "phone": "+966528908311",
+  "city": "الدمام",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "message": "هل تقدمون ضمان على أعمال التشطيب؟",
+  "email": "client230@gmail.com"
+ },
+ {
+  "id": "L_ms00id58e1mgu5",
+  "ref": "DSCC-MS00ID588BNS42",
+  "source": "quote",
+  "status": "new",
   "priority": "urgent",
-  "createdAt": "2026-07-23T21:50:25.547Z",
-  "updatedAt": "2026-07-24T00:14:25.547Z",
-  "fullName": "إبراهيم النفيعي",
-  "phone": "+966573318528",
+  "createdAt": "2026-07-24T23:52:52.358Z",
+  "updatedAt": "2026-07-25T02:40:52.358Z",
+  "fullName": "نورة السديري",
+  "phone": "+966525281950",
   "city": "الرياض",
   "notes": [],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "message": "هل تقدمون ضمان على أعمال التشطيب؟",
-  "email": "client450@gmail.com"
+  "projectType": "مقهى",
+  "services": [
+   "ملحق خارجي"
+  ],
+  "budget": "200,000 - 400,000 ريال",
+  "timeline": "3-6 أشهر",
+  "message": "تصميم وتنفيذ مقهى صغير في شمال الرياض."
  },
  {
-  "id": "L_ms00f7v558bspw",
-  "ref": "DSCC-MS00F7V5DKJXHU",
-  "source": "quote",
-  "status": "qualified",
-  "priority": "urgent",
-  "createdAt": "2026-07-23T18:50:25.547Z",
-  "updatedAt": "2026-07-23T22:11:25.547Z",
-  "fullName": "حسام الرويلي",
-  "phone": "+966565393447",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v5d1tc6t",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-23T22:11:25.547Z"
-   }
-  ],
+  "id": "L_ms00id57gythlo",
+  "ref": "DSCC-MS00ID575WFJ60",
+  "source": "showroom",
+  "status": "new",
+  "priority": "normal",
+  "createdAt": "2026-07-24T22:52:52.358Z",
+  "updatedAt": "2026-07-25T02:13:52.358Z",
+  "fullName": "عبدالله الحربي",
+  "phone": "+966516008416",
+  "city": "الدمام",
+  "notes": [],
   "raw": {
-   "seeded": true
+   "batch": "s1",
+   "preferredDay": "السبت",
+   "preferredTime": "صباحاً (9-12)"
   },
-  "projectType": "استراحة",
+  "sourceAction": "showroom_booking",
+  "visitStatus": "pending",
+  "projectType": "شقة"
+ },
+ {
+  "id": "L_ms00id58625xnk",
+  "ref": "DSCC-MS00ID58Y5T5PF",
+  "source": "calculator",
+  "status": "new",
+  "priority": "high",
+  "createdAt": "2026-07-24T21:52:52.358Z",
+  "updatedAt": "2026-07-25T00:10:52.358Z",
+  "fullName": "ريم القاسم",
+  "phone": "+966561817565",
+  "city": "الرياض",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مكتب تجاري",
+  "projectSize": "251 م²",
+  "budget": "100,000 - 200,000 ريال",
   "services": [
    "تصميم داخلي",
    "تشطيب كامل"
   ],
-  "budget": "100,000 - 200,000 ريال",
-  "timeline": "أقرب وقت",
-  "message": "تصميم وتنفيذ مقهى صغير في شمال الرياض."
- },
- {
-  "id": "L_ms00f7v5dxhkgt",
-  "ref": "DSCC-MS00F7V5SN3RR6",
-  "source": "calculator",
-  "status": "contacted",
-  "priority": "high",
-  "createdAt": "2026-07-23T16:50:25.547Z",
-  "updatedAt": "2026-07-23T21:00:25.547Z",
-  "fullName": "طلال المالكي",
-  "phone": "+966523117164",
-  "city": "الدرعية",
-  "notes": [
-   {
-    "id": "n_ms00f7v52fbxtw",
-    "body": "أرسلنا نماذج أعمال على الواتساب.",
-    "outcome": "called",
-    "createdAt": "2026-07-23T21:00:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "مقهى",
-  "projectSize": "454 م²",
-  "budget": "200,000 - 400,000 ريال",
-  "services": [
-   "تشطيب فلل"
-  ],
   "sourcePage": "/calculator"
  },
  {
-  "id": "L_ms00f7v5geplm6",
-  "ref": "DSCC-MS00F7V5J5BQEZ",
+  "id": "L_ms00id588ewbki",
+  "ref": "DSCC-MS00ID58SO3X63",
   "source": "chatbot",
-  "status": "won",
-  "priority": "normal",
-  "createdAt": "2026-07-23T12:50:25.547Z",
-  "updatedAt": "2026-07-23T15:02:25.547Z",
-  "fullName": "عبدالرحمن بن سعد",
-  "phone": "+966536538443",
+  "status": "contacted",
+  "priority": "high",
+  "createdAt": "2026-07-24T19:52:52.358Z",
+  "updatedAt": "2026-07-24T20:09:52.358Z",
+  "fullName": "هند العبدالله",
+  "phone": "+966538218887",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5kxei9l",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "quote",
-    "createdAt": "2026-07-23T15:02:25.547Z"
+    "id": "n_ms00id58xs7n2f",
+    "body": "تمت زيارة الموقع وأخذ المقاسات.",
+    "outcome": "called",
+    "createdAt": "2026-07-24T20:09:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "chatbotSummary": "طلب تصميم وتنفيذ مقهى 80م² في حي الياسمين.",
-  "intent": "طلب عرض سعر"
+  "chatbotSummary": "عميل مهتم بتشطيب فيلا 450م² طراز مودرن، حجز زيارة السبت.",
+  "intent": "استفسار تكلفة"
  },
  {
-  "id": "L_ms00f7v5fc38t4",
-  "ref": "DSCC-MS00F7V5OXNM2Z",
+  "id": "L_ms00id575gueis",
+  "ref": "DSCC-MS00ID57S4PJUY",
   "source": "showroom",
   "status": "new",
-  "priority": "low",
-  "createdAt": "2026-07-23T09:50:25.547Z",
-  "updatedAt": "2026-07-23T12:26:25.547Z",
-  "fullName": "سعود العنزي",
-  "phone": "+966549436706",
-  "city": "الرياض",
+  "priority": "normal",
+  "createdAt": "2026-07-24T18:52:52.358Z",
+  "updatedAt": "2026-07-24T21:46:52.358Z",
+  "fullName": "طلال المالكي",
+  "phone": "+966597865274",
+  "city": "الدرعية",
   "notes": [],
   "raw": {
-   "seeded": true,
-   "preferredDay": "الاثنين",
+   "batch": "s1",
+   "preferredDay": "الأربعاء",
    "preferredTime": "عصراً (4-7)"
   },
   "sourceAction": "showroom_booking",
   "visitStatus": "pending",
-  "projectType": "ملحق خارجي"
+  "projectType": "مقهى"
  },
  {
-  "id": "L_ms00f7v5da2i10",
-  "ref": "DSCC-MS00F7V5SM2JNI",
+  "id": "L_ms00id58o1x6ir",
+  "ref": "DSCC-MS00ID58XOIFAM",
   "source": "quote",
-  "status": "new",
+  "status": "won",
   "priority": "normal",
-  "createdAt": "2026-07-23T04:50:25.547Z",
-  "updatedAt": "2026-07-23T07:29:25.547Z",
-  "fullName": "عبدالله الحربي",
-  "phone": "+966513381595",
-  "city": "الخرج",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "ملحق خارجي",
-  "services": [
-   "تشطيب فلل"
-  ],
-  "budget": "أكثر من 400,000 ريال",
-  "timeline": "أقرب وقت",
-  "message": "أرغب بعرض سعر لتشطيب فيلا جديدة عظم."
- },
- {
-  "id": "L_ms00f7v5lvje8i",
-  "ref": "DSCC-MS00F7V531PI7E",
-  "source": "calculator",
-  "status": "quotation_sent",
-  "priority": "normal",
-  "createdAt": "2026-07-22T23:50:25.547Z",
-  "updatedAt": "2026-07-23T00:03:25.547Z",
-  "fullName": "فهد القحطاني",
-  "phone": "+966552546416",
+  "createdAt": "2026-07-24T16:52:52.358Z",
+  "updatedAt": "2026-07-24T21:26:52.358Z",
+  "fullName": "تركي المطيري",
+  "phone": "+966567515847",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5675bzv",
-    "body": "العميل طلب تعديل بسيط على العرض.",
+    "id": "n_ms00id58yp52vn",
+    "body": "تمت زيارة الموقع وأخذ المقاسات.",
     "outcome": "emailed",
-    "createdAt": "2026-07-23T00:03:25.547Z"
+    "createdAt": "2026-07-24T21:26:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "projectType": "مجلس رجال",
-  "projectSize": "265 م²",
-  "budget": "200,000 - 400,000 ريال",
+  "projectType": "استراحة",
   "services": [
-   "تشطيب كامل"
+   "تصميم وتنفيذ مقهى"
+  ],
+  "budget": "100,000 - 200,000 ريال",
+  "timeline": "3-6 أشهر",
+  "message": "تشطيب شقة تمليك جديدة."
+ },
+ {
+  "id": "L_ms00id58jkbnlh",
+  "ref": "DSCC-MS00ID58QC4YI7",
+  "source": "calculator",
+  "status": "negotiation",
+  "priority": "normal",
+  "createdAt": "2026-07-24T14:52:52.358Z",
+  "updatedAt": "2026-07-24T16:36:52.358Z",
+  "fullName": "عادل باجابر",
+  "phone": "+966510194580",
+  "city": "جدة",
+  "notes": [
+   {
+    "id": "n_ms00id58bbkavl",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-24T16:36:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مكتب تجاري",
+  "projectSize": "410 م²",
+  "budget": "50,000 - 100,000 ريال",
+  "services": [
+   "ملحق خارجي"
   ],
   "sourcePage": "/calculator"
  },
  {
-  "id": "L_ms00f7v5ikv4ss",
-  "ref": "DSCC-MS00F7V5QGPVOB",
-  "source": "showroom",
-  "status": "contacted",
+  "id": "L_ms00id5avhjnzn",
+  "ref": "DSCC-MS00ID5AENI6EX",
+  "source": "contact",
+  "status": "new",
   "priority": "normal",
-  "createdAt": "2026-07-22T18:50:25.547Z",
-  "updatedAt": "2026-07-22T22:53:25.547Z",
-  "fullName": "سارة الراشد",
-  "phone": "+966551677247",
+  "createdAt": "2026-07-24T12:52:52.358Z",
+  "updatedAt": "2026-07-24T15:30:52.358Z",
+  "fullName": "سعود العنزي",
+  "phone": "+966562929782",
+  "city": "الرياض",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "message": "هل تقدمون ضمان على أعمال التشطيب؟",
+  "email": "client388@gmail.com"
+ },
+ {
+  "id": "L_ms00id571q4snj",
+  "ref": "DSCC-MS00ID57PKY1ZB",
+  "source": "showroom",
+  "status": "quotation_sent",
+  "priority": "normal",
+  "createdAt": "2026-07-24T10:52:52.358Z",
+  "updatedAt": "2026-07-24T14:37:52.358Z",
+  "fullName": "فهد القحطاني",
+  "phone": "+966563113039",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5i23avt",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "quote",
-    "createdAt": "2026-07-22T22:53:25.547Z"
+    "id": "n_ms00id57aenk5i",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-24T14:37:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true,
-   "preferredDay": "الأربعاء",
-   "preferredTime": "مساءً (7-10)"
+   "batch": "s1",
+   "preferredDay": "السبت",
+   "preferredTime": "صباحاً (9-12)"
   },
   "sourceAction": "showroom_booking",
   "visitStatus": "confirmed",
   "projectType": "مقهى"
  },
  {
-  "id": "L_ms00f7v5aqybds",
-  "ref": "DSCC-MS00F7V5P21178",
-  "source": "contact",
+  "id": "L_ms00id587cmmkg",
+  "ref": "DSCC-MS00ID58SR86AN",
+  "source": "quote",
   "status": "qualified",
-  "priority": "normal",
-  "createdAt": "2026-07-22T16:50:25.547Z",
-  "updatedAt": "2026-07-22T21:04:25.547Z",
-  "fullName": "أمل الشهري",
-  "phone": "+966519525036",
-  "city": "جدة",
+  "priority": "high",
+  "createdAt": "2026-07-24T08:52:52.358Z",
+  "updatedAt": "2026-07-24T09:29:52.358Z",
+  "fullName": "سلطان الدوسري",
+  "phone": "+966549202131",
+  "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5qxgdal",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
+    "id": "n_ms00id58l7m303",
+    "body": "أُرسل عرض السعر وننتظر الرد.",
     "outcome": "quote",
-    "createdAt": "2026-07-22T21:04:25.547Z"
+    "createdAt": "2026-07-24T09:29:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "message": "أبحث عن مصمم داخلي لمشروع استراحة.",
-  "email": "client530@gmail.com"
+  "projectType": "شقة",
+  "services": [
+   "تشطيب فلل"
+  ],
+  "budget": "200,000 - 400,000 ريال",
+  "timeline": "3-6 أشهر",
+  "message": "أرغب بعرض سعر لتشطيب فيلا جديدة عظم."
  },
  {
-  "id": "L_ms00f7v5chz8rf",
-  "ref": "DSCC-MS00F7V5UXUAR8",
+  "id": "L_ms00id58n834cs",
+  "ref": "DSCC-MS00ID58KAPPF0",
   "source": "chatbot",
-  "status": "qualified",
-  "priority": "urgent",
-  "createdAt": "2026-07-22T08:50:25.547Z",
-  "updatedAt": "2026-07-22T13:31:25.547Z",
-  "fullName": "وليد الجهني",
-  "phone": "+966584289936",
-  "city": "الخرج",
+  "status": "quotation_sent",
+  "priority": "normal",
+  "createdAt": "2026-07-24T06:52:52.358Z",
+  "updatedAt": "2026-07-24T11:11:52.358Z",
+  "fullName": "يوسف الحمدان",
+  "phone": "+966510416302",
+  "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5tc9q23",
-    "body": "أُرسل عرض السعر وننتظر الرد.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-22T13:31:25.547Z"
+    "id": "n_ms00id58zbm83p",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "called",
+    "createdAt": "2026-07-24T11:11:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
   "chatbotSummary": "طلب تصميم وتنفيذ مقهى 80م² في حي الياسمين.",
   "intent": "استفسار تكلفة"
  },
  {
-  "id": "L_ms00f7v5f1jw5g",
-  "ref": "DSCC-MS00F7V5AAU1MP",
+  "id": "L_ms00id58mxz2cn",
+  "ref": "DSCC-MS00ID58RJ6YEE",
   "source": "calculator",
-  "status": "won",
-  "priority": "normal",
-  "createdAt": "2026-07-22T03:50:25.547Z",
-  "updatedAt": "2026-07-22T07:52:25.547Z",
-  "fullName": "سلطان الدوسري",
-  "phone": "+966525673063",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v5p4rce4",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-22T07:52:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "شقة",
-  "projectSize": "360 م²",
-  "budget": "50,000 - 100,000 ريال",
-  "services": [
-   "تصميم وتنفيذ مقهى"
-  ],
-  "sourcePage": "/calculator"
- },
- {
-  "id": "L_ms00f7v56snzwi",
-  "ref": "DSCC-MS00F7V5N5N9N8",
-  "source": "showroom",
-  "status": "won",
-  "priority": "normal",
-  "createdAt": "2026-07-21T22:50:25.547Z",
-  "updatedAt": "2026-07-22T03:45:25.547Z",
+  "status": "negotiation",
+  "priority": "urgent",
+  "createdAt": "2026-07-24T04:52:52.358Z",
+  "updatedAt": "2026-07-24T09:33:52.358Z",
   "fullName": "عبدالرحمن بن سعد",
-  "phone": "+966562894695",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v5mb5jx4",
-    "body": "أرسلنا نماذج أعمال على الواتساب.",
-    "outcome": "called",
-    "createdAt": "2026-07-22T03:45:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true,
-   "preferredDay": "الاثنين",
-   "preferredTime": "عصراً (4-7)"
-  },
-  "sourceAction": "showroom_booking",
-  "visitStatus": "visited",
-  "projectType": "ملحق خارجي"
- },
- {
-  "id": "L_ms00f7v5b7jytn",
-  "ref": "DSCC-MS00F7V53W0AQV",
-  "source": "quote",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-21T12:50:25.547Z",
-  "updatedAt": "2026-07-21T16:44:25.547Z",
-  "fullName": "عبدالعزيز الزهراني",
-  "phone": "+966577569894",
-  "city": "الرياض",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "مقهى",
-  "services": [
-   "تجديد مجلس"
-  ],
-  "budget": "200,000 - 400,000 ريال",
-  "timeline": "1-3 أشهر",
-  "message": "تصميم وتنفيذ مقهى صغير في شمال الرياض."
- },
- {
-  "id": "L_ms00f7v6fuhlc5",
-  "ref": "DSCC-MS00F7V6LZ3PA3",
-  "source": "contact",
-  "status": "contacted",
-  "priority": "high",
-  "createdAt": "2026-07-21T07:50:25.547Z",
-  "updatedAt": "2026-07-21T09:26:25.547Z",
-  "fullName": "هند العبدالله",
-  "phone": "+966526641524",
-  "city": "الرياض",
-  "notes": [
-   {
-    "id": "n_ms00f7v6sh3hsi",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "emailed",
-    "createdAt": "2026-07-21T09:26:25.547Z"
-   }
-  ],
-  "raw": {
-   "seeded": true
-  },
-  "message": "هل يوجد تقسيط أو دفعات مرحلية؟",
-  "email": "client897@gmail.com"
- },
- {
-  "id": "L_ms00f7v5b5etbs",
-  "ref": "DSCC-MS00F7V5XS40JA",
-  "source": "calculator",
-  "status": "new",
-  "priority": "normal",
-  "createdAt": "2026-07-21T02:50:25.547Z",
-  "updatedAt": "2026-07-21T04:31:25.547Z",
-  "fullName": "خالد الشمري",
-  "phone": "+966567426308",
-  "city": "الخرج",
-  "notes": [],
-  "raw": {
-   "seeded": true
-  },
-  "projectType": "استراحة",
-  "projectSize": "162 م²",
-  "budget": "200,000 - 400,000 ريال",
-  "services": [
-   "تصميم داخلي"
-  ],
-  "sourcePage": "/calculator"
- },
- {
-  "id": "L_ms00f7v5xn9zjy",
-  "ref": "DSCC-MS00F7V5OEPN61",
-  "source": "showroom",
-  "status": "won",
-  "priority": "high",
-  "createdAt": "2026-07-20T16:50:25.547Z",
-  "updatedAt": "2026-07-20T18:58:25.547Z",
-  "fullName": "وليد الجهني",
-  "phone": "+966595719456",
+  "phone": "+966552402254",
   "city": "جدة",
   "notes": [
    {
-    "id": "n_ms00f7v5xf26d4",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-20T18:58:25.547Z"
+    "id": "n_ms00id58bgnb7b",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "quote",
+    "createdAt": "2026-07-24T09:33:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true,
-   "preferredDay": "السبت",
-   "preferredTime": "مساءً (7-10)"
+   "batch": "s1"
+  },
+  "projectType": "ملحق خارجي",
+  "projectSize": "214 م²",
+  "budget": "100,000 - 200,000 ريال",
+  "services": [
+   "تشطيب كامل"
+  ],
+  "sourcePage": "/calculator"
+ },
+ {
+  "id": "L_ms00id57bwbcth",
+  "ref": "DSCC-MS00ID578LHYWU",
+  "source": "showroom",
+  "status": "negotiation",
+  "priority": "normal",
+  "createdAt": "2026-07-24T00:52:52.358Z",
+  "updatedAt": "2026-07-24T04:47:52.358Z",
+  "fullName": "خالد الشمري",
+  "phone": "+966512366989",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id575q7bux",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "called",
+    "createdAt": "2026-07-24T04:47:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "الثلاثاء",
+   "preferredTime": "عصراً (4-7)"
   },
   "sourceAction": "showroom_booking",
-  "visitStatus": "visited",
-  "projectType": "ملحق خارجي"
+  "visitStatus": "confirmed",
+  "projectType": "استراحة"
  },
  {
-  "id": "L_ms00f7v575xp70",
-  "ref": "DSCC-MS00F7V5CR8YRC",
-  "source": "chatbot",
-  "status": "new",
-  "priority": "high",
-  "createdAt": "2026-07-20T06:50:25.547Z",
-  "updatedAt": "2026-07-20T11:41:25.547Z",
-  "fullName": "مشعل البقمي",
-  "phone": "+966579351632",
+  "id": "L_ms00id5a7s6wq6",
+  "ref": "DSCC-MS00ID5A1ZNCB0",
+  "source": "contact",
+  "status": "negotiation",
+  "priority": "normal",
+  "createdAt": "2026-07-23T21:52:52.358Z",
+  "updatedAt": "2026-07-24T02:03:52.358Z",
+  "fullName": "ريم القاسم",
+  "phone": "+966521795234",
   "city": "الدمام",
-  "notes": [],
+  "notes": [
+   {
+    "id": "n_ms00id5aunb5lt",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "quote",
+    "createdAt": "2026-07-24T02:03:52.358Z"
+   }
+  ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "chatbotSummary": "مهتم بملحق خارجي 60م² مع عزل وتكييف.",
-  "intent": "حجز زيارة"
+  "message": "أبحث عن مصمم داخلي لمشروع استراحة.",
+  "email": "client549@gmail.com"
  },
  {
-  "id": "L_ms00f7v568wc2u",
-  "ref": "DSCC-MS00F7V56MN8B2",
+  "id": "L_ms00id58gs2m5h",
+  "ref": "DSCC-MS00ID58V00OCL",
   "source": "quote",
   "status": "contacted",
   "priority": "normal",
-  "createdAt": "2026-07-19T20:50:25.547Z",
-  "updatedAt": "2026-07-19T21:31:25.547Z",
-  "fullName": "محمد العتيبي",
-  "phone": "+966577601009",
+  "createdAt": "2026-07-23T18:52:52.358Z",
+  "updatedAt": "2026-07-23T22:23:52.358Z",
+  "fullName": "حسام الرويلي",
+  "phone": "+966529817170",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v510hnsh",
-    "body": "أُرسل عرض السعر وننتظر الرد.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-19T21:31:25.547Z"
+    "id": "n_ms00id58jud3nk",
+    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
+    "outcome": "quote",
+    "createdAt": "2026-07-23T22:23:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "projectType": "ملحق خارجي",
+  "projectType": "فيلا سكنية",
   "services": [
-   "تجديد مجلس"
+   "تصميم وتنفيذ مقهى"
   ],
-  "budget": "50,000 - 100,000 ريال",
-  "timeline": "1-3 أشهر",
-  "message": "مطلوب تصميم وتنفيذ ديكور داخلي كامل."
+  "budget": "200,000 - 400,000 ريال",
+  "timeline": "3-6 أشهر",
+  "message": "تصميم وتنفيذ مقهى صغير في شمال الرياض."
  },
  {
-  "id": "L_ms00f7v5vci9ts",
-  "ref": "DSCC-MS00F7V5Y6XFE9",
-  "source": "showroom",
+  "id": "L_ms00id587ixttt",
+  "ref": "DSCC-MS00ID5846PZMA",
+  "source": "calculator",
   "status": "quotation_sent",
   "priority": "normal",
-  "createdAt": "2026-07-19T10:50:25.547Z",
-  "updatedAt": "2026-07-19T15:21:25.547Z",
+  "createdAt": "2026-07-23T16:52:52.358Z",
+  "updatedAt": "2026-07-23T17:57:52.358Z",
   "fullName": "مشعل البقمي",
-  "phone": "+966522883108",
+  "phone": "+966546574936",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5wg559g",
-    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "id": "n_ms00id58jn8svn",
+    "body": "أُرسل عرض السعر وننتظر الرد.",
     "outcome": "quote",
-    "createdAt": "2026-07-19T15:21:25.547Z"
+    "createdAt": "2026-07-23T17:57:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true,
-   "preferredDay": "السبت",
-   "preferredTime": "عصراً (4-7)"
+   "batch": "s1"
+  },
+  "projectType": "ملحق خارجي",
+  "projectSize": "315 م²",
+  "budget": "100,000 - 200,000 ريال",
+  "services": [
+   "ملحق خارجي"
+  ],
+  "sourcePage": "/calculator"
+ },
+ {
+  "id": "L_ms00id58f15tfr",
+  "ref": "DSCC-MS00ID58JKS33W",
+  "source": "chatbot",
+  "status": "contacted",
+  "priority": "normal",
+  "createdAt": "2026-07-23T12:52:52.358Z",
+  "updatedAt": "2026-07-23T14:53:52.358Z",
+  "fullName": "أمل الشهري",
+  "phone": "+966514831299",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id58oediv7",
+    "body": "تمت زيارة الموقع وأخذ المقاسات.",
+    "outcome": "called",
+    "createdAt": "2026-07-23T14:53:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "chatbotSummary": "عميل مهتم بتشطيب فيلا 450م² طراز مودرن، حجز زيارة السبت.",
+  "intent": "استفسار تكلفة"
+ },
+ {
+  "id": "L_ms00id5772b4ds",
+  "ref": "DSCC-MS00ID573VL7ID",
+  "source": "showroom",
+  "status": "contacted",
+  "priority": "normal",
+  "createdAt": "2026-07-23T09:52:52.358Z",
+  "updatedAt": "2026-07-23T13:36:52.358Z",
+  "fullName": "هند العبدالله",
+  "phone": "+966510466560",
+  "city": "الدرعية",
+  "notes": [
+   {
+    "id": "n_ms00id57jk9hnz",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-23T13:36:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "الأحد",
+   "preferredTime": "صباحاً (9-12)"
   },
   "sourceAction": "showroom_booking",
   "visitStatus": "confirmed",
   "projectType": "مكتب تجاري"
  },
  {
-  "id": "L_ms00f7v6wicd7m",
-  "ref": "DSCC-MS00F7V67ZHSNT",
+  "id": "L_ms00id58byams3",
+  "ref": "DSCC-MS00ID58P0MSCL",
+  "source": "quote",
+  "status": "quotation_sent",
+  "priority": "normal",
+  "createdAt": "2026-07-23T04:52:52.358Z",
+  "updatedAt": "2026-07-23T09:08:52.358Z",
+  "fullName": "إبراهيم النفيعي",
+  "phone": "+966593869653",
+  "city": "الدمام",
+  "notes": [
+   {
+    "id": "n_ms00id58pbe5uh",
+    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
+    "outcome": "called",
+    "createdAt": "2026-07-23T09:08:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "فيلا سكنية",
+  "services": [
+   "جبس وديكورات"
+  ],
+  "budget": "200,000 - 400,000 ريال",
+  "timeline": "3-6 أشهر",
+  "message": "أحتاج تجديد مجلس الرجال مع الإضاءة."
+ },
+ {
+  "id": "L_ms00id58mfo6qv",
+  "ref": "DSCC-MS00ID58M2VVSZ",
+  "source": "calculator",
+  "status": "contacted",
+  "priority": "urgent",
+  "createdAt": "2026-07-22T23:52:52.358Z",
+  "updatedAt": "2026-07-23T00:33:52.358Z",
+  "fullName": "ماجد الخالدي",
+  "phone": "+966543538923",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id584g7xn0",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-23T00:33:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "فيلا سكنية",
+  "projectSize": "494 م²",
+  "budget": "أكثر من 400,000 ريال",
+  "services": [
+   "ملحق خارجي"
+  ],
+  "sourcePage": "/calculator"
+ },
+ {
+  "id": "L_ms00id57a35nus",
+  "ref": "DSCC-MS00ID57VGGRPL",
+  "source": "showroom",
+  "status": "contacted",
+  "priority": "high",
+  "createdAt": "2026-07-22T18:52:52.358Z",
+  "updatedAt": "2026-07-22T20:54:52.358Z",
+  "fullName": "يوسف الحمدان",
+  "phone": "+966514699931",
+  "city": "الخرج",
+  "notes": [
+   {
+    "id": "n_ms00id5749aeh3",
+    "body": "أُرسل عرض السعر وننتظر الرد.",
+    "outcome": "called",
+    "createdAt": "2026-07-22T20:54:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "الأربعاء",
+   "preferredTime": "صباحاً (9-12)"
+  },
+  "sourceAction": "showroom_booking",
+  "visitStatus": "visited",
+  "projectType": "فيلا سكنية"
+ },
+ {
+  "id": "L_ms00id5azmvu9g",
+  "ref": "DSCC-MS00ID5AXWPVWD",
   "source": "contact",
   "status": "quotation_sent",
   "priority": "high",
-  "createdAt": "2026-07-19T00:50:25.547Z",
-  "updatedAt": "2026-07-19T05:45:25.547Z",
-  "fullName": "طلال المالكي",
-  "phone": "+966552835246",
-  "city": "الرياض",
+  "createdAt": "2026-07-22T16:52:52.358Z",
+  "updatedAt": "2026-07-22T19:56:52.358Z",
+  "fullName": "عادل باجابر",
+  "phone": "+966546904981",
+  "city": "جدة",
   "notes": [
    {
-    "id": "n_ms00f7v6n2h9mf",
-    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
-    "outcome": "quote",
-    "createdAt": "2026-07-19T05:45:25.547Z"
+    "id": "n_ms00id5aow74ql",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "emailed",
+    "createdAt": "2026-07-22T19:56:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "message": "أرغب بمعرفة مدة تنفيذ تشطيب دور كامل.",
-  "email": "client872@gmail.com"
+  "message": "هل يوجد تقسيط أو دفعات مرحلية؟",
+  "email": "client546@gmail.com"
  },
  {
-  "id": "L_ms00f7v53ohhua",
-  "ref": "DSCC-MS00F7V5U3L48K",
-  "source": "quote",
-  "status": "contacted",
-  "priority": "low",
-  "createdAt": "2026-07-18T04:50:25.547Z",
-  "updatedAt": "2026-07-18T05:13:25.547Z",
-  "fullName": "بندر الغامدي",
-  "phone": "+966563978322",
+  "id": "L_ms00id5aaswxwi",
+  "ref": "DSCC-MS00ID5AN60VQZ",
+  "source": "chatbot",
+  "status": "quotation_sent",
+  "priority": "urgent",
+  "createdAt": "2026-07-22T08:52:52.358Z",
+  "updatedAt": "2026-07-22T09:28:52.358Z",
+  "fullName": "وليد الجهني",
+  "phone": "+966565785582",
   "city": "الرياض",
   "notes": [
    {
-    "id": "n_ms00f7v5cmzstg",
-    "body": "العميل طلب تعديل بسيط على العرض.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-18T05:13:25.547Z"
+    "id": "n_ms00id5agif87l",
+    "body": "تمت زيارة الموقع وأخذ المقاسات.",
+    "outcome": "called",
+    "createdAt": "2026-07-22T09:28:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "projectType": "استراحة",
+  "chatbotSummary": "مهتم بملحق خارجي 60م² مع عزل وتكييف.",
+  "intent": "استفسار تكلفة"
+ },
+ {
+  "id": "L_ms00id58mq87us",
+  "ref": "DSCC-MS00ID582XYHWF",
+  "source": "calculator",
+  "status": "qualified",
+  "priority": "normal",
+  "createdAt": "2026-07-22T03:52:52.358Z",
+  "updatedAt": "2026-07-22T05:49:52.358Z",
+  "fullName": "نايف السبيعي",
+  "phone": "+966523860707",
+  "city": "جدة",
+  "notes": [
+   {
+    "id": "n_ms00id580svbid",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "emailed",
+    "createdAt": "2026-07-22T05:49:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مقهى",
+  "projectSize": "417 م²",
+  "budget": "200,000 - 400,000 ريال",
   "services": [
-   "جبس وديكورات"
+   "تصميم داخلي",
+   "تشطيب كامل"
+  ],
+  "sourcePage": "/calculator"
+ },
+ {
+  "id": "L_ms00id57zp30r7",
+  "ref": "DSCC-MS00ID57EVRIZQ",
+  "source": "showroom",
+  "status": "negotiation",
+  "priority": "normal",
+  "createdAt": "2026-07-21T22:52:52.358Z",
+  "updatedAt": "2026-07-22T00:34:52.358Z",
+  "fullName": "أمل الشهري",
+  "phone": "+966568592844",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id57yu3lfk",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "called",
+    "createdAt": "2026-07-22T00:34:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "الأحد",
+   "preferredTime": "صباحاً (9-12)"
+  },
+  "sourceAction": "showroom_booking",
+  "visitStatus": "confirmed",
+  "projectType": "فيلا سكنية"
+ },
+ {
+  "id": "L_ms00id58z3ejpj",
+  "ref": "DSCC-MS00ID5830SLLX",
+  "source": "quote",
+  "status": "new",
+  "priority": "urgent",
+  "createdAt": "2026-07-21T12:52:52.358Z",
+  "updatedAt": "2026-07-21T17:24:52.358Z",
+  "fullName": "محمد العتيبي",
+  "phone": "+966528812672",
+  "city": "الدمام",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مقهى",
+  "services": [
+   "تصميم داخلي",
+   "تشطيب كامل"
   ],
   "budget": "50,000 - 100,000 ريال",
   "timeline": "أقرب وقت",
   "message": "تشطيب شقة تمليك جديدة."
  },
  {
-  "id": "L_ms00f7v5slzlca",
-  "ref": "DSCC-MS00F7V5POUCNX",
-  "source": "quote",
+  "id": "L_ms00id5anaunhu",
+  "ref": "DSCC-MS00ID5AQOZ6DW",
+  "source": "contact",
   "status": "contacted",
-  "priority": "normal",
-  "createdAt": "2026-07-16T02:50:25.547Z",
-  "updatedAt": "2026-07-16T05:32:25.547Z",
-  "fullName": "يوسف الحمدان",
-  "phone": "+966570760018",
-  "city": "الرياض",
+  "priority": "high",
+  "createdAt": "2026-07-21T07:52:52.358Z",
+  "updatedAt": "2026-07-21T10:59:52.358Z",
+  "fullName": "عبدالرحمن بن سعد",
+  "phone": "+966543050280",
+  "city": "الدرعية",
   "notes": [
    {
-    "id": "n_ms00f7v5qkma38",
-    "body": "تمت زيارة الموقع وأخذ المقاسات.",
-    "outcome": "meeting",
-    "createdAt": "2026-07-16T05:32:25.547Z"
+    "id": "n_ms00id5az9xv3s",
+    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
+    "outcome": "quote",
+    "createdAt": "2026-07-21T10:59:52.358Z"
    }
   ],
   "raw": {
-   "seeded": true
+   "batch": "s1"
   },
-  "projectType": "فيلا سكنية",
-  "services": [
-   "تصميم داخلي",
-   "تشطيب كامل"
+  "message": "أرغب بمعرفة مدة تنفيذ تشطيب دور كامل.",
+  "email": "client694@gmail.com"
+ },
+ {
+  "id": "L_ms00id58g50c66",
+  "ref": "DSCC-MS00ID58EQQ3A0",
+  "source": "calculator",
+  "status": "qualified",
+  "priority": "urgent",
+  "createdAt": "2026-07-21T02:52:52.358Z",
+  "updatedAt": "2026-07-21T07:33:52.358Z",
+  "fullName": "منيرة الفهد",
+  "phone": "+966565174904",
+  "city": "الدمام",
+  "notes": [
+   {
+    "id": "n_ms00id58xe7iai",
+    "body": "أرسلنا نماذج أعمال على الواتساب.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-21T07:33:52.358Z"
+   }
   ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "ملحق خارجي",
+  "projectSize": "91 م²",
   "budget": "200,000 - 400,000 ريال",
-  "timeline": "1-3 أشهر",
+  "services": [
+   "تشطيب فلل"
+  ],
+  "sourcePage": "/calculator"
+ },
+ {
+  "id": "L_ms00id582wxo4u",
+  "ref": "DSCC-MS00ID58MTMI1L",
+  "source": "showroom",
+  "status": "won",
+  "priority": "low",
+  "createdAt": "2026-07-20T16:52:52.358Z",
+  "updatedAt": "2026-07-20T17:43:52.358Z",
+  "fullName": "وليد الجهني",
+  "phone": "+966542792872",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id58tjh5sv",
+    "body": "تم التواصل هاتفياً والعميل مهتم، بانتظار تحديد موعد.",
+    "outcome": "meeting",
+    "createdAt": "2026-07-20T17:43:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "السبت",
+   "preferredTime": "صباحاً (9-12)"
+  },
+  "sourceAction": "showroom_booking",
+  "visitStatus": "visited",
+  "projectType": "شقة"
+ },
+ {
+  "id": "L_ms00id5aga8v9n",
+  "ref": "DSCC-MS00ID5ATSOQ7T",
+  "source": "chatbot",
+  "status": "qualified",
+  "priority": "high",
+  "createdAt": "2026-07-20T06:52:52.358Z",
+  "updatedAt": "2026-07-20T08:48:52.358Z",
+  "fullName": "عبدالعزيز الزهراني",
+  "phone": "+966536800991",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id5a6k59ib",
+    "body": "أُرسل عرض السعر وننتظر الرد.",
+    "outcome": "called",
+    "createdAt": "2026-07-20T08:48:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "chatbotSummary": "عميل مهتم بتشطيب فيلا 450م² طراز مودرن، حجز زيارة السبت.",
+  "intent": "حجز زيارة"
+ },
+ {
+  "id": "L_ms00id584yfsz6",
+  "ref": "DSCC-MS00ID58XVXISF",
+  "source": "quote",
+  "status": "new",
+  "priority": "normal",
+  "createdAt": "2026-07-19T20:52:52.358Z",
+  "updatedAt": "2026-07-19T21:10:52.358Z",
+  "fullName": "عبدالله الحربي",
+  "phone": "+966567757728",
+  "city": "الخرج",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مقهى",
+  "services": [
+   "تصميم داخلي"
+  ],
+  "budget": "50,000 - 100,000 ريال",
+  "timeline": "أقرب وقت",
+  "message": "تشطيب شقة تمليك جديدة."
+ },
+ {
+  "id": "L_ms00id58lsd4ju",
+  "ref": "DSCC-MS00ID58C7F8IF",
+  "source": "showroom",
+  "status": "won",
+  "priority": "high",
+  "createdAt": "2026-07-19T10:52:52.358Z",
+  "updatedAt": "2026-07-19T14:43:52.358Z",
+  "fullName": "عبدالعزيز الزهراني",
+  "phone": "+966561374499",
+  "city": "الدرعية",
+  "notes": [
+   {
+    "id": "n_ms00id58oeepi9",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "called",
+    "createdAt": "2026-07-19T14:43:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1",
+   "preferredDay": "الخميس",
+   "preferredTime": "صباحاً (9-12)"
+  },
+  "sourceAction": "showroom_booking",
+  "visitStatus": "confirmed",
+  "projectType": "فيلا سكنية"
+ },
+ {
+  "id": "L_ms00id5alqszg5",
+  "ref": "DSCC-MS00ID5AE438AQ",
+  "source": "contact",
+  "status": "new",
+  "priority": "urgent",
+  "createdAt": "2026-07-19T00:52:52.358Z",
+  "updatedAt": "2026-07-19T05:25:52.358Z",
+  "fullName": "مشعل البقمي",
+  "phone": "+966566373515",
+  "city": "الرياض",
+  "notes": [],
+  "raw": {
+   "batch": "s1"
+  },
+  "message": "هل تقدمون ضمان على أعمال التشطيب؟",
+  "email": "client277@gmail.com"
+ },
+ {
+  "id": "L_ms00id58kebhk7",
+  "ref": "DSCC-MS00ID58QE4NRE",
+  "source": "quote",
+  "status": "contacted",
+  "priority": "high",
+  "createdAt": "2026-07-18T04:52:52.358Z",
+  "updatedAt": "2026-07-18T07:29:52.358Z",
+  "fullName": "طلال المالكي",
+  "phone": "+966595535798",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id58y4l939",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "quote",
+    "createdAt": "2026-07-18T07:29:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مكتب تجاري",
+  "services": [
+   "تجديد مجلس"
+  ],
+  "budget": "50,000 - 100,000 ريال",
+  "timeline": "خلال شهر",
   "message": "مطلوب تصميم وتنفيذ ديكور داخلي كامل."
+ },
+ {
+  "id": "L_ms00id58jr6en7",
+  "ref": "DSCC-MS00ID58O2VBNT",
+  "source": "quote",
+  "status": "contacted",
+  "priority": "high",
+  "createdAt": "2026-07-16T02:52:52.358Z",
+  "updatedAt": "2026-07-16T06:47:52.358Z",
+  "fullName": "فهد القحطاني",
+  "phone": "+966553280653",
+  "city": "الرياض",
+  "notes": [
+   {
+    "id": "n_ms00id58u897jb",
+    "body": "العميل طلب تعديل بسيط على العرض.",
+    "outcome": "called",
+    "createdAt": "2026-07-16T06:47:52.358Z"
+   }
+  ],
+  "raw": {
+   "batch": "s1"
+  },
+  "projectType": "مقهى",
+  "services": [
+   "تصميم داخلي"
+  ],
+  "budget": "50,000 - 100,000 ريال",
+  "timeline": "1-3 أشهر",
+  "message": "تشطيب شقة تمليك جديدة."
  }
 ]
