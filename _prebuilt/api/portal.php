@@ -126,17 +126,18 @@ function portal_issue_token($supplierId) {
     return $token;
 }
 
-$UPLOAD_ALLOWED = ['application/pdf' => '.pdf', 'image/jpeg' => '.jpg', 'image/png' => '.png'];
+$UPLOAD_ALLOWED = ['application/pdf' => '.pdf', 'image/jpeg' => '.jpg'];
 
 function portal_save_upload($f, $prefix, $ALLOWED) {
     if (($f['size'] ?? 0) > 5 * 1024 * 1024) pout(413, ['ok' => false, 'error' => 'File too large (max 5MB).']);
+    if (($f['size'] ?? 0) < 1024) pout(400, ['ok' => false, 'error' => 'File too small or empty.']);
     $mime = '';
     if (function_exists('finfo_open')) {
         $fi = finfo_open(FILEINFO_MIME_TYPE);
         if ($fi) { $mime = (string) finfo_file($fi, $f['tmp_name']); finfo_close($fi); }
     }
     if ($mime === '') $mime = (string) ($f['type'] ?? '');
-    if (!isset($ALLOWED[$mime])) pout(400, ['ok' => false, 'error' => 'Invalid file type (PDF/JPG/PNG only).']);
+    if (!isset($ALLOWED[$mime])) pout(400, ['ok' => false, 'error' => 'Invalid file type (PDF/JPG only).']);
     $dir = dscc_data_dir() . '/uploads';
     if (!is_dir($dir)) @mkdir($dir, 0775, true);
     $stored = $prefix . '-' . dscc_rid() . $ALLOWED[$mime];
@@ -233,7 +234,7 @@ if ($sub === '/profile' && $method === 'POST') {
     $data = json_decode($payloadJson, true);
     if (!is_array($data)) $data = [];
 
-    $docKeys = ['crFile', 'addressFile', 'taxFile'];
+    $docKeys = ['crFile', 'addressFile', 'taxFile', 'ibanFile'];
     $docs = is_array($me['docs'] ?? null) ? $me['docs'] : [];
     foreach ($docKeys as $key) {
         $f = $_FILES[$key] ?? null;
