@@ -486,6 +486,275 @@ if (preg_match('#^/leads/([^/]+)/notes$#', $sub, $m) && $method === 'POST') {
     adm_out(200, ['lead' => $updated]);
 }
 
+// ---------- SUPPLIERS ----------
+// Never return supplier credentials (password hash / session tokens) to the dashboard.
+function adm_strip_supplier_auth($s) {
+    unset($s['auth']);
+    return $s;
+}
+
+if ($sub === '/suppliers.csv' && $method === 'GET') {
+    $all = dscc_read_json(dscc_suppliers_file(), []);
+    $cols = ['id','ref','createdAt','status','rating','companyName','contactName','email','phone','country','city','categories','yearsExperience','website','catalogUrl','about'];
+    $esc = function ($v) {
+        if ($v === null) return '';
+        $s = is_array($v) ? implode('; ', $v) : (string) $v;
+        if (preg_match('/^[=+\-@\t\r]/', $s)) $s = "'" . $s;
+        if (preg_match('/[",\n]/', $s)) return '"' . str_replace('"', '""', $s) . '"';
+        return $s;
+    };
+    $out = [implode(',', $cols)];
+    foreach ($all as $l) {
+        $row = [];
+        foreach ($cols as $c) $row[] = $esc($l[$c] ?? null);
+        $out[] = implode(',', $row);
+    }
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="dscc-suppliers-' . time() . '.csv"');
+    echo "\xEF\xBB\xBF" . implode("\r\n", $out);
+    exit;
+}
+
+if ($sub === '/suppliers' && $method === 'GET') {
+    $all = dscc_read_json(dscc_suppliers_file(), []);
+    $q = adm_query('q'); $q = $q !== null ? mb_strtolower(trim($q)) : null;
+    $status = adm_query('status');
+    $category = adm_query('category');
+    $country = adm_query('country');
+    $filtered = array_values(array_filter($all, function ($s) use ($q, $status, $category, $country) {
+        if ($status && $status !== 'all' && ($s['status'] ?? null) !== $status) return false;
+        if ($category && $category !== 'all' && !in_array($category, $s['categories'] ?? [], true)) return false;
+        if ($country && $country !== 'all' && ($s['country'] ?? '') !== $country) return false;
+        if ($q) {
+            $noteBlob = '';
+            foreach ($s['notes'] ?? [] as $n) $noteBlob .= ' ' . ($n['body'] ?? '');
+            $parts = [
+                $s['companyName'] ?? '', $s['contactName'] ?? '', $s['email'] ?? '', $s['phone'] ?? '',
+                $s['country'] ?? '', $s['city'] ?? '', $s['ref'] ?? '', $s['about'] ?? '', $noteBlob,
+                implode(' ', $s['categories'] ?? []),
+            ];
+            $blob = mb_strtolower(implode(' ', array_filter($parts)));
+            if (strpos($blob, $q) === false) return false;
+        }
+        return true;
+    }));
+    adm_out(200, ['suppliers' => array_map('adm_strip_supplier_auth', $filtered)]);
+}
+
+if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'GET') {
+    $all = dscc_read_json(dscc_suppliers_file(), []);
+    foreach ($all as $s) {
+        if (($s['id'] ?? null) === $m[1]) adm_out(200, ['supplier' => adm_strip_supplier_auth($s)]);
+    }
+    adm_out(404, ['error' => 'Not found']);
+}
+
+if (preg_match('#^/suppliers/([^/]+)/docs/([^/]+)$#', $sub, $m) && $method === 'GET') {
+    $all = dscc_read_json(dscc_suppliers_file(), []);
+    foreach ($all as $s) {
+        if (($s['id'] ?? null) !== $m[1]) continue;
+        $doc = $s['docs'][$m[2]] ?? null;
+        if (!is_array($doc) || !is_string($doc['file'] ?? null)) adm_out(404, ['error' => 'Not found']);
+        $safe = basename($doc['file']);
+        $abs = dscc_data_dir() . '/uploads/' . $safe;
+        if (!is_file($abs)) adm_out(404, ['error' => 'File missing']);
+        header('Content-Type: ' . (is_string($doc['type'] ?? null) && $doc['type'] !== '' ? $doc['type'] : 'application/octet-stream'));
+        header('Content-Length: ' . filesize($abs));
+        header('Content-Disposition: attachment; filename="' . rawurlencode($doc['name'] ?? $safe) . '"');
+        header('X-Content-Type-Options: nosniff');
+        readfile($abs);
+        exit;
+    }
+    adm_out(404, ['error' => 'Not found']);
+}
+
+if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
+    $id = $m[1];
+    $body = adm_body();
+    $allowed = ['status','rating','tags','companyName','contactName','email','phone','country','city','categories','yearsExperience','website','catalogUrl','about'];
+    $patch = [];
+    foreach ($allowed as $k) if (array_key_exists($k, $body)) $patch[$k] = $body[$k];
+    if (array_key_exists('status', $patch) && !in_array($patch['status'], ['new','reviewing','approved','rejected','archived'], true)) {
+        adm_out(400, ['error' => 'Invalid status']);
+    }
+    if (array_key_exists('rating', $patch)) {
+        $r = $patch['rating'];
+        if ($r !== null && (!is_numeric($r) || $r < 0 || $r > 5)) adm_out(400, ['error' => 'Invalid rating']);
+    }
+    $updated = dscc_suppliers_mutate(function (&$suppliers) use ($id, $patch) {
+        $idx = dscc_find_index($suppliers, $id);
+        if ($idx === -1) return null;
+        foreach ($patch as $k => $v) {
+            if ($v === null) { unset($suppliers[$idx][$k]); continue; }
+            $suppliers[$idx][$k] = $v;
+        }
+        $suppliers[$idx]['updatedAt'] = gmdate('c');
+        return $suppliers[$idx];
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['supplier' => adm_strip_supplier_auth($updated)]);
+}
+
+if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'DELETE') {
+    $id = $m[1];
+    $ok = dscc_suppliers_mutate(function (&$suppliers) use ($id) {
+        $before = count($suppliers);
+        $removedDocs = [];
+        foreach ($suppliers as $s) {
+            if (($s['id'] ?? null) === $id && is_array($s['docs'] ?? null)) $removedDocs = $s['docs'];
+        }
+        $suppliers = array_values(array_filter($suppliers, fn($s) => ($s['id'] ?? null) !== $id));
+        foreach ($removedDocs as $d) {
+            if (is_array($d) && is_string($d['file'] ?? null)) {
+                @unlink(dscc_data_dir() . '/uploads/' . basename($d['file']));
+            }
+        }
+        return count($suppliers) < $before;
+    });
+    if (!$ok) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['ok' => true]);
+}
+
+if (preg_match('#^/suppliers/([^/]+)/notes$#', $sub, $m) && $method === 'POST') {
+    $id = $m[1];
+    $body = adm_body();
+    $text = $body['body'] ?? null;
+    if (!is_string($text) || $text === '' || strlen($text) > 4000) {
+        adm_out(400, ['error' => 'Note body required']);
+    }
+    $note = [
+        'id' => dscc_rid('N_'),
+        'body' => $text,
+        'createdAt' => gmdate('c'),
+    ];
+    if (isset($body['author']) && is_string($body['author'])) $note['author'] = $body['author'];
+    $updated = dscc_suppliers_mutate(function (&$suppliers) use ($id, $note) {
+        $idx = dscc_find_index($suppliers, $id);
+        if ($idx === -1) return null;
+        $existing = $suppliers[$idx]['notes'] ?? [];
+        array_unshift($existing, $note);
+        $suppliers[$idx]['notes'] = $existing;
+        $suppliers[$idx]['updatedAt'] = gmdate('c');
+        return $suppliers[$idx];
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['supplier' => adm_strip_supplier_auth($updated)]);
+}
+
+// ============================================================
+// RFQs (requests for quotation) + supplier offers
+// ============================================================
+
+if ($sub === '/rfqs' && $method === 'GET') {
+    adm_out(200, ['rfqs' => dscc_read_json(dscc_rfqs_file(), [])]);
+}
+
+if ($sub === '/rfqs' && $method === 'POST') {
+    $body = adm_body();
+    $title = is_string($body['title'] ?? null) ? mb_substr(trim($body['title']), 0, 300) : '';
+    if ($title === '') adm_out(400, ['error' => 'title is required']);
+    $now = gmdate('c');
+    $rfq = [
+        'id' => dscc_rid('R_'),
+        'ref' => strtoupper(dscc_rid('RFQ-')),
+        'status' => 'open',
+        'title' => $title,
+        'createdAt' => $now,
+        'updatedAt' => $now,
+        'offers' => [],
+    ];
+    if (is_string($body['description'] ?? null) && trim($body['description']) !== '') $rfq['description'] = mb_substr(trim($body['description']), 0, 8000);
+    if (is_string($body['deadline'] ?? null) && trim($body['deadline']) !== '') $rfq['deadline'] = mb_substr(trim($body['deadline']), 0, 30);
+    if (is_array($body['categories'] ?? null)) {
+        $cats = [];
+        foreach ($body['categories'] as $c) {
+            if (is_string($c) && trim($c) !== '') $cats[] = mb_substr(trim($c), 0, 60);
+            if (count($cats) >= 20) break;
+        }
+        if ($cats) $rfq['categories'] = $cats;
+    }
+    dscc_rfqs_mutate(function (&$rfqs) use ($rfq) { array_unshift($rfqs, $rfq); return true; });
+    adm_out(200, ['rfq' => $rfq]);
+}
+
+if (preg_match('#^/rfqs/([^/]+)$#', $sub, $m) && $method === 'GET') {
+    foreach (dscc_read_json(dscc_rfqs_file(), []) as $r) {
+        if (($r['id'] ?? null) === $m[1]) adm_out(200, ['rfq' => $r]);
+    }
+    adm_out(404, ['error' => 'Not found']);
+}
+
+if (preg_match('#^/rfqs/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
+    $body = adm_body();
+    $updated = null;
+    dscc_rfqs_mutate(function (&$rfqs) use ($m, $body, &$updated) {
+        foreach ($rfqs as &$r) {
+            if (($r['id'] ?? null) !== $m[1]) continue;
+            if (is_string($body['title'] ?? null) && trim($body['title']) !== '') $r['title'] = mb_substr(trim($body['title']), 0, 300);
+            if (is_string($body['description'] ?? null)) $r['description'] = mb_substr(trim($body['description']), 0, 8000);
+            if (is_string($body['deadline'] ?? null)) $r['deadline'] = mb_substr(trim($body['deadline']), 0, 30);
+            if (is_string($body['status'] ?? null) && in_array($body['status'], ['open', 'closed'], true)) $r['status'] = $body['status'];
+            if (is_array($body['categories'] ?? null)) {
+                $cats = [];
+                foreach ($body['categories'] as $c) {
+                    if (is_string($c) && trim($c) !== '') $cats[] = mb_substr(trim($c), 0, 60);
+                    if (count($cats) >= 20) break;
+                }
+                $r['categories'] = $cats;
+            }
+            $r['updatedAt'] = gmdate('c');
+            $updated = $r;
+        }
+        return true;
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['rfq' => $updated]);
+}
+
+if (preg_match('#^/rfqs/([^/]+)$#', $sub, $m) && $method === 'DELETE') {
+    $removedOffers = [];
+    $found = false;
+    dscc_rfqs_mutate(function (&$rfqs) use ($m, &$removedOffers, &$found) {
+        foreach ($rfqs as $r) {
+            if (($r['id'] ?? null) === $m[1]) {
+                $found = true;
+                $removedOffers = (array) ($r['offers'] ?? []);
+            }
+        }
+        $rfqs = array_values(array_filter($rfqs, fn($r) => ($r['id'] ?? null) !== $m[1]));
+        return true;
+    });
+    if (!$found) adm_out(404, ['error' => 'Not found']);
+    foreach ($removedOffers as $o) {
+        $f = is_array($o) ? ($o['file'] ?? null) : null;
+        if (is_array($f) && is_string($f['file'] ?? null)) {
+            @unlink(dscc_data_dir() . '/uploads/' . basename($f['file']));
+        }
+    }
+    adm_out(200, ['ok' => true]);
+}
+
+if (preg_match('#^/rfqs/([^/]+)/offers/([^/]+)/file$#', $sub, $m) && $method === 'GET') {
+    foreach (dscc_read_json(dscc_rfqs_file(), []) as $r) {
+        if (($r['id'] ?? null) !== $m[1]) continue;
+        foreach ((array) ($r['offers'] ?? []) as $o) {
+            if (($o['id'] ?? null) !== $m[2]) continue;
+            $f = $o['file'] ?? null;
+            if (!is_array($f) || !is_string($f['file'] ?? null)) adm_out(404, ['error' => 'Not found']);
+            $safe = basename($f['file']);
+            $abs = dscc_data_dir() . '/uploads/' . $safe;
+            if (!is_file($abs)) adm_out(404, ['error' => 'File missing']);
+            header('Content-Type: ' . (is_string($f['type'] ?? null) && $f['type'] !== '' ? $f['type'] : 'application/octet-stream'));
+            header('Content-Length: ' . filesize($abs));
+            header('Content-Disposition: attachment; filename="' . rawurlencode($f['name'] ?? $safe) . '"');
+            header('X-Content-Type-Options: nosniff');
+            readfile($abs);
+            exit;
+        }
+    }
+    adm_out(404, ['error' => 'Not found']);
+}
+
 adm_out(404, ['error' => 'Unknown admin route: ' . $method . ' ' . $sub]);
 
 // ============================================================

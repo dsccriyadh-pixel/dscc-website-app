@@ -58,6 +58,65 @@ function dscc_leads_mutate(callable $fn) {
     return dscc_file_mutate(dscc_leads_file(), [], $fn);
 }
 
+// ---------- Suppliers ----------
+function dscc_suppliers_file() { return dscc_data_dir() . '/suppliers.json'; }
+
+function dscc_suppliers_mutate(callable $fn) {
+    return dscc_file_mutate(dscc_suppliers_file(), [], $fn);
+}
+
+function dscc_normalize_incoming_supplier($payload) {
+    $now = gmdate('c');
+    $data = is_array($payload['data'] ?? null) ? $payload['data'] : [];
+    $first = function ($keys) use ($data) {
+        foreach ($keys as $k) {
+            $v = dscc_pick_str($data[$k] ?? null);
+            if ($v !== null) return $v;
+        }
+        return null;
+    };
+    $supplier = [
+        'id' => dscc_rid('S_'),
+        'ref' => dscc_pick_str($payload['ref'] ?? null) ?: strtoupper(dscc_rid('SUP-')),
+        'status' => 'new',
+        'createdAt' => dscc_pick_str($payload['at'] ?? null) ?: $now,
+        'updatedAt' => $now,
+        'companyName' => $first(['companyName', 'company']),
+        'contactName' => $first(['contactName', 'name']),
+        'email' => dscc_pick_str($data['email'] ?? null),
+        'phone' => dscc_pick_str($data['phone'] ?? null),
+        'country' => dscc_pick_str($data['country'] ?? null),
+        'city' => dscc_pick_str($data['city'] ?? null),
+        'categories' => dscc_pick_str_arr($data['categories'] ?? null),
+        'yearsExperience' => dscc_pick_str($data['yearsExperience'] ?? null),
+        'website' => dscc_pick_str($data['website'] ?? null),
+        'catalogUrl' => dscc_pick_str($data['catalogUrl'] ?? null),
+        'about' => dscc_pick_str($data['about'] ?? null),
+        'notes' => [],
+        'raw' => $data,
+    ];
+    foreach ($supplier as $k => $v) {
+        if ($v === null) unset($supplier[$k]);
+    }
+    if (!isset($supplier['notes'])) $supplier['notes'] = [];
+    return $supplier;
+}
+
+function dscc_store_append_supplier($payload, $docs = []) {
+    $supplier = dscc_normalize_incoming_supplier($payload);
+    if (is_array($docs) && count($docs)) $supplier['docs'] = $docs;
+    dscc_suppliers_mutate(function (&$suppliers) use ($supplier) {
+        array_unshift($suppliers, $supplier);
+    });
+    return $supplier;
+}
+
+function dscc_rfqs_file() { return dscc_data_dir() . '/rfqs.json'; }
+
+function dscc_rfqs_mutate(callable $fn) {
+    return dscc_file_mutate(dscc_rfqs_file(), [], $fn);
+}
+
 function dscc_pick_str($v) {
     if (!is_string($v)) return null;
     $t = trim($v);
