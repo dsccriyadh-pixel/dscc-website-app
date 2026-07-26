@@ -5,9 +5,37 @@ if (!defined('DSCC_STORE')) {
 define('DSCC_STORE', 1);
 
 function dscc_data_dir() {
-    $d = __DIR__ . '/data';
-    if (!is_dir($d)) { @mkdir($d, 0775, true); }
-    return $d;
+    // Data must live OUTSIDE the deployed web tree: the Git deploy replaces
+    // the web root, wiping anything stored under api/data on every push.
+    static $dir = null;
+    if ($dir !== null) return $dir;
+    $legacy = __DIR__ . '/data';
+    $docroot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+    $base = ($docroot && is_dir(dirname($docroot))) ? dirname($docroot) : dirname(dirname(__DIR__));
+    $safe = $base . '/dscc_data';
+    if (!is_dir($safe)) { @mkdir($safe, 0770, true); }
+    if (is_dir($safe) && is_writable($safe)) {
+        // One-time migration of any surviving legacy data (files + uploads).
+        if (is_dir($legacy)) {
+            foreach (glob($legacy . '/*.json') ?: [] as $f) {
+                $t = $safe . '/' . basename($f);
+                if (!file_exists($t)) @copy($f, $t);
+            }
+            if (is_dir($legacy . '/uploads')) {
+                if (!is_dir($safe . '/uploads')) { @mkdir($safe . '/uploads', 0770, true); }
+                foreach (glob($legacy . '/uploads/*') ?: [] as $f) {
+                    $t = $safe . '/uploads/' . basename($f);
+                    if (is_file($f) && !file_exists($t)) @copy($f, $t);
+                }
+            }
+        }
+        $dir = $safe;
+        return $dir;
+    }
+    // Fallback: legacy in-tree dir (data will not survive deploys).
+    if (!is_dir($legacy)) { @mkdir($legacy, 0775, true); }
+    $dir = $legacy;
+    return $dir;
 }
 function dscc_leads_file() { return dscc_data_dir() . '/leads.json'; }
 function dscc_notif_read_file() { return dscc_data_dir() . '/notif_read.json'; }
