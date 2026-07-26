@@ -340,6 +340,23 @@ if (preg_match('#^/notifications/([^/]+)$#', $sub, $m) && $method === 'DELETE') 
     adm_out(200, ['ok' => true]);
 }
 
+// ---------- RAW DATA FILES (maintenance: read/replace analytics stores) ----------
+if (preg_match('#^/data/(visits|events|chats)$#', $sub, $m) && $method === 'GET') {
+    $file = dscc_data_dir() . '/' . $m[1] . '.json';
+    adm_out(200, ['ok' => true, 'data' => dscc_read_json($file, new stdClass())]);
+}
+if (preg_match('#^/data/(visits|events|chats)$#', $sub, $m) && $method === 'POST') {
+    $body = json_decode(file_get_contents('php://input'), true);
+    if (!is_array($body) || !isset($body['data']) || !is_array($body['data'])) {
+        adm_out(400, ['error' => 'Body must be {"data": {...}}']);
+    }
+    $file = dscc_data_dir() . '/' . $m[1] . '.json';
+    if (dscc_write_json_atomic($file, $body['data']) === false) {
+        adm_out(500, ['error' => 'Write failed']);
+    }
+    adm_out(200, ['ok' => true]);
+}
+
 // ---------- DEMO CLEAR (no-op on prod, kept for contract parity) ----------
 if ($sub === '/demo/clear' && $method === 'POST') {
     $removed = dscc_leads_mutate(function (&$leads) {
