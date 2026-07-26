@@ -83,6 +83,13 @@ function portal_account_view($s) {
     ];
 }
 
+function portal_supplier_index(&$suppliers, $id) {
+    foreach ($suppliers as $i => $s) {
+        if (($s['id'] ?? null) === $id) return $i;
+    }
+    return -1;
+}
+
 function portal_find_by_email($suppliers, $email) {
     $norm = strtolower(trim($email));
     foreach ($suppliers as $i => $s) {
@@ -326,6 +333,67 @@ if ($sub === '/rfqs' && $method === 'GET') {
         ];
     }
     pout(200, ['ok' => true, 'rfqs' => $out]);
+}
+
+// GET /messages — internal thread with DSCC (any logged-in supplier)
+if ($sub === '/messages' && $method === 'GET') {
+    list($me) = portal_auth_supplier();
+    $msgs = [];
+    foreach ((array) ($me['messages'] ?? []) as $mm) {
+        if (!is_array($mm)) continue;
+        $msgs[] = [
+            'id' => (string) ($mm['id'] ?? ''),
+            'from' => (string) ($mm['from'] ?? ''),
+            'body' => (string) ($mm['body'] ?? ''),
+            'createdAt' => (string) ($mm['createdAt'] ?? ''),
+        ];
+    }
+    // Mark admin messages as read by this supplier (best-effort).
+    dscc_suppliers_mutate(function (&$suppliers) use ($me) {
+        $idx = portal_supplier_index($suppliers, $me['id']);
+        if ($idx === -1) return false;
+        $changed = false;
+        foreach ((array) ($suppliers[$idx]['messages'] ?? []) as $k => $mm) {
+            if (is_array($mm) && empty($mm['readBySupplier'])) {
+                $suppliers[$idx]['messages'][$k]['readBySupplier'] = true;
+                $changed = true;
+            }
+        }
+        return $changed;
+    });
+    pout(200, ['ok' => true, 'messages' => $msgs]);
+}
+
+// POST /messages — supplier sends a message to DSCC
+if ($sub === '/messages' && $method === 'POST') {
+    list($me) = portal_auth_supplier();
+    portal_rate('msg_' . $me['id'], 10, 60);
+    $body = portal_body();
+    $text = isset($body['body']) && is_string($body['body']) ? trim($body['body']) : '';
+    if ($text === '') pout(400, ['ok' => false, 'error' => 'Message body required']);
+    if (mb_strlen($text) > 4000) pout(400, ['ok' => false, 'error' => 'Message too long (max 4000 chars)']);
+    $msg = [
+        'id' => dscc_rid('M_'),
+        'from' => 'supplier',
+        'body' => $text,
+        'createdAt' => gmdate('c'),
+        'readByAdmin' => false,
+        'readBySupplier' => true,
+    ];
+    $ok = dscc_suppliers_mutate(function (&$suppliers) use ($me, $msg) {
+        $idx = portal_supplier_index($suppliers, $me['id']);
+        if ($idx === -1) return false;
+        if (!is_array($suppliers[$idx]['messages'] ?? null)) $suppliers[$idx]['messages'] = [];
+        $suppliers[$idx]['messages'][] = $msg;
+        if (count($suppliers[$idx]['messages']) > 500) {
+            $suppliers[$idx]['messages'] = array_slice($suppliers[$idx]['messages'], -500);
+        }
+        $suppliers[$idx]['updatedAt'] = gmdate('c');
+        return true;
+    });
+    if (!$ok) pout(404, ['ok' => false, 'error' => 'Not found']);
+    // Admin notification is derived from unread supplier messages (see admin.php).
+    pout(200, ['ok' => true, 'message' => ['id' => $msg['id'], 'from' => 'supplier', 'body' => $msg['body'], 'createdAt' => $msg['createdAt']]]);
 }
 
 // POST /rfqs/{id}/offers  (multipart: price/currency/message + optional file)

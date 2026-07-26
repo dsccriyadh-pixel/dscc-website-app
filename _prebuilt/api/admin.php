@@ -342,6 +342,95 @@ if (preg_match('#^/notifications/([^/]+)$#', $sub, $m) && $method === 'DELETE') 
     adm_out(200, ['ok' => true]);
 }
 
+// ---------- BACKUPS (copy-only snapshots — live data is NEVER touched) ----------
+function dscc_backups_dir() {
+    $d = dscc_data_dir() . '/backups';
+    if (!is_dir($d)) @mkdir($d, 0775, true);
+    return $d;
+}
+function dscc_backup_files() {
+    $out = [];
+    foreach ((array) glob(dscc_data_dir() . '/*.json') as $f) {
+        $b = basename($f);
+        if ($b === 'geo_cache.json' || $b === 'portal_rl.json') continue; // caches, not data
+        $out[] = $b;
+    }
+    return $out;
+}
+function dscc_backup_snapshot($auto = false) {
+    $files = dscc_backup_files();
+    if (count($files) === 0) return null;
+    $name = ($auto ? 'auto-' : 'manual-') . gmdate('Y-m-d_His');
+    $dir = dscc_backups_dir() . '/' . $name;
+    if (!is_dir($dir) && !@mkdir($dir, 0775, true)) return null;
+    foreach ($files as $b) {
+        @copy(dscc_data_dir() . '/' . $b, $dir . '/' . $b);
+    }
+    // Prune old snapshots (backups only — never live data files).
+    $all = array_values(array_filter((array) scandir(dscc_backups_dir()), fn($n) => $n !== '.' && $n !== '..' && is_dir(dscc_backups_dir() . '/' . $n)));
+    sort($all);
+    while (count($all) > 14) {
+        $old = array_shift($all);
+        $od = dscc_backups_dir() . '/' . $old;
+        foreach ((array) glob($od . '/*') as $f) @unlink($f);
+        @rmdir($od);
+    }
+    return $name;
+}
+function dscc_backup_auto_daily() {
+    // At most one automatic snapshot per day, triggered lazily by admin traffic.
+    $today = gmdate('Y-m-d');
+    foreach ((array) scandir(dscc_backups_dir()) as $n) {
+        if (strpos($n, 'auto-' . $today) === 0) return;
+    }
+    dscc_backup_snapshot(true);
+}
+
+if ($sub === '/backups' && $method === 'GET') {
+    dscc_backup_auto_daily();
+    $out = [];
+    foreach ((array) scandir(dscc_backups_dir()) as $n) {
+        if ($n === '.' || $n === '..') continue;
+        $dir = dscc_backups_dir() . '/' . $n;
+        if (!is_dir($dir)) continue;
+        $files = (array) glob($dir . '/*.json');
+        $bytes = 0;
+        foreach ($files as $f) $bytes += (int) @filesize($f);
+        $out[] = [
+            'name' => $n,
+            'createdAt' => gmdate('c', (int) @filemtime($dir)),
+            'files' => count($files),
+            'bytes' => $bytes,
+        ];
+    }
+    usort($out, fn($a, $b) => strcmp($b['name'], $a['name']));
+    adm_out(200, ['backups' => $out]);
+}
+
+if ($sub === '/backups/run' && $method === 'POST') {
+    $name = dscc_backup_snapshot(false);
+    if (!$name) adm_out(500, ['error' => 'Nothing to back up']);
+    adm_out(200, ['ok' => true, 'name' => $name]);
+}
+
+if ($sub === '/backups/download' && $method === 'GET') {
+    $raw = isset($_GET['name']) && is_string($_GET['name']) ? $_GET['name'] : 'current';
+    $name = preg_replace('/[^a-zA-Z0-9_\-]/', '', $raw);
+    $dir = $name === 'current' ? dscc_data_dir() : dscc_backups_dir() . '/' . $name;
+    if (!is_dir($dir)) adm_out(404, ['error' => 'Not found']);
+    $bundle = ['_meta' => ['source' => $name, 'exportedAt' => gmdate('c'), 'app' => 'dscc']];
+    foreach ((array) glob($dir . '/*.json') as $f) {
+        $b = basename($f);
+        if ($name === 'current' && ($b === 'geo_cache.json' || $b === 'portal_rl.json')) continue;
+        $decoded = json_decode((string) @file_get_contents($f), true);
+        if ($decoded !== null) $bundle[$b] = $decoded;
+    }
+    header('Content-Type: application/json; charset=utf-8');
+    header('Content-Disposition: attachment; filename="dscc-backup-' . $name . '-' . gmdate('Y-m-d') . '.json"');
+    echo json_encode($bundle, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit;
+}
+
 // ---------- RAW DATA FILES (maintenance: read/replace analytics stores) ----------
 if (preg_match('#^/data/(visits|events|chats)$#', $sub, $m) && $method === 'GET') {
     $file = dscc_data_dir() . '/' . $m[1] . '.json';
@@ -600,6 +689,24 @@ if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
         $r = $patch['rating'];
         if ($r !== null && (!is_numeric($r) || $r < 0 || $r > 5)) adm_out(400, ['error' => 'Invalid rating']);
     }
+    if (array_key_exists('ratings', $body)) {
+        $raw = $body['ratings'];
+        if ($raw !== null && !is_array($raw)) adm_out(400, ['error' => 'Invalid ratings']);
+        if ($raw === null) {
+            $patch['ratings'] = null;
+        } else {
+            $out = [];
+            foreach (['commitment', 'quality', 'price'] as $k) {
+                $v = $raw[$k] ?? null;
+                if ($v === null) continue;
+                if (!is_numeric($v) || $v < 0 || $v > 5) adm_out(400, ['error' => "Invalid ratings.$k"]);
+                if ($v > 0) $out[$k] = (int) round($v);
+            }
+            $patch['ratings'] = $out;
+            // Keep overall rating in sync (average of set criteria).
+            $patch['rating'] = count($out) ? round(array_sum($out) / count($out), 1) : null;
+        }
+    }
     $updated = dscc_suppliers_mutate(function (&$suppliers) use ($id, $patch) {
         $idx = dscc_find_index($suppliers, $id);
         if ($idx === -1) return null;
@@ -632,6 +739,58 @@ if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'DELETE') {
     });
     if (!$ok) adm_out(404, ['error' => 'Not found']);
     adm_out(200, ['ok' => true]);
+}
+
+// Supplier <-> admin internal messages: read thread (marks as read by admin)
+if (preg_match('#^/suppliers/([^/]+)/messages$#', $sub, $m) && $method === 'GET') {
+    $id = $m[1];
+    $found = null;
+    dscc_suppliers_mutate(function (&$suppliers) use ($id, &$found) {
+        $idx = dscc_find_index($suppliers, $id);
+        if ($idx === -1) return false;
+        $changed = false;
+        foreach ((array) ($suppliers[$idx]['messages'] ?? []) as $k => $mm) {
+            if (is_array($mm) && empty($mm['readByAdmin'])) {
+                $suppliers[$idx]['messages'][$k]['readByAdmin'] = true;
+                $changed = true;
+            }
+        }
+        $found = $suppliers[$idx];
+        return $changed;
+    });
+    if (!$found) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['messages' => array_values((array) ($found['messages'] ?? []))]);
+}
+
+// Send a message to the supplier
+if (preg_match('#^/suppliers/([^/]+)/messages$#', $sub, $m) && $method === 'POST') {
+    $id = $m[1];
+    $body = adm_body();
+    $text = $body['body'] ?? null;
+    if (!is_string($text) || trim($text) === '' || mb_strlen($text) > 4000) {
+        adm_out(400, ['error' => 'Message body required']);
+    }
+    $msg = [
+        'id' => dscc_rid('M_'),
+        'from' => 'admin',
+        'body' => trim($text),
+        'createdAt' => gmdate('c'),
+        'readByAdmin' => true,
+        'readBySupplier' => false,
+    ];
+    $updated = dscc_suppliers_mutate(function (&$suppliers) use ($id, $msg) {
+        $idx = dscc_find_index($suppliers, $id);
+        if ($idx === -1) return null;
+        if (!is_array($suppliers[$idx]['messages'] ?? null)) $suppliers[$idx]['messages'] = [];
+        $suppliers[$idx]['messages'][] = $msg;
+        if (count($suppliers[$idx]['messages']) > 500) {
+            $suppliers[$idx]['messages'] = array_slice($suppliers[$idx]['messages'], -500);
+        }
+        $suppliers[$idx]['updatedAt'] = gmdate('c');
+        return $suppliers[$idx];
+    });
+    if (!$updated) adm_out(404, ['error' => 'Not found']);
+    adm_out(200, ['messages' => array_values((array) ($updated['messages'] ?? []))]);
 }
 
 if (preg_match('#^/suppliers/([^/]+)/notes$#', $sub, $m) && $method === 'POST') {
@@ -933,6 +1092,32 @@ function dscc_build_notifications() {
             'createdAt' => $created,
             '_ts' => $createdTs === false ? 0 : $createdTs,
         ];
+    }
+    // Unread supplier messages → derived notifications (no extra store needed).
+    $suppliers = dscc_read_json(dscc_suppliers_file(), []);
+    foreach ($suppliers as $s) {
+        foreach ((array) ($s['messages'] ?? []) as $mm) {
+            if (!is_array($mm) || ($mm['from'] ?? '') !== 'supplier' || !empty($mm['readByAdmin'])) continue;
+            $nid = 'nm_' . ($mm['id'] ?? '');
+            if (in_array($nid, $state['deleted'], true)) continue;
+            $who = $s['companyName'] ?? ($s['email'] ?? ($s['ref'] ?? 'مورد'));
+            $created = $mm['createdAt'] ?? gmdate('c');
+            $createdTs = strtotime($created);
+            $read = in_array($nid, $state['ids'], true) || ($allAt > 0 && $createdTs !== false && $createdTs <= $allAt);
+            $items[] = [
+                'id' => $nid,
+                'type' => 'supplier_message',
+                'titleAr' => 'رسالة من مورد · ' . $who,
+                'titleEn' => 'Supplier message · ' . $who,
+                'bodyAr' => mb_substr((string) ($mm['body'] ?? ''), 0, 140),
+                'bodyEn' => mb_substr((string) ($mm['body'] ?? ''), 0, 140),
+                'leadId' => '',
+                'leadRef' => '',
+                'read' => $read,
+                'createdAt' => $created,
+                '_ts' => $createdTs === false ? 0 : $createdTs,
+            ];
+        }
     }
     usort($items, fn($a, $b) => $b['_ts'] - $a['_ts']);
     return $items;
