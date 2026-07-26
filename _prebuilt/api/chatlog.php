@@ -47,6 +47,8 @@ $src = preg_replace('/[^a-z0-9_.\-]/i', '', $src);
 if ($src === '' || $src === null) $src = 'direct';
 $page = isset($body['page']) && is_string($body['page']) ? substr(trim($body['page']), 0, 200) : '';
 if ($page === '' || $page[0] !== '/') $page = '/';
+$name = isset($body['name']) && is_string($body['name']) ? substr(trim($body['name']), 0, 100) : '';
+$phone = isset($body['phone']) && is_string($body['phone']) ? substr(preg_replace('/[^0-9+\s\-()]/', '', trim($body['phone'])), 0, 30) : '';
 
 $messages = [];
 if (isset($body['messages']) && is_array($body['messages'])) {
@@ -67,7 +69,7 @@ if (count($messages) === 0) {
 $now = gmdate('c');
 $file = dscc_data_dir() . '/chats.json';
 try {
-    dscc_file_mutate($file, ['sessions' => []], function (&$data) use ($sid, $lang, $src, $page, $messages, $now) {
+    dscc_file_mutate($file, ['sessions' => []], function (&$data) use ($sid, $lang, $src, $page, $messages, $now, $name, $phone) {
         if (!isset($data['sessions']) || !is_array($data['sessions'])) $data['sessions'] = [];
         $existing = $data['sessions'][$sid] ?? null;
         $data['sessions'][$sid] = [
@@ -77,6 +79,8 @@ try {
             'lang' => $lang !== '' ? $lang : (is_array($existing) ? ($existing['lang'] ?? '') : ''),
             'src' => is_array($existing) && isset($existing['src']) ? $existing['src'] : $src,
             'page' => is_array($existing) && isset($existing['page']) ? $existing['page'] : $page,
+            'name' => $name !== '' ? $name : (is_array($existing) ? (string) ($existing['name'] ?? '') : ''),
+            'phone' => $phone !== '' ? $phone : (is_array($existing) ? (string) ($existing['phone'] ?? '') : ''),
             'messages' => $messages,
         ];
         if (count($data['sessions']) > 300) {

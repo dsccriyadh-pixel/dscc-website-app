@@ -308,6 +308,8 @@ if ($sub === '/chats' && $method === 'GET') {
             'lang' => (string) ($s['lang'] ?? ''),
             'src' => (string) ($s['src'] ?? ''),
             'page' => (string) ($s['page'] ?? ''),
+            'name' => (string) ($s['name'] ?? ''),
+            'phone' => (string) ($s['phone'] ?? ''),
             'messageCount' => count($msgs),
             'preview' => mb_substr($preview, 0, 120),
         ];
