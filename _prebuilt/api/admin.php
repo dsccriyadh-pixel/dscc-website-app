@@ -679,7 +679,7 @@ if (preg_match('#^/suppliers/([^/]+)/docs/([^/]+)$#', $sub, $m) && $method === '
 if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
     $id = $m[1];
     $body = adm_body();
-    $allowed = ['status','rating','tags','companyName','contactName','email','phone','country','city','categories','yearsExperience','website','catalogUrl','about'];
+    $allowed = ['status','rating','tags','companyName','contactName','email','phone','country','city','categories','yearsExperience','website','catalogUrl','about','crNumber','crExpiry','iban','bankName'];
     $patch = [];
     foreach ($allowed as $k) if (array_key_exists($k, $body)) $patch[$k] = $body[$k];
     if (array_key_exists('status', $patch) && !in_array($patch['status'], ['new','reviewing','approved','rejected','archived'], true)) {
@@ -688,6 +688,26 @@ if (preg_match('#^/suppliers/([^/]+)$#', $sub, $m) && $method === 'PATCH') {
     if (array_key_exists('rating', $patch)) {
         $r = $patch['rating'];
         if ($r !== null && (!is_numeric($r) || $r < 0 || $r > 5)) adm_out(400, ['error' => 'Invalid rating']);
+    }
+    // Validate new CR/bank text fields (same rules as the supplier portal).
+    foreach (['crNumber', 'crExpiry', 'iban', 'bankName'] as $k) {
+        if (!array_key_exists($k, $patch)) continue;
+        $v = $patch[$k];
+        if ($v === null || $v === '') { $patch[$k] = null; continue; }
+        if (!is_string($v)) adm_out(400, ['error' => 'Invalid ' . $k]);
+        $t = trim($v);
+        if ($k === 'crNumber' && !preg_match('/^\d{4,20}$/', $t)) adm_out(400, ['error' => 'Invalid crNumber']);
+        if ($k === 'crExpiry') {
+            if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $t, $dm) || !checkdate((int) $dm[2], (int) $dm[3], (int) $dm[1])) {
+                adm_out(400, ['error' => 'Invalid crExpiry']);
+            }
+        }
+        if ($k === 'iban') {
+            $t = strtoupper(preg_replace('/\s+/', '', $t));
+            if (!preg_match('/^[A-Z]{2}[0-9A-Z]{13,32}$/', $t)) adm_out(400, ['error' => 'Invalid iban']);
+        }
+        if ($k === 'bankName' && mb_strlen($t) > 120) adm_out(400, ['error' => 'Invalid bankName']);
+        $patch[$k] = $t;
     }
     if (array_key_exists('ratings', $body)) {
         $raw = $body['ratings'];

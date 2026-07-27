@@ -70,6 +70,18 @@ function portal_ip() {
     return trim((string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown')) ?: 'unknown';
 }
 
+function portal_valid_ymd($v) {
+    if (!is_string($v) || !preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $v, $m)) return false;
+    return checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
+}
+
+function portal_cr_expired($s) {
+    $exp = $s['crExpiry'] ?? null;
+    if (!is_string($exp) || $exp === '') return false;
+    $ts = strtotime($exp . ' 23:59:59 UTC');
+    return $ts !== false && $ts < time();
+}
+
 function portal_account_view($s) {
     return [
         'id' => $s['id'] ?? '',
@@ -80,6 +92,11 @@ function portal_account_view($s) {
         'status' => $s['status'] ?? 'new',
         'profileComplete' => !empty($s['profileComplete']),
         'docs' => array_keys(is_array($s['docs'] ?? null) ? $s['docs'] : []),
+        'crNumber' => $s['crNumber'] ?? null,
+        'crExpiry' => $s['crExpiry'] ?? null,
+        'crExpired' => portal_cr_expired($s),
+        'iban' => $s['iban'] ?? null,
+        'bankName' => $s['bankName'] ?? null,
     ];
 }
 
@@ -263,13 +280,40 @@ if ($sub === '/profile' && $method === 'POST') {
         $t = mb_substr(trim($v), 0, $max);
         return $t !== '' ? $t : null;
     };
+    // ---- CR & bank details (text) ----
+    $crBank = [];
+    $crNumber = $pickStr('crNumber', 30);
+    if ($crNumber !== null) {
+        if (!preg_match('/^\d{4,20}$/', $crNumber)) pout(400, ['ok' => false, 'error' => 'invalid_crNumber']);
+        $crBank['crNumber'] = $crNumber;
+    }
+    $crExpiry = $pickStr('crExpiry', 10);
+    if ($crExpiry !== null) {
+        if (!portal_valid_ymd($crExpiry)) pout(400, ['ok' => false, 'error' => 'invalid_crExpiry']);
+        $crBank['crExpiry'] = $crExpiry;
+    }
+    $ibanRaw = $pickStr('iban', 40);
+    if ($ibanRaw !== null) {
+        $iban = strtoupper(preg_replace('/\s+/', '', $ibanRaw));
+        if (!preg_match('/^[A-Z]{2}[0-9A-Z]{13,32}$/', $iban)) pout(400, ['ok' => false, 'error' => 'invalid_iban']);
+        $crBank['iban'] = $iban;
+    }
+    $bankName = $pickStr('bankName', 120);
+    if ($bankName !== null) $crBank['bankName'] = $bankName;
+    if (empty($me['profileComplete'])) {
+        foreach (['crNumber', 'crExpiry', 'iban', 'bankName'] as $k) {
+            if (empty($crBank[$k]) && empty($me[$k])) pout(400, ['ok' => false, 'error' => 'cr_bank_details_required']);
+        }
+    }
+
     $wasComplete = !empty($me['profileComplete']);
     $updated = null;
-    dscc_suppliers_mutate(function (&$suppliers) use ($me, $docs, $data, $pickStr, &$updated) {
+    dscc_suppliers_mutate(function (&$suppliers) use ($me, $docs, $data, $pickStr, $crBank, &$updated) {
         foreach ($suppliers as &$s) {
             if (($s['id'] ?? null) !== $me['id']) continue;
             $s['docs'] = $docs;
             $s['profileComplete'] = true;
+            foreach ($crBank as $k => $v) $s[$k] = $v;
             foreach (['companyName' => 200, 'contactName' => 300, 'phone' => 40, 'country' => 60, 'city' => 100, 'yearsExperience' => 40, 'website' => 300, 'catalogUrl' => 300, 'about' => 4000] as $k => $max) {
                 $v = $pickStr($k, $max);
                 if ($v !== null) $s[$k] = $v;
@@ -300,6 +344,45 @@ if ($sub === '/profile' && $method === 'POST') {
 }
 
 // GET /rfqs  (activated suppliers only)
+// GET /profile — full profile + participation history
+if ($sub === '/profile' && $method === 'GET') {
+    list($me) = portal_auth_supplier();
+    $offers = [];
+    foreach (dscc_read_json(dscc_rfqs_file(), []) as $r) {
+        foreach ((array) ($r['offers'] ?? []) as $o) {
+            if (!is_array($o) || ($o['supplierId'] ?? null) !== $me['id']) continue;
+            $offers[] = [
+                'rfqId' => $r['id'] ?? '',
+                'rfqRef' => $r['ref'] ?? '',
+                'rfqTitle' => $r['title'] ?? '',
+                'rfqStatus' => $r['status'] ?? '',
+                'price' => $o['price'] ?? null,
+                'currency' => $o['currency'] ?? null,
+                'message' => $o['message'] ?? null,
+                'createdAt' => $o['createdAt'] ?? null,
+                'fileName' => is_array($o['file'] ?? null) ? ($o['file']['name'] ?? null) : null,
+            ];
+        }
+    }
+    usort($offers, fn($a, $b) => strcmp((string) ($b['createdAt'] ?? ''), (string) ($a['createdAt'] ?? '')));
+    $docsMeta = [];
+    foreach ((array) ($me['docs'] ?? []) as $k => $d) {
+        if (is_array($d)) $docsMeta[$k] = ['name' => $d['name'] ?? '', 'size' => $d['size'] ?? 0, 'type' => $d['type'] ?? ''];
+    }
+    $profile = portal_account_view($me);
+    $profile['contactName'] = $me['contactName'] ?? null;
+    $profile['country'] = $me['country'] ?? null;
+    $profile['city'] = $me['city'] ?? null;
+    $profile['categories'] = $me['categories'] ?? [];
+    $profile['yearsExperience'] = $me['yearsExperience'] ?? null;
+    $profile['website'] = $me['website'] ?? null;
+    $profile['catalogUrl'] = $me['catalogUrl'] ?? null;
+    $profile['about'] = $me['about'] ?? null;
+    $profile['createdAt'] = $me['createdAt'] ?? null;
+    $profile['docs'] = $docsMeta;
+    pout(200, ['ok' => true, 'profile' => $profile, 'offers' => $offers]);
+}
+
 if ($sub === '/rfqs' && $method === 'GET') {
     list($me) = portal_auth_supplier();
     if (($me['status'] ?? '') !== 'approved') pout(403, ['ok' => false, 'error' => 'not_activated']);
