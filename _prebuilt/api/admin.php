@@ -168,6 +168,125 @@ if ($sub === '/stats' && $method === 'GET') {
     adm_out(200, dscc_compute_stats());
 }
 
+// ---------- ANALYTICS (all data by date range) ----------
+if ($sub === '/analytics' && $method === 'GET') {
+    $validYmd = function ($v) {
+        return is_string($v) && preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $v, $m) && checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
+    };
+    $tz = new DateTimeZone('Asia/Riyadh');
+    $today = (new DateTime('now', $tz))->format('Y-m-d');
+    $from = $_GET['from'] ?? '';
+    $to = $_GET['to'] ?? '';
+    if (!$validYmd($to)) $to = $today;
+    if (!$validYmd($from)) $from = (new DateTime('now', $tz))->modify('-29 days')->format('Y-m-d');
+    if ($from > $to) { $t = $from; $from = $to; $to = $t; }
+    $top = function ($map, $n = 10) {
+        arsort($map);
+        $out = [];
+        foreach (array_slice($map, 0, $n, true) as $k => $v) $out[] = ['name' => (string) $k, 'count' => (int) $v];
+        return $out;
+    };
+    $inRange = function ($iso) use ($from, $to) {
+        if (!is_string($iso) || $iso === '') return false;
+        $d = substr($iso, 0, 10);
+        return $d >= $from && $d <= $to;
+    };
+    // Match Express: empty-string values fall back to the given default.
+    $bump = function (&$m, $k, $def = '') {
+        $k = (string) $k;
+        if ($k === '') $k = $def;
+        $m[$k] = ($m[$k] ?? 0) + 1;
+    };
+
+    // Visits
+    $vd = dscc_read_json(dscc_data_dir() . '/visits.json', ['days' => []]);
+    $vDays = []; $vSrc = []; $vPages = []; $vDev = []; $vCn = []; $vCt = []; $visitsTotal = 0;
+    foreach ((array) ($vd['days'] ?? []) as $date => $rec) {
+        if (!is_array($rec) || $date < $from || $date > $to) continue;
+        $t = (int) ($rec['t'] ?? 0);
+        $visitsTotal += $t;
+        $vDays[] = ['date' => $date, 'total' => $t];
+        foreach ([['src', &$vSrc], ['p', &$vPages], ['dev', &$vDev], ['cn', &$vCn], ['ct', &$vCt]] as $pair) {
+            foreach ((array) ($rec[$pair[0]] ?? []) as $k => $v) $pair[1][$k] = ($pair[1][$k] ?? 0) + (int) $v;
+        }
+    }
+    usort($vDays, fn($a, $b) => strcmp($a['date'], $b['date']));
+
+    // Events
+    $ed = dscc_read_json(dscc_data_dir() . '/events.json', ['days' => []]);
+    $evTypes = []; $eventsTotal = 0;
+    foreach ((array) ($ed['days'] ?? []) as $date => $types) {
+        if ($date < $from || $date > $to || !is_array($types)) continue;
+        foreach ($types as $k => $v) { $evTypes[$k] = ($evTypes[$k] ?? 0) + (int) $v; $eventsTotal += (int) $v; }
+    }
+
+    // Leads
+    $lByStatus = []; $lBySource = []; $lCities = []; $lServices = []; $leadsTotal = 0;
+    foreach (dscc_read_json(dscc_leads_file(), []) as $l) {
+        if (!is_array($l) || !$inRange($l['createdAt'] ?? '')) continue;
+        $leadsTotal++;
+        $bump($lByStatus, $l['status'] ?? '', 'new');
+        $bump($lBySource, $l['source'] ?? '', 'unknown');
+        if (!empty($l['city'])) $bump($lCities, $l['city']);
+        foreach ((array) ($l['services'] ?? []) as $s) if (is_string($s)) $bump($lServices, $s);
+    }
+
+    // Chats
+    $cd = dscc_read_json(dscc_data_dir() . '/chats.json', ['sessions' => []]);
+    $chatLangs = []; $chatsTotal = 0;
+    foreach ((array) ($cd['sessions'] ?? []) as $c) {
+        if (!is_array($c) || !$inRange($c['updatedAt'] ?? '')) continue;
+        $chatsTotal++;
+        $bump($chatLangs, $c['lang'] ?? '', 'unknown');
+    }
+
+    // Suppliers
+    $sByStatus = []; $suppliersTotal = 0;
+    foreach (dscc_read_json(dscc_suppliers_file(), []) as $s) {
+        if (!is_array($s) || !$inRange($s['createdAt'] ?? '')) continue;
+        $suppliersTotal++;
+        $bump($sByStatus, $s['status'] ?? '', 'new');
+    }
+
+    // RFQs & offers
+    $rByStatus = []; $rfqsTotal = 0; $offersTotal = 0;
+    foreach (dscc_read_json(dscc_rfqs_file(), []) as $r) {
+        if (!is_array($r)) continue;
+        if ($inRange($r['createdAt'] ?? '')) {
+            $rfqsTotal++;
+            $bump($rByStatus, $r['status'] ?? '', 'open');
+        }
+        foreach ((array) ($r['offers'] ?? []) as $o) {
+            if (is_array($o) && $inRange($o['createdAt'] ?? '')) $offersTotal++;
+        }
+    }
+
+    adm_out(200, [
+        'ok' => true,
+        'range' => ['from' => $from, 'to' => $to],
+        'visits' => [
+            'total' => $visitsTotal,
+            'days' => $vDays,
+            'topSources' => $top($vSrc),
+            'topPages' => $top($vPages),
+            'devices' => $top($vDev, 5),
+            'topCountries' => $top($vCn),
+            'topCities' => $top($vCt),
+        ],
+        'events' => ['total' => $eventsTotal, 'byType' => $top($evTypes, 20)],
+        'leads' => [
+            'total' => $leadsTotal,
+            'byStatus' => (object) $lByStatus,
+            'bySource' => $top($lBySource),
+            'topCities' => $top($lCities),
+            'topServices' => $top($lServices),
+        ],
+        'chats' => ['total' => $chatsTotal, 'byLang' => $top($chatLangs, 10)],
+        'suppliers' => ['total' => $suppliersTotal, 'byStatus' => (object) $sByStatus],
+        'rfqs' => ['total' => $rfqsTotal, 'byStatus' => (object) $rByStatus, 'offersSubmitted' => $offersTotal],
+    ]);
+}
+
 // ---------- VISITS LIVE (real-time snapshot) ----------
 if ($sub === '/visits/live' && $method === 'GET') {
     $data = dscc_read_json(dscc_data_dir() . '/visits.json', ['days' => []]);
