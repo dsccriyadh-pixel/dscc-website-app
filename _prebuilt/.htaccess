@@ -73,6 +73,7 @@
   RewriteRule ^api/event/?$ /api/events.php [L]
   RewriteRule ^api/chatlog/?$ /api/chatlog.php [L]
   RewriteRule ^api/social/?$ /api/social.php [L]
+  RewriteRule ^api/social/.+$ /api/socialfeed.php [L,QSA]
   RewriteRule ^api/suppliers/?$ /api/suppliers.php [L]
   RewriteRule ^api/portal(/.*)?$ /api/portal.php [L,QSA]
 
