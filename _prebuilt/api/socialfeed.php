@@ -182,9 +182,9 @@ function sf_connector_youtube() {
 
 function sf_connector_instagram() {
     global $SF_PER_PLATFORM;
+    $token = sf_env('META_ACCESS_TOKEN');
     $igId = sf_env('INSTAGRAM_BUSINESS_ACCOUNT_ID');
-    if (sf_env('META_ACCESS_TOKEN') === '' || $igId === '') return ['configured' => false, 'posts' => [], 'safeError' => null];
-    $token = sf_meta_user_token();
+    if ($token === '' || $igId === '') return ['configured' => false, 'posts' => [], 'safeError' => null];
     try {
         $d = json_decode(sf_http('https://graph.facebook.com/v21.0/' . rawurlencode($igId) . '/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=' . $SF_PER_PLATFORM . '&access_token=' . rawurlencode($token)), true);
         $posts = [];
@@ -215,63 +215,12 @@ function sf_connector_instagram() {
     }
 }
 
-// Meta long-lived token bootstrap: when the configured META_ACCESS_TOKEN is a
-// short-lived user token and app credentials exist, exchange it once for a
-// long-lived (~60 day) token and cache it in the data dir (never in Git).
-function sf_meta_user_token() {
-    $envToken = sf_env('META_ACCESS_TOKEN');
-    if ($envToken === '') return '';
-    $appId = sf_env('META_APP_ID');
-    $appSecret = sf_env('META_APP_SECRET');
-    if ($appId === '' || $appSecret === '') return $envToken;
-    $fp = strlen($envToken) . ':' . substr(sha1($envToken), 0, 12);
-    $file = dscc_data_dir() . '/meta_token.json';
-    $cached = is_file($file) ? json_decode((string) file_get_contents($file), true) : null;
-    $now = time();
-    if (is_array($cached) && ($cached['sourceFingerprint'] ?? '') === $fp) {
-        $exp = $cached['expiresAt'] ?? null;
-        if ($exp === null || $exp - $now > 86400) return (string) $cached['token'];
-    }
-    try {
-        $d = json_decode(sf_http('https://graph.facebook.com/v21.0/oauth/access_token?grant_type=fb_exchange_token&client_id=' . rawurlencode($appId) . '&client_secret=' . rawurlencode($appSecret) . '&fb_exchange_token=' . rawurlencode($envToken)), true);
-        $t = (string) ($d['access_token'] ?? '');
-        if ($t !== '') {
-            @file_put_contents($file, json_encode([
-                'sourceFingerprint' => $fp,
-                'token' => $t,
-                'expiresAt' => isset($d['expires_in']) ? $now + (int) $d['expires_in'] : null,
-                'exchangedAt' => gmdate('c'),
-            ]));
-            return $t;
-        }
-    } catch (Exception $e) {
-        // fall through
-    }
-    if (is_array($cached) && ($cached['sourceFingerprint'] ?? '') === $fp && (($cached['expiresAt'] ?? null) === null || $cached['expiresAt'] > $now)) {
-        return (string) $cached['token'];
-    }
-    return $envToken;
-}
-
-// Pages on the "new Pages experience" reject user tokens for /posts; a Page
-// access token is required. Derive it from the user token (admin-only field).
-function sf_meta_page_token($pageId, $userToken) {
-    try {
-        $d = json_decode(sf_http('https://graph.facebook.com/v21.0/' . rawurlencode($pageId) . '?fields=access_token&access_token=' . rawurlencode($userToken)), true);
-        $t = (string) ($d['access_token'] ?? '');
-        return $t !== '' ? $t : $userToken;
-    } catch (Exception $e) {
-        return $userToken; // fall back; the posts call will surface the real error
-    }
-}
-
 function sf_connector_facebook() {
     global $SF_PER_PLATFORM;
-    $pageId = sf_env('META_PAGE_ID', '1085169748017198');
-    if (sf_env('META_ACCESS_TOKEN') === '' || $pageId === '') return ['configured' => false, 'posts' => [], 'safeError' => null];
-    $userToken = sf_meta_user_token();
+    $token = sf_env('META_ACCESS_TOKEN');
+    $pageId = sf_env('META_PAGE_ID', '100093187917575');
+    if ($token === '' || $pageId === '') return ['configured' => false, 'posts' => [], 'safeError' => null];
     try {
-        $token = sf_meta_page_token($pageId, $userToken);
         $d = json_decode(sf_http('https://graph.facebook.com/v21.0/' . rawurlencode($pageId) . '/posts?fields=id,message,created_time,permalink_url,full_picture&limit=' . $SF_PER_PLATFORM . '&access_token=' . rawurlencode($token)), true);
         $posts = [];
         foreach (($d['data'] ?? []) as $m) {
