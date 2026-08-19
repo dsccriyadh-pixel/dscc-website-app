@@ -43,6 +43,10 @@
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  SetEnvIf Request_URI "^/(admin|api)(/|$)" dscc_noindex
+  SetEnvIf Request_URI "^/(calculator|suppliers|supplier-register-dk49rz)/?$" dscc_noindex
+  SetEnvIf Request_URI "^/s/forms/[^/]+/?$" dscc_noindex
+  Header always set X-Robots-Tag "noindex, nofollow" env=dscc_noindex
 </IfModule>
 
 # ---------- SPA fallback (React Router) ----------
@@ -53,6 +57,10 @@
   # Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # One canonical hostname: HTTPS apex, with path/query preserved.
+  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
+  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [L,R=301]
 
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
   RewriteRule ^api/data(/|$) - [F,L]
