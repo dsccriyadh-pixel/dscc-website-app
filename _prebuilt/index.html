@@ -111,10 +111,11 @@
       }
       w.gtag('event','page_view',{page_location:initialLocation,page_path:w.location.pathname,page_referrer:cleanReferrer(d.referrer)});
       w.__dsccInitialGa4PageViewQueued=true;
+      w.__dsccPendingGa4PageViews=[];
 
       function queueEarlyPageView(path,pageLocation,pageReferrer){
         if(w.__dsccGa4Loaded||path===w.__dsccLastGa4PagePath||typeof w.gtag!=='function')return;
-        w.gtag('event','page_view',{
+        w.__dsccPendingGa4PageViews.push({
           page_location:pageLocation,
           page_path:path,
           page_referrer:pageReferrer||''
@@ -145,6 +146,9 @@
         addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){
           guardEarlyHistory();
           w.__dsccGa4Loaded=true;
+          w.__dsccPendingGa4PageViews.splice(0).forEach(function(pageView){
+            w.gtag('event','page_view',pageView);
+          });
           w.clearInterval(earlyHistoryGuard);
           w.clearTimeout(earlyHistoryGuardTimeout);
         });
