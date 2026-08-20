@@ -125,6 +125,10 @@
       function guardEarlyHistory(){
         w.history.pushState=wrapHistory(w.history.pushState);
         w.history.replaceState=wrapHistory(w.history.replaceState);
+        var currentState=w.history.state;
+        if(currentState&&typeof currentState.__dsccSearch==='string'){
+          w.__dsccCurrentSearch=currentState.__dsccSearch;
+        }
         if(w.__dsccGa4Loaded||w.location.pathname===w.__dsccLastGa4PagePath)return;
         var nextLocation=w.location.origin+w.location.pathname;
         var previousLocation=w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer);
@@ -146,11 +150,13 @@
         addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){
           guardEarlyHistory();
           w.__dsccGa4Loaded=true;
-          w.__dsccPendingGa4PageViews.splice(0).forEach(function(pageView){
-            w.gtag('event','page_view',pageView);
-          });
           w.clearInterval(earlyHistoryGuard);
           w.clearTimeout(earlyHistoryGuardTimeout);
+          w.setTimeout(function(){
+            w.__dsccPendingGa4PageViews.splice(0).forEach(function(pageView){
+              w.gtag('event','page_view',pageView);
+            });
+          },250);
         });
       }
       function loadAll(){
