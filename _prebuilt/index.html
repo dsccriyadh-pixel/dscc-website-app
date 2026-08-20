@@ -54,15 +54,23 @@
         var wrapped=function(state,title,url){
           if(url===undefined||url===null)return delegate.call(w.history,state,title,url);
           var parsed=new URL(String(url),w.location.href);
-          var stored=state&&typeof state.__dsccSearch==='string'?state.__dsccSearch:filteredSearch(parsed.search);
+          var stored=state&&typeof state.__dsccSearch==='string'
+            ?state.__dsccSearch
+            :parsed.search
+              ?filteredSearch(parsed.search)
+              :parsed.pathname===w.location.pathname&&typeof w.__dsccCurrentSearch==='string'
+                ?w.__dsccCurrentSearch
+                :'';
           var nextLocation=parsed.origin+parsed.pathname;
           var alreadySanitized=!!(state&&state.__dsccSanitized);
           w.__dsccCurrentSearch=stored;
           if(!alreadySanitized&&typeof w.gtag==='function'){
+            var previousLocation=w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer);
             w.gtag('set',{
               page_location:nextLocation,
-              page_referrer:w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer)
+              page_referrer:previousLocation
             });
+            queueEarlyPageView(parsed.pathname,nextLocation,previousLocation);
             w.__dsccLastGa4PageLocation=nextLocation;
           }
           return delegate.call(w.history,stateWithSearch(state,stored),title,parsed.pathname+campaignSearch(stored)+parsed.hash);
@@ -84,6 +92,7 @@
       w.addEventListener('popstate',function(event){
         var state=event.state||w.history.state;
         w.__dsccCurrentSearch=state&&typeof state.__dsccSearch==='string'?state.__dsccSearch:'';
+        guardEarlyHistory();
       },true);
 
       // --- Independent queues: GTM/Snap and GA4 never consume each other's commands. ---
@@ -94,6 +103,7 @@
       w.__dsccGa4Loaded=false;
       var initialLocation=w.location.origin+w.location.pathname;
       w.__dsccLastGa4PageLocation=initialLocation;
+      w.__dsccLastGa4PagePath=w.location.pathname;
       if(ga4Enabled){
         w.gtag('js',new Date());
         w.gtag('set',{page_location:initialLocation,page_referrer:cleanReferrer(d.referrer)});
@@ -101,6 +111,28 @@
       }
       w.gtag('event','page_view',{page_location:initialLocation,page_path:w.location.pathname,page_referrer:cleanReferrer(d.referrer)});
       w.__dsccInitialGa4PageViewQueued=true;
+
+      function queueEarlyPageView(path,pageLocation,pageReferrer){
+        if(w.__dsccGa4Loaded||path===w.__dsccLastGa4PagePath||typeof w.gtag!=='function')return;
+        w.gtag('event','page_view',{
+          page_location:pageLocation,
+          page_path:path,
+          page_referrer:pageReferrer||''
+        });
+        w.__dsccLastGa4PagePath=path;
+      }
+      function guardEarlyHistory(){
+        w.history.pushState=wrapHistory(w.history.pushState);
+        w.history.replaceState=wrapHistory(w.history.replaceState);
+        if(w.__dsccGa4Loaded||w.location.pathname===w.__dsccLastGa4PagePath)return;
+        var nextLocation=w.location.origin+w.location.pathname;
+        var previousLocation=w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer);
+        w.gtag('set',{page_location:nextLocation,page_referrer:previousLocation});
+        queueEarlyPageView(w.location.pathname,nextLocation,previousLocation);
+        w.__dsccLastGa4PageLocation=nextLocation;
+      }
+      var earlyHistoryGuard=w.setInterval(guardEarlyHistory,25);
+      var earlyHistoryGuardTimeout=w.setTimeout(function(){w.clearInterval(earlyHistoryGuard);},10000);
 
       var sn=w.snaptr=w.snaptr||function(){sn.handleRequest?sn.handleRequest.apply(sn,arguments):sn.queue.push(arguments)};
       sn.queue=sn.queue||[];
@@ -111,9 +143,10 @@
       function addScript(src,onload){var s=d.createElement('script');s.async=true;s.src=src;if(onload)s.onload=onload;d.head.appendChild(s);}
       if(ga4Enabled){
         addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){
-          w.history.pushState=wrapHistory(w.history.pushState);
-          w.history.replaceState=wrapHistory(w.history.replaceState);
+          guardEarlyHistory();
           w.__dsccGa4Loaded=true;
+          w.clearInterval(earlyHistoryGuard);
+          w.clearTimeout(earlyHistoryGuardTimeout);
         });
       }
       function loadAll(){
@@ -358,7 +391,7 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-DWCAFo7M.js"></script>
+    <script type="module" crossorigin src="/assets/index-DhYES1j2.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-RDdc3Xau.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-CgDrLr6Z.js">
