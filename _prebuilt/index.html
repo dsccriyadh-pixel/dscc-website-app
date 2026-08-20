@@ -4,34 +4,120 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <!-- Deferred analytics: GTM + Snap Pixel load after page is interactive (or first user interaction).
-         Stub queues capture every early event, so no data is lost — but the heavy third-party JS
-         no longer competes with page rendering (keeps PageSpeed score high). -->
+    <!-- GA4 loads immediately for an unbiased landing-page baseline. GTM + Snap stay deferred
+         until interaction (or 10 seconds) so advertising tags remain outside the critical path. -->
     <script>
     (function(w,d){
-      // --- Stub queues (capture events immediately) ---
+      var ga4Enabled=/^(www\.)?dsccsaudia\.com$/i.test(w.location.hostname);
+      var initialRawSearch=w.location.search;
+      var nativePushState=w.history.pushState;
+      var nativeReplaceState=w.history.replaceState;
+
+      function filteredSearch(raw){
+        var sourceAllowed=/^(google|bing|facebook|instagram|meta|snapchat|tiktok|linkedin|youtube|newsletter|email|direct|x|twitter)$/i;
+        var mediumAllowed=/^(cpc|ppc|paid|paid_social|social|email|referral|display|organic|video)$/i;
+        var functional=/^(lang|showroom_preview|type|city|services|budget|timeline|sector|location)$/;
+        var clickId=/^(gclid|fbclid|ttclid|ScCid|sccid)$/;
+        var valueSafe=/^[A-Za-z0-9,_~-]{1,240}$/;
+        var q=new URLSearchParams(raw),out=new URLSearchParams();
+        q.forEach(function(value,key){
+          if(clickId.test(key)&&/^[A-Za-z0-9._~-]{1,300}$/.test(value)){out.append(key,value);return;}
+          if(key==='utm_source'&&sourceAllowed.test(value)){out.append(key,value.toLowerCase());return;}
+          if(key==='utm_medium'&&mediumAllowed.test(value)){out.append(key,value.toLowerCase());return;}
+          if(key==='lang'&&/^(ar|en)$/.test(value)){out.append(key,value);return;}
+          if(key==='showroom_preview'&&value==='1'){out.append(key,value);return;}
+          if(functional.test(key)&&valueSafe.test(value))out.append(key,value);
+        });
+        var text=out.toString();
+        return text?'?'+text:'';
+      }
+      function campaignSearch(stored){
+        var q=new URLSearchParams(stored),out=new URLSearchParams();
+        ['gclid','fbclid','ttclid','ScCid','sccid','utm_source','utm_medium'].forEach(function(key){
+          var value=q.get(key);if(value)out.set(key,value);
+        });
+        var text=out.toString();
+        return text?'?'+text:'';
+      }
+      function stateWithSearch(state,search){
+        var next=state&&typeof state==='object'?Object.assign({},state):{};
+        next.__dsccSearch=search;
+        next.__dsccSanitized=true;
+        return next;
+      }
+      function cleanReferrer(value){
+        if(!value)return'';
+        try{var url=new URL(value);return url.origin+url.pathname;}catch(_){return'';}
+      }
+      function wrapHistory(delegate){
+        if(delegate.__dsccSanitized)return delegate;
+        var wrapped=function(state,title,url){
+          if(url===undefined||url===null)return delegate.call(w.history,state,title,url);
+          var parsed=new URL(String(url),w.location.href);
+          var stored=state&&typeof state.__dsccSearch==='string'?state.__dsccSearch:filteredSearch(parsed.search);
+          var nextLocation=parsed.origin+parsed.pathname;
+          var alreadySanitized=!!(state&&state.__dsccSanitized);
+          w.__dsccCurrentSearch=stored;
+          if(!alreadySanitized&&typeof w.gtag==='function'){
+            w.gtag('set',{
+              page_location:nextLocation,
+              page_referrer:w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer)
+            });
+            w.__dsccLastGa4PageLocation=nextLocation;
+          }
+          return delegate.call(w.history,stateWithSearch(state,stored),title,parsed.pathname+campaignSearch(stored)+parsed.hash);
+        };
+        wrapped.__dsccSanitized=true;
+        return wrapped;
+      }
+
+      var initialStoredSearch=filteredSearch(initialRawSearch);
+      w.__dsccCurrentSearch=initialStoredSearch;
+      nativeReplaceState.call(
+        w.history,
+        stateWithSearch(w.history.state,initialStoredSearch),
+        '',
+        w.location.pathname+campaignSearch(initialStoredSearch)+w.location.hash
+      );
+      w.history.pushState=wrapHistory(nativePushState);
+      w.history.replaceState=wrapHistory(nativeReplaceState);
+      w.addEventListener('popstate',function(event){
+        var state=event.state||w.history.state;
+        w.__dsccCurrentSearch=state&&typeof state.__dsccSearch==='string'?state.__dsccSearch:'';
+      },true);
+
+      // --- Independent queues: GTM/Snap and GA4 never consume each other's commands. ---
       w.dataLayer=w.dataLayer||[];
       w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-      var ga4Enabled=/^(www\.)?dsccsaudia\.com$/i.test(w.location.hostname);
       w.ga4DataLayer=w.ga4DataLayer||[];
       w.gtag=w.gtag||function(){w.ga4DataLayer.push(arguments);};
       w.__dsccGa4Loaded=false;
+      var initialLocation=w.location.origin+w.location.pathname;
+      w.__dsccLastGa4PageLocation=initialLocation;
       if(ga4Enabled){
         w.gtag('js',new Date());
+        w.gtag('set',{page_location:initialLocation,page_referrer:cleanReferrer(d.referrer)});
         w.gtag('config','G-CT7Z4L5831',{'send_page_view':false});
       }
+      w.gtag('event','page_view',{page_location:initialLocation,page_path:w.location.pathname,page_referrer:cleanReferrer(d.referrer)});
+      w.__dsccInitialGa4PageViewQueued=true;
+
       var sn=w.snaptr=w.snaptr||function(){sn.handleRequest?sn.handleRequest.apply(sn,arguments):sn.queue.push(arguments)};
       sn.queue=sn.queue||[];
       w.snaptr('init','9f7d12c2-8d07-42f7-93b6-b4529c66b3f1',{});
       w.snaptr('track','PAGE_VIEW');
-      // --- Deferred loader ---
+      // --- GA4 is immediate; only advertising/auxiliary tags remain deferred. ---
       var loaded=false;
       function addScript(src,onload){var s=d.createElement('script');s.async=true;s.src=src;if(onload)s.onload=onload;d.head.appendChild(s);}
+      if(ga4Enabled){
+        addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){
+          w.history.pushState=wrapHistory(w.history.pushState);
+          w.history.replaceState=wrapHistory(w.history.replaceState);
+          w.__dsccGa4Loaded=true;
+        });
+      }
       function loadAll(){
         if(loaded)return;loaded=true;
-        if(ga4Enabled){
-          addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){w.__dsccGa4Loaded=true;});
-        }
         addScript('https://www.googletagmanager.com/gtm.js?id=GTM-5V53WMCS');
         addScript('https://sc-static.net/scevent.min.js');
         ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){d.removeEventListener(ev,loadAll,{passive:true});});
@@ -39,7 +125,7 @@
       // Ad-campaign visitors (Snapchat ScCid, UTM, Google/Meta/TikTok click IDs) load pixels
       // IMMEDIATELY — these visitors often bounce within seconds and would otherwise be lost
       // from campaign stats. Organic visitors keep the deferred path (PageSpeed stays high).
-      if(/[?&](ScCid|sccid|utm_[a-z]+|gclid|fbclid|ttclid)=/i.test(w.location.search)){
+      if(/[?&](ScCid|sccid|utm_[a-z]+|gclid|fbclid|ttclid)=/i.test(initialRawSearch)){
         loadAll();
         return;
       }
@@ -272,11 +358,11 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-BfxBnpHp.js"></script>
+    <script type="module" crossorigin src="/assets/index-DWCAFo7M.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-RDdc3Xau.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-CgDrLr6Z.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-B17kIGgu.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Di3l1cln.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-query-DQNMBGom.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-BzgM1a7D.css">
     <link rel="stylesheet" crossorigin href="/assets/index-CoDeYrOA.css">
