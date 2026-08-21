@@ -47,6 +47,8 @@
   SetEnvIf Request_URI "^/(calculator|suppliers|supplier-register-dk49rz)/?$" dscc_noindex
   SetEnvIf Request_URI "^/s/forms/[^/]+/?$" dscc_noindex
   Header always set X-Robots-Tag "noindex, nofollow" env=dscc_noindex
+  Header always set X-Robots-Tag "noindex, nofollow" env=dscc_notfound
+  Header always set X-Robots-Tag "noindex, nofollow" env=REDIRECT_dscc_notfound
   <Files "404.html">
     Header always set X-Robots-Tag "noindex, nofollow"
   </Files>
@@ -75,7 +77,7 @@ ErrorDocument 404 /404.html
   # THE_REQUEST remains the original browser request after an internal rewrite,
   # so valid route rewrites below are not blocked by this direct-access guard.
   RewriteCond %{THE_REQUEST} "\s/+__prerender(?:[/\s?])" [NC]
-  RewriteRule ^__prerender(?:/|$) - [R=404,L]
+  RewriteRule ^__prerender(?:/|$) - [R=404,L,E=dscc_notfound:1]
 
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
   RewriteRule ^api/data(/|$) - [F,L]
@@ -122,7 +124,7 @@ ErrorDocument 404 /404.html
 
   # A bare unknown project/news slug must not fall into a physical media
   # directory or the generic SPA shell. Known slugs were served above.
-  RewriteRule ^(?:projects|news)/[^/]+/?$ - [R=404,L]
+  RewriteRule ^(?:projects|news)/[^/]+/?$ - [R=404,L,E=dscc_notfound:1]
 
   # Private tools remain client-rendered but are protected by X-Robots-Tag.
   RewriteRule ^(?:calculator|suppliers|supplier-register-dk49rz)/?$ /index.html [END]
@@ -135,7 +137,7 @@ ErrorDocument 404 /404.html
 
   # Everything else is an actual not-found request. ErrorDocument keeps the
   # branded React 404 snapshot while preserving the HTTP 404 status.
-  RewriteRule . - [R=404,L]
+  RewriteRule . - [R=404,L,E=dscc_notfound:1]
 </IfModule>
 
 # ---------- Disable directory listing ----------
