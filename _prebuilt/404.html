@@ -72,7 +72,7 @@
             queueEarlyPageView(parsed.pathname,nextLocation,previousLocation);
             w.__dsccLastGa4PageLocation=nextLocation;
           }
-          return delegate.call(w.history,stateWithSearch(state,stored),title,parsed.pathname+campaignSearch(stored)+parsed.hash);
+          return delegate.call(w.history,stateWithSearch(state,stored),title,parsed.pathname+stored+parsed.hash);
         };
         wrapped.__dsccSanitized=true;
         return wrapped;
@@ -182,7 +182,7 @@
     </script>
     <!-- End deferred analytics -->
 
-    <!-- ============ Primary SEO (Riyadh / KSA) ============ -->
+    <!-- Primary SEO (Riyadh / KSA) -->
     <title>Page Not Found — DSCC</title>
     <meta name="description" content="DSCC الرياض — شركة سعودية متخصصة في التشطيبات الفاخرة، أنظمة MEP، الواجهات الزجاجية، والغرف الذكية للقطاعات السكنية والتجارية والضيافة والبنية التحتية. خدمة شاملة من الاستشارة إلى التسليم في كل المملكة العربية السعودية.">
     <meta name="keywords" content="DSCC, شركة مقاولات الرياض, تشطيبات فاخرة السعودية, MEP الرياض, واجهات زجاجية, تكييف HVAC السعودية, غرف ذكية فنادق, مقاول تشطيبات معتمد, ديكور داخلي الرياض, مقاولات سكنية تجارية ضيافة">
@@ -194,7 +194,7 @@
     <meta name="geo.position" content="24.7456;46.7204">
     <meta name="ICBM" content="24.7456, 46.7204">
 
-    <!-- ============ Open Graph / Social ============ -->
+    <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="DSCC Saudi Arabia">
     <meta property="og:title" content="DSCC — شركة الحلول المطورة للمقاولات | الرياض">
@@ -210,7 +210,7 @@
     <meta name="twitter:description" content="حلول متكاملة للتشطيبات و MEP والواجهات الزجاجية في المملكة العربية السعودية.">
     <meta name="twitter:image" content="https://dsccsaudia.com/opengraph.jpg">
 
-    <!-- ============ Icons + PWA ============ -->
+    <!-- Icons + PWA -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="manifest" href="/manifest.webmanifest">
@@ -243,7 +243,7 @@
       }
     </script>
 
-    <!-- ============ Fonts: Cairo is self-hosted via @fontsource (see main.tsx) ============ -->
+    <!-- Fonts: Cairo is self-hosted via @fontsource (see main.tsx) -->
     <!-- No Google Fonts network round-trip; saves render-blocking requests on mobile. -->
     <style>
       /* size-adjust + override metrics so system fallback occupies the same space as Cairo (zero CLS) */
@@ -292,13 +292,13 @@
       }
     </style>
 
-    <!-- ============ Structured Data — Organization + LocalBusiness ============ -->
+    <!-- One company entity with a verified Riyadh HQ and a national service area. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["Organization", "GeneralContractor", "LocalBusiness"],
+          "@type": ["Organization", "GeneralContractor"],
           "@id": "https://dsccsaudia.com/#organization",
           "name": "DSCC Saudi Arabia",
           "alternateName": ["شركة الحلول المطورة للمقاولات", "Developed Solutions Company for Contracting", "DSCC"],
@@ -307,14 +307,7 @@
           "image": "https://dsccsaudia.com/opengraph.jpg",
           "description": "شركة سعودية متخصصة في حلول التشطيبات الفاخرة، أنظمة MEP، الواجهات الزجاجية، والغرف الذكية للقطاعات السكنية والتجارية والضيافة والبنية التحتية في المملكة العربية السعودية.",
           "foundingLocation": "Riyadh, Saudi Arabia",
-          "areaServed": [
-            { "@type": "Country", "name": "Saudi Arabia" },
-            { "@type": "City", "name": "Riyadh" },
-            { "@type": "City", "name": "Jeddah" },
-            { "@type": "City", "name": "Dammam" },
-            { "@type": "City", "name": "NEOM" },
-            { "@type": "City", "name": "AlUla" }
-          ],
+          "areaServed": { "@type": "Country", "name": "Saudi Arabia" },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Building 7878, Eastern Ring Road (Extension), Al Manakh District",
@@ -401,15 +394,15 @@
       ]
     }
     </script>
-    <script type="module" crossorigin="" src="/assets/index-jvoVby86.js"></script>
+    <script type="module" crossorigin="" src="/assets/index-p6pkLNj2.js"></script>
     <link rel="modulepreload" crossorigin="" href="/assets/vendor-RDdc3Xau.js">
     <link rel="modulepreload" crossorigin="" href="/assets/vendor-radix-BQCqNqg0.js">
     <link rel="modulepreload" crossorigin="" href="/assets/vendor-motion-CgDrLr6Z.js">
-    <link rel="modulepreload" crossorigin="" href="/assets/vendor-react-Di3l1cln.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-react-wD8TP23c.js">
     <link rel="modulepreload" crossorigin="" href="/assets/vendor-query-DQNMBGom.js">
     <link rel="stylesheet" crossorigin="" href="/assets/vendor-BzgM1a7D.css">
     <link rel="stylesheet" crossorigin="" href="/assets/index-CkoVoyfo.css">
-  <link rel="modulepreload" as="script" crossorigin="" href="/assets/not-found-Bjo0kURK.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/card-DFx2XuI7.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/Chatbot-_c8wdrBm.js"></head>
+  <link rel="modulepreload" as="script" crossorigin="" href="/assets/not-found-B0zXSpIp.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/card-6-8qZpyS.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/Chatbot-DlEREcFi.js"></head>
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V53WMCS"
