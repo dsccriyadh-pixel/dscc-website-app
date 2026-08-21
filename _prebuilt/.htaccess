@@ -61,22 +61,41 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
 
-  # One canonical origin in a single hop. Reject arbitrary Host headers rather
-  # than reflecting them into a redirect; the query string is preserved.
-  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com(?::[0-9]+)?$ [NC,OR]
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP_HOST} ^(?:www\.)?dsccsaudia\.com(?::[0-9]+)?$ [NC]
-  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [R=301,L,NE]
+  # Consolidate legacy Search Console URLs in one hop, regardless of scheme/host.
+  # Three explicit rules (no-slash, slash-only, slash+slug) to avoid ambiguity
+  # between Apache versions when the optional-slash shorthand /?$ is combined
+  # with [END] on Hostinger's Apache. [QSA] preserves any query string.
+  RewriteRule ^service$ https://dsccsaudia.com/services [R=301,END,NE,QSA]
+  RewriteRule ^service/$ https://dsccsaudia.com/services [R=301,END,NE,QSA]
+  RewriteRule ^service/(.+?)/?$ https://dsccsaudia.com/services/$1 [R=301,END,NE,QSA]
 
-  # Public pages use slashless canonical paths. Keep server/API/private/static
-  # prefixes untouched and never normalize an apparent file extension.
-  RewriteCond %{REQUEST_URI} !^/(?:api|admin|assets|img|downloads|fonts|__prerender|calculator|suppliers|supplier-register-dk49rz|s/forms)(?:/|$) [NC]
-  RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{1,12}/?$ [NC]
-  RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
+  # Trailing-slash removal + host canonicalization in one hop for non-canonical
+  # origins. Excludes directories served directly (admin, api, assets…) and
+  # private/legacy paths so those are handled by their own rules below.
+  # [OR] connects scheme and host conditions; the exclusions are outer ANDs.
+  RewriteCond %{REQUEST_URI} !^/(?:admin|api|assets|img|downloads|fonts|__prerender)(?:/|$) [NC]
+  RewriteCond %{REQUEST_URI} !^/(?:calculator|suppliers|supplier-register-dk49rz)/?$ [NC]
+  RewriteCond %{REQUEST_URI} !^/s/forms/[^/]+/?$ [NC]
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE,QSA]
 
-  # Consolidate legacy Search Console URLs into the canonical service routes.
-  RewriteRule ^service/?$ /services [R=301,L]
-  RewriteRule ^service/(.+?)/?$ /services/$1 [R=301,L]
+  # One canonical host and scheme for every remaining request. Query strings
+  # are retained because the substitution intentionally has no question mark.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
+  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [R=301,END,NE]
+
+  # Public routes use slashless canonicals on the canonical HTTPS apex host.
+  # THE_REQUEST ensures an internal snapshot rewrite can never trigger this
+  # external redirect. Root (/) is exempt. Legacy /service paths are excluded.
+  RewriteCond %{THE_REQUEST} "\s/+[^\s?]+/+(?:\?[^\s]*)?\s" [NC]
+  RewriteCond %{HTTPS} =on
+  RewriteCond %{HTTP_HOST} ^dsccsaudia\.com$ [NC]
+  RewriteCond %{REQUEST_URI} !^/$
+  RewriteCond %{REQUEST_URI} !^/service(?:/|$) [NC]
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/$1/index.html -f
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE,QSA]
 
   # Generated route snapshots are internal deployment files, never public URLs.
   # THE_REQUEST remains the original browser request after an internal rewrite,
