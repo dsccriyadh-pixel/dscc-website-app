@@ -61,17 +61,32 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Consolidate legacy Search Console URLs in one hop, regardless of scheme/host.
+  RewriteRule ^service/?$ https://dsccsaudia.com/services [R=301,END,NE]
+  RewriteRule ^service/(.+?)/?$ https://dsccsaudia.com/services/$1 [R=301,END,NE]
 
-  # One canonical hostname: HTTPS apex, with path/query preserved.
+  # Send a non-canonical scheme/host plus a public trailing slash directly to
+  # the final URL. The generated snapshot check limits slash removal to public
+  # pages and keeps API, admin, private, and physical asset paths untouched.
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/$1/index.html -f
+  RewriteCond %{HTTPS} !=on [OR]
   RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
-  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [L,R=301]
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE]
 
-  # Consolidate legacy Search Console URLs into the canonical service routes.
-  RewriteRule ^service/?$ /services [R=301,L]
-  RewriteRule ^service/(.+?)/?$ /services/$1 [R=301,L]
+  # One canonical host and scheme for every remaining request. Query strings
+  # are retained because the substitution intentionally has no question mark.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
+  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [R=301,END,NE]
+
+  # Public routes use slashless canonicals. THE_REQUEST ensures an internal
+  # snapshot rewrite can never trigger this external redirect; root is exempt.
+  RewriteCond %{THE_REQUEST} "\s/+[^\s?]+/+(?:\?[^\s]*)?\s" [NC]
+  RewriteCond %{HTTPS} =on
+  RewriteCond %{HTTP_HOST} ^dsccsaudia\.com$ [NC]
+  RewriteCond %{REQUEST_URI} !^/$
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/$1/index.html -f
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE]
 
   # Generated route snapshots are internal deployment files, never public URLs.
   # THE_REQUEST remains the original browser request after an internal rewrite,
