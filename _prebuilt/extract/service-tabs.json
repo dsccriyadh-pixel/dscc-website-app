@@ -1,0 +1,12 @@
+{
+  "source": "https://dsccsaudia.com/service",
+  "preserve_text_exactly": true,
+  "tabs": [
+    "All Soultions",
+    "Residential",
+    "Infrastructure",
+    "Commercial",
+    "Hospitality"
+  ],
+  "note": "Original tab 'All Soultions' contains typo — preserved as-is per extraction rules."
+}

@@ -1,0 +1,30 @@
+{
+  "source": "https://dsccsaudia.com/projects/*",
+  "extracted_at": "2026-04-20",
+  "preserve_text_exactly": true,
+  "projects": [
+    {
+      "title": "Hilton Swiss Palms",
+      "slug": "hilton-swiss-palms",
+      "url": "https://dsccsaudia.com/projects/hilton-swiss-palms",
+      "client": "Hilton International Hotels",
+      "location": "Jeddah (Saudi Arabia)",
+      "summary": "Engaging customized SMART building and construction technologies developed by PCL, we are implementing our award-winning Job Site Insights on this project including, for example, concrete curing sensors",
+      "solutions_implemented": "Aluminum & Steel Glazing System Products HVAC System Linen Chute Solution Window & Door IT System Swimming Pool System Bathroom Solutions Audio/Video System Decoration and Artwork Audio/Video System",
+      "images": ["/assets/uploads/media-uploader/hilton-swiss-palms1694250386.jpg"],
+      "tab": "Hospitality"
+    },
+    { "title": "Casa Verde", "slug": "casa-verde", "url": "https://dsccsaudia.com/projects/casa-verde", "tab": "Residential" },
+    { "title": "Harmony Haven", "slug": "harmony-haven", "url": "https://dsccsaudia.com/projects/harmony-haven", "tab": "Residential" },
+    { "title": "Rooftop Escapes", "slug": "rooftop-escapes", "url": "https://dsccsaudia.com/projects/rooftop-escapes", "tab": "Hospitality" },
+    { "title": "Sea Shell Hotel", "slug": "sea-shell-hotel", "url": "https://dsccsaudia.com/projects/sea-shell-hotel", "tab": "Hospitality" },
+    { "title": "Square Workspaces", "slug": "square-workspaces", "url": "https://dsccsaudia.com/projects/square-workspaces", "tab": "Commercial" }
+  ],
+  "cover_images": [
+    "/assets/uploads/media-uploader/project011695242947.jpg",
+    "/assets/uploads/media-uploader/project021695242947.jpg",
+    "/assets/uploads/media-uploader/project031695242949.jpg",
+    "/assets/uploads/media-uploader/project041695242949.jpg",
+    "/assets/uploads/media-uploader/project051695242950.jpg"
+  ]
+}

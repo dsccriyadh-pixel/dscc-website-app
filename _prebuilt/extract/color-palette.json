@@ -1,0 +1,10 @@
+{
+  "source": "https://dsccsaudia.com/ (CSS :root variables)",
+  "extracted_at": "2026-04-20",
+  "tokens": {
+    "main_color_one": { "hex": "#921b43", "rgb": "rgb(146, 27, 67)", "hsl": "hsl(338, 69%, 34%)", "role": "primary brand color (burgundy)" },
+    "secondary_color": { "hex": "#921b43", "rgb": "rgb(146, 27, 67)", "hsl": "hsl(338, 69%, 34%)", "role": "secondary (same as primary on source)" },
+    "heading_color": { "hex": "#0a1121", "rgb": "rgb(10, 17, 33)",  "hsl": "hsl(226, 53%, 9%)",  "role": "headings / strong text" },
+    "paragraph_color": { "hex": "#878a95", "rgb": "rgb(135, 138, 149)", "hsl": "hsl(225, 6%, 56%)", "role": "body / muted text" }
+  }
+}
