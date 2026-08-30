@@ -5,7 +5,6 @@
 ## Company
 - Name: DSCC Saudi Arabia
 - Headquarters: Building 7878, Eastern Ring Road (Extension), Al Manakh District, Riyadh 14314, Saudi Arabia (short address RNCA7878) — [Google Maps](https://maps.app.goo.gl/hi8vD8A5agjrpmaT7)
-- Additional offices: Jeddah, Dammam
 - Languages: English, Arabic
 - Sectors: Residential, Commercial, Hospitality, Infrastructure
 - Disciplines: Architecture & envelope, MEP engineering, smart & technology, hospitality fit-out, outdoor & lifestyle
@@ -55,7 +54,7 @@
 - [All news](https://dsccsaudia.com/news)
 
 ## Contact and quotation
-- [Request a quote](https://dsccsaudia.com/quote): Structured RFQ form (responds within one business day)
+- [Request a quote](https://dsccsaudia.com/quote): Structured RFQ form; scope and response timing are confirmed after review
 - [Contact](https://dsccsaudia.com/contact): Riyadh, Jeddah, Dammam offices, WhatsApp, email
 - WhatsApp: +966 55 311 7884
 
@@ -64,14 +63,13 @@
 
 ## Locations (city landing pages)
 - [All locations](https://dsccsaudia.com/locations): index of all served cities and regions
-- [Riyadh](https://dsccsaudia.com/locations/riyadh): Riyadh (HQ) — KAFD, DQ, North Riyadh, Diriyah, Qiddiya, New Murabba. Same-day site visits. Local Civil Defense compliance.
-- [Jeddah](https://dsccsaudia.com/locations/jeddah): Jeddah (Red Sea) — coastal/marine-grade engineering for hotels, resorts, waterfront residences. Specialist HVAC for Red Sea humidity.
-- [Dammam](https://dsccsaudia.com/locations/dammam): Dammam, Khobar, Dhahran, Jubail (Eastern Province) — industrial MEP, Aramco SAES standards, MoH-grade medical fit-out.
-- [NEOM](https://dsccsaudia.com/locations/neom): NEOM, Tabuk — modular MEP, façade glazing, smart-room and staff village fit-out for The Line, Oxagon, Trojena, Sindalah. NEC4/FIDIC frameworks, BIM L2.
+- [Riyadh](https://dsccsaudia.com/locations/riyadh): verified Saudi head-office location and primary project-enquiry contact
+- [Jeddah](https://dsccsaudia.com/locations/jeddah): project enquiries are reviewed against scope, specifications, site conditions, and availability
+- [Dammam](https://dsccsaudia.com/locations/dammam): project enquiries are reviewed against scope, specifications, site conditions, and availability
+- [NEOM](https://dsccsaudia.com/locations/neom): project enquiries are reviewed against scope, specifications, site conditions, and availability
 
 ## Common questions
-- Coverage: all of Saudi Arabia; HQ Riyadh; teams in Jeddah, Dammam, NEOM.
-- Response time: 24 hours; same-day Riyadh site visits; quotation within 1 business day.
+- Coverage and availability: confirmed for each enquiry after reviewing the project location, scope, and programme; verified HQ in Riyadh.
+- Response and site-visit timing: confirmed after the submitted project information is reviewed.
 - Scopes: turnkey OR standalone MEP, fit-out, façade, or hospitality FF&E.
-- Compliance: Saudi Building Code (SBC), Civil Defense, NFPA, SASO, Aramco SAES, NEOM standards.
-- Vision 2030: active on NEOM, Diriyah, Qiddiya, KAFD, New Murabba projects.
+- Compliance: applicable codes, authority requirements, and project standards are identified and confirmed during scope review.
