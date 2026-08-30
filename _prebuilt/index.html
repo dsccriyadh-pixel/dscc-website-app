@@ -3,164 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="facebook-domain-verification" content="8gjns7wiedmjmcnhlc66p5gqd5hdov" />
 
-    <!-- GA4 loads immediately for an unbiased landing-page baseline. GTM + Snap stay deferred
-         until interaction (or 10 seconds) so advertising tags remain outside the critical path. -->
+    <!-- Deferred analytics: GTM + Snap Pixel load after page is interactive (or first user interaction).
+         Stub queues capture every early event, so no data is lost — but the heavy third-party JS
+         no longer competes with page rendering (keeps PageSpeed score high). -->
     <script>
     (function(w,d){
-      var ga4Enabled=/^(www\.)?dsccsaudia\.com$/i.test(w.location.hostname);
-      var initialRawSearch=w.location.search;
-      var nativePushState=w.history.pushState;
-      var nativeReplaceState=w.history.replaceState;
-
-      function filteredSearch(raw){
-        var sourceAllowed=/^(google|bing|facebook|instagram|meta|snapchat|tiktok|linkedin|youtube|newsletter|email|direct|x|twitter)$/i;
-        var mediumAllowed=/^(cpc|ppc|paid|paid_social|social|email|referral|display|organic|video)$/i;
-        var functional=/^(lang|showroom_preview|type|city|services|budget|timeline|sector|location)$/;
-        var clickId=/^(gclid|fbclid|ttclid|ScCid|sccid)$/;
-        var valueSafe=/^[A-Za-z0-9,_~-]{1,240}$/;
-        var q=new URLSearchParams(raw),out=new URLSearchParams();
-        q.forEach(function(value,key){
-          if(clickId.test(key)&&/^[A-Za-z0-9._~-]{1,300}$/.test(value)){out.append(key,value);return;}
-          if(key==='utm_source'&&sourceAllowed.test(value)){out.append(key,value.toLowerCase());return;}
-          if(key==='utm_medium'&&mediumAllowed.test(value)){out.append(key,value.toLowerCase());return;}
-          if(key==='lang'&&/^(ar|en)$/.test(value)){out.append(key,value);return;}
-          if(key==='showroom_preview'&&value==='1'){out.append(key,value);return;}
-          if(functional.test(key)&&valueSafe.test(value))out.append(key,value);
-        });
-        var text=out.toString();
-        return text?'?'+text:'';
-      }
-      function campaignSearch(stored){
-        var q=new URLSearchParams(stored),out=new URLSearchParams();
-        ['gclid','fbclid','ttclid','ScCid','sccid','utm_source','utm_medium'].forEach(function(key){
-          var value=q.get(key);if(value)out.set(key,value);
-        });
-        var text=out.toString();
-        return text?'?'+text:'';
-      }
-      function stateWithSearch(state,search){
-        var next=state&&typeof state==='object'?Object.assign({},state):{};
-        next.__dsccSearch=search;
-        next.__dsccSanitized=true;
-        return next;
-      }
-      function cleanReferrer(value){
-        if(!value)return'';
-        try{var url=new URL(value);return url.origin+url.pathname;}catch(_){return'';}
-      }
-      function wrapHistory(delegate){
-        if(delegate.__dsccSanitized)return delegate;
-        var wrapped=function(state,title,url){
-          if(url===undefined||url===null)return delegate.call(w.history,state,title,url);
-          var parsed=new URL(String(url),w.location.href);
-          var stored=parsed.search
-            ?filteredSearch(parsed.search)
-            :state&&typeof state.__dsccSearch==='string'
-              ?state.__dsccSearch
-              :parsed.pathname===w.location.pathname&&typeof w.__dsccCurrentSearch==='string'
-                ?w.__dsccCurrentSearch
-                :'';
-          var nextLocation=parsed.origin+parsed.pathname;
-          var alreadySanitized=!!(state&&state.__dsccSanitized);
-          w.__dsccCurrentSearch=stored;
-          if(!alreadySanitized&&typeof w.gtag==='function'){
-            var previousLocation=w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer);
-            w.gtag('set',{
-              page_location:nextLocation,
-              page_referrer:previousLocation
-            });
-            queueEarlyPageView(parsed.pathname,nextLocation,previousLocation);
-            w.__dsccLastGa4PageLocation=nextLocation;
-          }
-          return delegate.call(w.history,stateWithSearch(state,stored),title,parsed.pathname+stored+parsed.hash);
-        };
-        wrapped.__dsccSanitized=true;
-        return wrapped;
-      }
-
-      var initialStoredSearch=filteredSearch(initialRawSearch);
-      w.__dsccCurrentSearch=initialStoredSearch;
-      nativeReplaceState.call(
-        w.history,
-        stateWithSearch(w.history.state,initialStoredSearch),
-        '',
-        w.location.pathname+campaignSearch(initialStoredSearch)+w.location.hash
-      );
-      w.history.pushState=wrapHistory(nativePushState);
-      w.history.replaceState=wrapHistory(nativeReplaceState);
-      w.addEventListener('popstate',function(event){
-        var state=event.state||w.history.state;
-        w.__dsccCurrentSearch=state&&typeof state.__dsccSearch==='string'?state.__dsccSearch:'';
-        guardEarlyHistory();
-      },true);
-
-      // --- Independent queues: GTM/Snap and GA4 never consume each other's commands. ---
+      // --- Stub queues (capture events immediately) ---
       w.dataLayer=w.dataLayer||[];
       w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-      w.ga4DataLayer=w.ga4DataLayer||[];
-      w.gtag=w.gtag||function(){w.ga4DataLayer.push(arguments);};
-      w.__dsccGa4Loaded=false;
-      var initialLocation=w.location.origin+w.location.pathname;
-      w.__dsccLastGa4PageLocation=initialLocation;
-      w.__dsccLastGa4PagePath=w.location.pathname;
-      if(ga4Enabled){
-        w.gtag('js',new Date());
-        w.gtag('set',{page_location:initialLocation,page_referrer:cleanReferrer(d.referrer)});
-        w.gtag('config','G-CT7Z4L5831',{'send_page_view':false});
-      }
-      w.gtag('event','page_view',{page_location:initialLocation,page_path:w.location.pathname,page_referrer:cleanReferrer(d.referrer),send_to:'G-CT7Z4L5831'});
-      w.__dsccInitialGa4PageViewQueued=true;
-      w.__dsccPendingGa4PageViews=[];
-
-      function queueEarlyPageView(path,pageLocation,pageReferrer){
-        if(w.__dsccGa4Loaded||path===w.__dsccLastGa4PagePath||typeof w.gtag!=='function')return;
-        w.__dsccPendingGa4PageViews.push({
-          page_location:pageLocation,
-          page_path:path,
-          page_referrer:pageReferrer||''
-        });
-        w.__dsccLastGa4PagePath=path;
-      }
-      function guardEarlyHistory(){
-        w.history.pushState=wrapHistory(w.history.pushState);
-        w.history.replaceState=wrapHistory(w.history.replaceState);
-        var currentState=w.history.state;
-        if(currentState&&typeof currentState.__dsccSearch==='string'){
-          w.__dsccCurrentSearch=currentState.__dsccSearch;
-        }
-        if(w.__dsccGa4Loaded||w.location.pathname===w.__dsccLastGa4PagePath)return;
-        var nextLocation=w.location.origin+w.location.pathname;
-        var previousLocation=w.__dsccLastGa4PageLocation||cleanReferrer(d.referrer);
-        w.gtag('set',{page_location:nextLocation,page_referrer:previousLocation});
-        queueEarlyPageView(w.location.pathname,nextLocation,previousLocation);
-        w.__dsccLastGa4PageLocation=nextLocation;
-      }
-      var earlyHistoryGuard=w.setInterval(guardEarlyHistory,25);
-      var earlyHistoryGuardTimeout=w.setTimeout(function(){w.clearInterval(earlyHistoryGuard);},10000);
-
       var sn=w.snaptr=w.snaptr||function(){sn.handleRequest?sn.handleRequest.apply(sn,arguments):sn.queue.push(arguments)};
       sn.queue=sn.queue||[];
       w.snaptr('init','9f7d12c2-8d07-42f7-93b6-b4529c66b3f1',{});
       w.snaptr('track','PAGE_VIEW');
-      // --- GA4 is immediate; only advertising/auxiliary tags remain deferred. ---
+      // --- Deferred loader ---
       var loaded=false;
-      function addScript(src,onload){var s=d.createElement('script');s.async=true;s.src=src;if(onload)s.onload=onload;d.head.appendChild(s);}
-      if(ga4Enabled){
-        addScript('https://www.googletagmanager.com/gtag/js?id=G-CT7Z4L5831&l=ga4DataLayer',function(){
-          guardEarlyHistory();
-          w.__dsccGa4Loaded=true;
-          w.clearInterval(earlyHistoryGuard);
-          w.clearTimeout(earlyHistoryGuardTimeout);
-          w.setTimeout(function(){
-            w.__dsccPendingGa4PageViews.splice(0).forEach(function(pageView){
-              pageView.send_to='G-CT7Z4L5831';
-              w.gtag('event','page_view',pageView);
-            });
-          },250);
-        });
-      }
+      function addScript(src){var s=d.createElement('script');s.async=true;s.src=src;d.head.appendChild(s);}
       function loadAll(){
         if(loaded)return;loaded=true;
         addScript('https://www.googletagmanager.com/gtm.js?id=GTM-5V53WMCS');
@@ -170,7 +28,7 @@
       // Ad-campaign visitors (Snapchat ScCid, UTM, Google/Meta/TikTok click IDs) load pixels
       // IMMEDIATELY — these visitors often bounce within seconds and would otherwise be lost
       // from campaign stats. Organic visitors keep the deferred path (PageSpeed stays high).
-      if(/[?&](ScCid|sccid|utm_[a-z]+|gclid|fbclid|ttclid)=/i.test(initialRawSearch)){
+      if(/[?&](ScCid|sccid|utm_[a-z]+|gclid|fbclid|ttclid)=/i.test(w.location.search)){
         loadAll();
         return;
       }
@@ -184,7 +42,7 @@
     </script>
     <!-- End deferred analytics -->
 
-    <!-- Primary SEO (Riyadh / KSA) -->
+    <!-- ============ Primary SEO (Riyadh / KSA) ============ -->
     <title>DSCC شركة الحلول المطورة للمقاولات | تشطيبات و MEP في الرياض</title>
     <meta name="description" content="DSCC الرياض — شركة سعودية متخصصة في التشطيبات الفاخرة، أنظمة MEP، الواجهات الزجاجية، والغرف الذكية للقطاعات السكنية والتجارية والضيافة والبنية التحتية. خدمة شاملة من الاستشارة إلى التسليم في كل المملكة العربية السعودية." />
     <meta name="keywords" content="DSCC, شركة مقاولات الرياض, تشطيبات فاخرة السعودية, MEP الرياض, واجهات زجاجية, تكييف HVAC السعودية, غرف ذكية فنادق, مقاول تشطيبات معتمد, ديكور داخلي الرياض, مقاولات سكنية تجارية ضيافة" />
@@ -196,7 +54,7 @@
     <meta name="geo.position" content="24.7456;46.7204" />
     <meta name="ICBM" content="24.7456, 46.7204" />
 
-    <!-- Open Graph / Social -->
+    <!-- ============ Open Graph / Social ============ -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DSCC Saudi Arabia" />
     <meta property="og:title" content="DSCC — شركة الحلول المطورة للمقاولات | الرياض" />
@@ -212,7 +70,7 @@
     <meta name="twitter:description" content="حلول متكاملة للتشطيبات و MEP والواجهات الزجاجية في المملكة العربية السعودية." />
     <meta name="twitter:image" content="https://dsccsaudia.com/opengraph.jpg" />
 
-    <!-- Icons + PWA -->
+    <!-- ============ Icons + PWA ============ -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -223,29 +81,10 @@
     <meta name="apple-mobile-web-app-title" content="DSCC" />
     <meta name="application-name" content="DSCC" />
 
-    <script>
-      // The homepage LCP image is useful only on the homepage. Add it before
-      // React mounts so it still has high priority without spending bandwidth
-      // on direct links to projects, services, or other internal routes.
-      if (location.pathname === '/') {
-        const heroPreload = document.createElement('link');
-        heroPreload.rel = 'preload';
-        heroPreload.as = 'image';
-        heroPreload.href = '/projects/ayan-al-shatie/exterior-courtyard-dusk.webp';
-        heroPreload.imageSrcset = '/projects/ayan-al-shatie/exterior-courtyard-dusk-m.webp 768w, /projects/ayan-al-shatie/exterior-courtyard-dusk.webp 1600w';
-        heroPreload.imageSizes = '100vw';
-        heroPreload.fetchPriority = 'high';
-        heroPreload.type = 'image/webp';
-        document.head.append(heroPreload);
-      }
+    <!-- ============ LCP hero preload (responsive: mobile picks 32KB variant) ============ -->
+    <link rel="preload" as="image" href="/projects/ayan-al-shatie/exterior-courtyard-dusk.webp" imagesrcset="/projects/ayan-al-shatie/exterior-courtyard-dusk-m.webp 768w, /projects/ayan-al-shatie/exterior-courtyard-dusk.webp 1600w" imagesizes="100vw" fetchpriority="high" type="image/webp">
 
-      // Match the first paint to the reserved project hero before React mounts.
-      if (location.pathname.startsWith('/projects/')) {
-        document.documentElement.dataset.routeKind = 'project';
-      }
-    </script>
-
-    <!-- Fonts: Cairo is self-hosted via @fontsource (see main.tsx) -->
+    <!-- ============ Fonts: Cairo is self-hosted via @fontsource (see main.tsx) ============ -->
     <!-- No Google Fonts network round-trip; saves render-blocking requests on mobile. -->
     <style>
       /* size-adjust + override metrics so system fallback occupies the same space as Cairo (zero CLS) */
@@ -285,22 +124,15 @@
             #171717;
         }
       }
-      /* Project details have a shorter, fixed hero. Without this route-specific
-         reservation, the generic homepage placeholder collapses by ~300px when
-         React mounts on desktop and shifts the entire project body upward. */
-      html[data-route-kind="project"] #root:empty::after { min-height: 400px; }
-      @media (min-width: 1024px) {
-        html[data-route-kind="project"] #root:empty::after { min-height: 420px; }
-      }
     </style>
 
-    <!-- One company entity with a verified Riyadh HQ and a national service area. -->
+    <!-- ============ Structured Data — Organization + LocalBusiness ============ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["Organization", "GeneralContractor"],
+          "@type": ["Organization", "GeneralContractor", "LocalBusiness"],
           "@id": "https://dsccsaudia.com/#organization",
           "name": "DSCC Saudi Arabia",
           "alternateName": ["شركة الحلول المطورة للمقاولات", "Developed Solutions Company for Contracting", "DSCC"],
@@ -309,7 +141,14 @@
           "image": "https://dsccsaudia.com/opengraph.jpg",
           "description": "شركة سعودية متخصصة في حلول التشطيبات الفاخرة، أنظمة MEP، الواجهات الزجاجية، والغرف الذكية للقطاعات السكنية والتجارية والضيافة والبنية التحتية في المملكة العربية السعودية.",
           "foundingLocation": "Riyadh, Saudi Arabia",
-          "areaServed": { "@type": "Country", "name": "Saudi Arabia" },
+          "areaServed": [
+            { "@type": "Country", "name": "Saudi Arabia" },
+            { "@type": "City", "name": "Riyadh" },
+            { "@type": "City", "name": "Jeddah" },
+            { "@type": "City", "name": "Dammam" },
+            { "@type": "City", "name": "NEOM" },
+            { "@type": "City", "name": "AlUla" }
+          ],
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Building 7878, Eastern Ring Road (Extension), Al Manakh District",
@@ -396,14 +235,14 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-D1ofhXJO.js"></script>
+    <script type="module" crossorigin src="/assets/index-Ck27Ajtl.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-RDdc3Xau.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-radix-BQCqNqg0.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-CgDrLr6Z.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-wD8TP23c.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-DpPmPeRw.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-query-DQNMBGom.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-BzgM1a7D.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-B91pJqGP.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-CuXZk8Fz.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
