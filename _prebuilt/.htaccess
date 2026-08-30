@@ -47,26 +47,67 @@
   SetEnvIf Request_URI "^/(calculator|suppliers|supplier-register-dk49rz)/?$" dscc_noindex
   SetEnvIf Request_URI "^/s/forms/[^/]+/?$" dscc_noindex
   Header always set X-Robots-Tag "noindex, nofollow" env=dscc_noindex
+  Header always set X-Robots-Tag "noindex, nofollow" env=dscc_notfound
+  Header always set X-Robots-Tag "noindex, nofollow" env=REDIRECT_dscc_notfound
+  <Files "404.html">
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </Files>
 </IfModule>
+
+ErrorDocument 404 /404.html
 
 # ---------- SPA fallback (React Router) ----------
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Consolidate legacy Search Console URLs in one hop, regardless of scheme/host.
+  # Three explicit rules (no-slash, slash-only, slash+slug) to avoid ambiguity
+  # between Apache versions when the optional-slash shorthand /?$ is combined
+  # with [END] on Hostinger's Apache. [QSA] preserves any query string.
+  RewriteRule ^service$ https://dsccsaudia.com/services [R=301,END,NE,QSA]
+  RewriteRule ^service/$ https://dsccsaudia.com/services [R=301,END,NE,QSA]
+  RewriteRule ^service/(.+?)/?$ https://dsccsaudia.com/services/$1 [R=301,END,NE,QSA]
 
-  # One canonical hostname: HTTPS apex, with path/query preserved.
+  # Trailing-slash removal + host canonicalization in one hop for non-canonical
+  # origins. Excludes directories served directly (admin, api, assets…) and
+  # private/legacy paths so those are handled by their own rules below.
+  # [OR] connects scheme and host conditions; the exclusions are outer ANDs.
+  RewriteCond %{REQUEST_URI} !^/(?:admin|api|assets|img|downloads|fonts|__prerender)(?:/|$) [NC]
+  RewriteCond %{REQUEST_URI} !^/(?:calculator|suppliers|supplier-register-dk49rz)/?$ [NC]
+  RewriteCond %{REQUEST_URI} !^/s/forms/[^/]+/?$ [NC]
+  RewriteCond %{HTTPS} !=on [OR]
   RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
-  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [L,R=301]
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE,QSA]
+
+  # One canonical host and scheme for every remaining request. Query strings
+  # are retained because the substitution intentionally has no question mark.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.dsccsaudia\.com$ [NC]
+  RewriteRule ^ https://dsccsaudia.com%{REQUEST_URI} [R=301,END,NE]
+
+  # Public routes use slashless canonicals on the canonical HTTPS apex host.
+  # THE_REQUEST ensures an internal snapshot rewrite can never trigger this
+  # external redirect. Root (/) is exempt. Legacy /service paths are excluded.
+  RewriteCond %{THE_REQUEST} "\s/+[^\s?]+/+(?:\?[^\s]*)?\s" [NC]
+  RewriteCond %{HTTPS} =on
+  RewriteCond %{HTTP_HOST} ^dsccsaudia\.com$ [NC]
+  RewriteCond %{REQUEST_URI} !^/$
+  RewriteCond %{REQUEST_URI} !^/service(?:/|$) [NC]
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/$1/index.html -f
+  RewriteRule ^(.+)/$ https://dsccsaudia.com/$1 [R=301,END,NE,QSA]
+
+  # Generated route snapshots are internal deployment files, never public URLs.
+  # THE_REQUEST remains the original browser request after an internal rewrite,
+  # so valid route rewrites below are not blocked by this direct-access guard.
+  RewriteCond %{THE_REQUEST} "\s/+__prerender(?:[/\s?])" [NC]
+  RewriteRule ^__prerender(?:/|$) - [R=404,L,E=dscc_notfound:1]
 
   # Retired project evidence must not fall through to the SPA with HTTP 200.
   # Return 410 for the removed page slugs and their former media directories.
-  RewriteRule ^projects/(?:adrena|amaala-hotel|casa-verde|harmony-haven|hilton-swiss-palms|rooftop-escapes|sea-shell-hotel|square-workspaces|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
-  RewriteRule ^news/(?:amaala-hotel-red-sea-fit-out|dscc-adrena-red-sea-ffe-completion|dscc-rasan-village-nhc-owners-ceremony|dscc-voco-jeddah-gate-fitout-completion)/?$ - [G,L,NC]
-  RewriteRule ^news/(?:adrena|rasan-village)(?:/.*)?$ - [G,L,NC]
+  RewriteRule ^projects/(?:adrena|amaala-hotel|casa-verde|cordoba-oasis-village|harmony-haven|hilton-swiss-palms|motoon-tower-main-lobby|rooftop-escapes|sasco-al-jazeera-1|sea-shell-hotel|snood-al-narjis-hotel-furnishing|square-workspaces|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
+  RewriteRule ^news/(?:amaala-hotel-red-sea-fit-out|dscc-adrena-red-sea-ffe-completion|dscc-rasan-village-nhc-owners-ceremony|dscc-voco-jeddah-gate-fitout-completion|made-in-foshan-showroom-riyadh|snood-al-narjis-hotel-furnishing)/?$ - [G,L,NC]
+  RewriteRule ^news/(?:adrena|made-in-foshan-riyadh|rasan-village|snood-al-narjis-furnishing)(?:/.*)?$ - [G,L,NC]
 
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
   RewriteRule ^api/data(/|$) - [F,L]
@@ -75,6 +116,14 @@
   # NEVER rewrite static file extensions — let Apache return real 404 if missing
   RewriteCond %{REQUEST_URI} \.(pdf|png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|json|xml|txt|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|zip)$ [NC]
   RewriteRule ^ - [L]
+
+  # Serve build-time HTML snapshots for every canonical public route. The file
+  # existence check limits this to the exact route model used by the sitemap.
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/index.html -f
+  RewriteRule ^$ /__prerender/index.html [END]
+
+  RewriteCond %{DOCUMENT_ROOT}/__prerender/$1/index.html -f
+  RewriteRule ^(.+?)/?$ /__prerender/$1/index.html [END]
 
   # Pass the Authorization header through to PHP (admin Bearer token)
   RewriteCond %{HTTP:Authorization} .
@@ -103,24 +152,22 @@
   # Skip API and static asset directories
   RewriteRule ^(api|assets|img|downloads|fonts)/ - [L]
 
-  # Project detail deep-links: the asset folder shares the route path
-  # (e.g. /projects/ayan-al-shatie). Serve the SPA shell for the folder root;
-  # real asset files (with an extension) are already passed through above.
-  RewriteRule ^projects/[^/]+/?$ /index.html [L]
-  RewriteRule ^projects/?$ /index.html [L]
+  # A bare unknown project/news slug must not fall into a physical media
+  # directory or the generic SPA shell. Known slugs were served above.
+  RewriteRule ^(?:projects|news)/[^/]+/?$ - [R=404,L,E=dscc_notfound:1]
 
-  # News detail deep-links: media folders live under /news/<dir>/ and can
-  # share the route path — same guard as /projects above.
-  RewriteRule ^news/[^/]+/?$ /index.html [L]
-  RewriteRule ^news/?$ /index.html [L]
+  # Private tools remain client-rendered but are protected by X-Robots-Tag.
+  RewriteRule ^(?:calculator|suppliers|supplier-register-dk49rz)/?$ /index.html [END]
+  RewriteRule ^s/forms/[^/]+/?$ /index.html [END]
 
   # Skip existing files and directories
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # SPA: everything else → index.html
-  RewriteRule . /index.html [L]
+  # Everything else is an actual not-found request. ErrorDocument keeps the
+  # branded React 404 snapshot while preserving the HTTP 404 status.
+  RewriteRule . - [R=404,L,E=dscc_notfound:1]
 </IfModule>
 
 # ---------- Disable directory listing ----------
