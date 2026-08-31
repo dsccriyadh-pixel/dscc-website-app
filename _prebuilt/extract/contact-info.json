@@ -18,7 +18,7 @@
       "postal_code": "14314",
       "city": "Riyadh",
       "country": "Saudi Arabia",
-      "phone": "+966 55 311 7884",
+      "phone": "0551504974",
       "email": "contact@dsccsaudia.com",
       "map_url": "https://maps.app.goo.gl/hi8vD8A5agjrpmaT7"
     },
@@ -27,13 +27,13 @@
       "name_ar": "مكتب شنغهاي",
       "address": "456 Park Avenue, Shanghai 54321, China",
       "address_ar": "456 بارك أفينيو، شنغهاي 54321، الصين",
-      "phone": "+86 21 9876 5432",
+      "phone": "0551504974",
       "email": "contact@dsccsaudia.com"
     }
   ],
   "whatsapp": {
-    "number": "+966 55 311 7884",
-    "url": "https://api.whatsapp.com/send?phone=966553117884&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
+    "number": "0551504974",
+    "url": "https://api.whatsapp.com/send?phone=966551504974&text=I%27m%20looking%20for%20Solution%20Provider%20(DSCC-WebSite)"
   },
   "contact_form_options": [
     "Service inquiry",
