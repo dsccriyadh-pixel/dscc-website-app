@@ -1,9 +1,0 @@
-{
-  "name": "dscc-website",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "preinstall": "echo skip",
-    "build": "mkdir -p dist && cp -r _prebuilt/. dist/ && node gen-config.cjs && echo built"
-  }
-}
