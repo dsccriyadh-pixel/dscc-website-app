@@ -40,11 +40,13 @@
         w.gtag = function(){ w.dataLayer.push(arguments); };
         w.gtag("consent", "default", denied);
         w.gtag("consent", "update", choices);
-        var gtmLoaded = false, googleTagLoaded = false, gaConfigured = false, adsConfigured = false, snapLoaded = false, metricoolLoaded = false, analyticsPageViewAnnounced = false;
+        var gtmLoaded = false, googleTagLoaded = false, gaConfigured = false, adsConfigured = false, metricoolLoaded = false, analyticsPageViewAnnounced = false;
         function add(src, onload) { var s=d.createElement("script"); s.async=true; s.src=src; if (onload) s.onload=onload; d.head.appendChild(s); }
         w.__dsccTrackingLoad = function(next) {
           w.gtag("consent", "update", next);
-          if (externalEnabled && !gtmLoaded && (next.analytics_storage === "granted" || next.ad_storage === "granted")) {
+          // The current GTM container owns Snapchat. Load it only when every
+          // advertising consent field is granted; GA4 loads directly below.
+          if (externalEnabled && !gtmLoaded && next.ad_storage === "granted" && next.ad_user_data === "granted" && next.ad_personalization === "granted") {
             gtmLoaded = true;
             w.dataLayer.push({"gtm.start":new Date().getTime(),event:"gtm.js"});
             add("https://www.googletagmanager.com/gtm.js?id=" + encodeURIComponent(cfg.gtm));
@@ -56,14 +58,6 @@
           }
           if (!gaConfigured && next.analytics_storage === "granted") { gaConfigured = true; w.gtag("config", cfg.ga4, {send_page_view:false}); }
           if (!adsConfigured && next.ad_storage === "granted") { adsConfigured = true; w.gtag("config", cfg.ads); }
-          if (externalEnabled && !snapLoaded && next.ad_storage === "granted") {
-            snapLoaded = true;
-            var sn=w.snaptr=w.snaptr||function(){sn.handleRequest?sn.handleRequest.apply(sn,arguments):sn.queue.push(arguments)};
-            sn.queue=sn.queue||[];
-            w.snaptr("init","9f7d12c2-8d07-42f7-93b6-b4529c66b3f1",{});
-            w.snaptr("track","PAGE_VIEW");
-            add("https://sc-static.net/scevent.min.js");
-          }
           if (next.analytics_storage === "granted") {
             if (externalEnabled && !metricoolLoaded) {
               metricoolLoaded = true;
