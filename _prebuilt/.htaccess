@@ -103,6 +103,12 @@ ErrorDocument 404 /404.html
   RewriteCond %{THE_REQUEST} "\s/+__prerender(?:[/\s?])" [NC]
   RewriteRule ^__prerender(?:/|$) - [R=404,L,E=dscc_notfound:1]
 
+  # Retired project evidence must not fall through to the SPA with HTTP 200.
+  # Return 410 for the removed page slugs and their former media directories.
+  RewriteRule ^projects/(?:adrena|amaala-hotel|casa-verde|cordoba-oasis-village|harmony-haven|hilton-swiss-palms|motoon-tower-main-lobby|rooftop-escapes|sasco-al-jazeera-1|sea-shell-hotel|snood-al-narjis-hotel-furnishing|square-workspaces|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
+  RewriteRule ^news/(?:amaala-hotel-red-sea-fit-out|dscc-adrena-red-sea-ffe-completion|dscc-rasan-village-nhc-owners-ceremony|dscc-voco-jeddah-gate-fitout-completion|made-in-foshan-showroom-riyadh|snood-al-narjis-hotel-furnishing)/?$ - [G,L,NC]
+  RewriteRule ^news/(?:adrena|made-in-foshan-riyadh|rasan-village|snood-al-narjis-furnishing)(?:/.*)?$ - [G,L,NC]
+
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
   RewriteRule ^api/data(/|$) - [F,L]
   RewriteRule ^api/.*\.json$ - [F,L]
