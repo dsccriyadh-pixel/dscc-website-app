@@ -39,7 +39,7 @@
         w.gtag = function(){ w.dataLayer.push(arguments); };
         w.gtag("consent", "default", denied);
         w.gtag("consent", "update", choices);
-        var gtmLoaded = false, googleTagLoaded = false, gaConfigured = false, adsConfigured = false, metricoolLoaded = false, analyticsPageViewAnnounced = false;
+        var gtmLoaded = false, googleTagLoaded = false, gaConfigured = false, metricoolLoaded = false, analyticsPageViewAnnounced = false;
         function add(src, onload) { var s=d.createElement("script"); s.async=true; s.src=src; if (onload) s.onload=onload; d.head.appendChild(s); }
         w.__dsccTrackingLoad = function(next) {
           w.gtag("consent", "update", next);
@@ -56,7 +56,8 @@
             add("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(next.analytics_storage === "granted" ? cfg.ga4 : cfg.ads));
           }
           if (!gaConfigured && next.analytics_storage === "granted") { gaConfigured = true; w.gtag("config", cfg.ga4, {send_page_view:false}); }
-          if (!adsConfigured && next.ad_storage === "granted") { adsConfigured = true; w.gtag("config", cfg.ads); }
+          // GTM owns the Google Ads destination as well as Snapchat. Do not
+          // configure the Ads destination here or gtag.js will load it twice.
           if (next.analytics_storage === "granted") {
             if (externalEnabled && !metricoolLoaded) {
               metricoolLoaded = true;
