@@ -1,9 +1,17 @@
 {
-  "name": "dscc-website",
-  "version": "1.0.0",
-  "private": true,
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
     "preinstall": "echo skip",
-    "build": "mkdir -p dist && cp -r _prebuilt/. dist/ && node gen-config.cjs && echo built"
+    "build": "mkdir -p dist artifacts/dscc-website/dist/public && cp -r _prebuilt/. dist/ && cp -r _prebuilt/. artifacts/dscc-website/dist/public/ && node gen-config.cjs && node artifacts/dscc-website/scripts/tracking-check.mjs --root-built && echo built",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+  },
+  "private": true,
+  "packageManager": "pnpm@10.26.1",
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "prettier": "^3.8.1"
   }
 }
