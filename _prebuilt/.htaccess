@@ -105,9 +105,12 @@ ErrorDocument 404 /404.html
 
   # Retired project evidence must not fall through to the SPA with HTTP 200.
   # Return 410 for the removed page slugs and their former media directories.
-  RewriteRule ^projects/(?:adrena|amaala-hotel|casa-verde|cordoba-oasis-village|harmony-haven|hilton-swiss-palms|motoon-tower-main-lobby|sasco-al-jazeera-1|sea-shell-hotel|snood-al-narjis-hotel-furnishing|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
+  # BEGIN GENERATED PROJECT RETIREMENTS
+  RewriteRule ^projects/(?:adrena|amaala-hotel|casa-verde|cordoba-oasis-village|harmony-haven|hilton-swiss-palms|made-in-foshan-showroom-riyadh|motoon-tower-main-lobby|sasco-al-jazeera-1|sea-shell-hotel|snood-al-narjis-hotel-furnishing|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
   RewriteRule ^news/(?:amaala-hotel-red-sea-fit-out|dscc-adrena-red-sea-ffe-completion|dscc-rasan-village-nhc-owners-ceremony|dscc-voco-jeddah-gate-fitout-completion|made-in-foshan-showroom-riyadh|snood-al-narjis-hotel-furnishing)/?$ - [G,L,NC]
+  RewriteRule ^projects/(?:adrena|amaala-hotel|cordoba-oasis-village|motoon-tower-main-lobby|sasco-al-jazeera-1|snood-al-narjis-hotel-furnishing|voco-jeddah-gate)(?:/.*)?$ - [G,L,NC]
   RewriteRule ^news/(?:adrena|made-in-foshan-riyadh|rasan-village|snood-al-narjis-furnishing)(?:/.*)?$ - [G,L,NC]
+  # END GENERATED PROJECT RETIREMENTS
 
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
   RewriteRule ^api/data(/|$) - [F,L]
