@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Generated from route data. 198 canonical public URLs; 100 service-city and 16 sector-city routes. -->
+  <!-- Generated from route data. 222 canonical public URLs; 100 service-city and 16 sector-city routes. -->
   <url><loc>https://dsccsaudia.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority><image:image><image:loc>https://dsccsaudia.com/opengraph.jpg</image:loc><image:title>DSCC Saudi Arabia — Premium Fit-Out &amp; MEP Contractor</image:title></image:image></url>
   <url><loc>https://dsccsaudia.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/clients</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -183,18 +183,42 @@
   <url><loc>https://dsccsaudia.com/services/window-and-door/neom</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://dsccsaudia.com/services/window-and-door/riyadh</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://dsccsaudia.com/solutions</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/cafe-fit-out-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/clinic-fit-out-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/commercial-fit-out-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/electromechanical-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/fit-out-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/hotel-fit-out-saudi-arabia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/interior-design-build-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/interior-fit-out-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/low-current-systems-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/mep-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/mep-maintenance-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/office-fit-out-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/office-fit-out-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/restaurant-fit-out-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/retail-fit-out-contractor-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-cafe-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-clinic-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-commercial-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-electromechanical-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-fit-out-contractor-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-interior-design-build-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-low-current-systems-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-mep-contracting-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-mep-maintenance-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-office-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-office-fit-out-contractor-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-restaurant-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-retail-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-showroom-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/riyadh-turnkey-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-villa-fit-out-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/riyadh-villa-fit-out-cost-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/saudi-hotel-fit-out-company-ar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/showroom-fit-out-company-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/solutions/turnkey-fit-out-contractor-saudi-arabia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/villa-fit-out-cost-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/solutions/villa-fit-out-riyadh</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/sustainability</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
