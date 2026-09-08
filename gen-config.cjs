@@ -10,15 +10,21 @@ const fs = require("fs");
 const path = require("path");
 
 const token = process.env.ADMIN_TOKEN || process.env.DSCC_ADMIN_TOKEN || "";
+const metaCapiToken = process.env.META_CAPI_ACCESS_TOKEN || "";
+const metaPixelId = process.env.META_PIXEL_ID || "2767855866945056";
+const metaTestEventCode = process.env.META_CAPI_TEST_EVENT_CODE || "";
 
-if (!token) {
-  console.log("[gen-config] ADMIN_TOKEN not set — skipping config.php (admin will be disabled)");
+if (!token && !metaCapiToken) {
+  console.log("[gen-config] no server secrets set — skipping config.php (admin and Meta CAPI will be disabled)");
   process.exit(0);
 }
 
 const phpStr = (v) => "'" + String(v).replace(/\\/g, "\\\\").replace(/'/g, "\\'") + "'";
 
-const lines = ["<?php", "define('ADMIN_TOKEN', " + phpStr(token) + ");"];
+const lines = ["<?php"];
+if (token) {
+  lines.push("define('ADMIN_TOKEN', " + phpStr(token) + ");");
+}
 if (process.env.ADMIN_USERNAME) {
   lines.push("define('ADMIN_USERNAME', " + phpStr(process.env.ADMIN_USERNAME) + ");");
 }
@@ -30,6 +36,13 @@ if (process.env.ADMIN_NOTIFY_EMAIL) {
 }
 if (process.env.OPENAI_API_KEY) {
   lines.push("define('OPENAI_API_KEY', " + phpStr(process.env.OPENAI_API_KEY) + ");");
+}
+if (metaCapiToken) {
+  lines.push("define('META_CAPI_ACCESS_TOKEN', " + phpStr(metaCapiToken) + ");");
+  lines.push("define('META_PIXEL_ID', " + phpStr(metaPixelId) + ");");
+  if (metaTestEventCode) {
+    lines.push("define('META_CAPI_TEST_EVENT_CODE', " + phpStr(metaTestEventCode) + ");");
+  }
 }
 const content = lines.join("\n") + "\n";
 
