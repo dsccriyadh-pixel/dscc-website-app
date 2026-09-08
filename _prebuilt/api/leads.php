@@ -43,6 +43,7 @@ if (!is_array($body)) {
 
 // Per-IP rate limit: 10 lead submissions per minute.
 require_once __DIR__ . '/_store.php';
+require_once __DIR__ . '/meta-capi.php';
 $rlIp = trim((string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
 if ($rlIp === '') $rlIp = 'unknown';
 try {
@@ -202,6 +203,12 @@ if (!$ok) {
     if (!$persisted) {
         out(502, ['ok' => false, 'error' => 'Mail failed.', 'ref' => $ref]);
     }
+}
+
+// A browser and server conversion share this event_id, so Meta counts one
+// Lead rather than two. CAPI is best-effort and never blocks an accepted lead.
+if (($persisted || $ok) && $eventId !== '') {
+    dscc_meta_send_lead($eventId, $source, $ref, $clientEmail, $clientPhone, $data['consent'] ?? []);
 }
 
 out(200, ['ok' => true, 'ref' => $ref]);
