@@ -210,6 +210,10 @@ if (builtMode) {
     assert.ok(count(content, /googletagmanager\.com\/gtag\/js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate gtag.js loaders`);
     assert.ok(count(content, /googletagmanager\.com\/gtm\.js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate GTM loaders`);
     assert.ok(count(content, /connect\.facebook\.net\/en_US\/fbevents\.js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate Meta Pixel loaders`);
+    if (file.endsWith(".html") && content.includes("/* Consent Mode v2")) {
+      assert.equal(count(content, /connect\.facebook\.net\/en_US\/fbevents\.js/g), 1, `${path.relative(outputRoot, file)} is missing the Meta Pixel loader`);
+      assert.equal(count(content, /2767855866945056/g), 1, `${path.relative(outputRoot, file)} must contain the DSCC Pixel ID once`);
+    }
   }
 }
 
