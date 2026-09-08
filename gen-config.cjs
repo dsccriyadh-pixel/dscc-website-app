@@ -1,9 +1,10 @@
 // Generates api/config.php at deploy/build time from secret environment
-// variables so the admin token is never committed to the (public) repo and
-// survives every redeploy. Runs as the last step of `npm run build`.
+// variables so admin and Meta CAPI secrets are never committed to the public
+// repository and survive every redeploy. Runs during `npm run build`.
 //
-// Required Hostinger build env var:
+// Hostinger build environment variables:
 //   ADMIN_TOKEN   - bearer token the dscc-admin dashboard authenticates with
+//   META_CAPI_ACCESS_TOKEN - server-only Meta Conversions API token
 // Optional:
 //   ADMIN_NOTIFY_EMAIL - overrides the address that receives new-lead alerts
 const fs = require("fs");
