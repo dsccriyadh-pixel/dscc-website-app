@@ -87,11 +87,15 @@ const fullConsent = {
   ad_personalization: "granted",
 };
 
-const [html, tracking, leads, eventTracker] = await Promise.all([
+const deploymentRoot = path.resolve(root, "..", "..", "_prebuilt");
+const [html, tracking, leads, eventTracker, metaCapi, generatedConfig, privacyBundle] = await Promise.all([
   read("index.html"),
   read("src/lib/tracking.ts"),
   read("src/lib/leads.ts"),
   read("src/lib/eventTracker.ts"),
+  readFile(path.join(deploymentRoot, "api/meta-capi.php"), "utf8"),
+  readFile(path.resolve(root, "..", "..", "gen-config.cjs"), "utf8"),
+  readFile(path.join(deploymentRoot, "assets/privacy-v_LbeO8K.js"), "utf8"),
 ]);
 
 const { createAdsConversionDispatcher } = await import(pathToFileURL(path.join(root, "src/lib/conversionDispatcher.js")).href);
@@ -173,6 +177,15 @@ assert.match(leads, /if \(res\.ok\)[\s\S]*pushDataLayer\("dscc_form_submission_s
 assert.match(leads, /if \(result\.ok === false\) return \{ ok: false, ref \};/, "A rejected server result must not emit a conversion");
 assert.match(leads, /return \{ ok: false, ref \};[\s\S]*catch \{[\s\S]*return \{ ok: false, ref \};/, "HTTP and network failures must not emit a conversion");
 assert.doesNotMatch(leads, /pushDataLayer\([^)]*(payload\.data|customer|email|phone)/s, "Raw lead data must never be pushed to dataLayer");
+assert.match(metaCapi, /function dscc_meta_ads_consent[\s\S]*ad_storage[\s\S]*ad_user_data[\s\S]*ad_personalization/, "Meta CAPI must require complete advertising consent");
+assert.match(metaCapi, /hash\('sha256', \$normalized\)/, "Meta CAPI must SHA-256 hash normalized email");
+assert.match(metaCapi, /hash\('sha256', \$digits\)/, "Meta CAPI must SHA-256 hash normalized phone");
+assert.match(metaCapi, /'event_id' => \$eventId[\s\S]*'action_source' => 'website'[\s\S]*'event_source_url'/, "Meta CAPI must preserve browser event_id and required web-event fields");
+assert.match(metaCapi, /graph\.facebook\.com\/v25\.0\/[\s\S]*\/events/, "Meta CAPI must use the current Graph API endpoint");
+assert.match(generatedConfig, /META_CAPI_ACCESS_TOKEN/, "Deployment config generator must support the Meta CAPI secret");
+assert.doesNotMatch(html, /META_CAPI_ACCESS_TOKEN/, "The Meta CAPI secret name must not appear in client HTML");
+assert.match(privacyBundle, /including Meta, only after you grant the relevant cookie consent/, "Privacy policy must disclose consent-gated Meta sharing");
+assert.match(privacyBundle, /SHA-256 hashed before transmission/, "Privacy policy must disclose hashed conversion? identifiers");
 
 for (const kind of ["whatsapp", "phone"]) {
   const block = eventTracker.match(new RegExp(`if \\(standardizedType === "${kind}_click"\\) \\{([\\s\\S]*?)\\n  \\}`))?.[1] || "";
