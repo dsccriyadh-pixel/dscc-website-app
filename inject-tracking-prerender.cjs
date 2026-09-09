@@ -1,15 +1,10 @@
-// Keeps every pre-rendered SEO page on the same consent/tracking bootstrap as
-// the canonical deployment index. The hosting release step promotes these
-// pages after the normal build, so stale inline tracking must never survive.
+// Add or replace only the Meta bootstrap. The existing Google Consent Mode
+// bootstrap remains authoritative and must never be removed by this script.
 const fs = require("fs");
 const path = require("path");
+const { html: trackingBootstrap, MARKER } = require("./artifacts/dscc-website/scripts/tracking-bootstrap.cjs");
 
-const marker = "/* Consent Mode v2";
-const bootstrapPattern = /<script>\s*(\/\* Consent Mode v2[\s\S]*?)<\/script>/;
-const canonical = fs.readFileSync(path.resolve("_prebuilt/index.html"), "utf8");
-const canonicalMatch = canonical.match(bootstrapPattern);
-if (!canonicalMatch) throw new Error("Canonical consent bootstrap is missing");
-const replacement = canonicalMatch[0];
+const bootstrapPattern = /<script>\s*\/\* DSCC consent-gated tracking bootstrap \*\/[\s\S]*?<\/script>/g;
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -24,15 +19,16 @@ for (const root of process.argv.slice(2)) {
   for (const file of walk(root)) {
     if (!file.endsWith(".html")) continue;
     const html = fs.readFileSync(file, "utf8");
-    if (!html.includes(marker)) continue;
-    const next = html.replace(bootstrapPattern, replacement);
-    if (next === html && !html.includes('metaPixel: "2767855866945056"')) {
-      throw new Error(`Failed to update tracking bootstrap in ${file}`);
+    const cleaned = html.replace(bootstrapPattern, "");
+    const next = cleaned.includes("</head>")
+      ? cleaned.replace(/<\/head>/i, `${trackingBootstrap()}\n</head>`)
+      : `${cleaned}\n${trackingBootstrap()}\n`;
+    if ((next.match(new RegExp(MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length !== 1) {
+      throw new Error(`Tracking bootstrap must occur exactly once in ${file}`);
     }
     fs.writeFileSync(file, next);
     updated += 1;
   }
 }
-
-if (updated < 2) throw new Error("No pre-rendered tracking pages were updated");
+if (updated < 1) throw new Error("No HTML pages were updated");
 console.log(`[tracking] synchronized ${updated} HTML pages`);
