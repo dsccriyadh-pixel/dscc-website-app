@@ -1,1 +1,34 @@
 google-site-verification: google3aabffce42620d00.html
+
+
+<script>/* DSCC consent-gated tracking bootstrap */
+(function(w,d){
+  var pixel="2767855866945056";
+  var granted=function(c){return c && c.ad_storage==="granted" && c.ad_user_data==="granted" && c.ad_personalization==="granted";};
+  var load=function(c){
+    if(!granted(c)||w.__dsccMetaScriptLoaded)return;
+    w.__dsccMetaScriptLoaded=true;
+    if(!w.fbq){
+      var q=function(){if(q.callMethod)q.callMethod.apply(q,arguments);else q.queue.push(arguments);};
+      q.push=q; q.loaded=true; q.version="2.0"; q.queue=[];
+      w.fbq=q; w._fbq=q;
+    }
+    if(!w.__dsccMetaInitialized){
+      w.fbq("init",pixel);
+      w.__dsccMetaInitialized=true;
+    }
+    var s=d.createElement("script"); s.async=true;
+    s.src="https://connect.facebook.net/en_US/fbevents.js";
+    s.setAttribute("data-dscc-meta-pixel","true");
+    d.head.appendChild(s);
+  };
+  w.__dsccMetaLoad=load;
+  var previous=w.__dsccTrackingLoad;
+  w.__dsccTrackingLoad=function(c){
+    if(previous)previous(c);
+    w.__dsccConsent=c||{};
+    load(c);
+    w.dispatchEvent(new CustomEvent("dscc:meta-consent-changed"));
+  };
+  load(w.__dsccConsent);
+})(window,document);</script>

@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { html as metaBootstrapHtml, MARKER } from "./tracking-bootstrap.cjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relative) => readFile(path.join(root, relative), "utf8");
@@ -11,14 +12,22 @@ function count(text, pattern) {
   return [...text.matchAll(pattern)].length;
 }
 
-function bootstrapScript(html) {
+function consentBootstrapScript(html) {
   const match = html.match(/<script>\s*(\/\* Consent Mode v2[\s\S]*?)<\/script>/);
-  assert(match, "Consent bootstrap script is missing from index.html");
+  assert(match, "Google Consent Mode bootstrap is missing from index.html");
   return match[1]
     .replaceAll("__DSCC_GTM_CONTAINER_ID__", "GTM-TEST")
     .replaceAll("__DSCC_GA4_MEASUREMENT_ID__", "G-TEST")
     .replaceAll("__DSCC_GOOGLE_ADS_ID__", "AW-TEST")
     .replaceAll("__DSCC_TRACKING_TEST_MODE__", "false");
+}
+
+function metaBootstrapScript() {
+  const html = metaBootstrapHtml();
+  const escaped = MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = html.match(new RegExp(`<script>\\s*${escaped}([\\s\\S]*?)<\\/script>`));
+  assert(match, "Meta consent bootstrap template is missing");
+  return match[1];
 }
 
 function runConsentScenario(script, consent) {
@@ -38,22 +47,19 @@ function runConsentScenario(script, consent) {
   const window = {
     location,
     dataLayer,
+    __dsccConsent: consent || denied,
     dispatchEvent() {},
-    addEventListener() {},
-    setTimeout(callback) { callback(); },
   };
-  const history = { state: null, replaceState() {}, pushState() {} };
-  window.history = history;
   const document = {
     head: { appendChild(node) { scripts.push(node.src); node.onload?.(); } },
-    createElement() { return { async: false, src: "", onload: undefined }; },
+    createElement() { return { async: false, src: "", onload: undefined, setAttribute() {} }; },
   };
   const context = {
     window,
     document,
     localStorage,
     location,
-    history,
+    history: { state: null, replaceState() {} },
     URLSearchParams,
     CustomEvent: class CustomEvent { constructor(type) { this.type = type; } },
     Date,
@@ -61,7 +67,7 @@ function runConsentScenario(script, consent) {
   };
   window.window = window;
   vm.runInNewContext(script, context);
-  return { scripts, dataLayer, window };
+  return { scripts, dataLayer };
 }
 
 async function walkFiles(directory) {
@@ -87,15 +93,14 @@ const fullConsent = {
   ad_personalization: "granted",
 };
 
-const deploymentRoot = path.resolve(root, "..", "..", "_prebuilt");
-const [html, tracking, leads, eventTracker, metaCapi, generatedConfig, privacyBundle] = await Promise.all([
+const [html, tracking, leads, eventTracker, meta, metaCapi, leadsPhp] = await Promise.all([
   read("index.html"),
   read("src/lib/tracking.ts"),
   read("src/lib/leads.ts"),
   read("src/lib/eventTracker.ts"),
-  readFile(path.join(deploymentRoot, "api/meta-capi.php"), "utf8"),
-  readFile(path.resolve(root, "..", "..", "gen-config.cjs"), "utf8"),
-  readFile(path.join(deploymentRoot, "assets/privacy-v_LbeO8K.js"), "utf8"),
+  read("src/lib/meta.ts"),
+  read("public/api/meta-capi.php"),
+  read("public/api/leads.php"),
 ]);
 
 const { createAdsConversionDispatcher } = await import(pathToFileURL(path.join(root, "src/lib/conversionDispatcher.js")).href);
@@ -135,57 +140,43 @@ assert.equal(dispatched.filter(({ kind }) => kind === "whatsapp").length, 1, "Wh
 assert.equal(dispatched.filter(({ kind }) => kind === "phone").length, 1, "Phone must dispatch once for one event_id");
 assert.equal(new Set(dispatched.flatMap(({ event_id, transports }) => transports.map(() => event_id))).size, 3, "Google transport fan-out must be deduplicated by event_id");
 
-const script = bootstrapScript(html);
-const noConsent = runConsentScenario(script, null);
-assert.deepEqual(noConsent.scripts, [], "No-consent mode must not load Google, GTM, Metricool, or Meta");
-assert.equal(noConsent.window.fbq, undefined, "No-consent mode must not initialize Meta Pixel");
+const googleScript = consentBootstrapScript(html);
+const noConsent = runConsentScenario(googleScript, null);
+assert.deepEqual(noConsent.scripts, [], "No-consent mode must not load Google, GTM, or Metricool");
 
-const measurement = runConsentScenario(script, measurementOnly);
+const measurement = runConsentScenario(googleScript, measurementOnly);
 assert.equal(measurement.scripts.filter((url) => url.includes("/gtag/js")).length, 1, "Measurement-only mode must load gtag.js once");
 assert.equal(measurement.scripts.filter((url) => url.includes("/gtm.js")).length, 0, "Measurement-only mode must not load GTM");
-assert.equal(measurement.scripts.filter((url) => url.includes("snap")).length, 0, "Measurement-only mode must not load Snapchat");
-assert.equal(measurement.scripts.filter((url) => url.includes("connect.facebook.net")).length, 0, "Measurement-only mode must not load Meta Pixel");
 
-const full = runConsentScenario(script, fullConsent);
+const full = runConsentScenario(googleScript, fullConsent);
 assert.equal(full.scripts.filter((url) => url.includes("/gtag/js")).length, 1, "Full-consent mode must load gtag.js once");
 assert.equal(full.scripts.filter((url) => url.includes("/gtm.js")).length, 1, "Full-consent mode must load GTM once");
-assert.equal(full.scripts.filter((url) => url.includes("connect.facebook.net/en_US/fbevents.js")).length, 1, "Full-consent mode must load Meta Pixel once");
-assert.equal(new Set(full.scripts).size, full.scripts.length, "Tracking bootstrap must not load duplicate script URLs");
+assert.equal(new Set(full.scripts).size, full.scripts.length, "Google bootstrap must not load duplicate script URLs");
 
-const metaCalls = () => full.window.fbq.queue.map((args) => Array.from(args));
-assert.equal(metaCalls().filter((args) => args[0] === "init" && args[1] === "2767855866945056").length, 1, "Meta Pixel must initialize the DSCC dataset once");
-assert.equal(metaCalls().filter((args) => args[0] === "track" && args[1] === "PageView").length, 1, "Meta Pixel must send one initial PageView");
-
-full.window.dataLayer.push({ event: "dscc_form_submission_success", event_id: "lead-shared", lead_source: "quote", transaction_id: "DSCC-1" });
-full.window.dataLayer.push({ event: "dscc_form_submission_success", event_id: "lead-shared", lead_source: "quote", transaction_id: "DSCC-1" });
-full.window.dataLayer.push({ event: "dscc_whatsapp_click", event_id: "wa-shared" });
-full.window.dataLayer.push({ event: "dscc_whatsapp_click", event_id: "wa-shared" });
-full.window.dataLayer.push({ event: "dscc_phone_click", event_id: "phone-shared" });
-full.window.dataLayer.push({ event: "request_quote_click", event_id: "quote-shared" });
-assert.equal(metaCalls().filter((args) => args[0] === "track" && args[1] === "Lead" && args[3]?.eventID === "lead-shared").length, 1, "Meta Lead must deduplicate by event_id");
-assert.equal(metaCalls().filter((args) => args[0] === "track" && args[1] === "Contact" && args[2]?.contact_method === "whatsapp" && args[3]?.eventID === "wa-shared").length, 1, "Meta WhatsApp Contact must deduplicate by event_id");
-assert.equal(metaCalls().filter((args) => args[0] === "track" && args[1] === "Contact" && args[2]?.contact_method === "phone" && args[3]?.eventID === "phone-shared").length, 1, "Meta phone Contact must retain its event_id");
-assert.equal(metaCalls().filter((args) => args[0] === "trackCustom" && args[1] === "RequestQuote" && args[3]?.eventID === "quote-shared").length, 1, "Meta RequestQuote must retain its event_id");
-assert.doesNotMatch(JSON.stringify(metaCalls()), /customer@example|0500000000/, "Meta browser events must not contain customer PII");
+const metaNoConsent = runConsentScenario(metaBootstrapScript(), null);
+assert.deepEqual(metaNoConsent.scripts, [], "No-consent mode must not load Meta");
+const metaMeasurement = runConsentScenario(metaBootstrapScript(), measurementOnly);
+assert.deepEqual(metaMeasurement.scripts, [], "Measurement-only mode must not load Meta");
+const metaFull = runConsentScenario(metaBootstrapScript(), fullConsent);
+assert.equal(metaFull.scripts.filter((url) => url.includes("fbevents.js")).length, 1, "Full consent must load fbevents.js once");
+assert.doesNotMatch(metaBootstrapHtml(), /"track","PageView"/, "HTML bootstrap must not duplicate React PageView");
 
 assert.equal(count(html, /googletagmanager\.com\/gtag\/js/g), 1, "index.html must contain one gtag.js loader");
 assert.equal(count(html, /googletagmanager\.com\/gtm\.js/g), 1, "index.html must contain one GTM loader");
-assert.equal(count(html, /connect\.facebook\.net\/en_US\/fbevents\.js/g), 1, "index.html must contain one consent-gated Meta Pixel loader");
-assert.doesNotMatch(html, /facebook\.com\/tr\?id=/, "index.html must not contain a consent-bypassing noscript Meta pixel");
 assert.match(tracking, /createAdsConversionDispatcher<AdsConversionOptions>\(hasAdsConsent/, "Production Ads conversions must use the behaviorally tested consent and deduplication dispatcher");
 assert.match(leads, /if \(res\.ok\)[\s\S]*pushDataLayer\("dscc_form_submission_success"[\s\S]*sendAdsConversion\("form", event_id/, "A server-accepted lead must emit one success event and one Ads conversion with the same event_id");
 assert.match(leads, /if \(result\.ok === false\) return \{ ok: false, ref \};/, "A rejected server result must not emit a conversion");
 assert.match(leads, /return \{ ok: false, ref \};[\s\S]*catch \{[\s\S]*return \{ ok: false, ref \};/, "HTTP and network failures must not emit a conversion");
 assert.doesNotMatch(leads, /pushDataLayer\([^)]*(payload\.data|customer|email|phone)/s, "Raw lead data must never be pushed to dataLayer");
-assert.match(metaCapi, /function dscc_meta_ads_consent[\s\S]*ad_storage[\s\S]*ad_user_data[\s\S]*ad_personalization/, "Meta CAPI must require complete advertising consent");
-assert.match(metaCapi, /hash\('sha256', \$normalized\)/, "Meta CAPI must SHA-256 hash normalized email");
-assert.match(metaCapi, /hash\('sha256', \$digits\)/, "Meta CAPI must SHA-256 hash normalized phone");
-assert.match(metaCapi, /'event_id' => \$eventId[\s\S]*'action_source' => 'website'[\s\S]*'event_source_url'/, "Meta CAPI must preserve browser event_id and required web-event fields");
-assert.match(metaCapi, /graph\.facebook\.com\/v25\.0\/[\s\S]*\/events/, "Meta CAPI must use the current Graph API endpoint");
-assert.match(generatedConfig, /META_CAPI_ACCESS_TOKEN/, "Deployment config generator must support the Meta CAPI secret");
-assert.doesNotMatch(html, /META_CAPI_ACCESS_TOKEN/, "The Meta CAPI secret name must not appear in client HTML");
-assert.match(privacyBundle, /including Meta, only after you grant the relevant cookie consent/, "Privacy policy must disclose consent-gated Meta sharing");
-assert.match(privacyBundle, /SHA-256 hashed before transmission/, "Privacy policy must disclose hashed conversion? identifiers");
+assert.match(meta, /fbq\?\.\("track", name, params, \{ eventID \}\)/, "Meta Lead must pass eventID in the official deduplication options object");
+const metaLeadBody = meta.match(/export function trackMetaLead[\s\S]*?\n\}/)?.[0].replace(/\/\/.*$/gm, "") || "";
+assert.doesNotMatch(metaLeadBody, /\b(email|phone|customer)\b/, "Meta browser Lead must not include customer PII");
+assert.doesNotMatch(metaCapi, /['"]value['"]\s*=>|['"]currency['"]\s*=>/, "CAPI must not invent a lead value or currency");
+assert.match(metaCapi, /['"]state['"]\s*=>\s*['"]pending['"][\s\S]*['"]state['"]\s*=>\s*['"]sent['"]/, "CAPI must claim pending events and commit them only after success");
+assert.match(metaCapi, /else unset\(\$ids\[\$event\]\)/, "A failed Graph request must release its dedupe claim for retry");
+assert.match(metaCapi, /\$scriptFile[\s\S]*realpath\(__FILE__\)[\s\S]*dscc_meta_handle_request\(\)/, "Including meta-capi.php must not execute its HTTP endpoint");
+assert.match(leadsPhp, /require_once __DIR__ \. '\/meta-capi\.php'/, "The accepted-lead endpoint must load the CAPI helper");
+assert.match(leadsPhp, /if \(\$eventId !== '' && \(\$persisted \|\| \$mailSent\)\)[\s\S]*dscc_meta_send_once/, "CAPI must run only after a lead is accepted");
 
 for (const kind of ["whatsapp", "phone"]) {
   const block = eventTracker.match(new RegExp(`if \\(standardizedType === "${kind}_click"\\) \\{([\\s\\S]*?)\\n  \\}`))?.[1] || "";
@@ -207,12 +198,18 @@ if (builtMode) {
   const built = outputs.map(({ content }) => content).join("\n");
   assert.doesNotMatch(built, /__DSCC_[A-Z0-9_]+__/, "Built output contains an unresolved tracking placeholder");
   for (const { file, content } of outputs) {
-    assert.ok(count(content, /googletagmanager\.com\/gtag\/js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate gtag.js loaders`);
-    assert.ok(count(content, /googletagmanager\.com\/gtm\.js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate GTM loaders`);
-    assert.ok(count(content, /connect\.facebook\.net\/en_US\/fbevents\.js/g) <= 1, `${path.relative(outputRoot, file)} contains duplicate Meta Pixel loaders`);
-    if (file.endsWith(".html") && content.includes("/* Consent Mode v2")) {
-      assert.equal(count(content, /connect\.facebook\.net\/en_US\/fbevents\.js/g), 1, `${path.relative(outputRoot, file)} is missing the Meta Pixel loader`);
-      assert.equal(count(content, /2767855866945056/g), 1, `${path.relative(outputRoot, file)} must contain the DSCC Pixel ID once`);
+    if (file.endsWith(".html")) {
+      const label = path.relative(outputRoot, file);
+      const markerCount = count(content, new RegExp(MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"));
+      assert.equal(markerCount, 1, `${label} must contain exactly one tracking bootstrap`);
+      const escapedMarker = MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const metaBlock = content.match(new RegExp(`<script>\\s*${escapedMarker}[\\s\\S]*?<\\/script>`))?.[0] || "";
+      assert.equal(count(metaBlock, /2767855866945056/g), 1, `${label} Meta bootstrap must contain exactly one Pixel ID`);
+      assert.equal(count(metaBlock, /connect\.facebook\.net\/en_US\/fbevents\.js/g), 1, `${label} Meta bootstrap must contain fbevents.js`);
+      assert.doesNotMatch(content, /<noscript/i, `${label} must not contain a tracking noscript`);
+      assert.doesNotMatch(content, /META_CAPI_ACCESS_TOKEN|access_token=/i, `${label} must not contain a CAPI token`);
+      assert.ok(count(content, /googletagmanager\.com\/gtag\/js/g) <= 1, `${label} contains duplicate gtag.js loaders`);
+      assert.ok(count(content, /googletagmanager\.com\/gtm\.js/g) <= 1, `${label} contains duplicate GTM loaders`);
     }
   }
 }

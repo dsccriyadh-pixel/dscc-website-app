@@ -2,6 +2,7 @@ import { trackGa4Action } from "@/lib/ga4";
 import { getCurrentSearch } from "@/lib/urlSearch";
 import { getAttribution } from "@/lib/attribution";
 import { getConsent, hasAdsConsent, pushDataLayer, sendAdsConversion } from "@/lib/tracking";
+import { trackMetaContact, trackMetaRequestQuote } from "@/lib/meta";
 
 // Lightweight internal action tracking — sends a beacon per user action to /api/event.
 // Captures WhatsApp / phone / email clicks globally plus explicit events (chat open, etc).
@@ -96,6 +97,10 @@ export function trackEvent(type: string, label = ""): void {
       destinationUrl: "tel:+966551504974",
     });
   }
+  if (standardizedType === "whatsapp_click" || standardizedType === "phone_click" || standardizedType === "email_click") {
+    trackMetaContact(standardizedType.replace("_click", "") as "whatsapp" | "phone" | "email");
+  }
+  if (standardizedType === "chat_open") trackMetaContact("chatbot");
   try {
     if (navigator.sendBeacon) {
       navigator.sendBeacon(url, new Blob([payload], { type: "application/json" }));
@@ -138,7 +143,10 @@ export function initEventTracking(): void {
           trackEvent("brochure_download", href.split("/").pop()?.split("?")[0] || "");
         } else {
           const quotePath = new URL(href, window.location.href).pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "") || "/";
-          if (quotePath === "/quote") trackEvent("request_quote_click");
+           if (quotePath === "/quote") {
+             trackEvent("request_quote_click");
+             trackMetaRequestQuote();
+           }
         }
       } catch {
         /* never break the page */

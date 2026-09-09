@@ -1,6 +1,7 @@
 import { getAttribution } from "@/lib/attribution";
 import { getConsent, isTrackingTestMode, newEventId, pushDataLayer, sendAdsConversion } from "@/lib/tracking";
 import { trackGa4Action } from "@/lib/ga4";
+import { trackMetaLead } from "@/lib/meta";
 
 export interface LeadPayload {
   source: "quote" | "contact" | "chatbot" | "newsletter" | "showroom" | "calculator";
@@ -59,6 +60,7 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; r
         // this immutable ID for retry and platform deduplication.
         pushDataLayer("dscc_form_submission_success", { event_id, lead_source: payload.source, transaction_id: transactionId });
         trackGa4Action("generate_lead", "", event_id);
+        trackMetaLead(event_id);
         void sendAdsConversion("form", event_id, {
           customer: payload.data,
           transactionId,
