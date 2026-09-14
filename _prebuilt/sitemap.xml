@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Generated from route data. 229 canonical public URLs; 100 service-city and 16 sector-city routes. -->
+  <!-- Generated from route data. 231 canonical public URLs; 100 service-city and 16 sector-city routes. -->
   <url><loc>https://dsccsaudia.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority><image:image><image:loc>https://dsccsaudia.com/opengraph.jpg</image:loc><image:title>DSCC Saudi Arabia — Premium Fit-Out &amp; MEP Contractor</image:title></image:image></url>
   <url><loc>https://dsccsaudia.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dsccsaudia.com/certifications</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://dsccsaudia.com/clients</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://dsccsaudia.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -19,6 +20,7 @@
   <url><loc>https://dsccsaudia.com/media-center</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/news</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dsccsaudia.com/news/ayan-al-shatie-villas-jeddah</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dsccsaudia.com/news/dscc-achieves-iso-certifications</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/news/dscc-iflytek-wallex-partnership</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/news/dscc-pipex-2026-riyadh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dsccsaudia.com/news/lucy-lu-haier-smart-home-launch-riyadh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
