@@ -113,8 +113,6 @@ ErrorDocument 404 /404.html
   # Return 410 for the removed page slugs and their former media directories.
   # BEGIN GENERATED PROJECT RETIREMENTS
   RewriteRule ^projects/(?:made-in-foshan-showroom-riyadh)(?:/.*)?$ - [G,L,NC]
-  RewriteRule ^news/(?:amaala-hotel-red-sea-fit-out|dscc-adrena-red-sea-ffe-completion|dscc-rasan-village-nhc-owners-ceremony|dscc-voco-jeddah-gate-fitout-completion|made-in-foshan-showroom-riyadh|snood-al-narjis-hotel-furnishing)/?$ - [G,L,NC]
-  RewriteRule ^news/(?:adrena|made-in-foshan-riyadh|rasan-village|snood-al-narjis-furnishing)(?:/.*)?$ - [G,L,NC]
   # END GENERATED PROJECT RETIREMENTS
 
   # Never serve the flat-file datastore (leads/visits/chats JSON) over HTTP
