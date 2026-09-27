@@ -78,25 +78,7 @@ if (!empty($body['test_mode'])) {
     out(200, ['ok' => true, 'ref' => $ref !== '' ? $ref : 'DSCC-TEST', 'test_mode' => true, 'persisted' => false]);
 }
 
-// Claim the browser event before persistence so retries cannot create a second
-// CRM record or email. Committed records return their original reference.
-if ($eventId !== '') {
-    $duplicateRef = '';
-    try {
-        $duplicateRef = dscc_file_mutate(dscc_data_dir() . '/lead_event_ids.json', [], function (&$ids) use ($eventId, $ref) {
-            if (isset($ids[$eventId]) && is_string($ids[$eventId])) return $ids[$eventId];
-            $ids[$eventId] = $ref !== '' ? $ref : 'pending';
-            if (count($ids) > 5000) $ids = array_slice($ids, -4000, null, true);
-            return '';
-        });
-    } catch (Throwable $error) {
-        error_log('leads.php idempotency unavailable');
-    }
-    if ($duplicateRef !== '' && $duplicateRef !== 'pending') {
-        out(200, ['ok' => true, 'ref' => $duplicateRef, 'deduplicated' => true]);
-    }
-    $data['event_id'] = $eventId;
-}
+if ($eventId !== '') $data['event_id'] = $eventId;
 
 $consent = is_array($body['consent'] ?? null) ? $body['consent'] : [];
 $data['attribution'] = is_array($body['attribution'] ?? null) ? $body['attribution'] : [];
@@ -105,24 +87,35 @@ $data['language'] = is_string($body['language'] ?? null) ? substr($body['languag
 $body['data'] = $data;
 
 $persisted = false;
+$deduplicated = false;
+$leadId = '';
+$saved = null;
 try {
-    if (function_exists('dscc_store_append_lead')) {
+    if (function_exists('dscc_store_append_lead_result')) {
+        $storeResult = dscc_store_append_lead_result($body);
+        $saved = $storeResult['lead'] ?? null;
+        $deduplicated = !empty($storeResult['deduplicated']);
+    } elseif (function_exists('dscc_store_append_lead')) {
+        // Compatibility with older store implementations.
         $saved = dscc_store_append_lead($body);
-        if ($ref === '' && !empty($saved['ref'])) $ref = $saved['ref'];
-        $persisted = true;
     }
+    if (!is_array($saved) || empty($saved['id']) || empty($saved['ref'])) {
+        throw new RuntimeException('Lead store did not return a persisted record.');
+    }
+    $leadId = (string) $saved['id'];
+    $ref = (string) $saved['ref'];
+    $persisted = true;
 } catch (Throwable $error) {
     error_log('leads.php store failed');
 }
-if ($persisted && $eventId !== '') {
-    try {
-        dscc_file_mutate(dscc_data_dir() . '/lead_event_ids.json', [], function (&$ids) use ($eventId, $ref) {
-            $ids[$eventId] = $ref;
-            return true;
-        });
-    } catch (Throwable $error) {
-        error_log('leads.php idempotency commit unavailable');
-    }
+if (!$persisted) {
+    out(503, ['ok' => false, 'error' => 'Submission could not be saved. Please retry.']);
+}
+
+// A duplicate is confirmed by the leads store itself. Do not send another
+// email or Meta event, and return identifiers from the already-saved record.
+if ($deduplicated) {
+    out(200, ['ok' => true, 'persisted' => true, 'id' => $leadId, 'ref' => $ref, 'deduplicated' => true]);
 }
 
 $sourceLabels = [
@@ -214,15 +207,11 @@ $headers = [
     'X-Mailer: dscc-leads-php',
 ];
 $mailSent = @mail($NOTIFY_TO, $encodedSubject, $message, implode("\r\n", $headers), '-f' . $MAIL_FROM);
-if (!$mailSent && !$persisted) {
-    error_log('leads.php mail and storage failed');
-    out(502, ['ok' => false, 'error' => 'Submission failed.', 'ref' => $ref]);
-}
 if (!$mailSent) error_log('leads.php mail failed after persistence');
 
 // Meta is downstream of an accepted lead. It shares the browser event ID and
 // never changes the successful customer response when Graph is unavailable.
-if ($eventId !== '' && ($persisted || $mailSent)) {
+if ($eventId !== '') {
     try {
         dscc_meta_send_once($eventId, $source, $ref, $clientEmail, $clientPhone, $consent);
     } catch (Throwable $error) {
@@ -230,4 +219,4 @@ if ($eventId !== '' && ($persisted || $mailSent)) {
     }
 }
 
-out(200, ['ok' => true, 'ref' => $ref]);
+out(200, ['ok' => true, 'persisted' => true, 'id' => $leadId, 'ref' => $ref]);

@@ -57,6 +57,7 @@ function dscc_write_json_atomic($file, $data) {
     if (!is_dir($dir)) @mkdir($dir, 0775, true);
     $tmp = $file . '.' . getmypid() . '.' . microtime(true) . '.tmp';
     $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if (!is_string($json)) return false;
     if (@file_put_contents($tmp, $json, LOCK_EX) === false) return false;
     return @rename($tmp, $file);
 }
@@ -68,7 +69,10 @@ function dscc_file_mutate($file, $default, callable $fn) {
     $dir = dirname($file);
     if (!is_dir($dir)) @mkdir($dir, 0775, true);
     $lf = @fopen($file . '.lock', 'c');
-    if ($lf) { @flock($lf, LOCK_EX); }
+    if (!$lf || !@flock($lf, LOCK_EX)) {
+        if ($lf) @fclose($lf);
+        throw new RuntimeException('Failed to lock ' . basename($file));
+    }
     try {
         $data = dscc_read_json($file, $default);
         $result = $fn($data);
@@ -232,11 +236,31 @@ function dscc_normalize_incoming($payload) {
     return $lead;
 }
 
-function dscc_store_append_lead($payload) {
+// Persist a lead and deduplicate browser retries while holding the same lock
+// used for the leads array. The sidecar is deliberately not authoritative:
+// older versions could claim an event before its lead was written.
+function dscc_store_append_lead_result($payload) {
     $lead = dscc_normalize_incoming($payload);
-    dscc_leads_mutate(function (&$leads) use ($lead) {
+    $eventId = dscc_pick_str($lead['raw']['event_id'] ?? null);
+    return dscc_leads_mutate(function (&$leads) use ($lead, $eventId) {
+        if ($eventId !== null) {
+            foreach ($leads as $existing) {
+                if (!is_array($existing)) continue;
+                $existingEventId = dscc_pick_str($existing['raw']['event_id'] ?? null)
+                    ?: dscc_pick_str($existing['event_id'] ?? null);
+                if ($existingEventId === $eventId) {
+                    return ['lead' => $existing, 'deduplicated' => true];
+                }
+            }
+        }
         array_unshift($leads, $lead);
+        return ['lead' => $lead, 'deduplicated' => false];
     });
-    return $lead;
+}
+
+// Keep the original return contract for any existing callers.
+function dscc_store_append_lead($payload) {
+    $result = dscc_store_append_lead_result($payload);
+    return $result['lead'];
 }
 }
