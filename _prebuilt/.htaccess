@@ -146,6 +146,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^api/social/.+$ /api/socialfeed.php [L,QSA]
   RewriteRule ^api/suppliers/?$ /api/suppliers.php [L]
   RewriteRule ^api/portal(/.*)?$ /api/portal.php [L,QSA]
+  RewriteRule ^api/careers(?:/(?:code|apply))?/?$ /api/careers.php [L]
 
   # Admin dashboard API → single PHP front controller
   RewriteRule ^api/admin(/.*)?$ /api/admin.php [L,QSA]

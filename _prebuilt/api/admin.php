@@ -109,6 +109,53 @@ if ($sub === '/login' && $method === 'POST') {
 
 adm_require_auth();
 
+// ---------- CAREERS APPLICATIONS ----------
+if ($sub === '/careers' && $method === 'GET') {
+    $store = dscc_read_json(dscc_data_dir() . '/careers.json', ['applications' => []]);
+    $applications = [];
+    foreach ((array) ($store['applications'] ?? []) as $application) {
+        if (!is_array($application)) continue;
+        $applications[] = [
+            'id' => (string) ($application['id'] ?? ''),
+            'ref' => (string) ($application['ref'] ?? ''),
+            'createdAt' => (string) ($application['createdAt'] ?? ''),
+            'fullName' => (string) ($application['fullName'] ?? ''),
+            'email' => (string) ($application['email'] ?? ''),
+            'phone' => (string) ($application['phone'] ?? ''),
+            'position' => (string) ($application['position'] ?? ''),
+            'cvName' => (string) ($application['cvName'] ?? ''),
+            'cvSize' => (int) ($application['cvSize'] ?? 0),
+        ];
+    }
+    adm_out(200, ['applications' => $applications]);
+}
+if (preg_match('#^/careers/([A-Za-z0-9_-]+)/cv$#', $sub, $careerCv) && $method === 'GET') {
+    $application = null;
+    $store = dscc_read_json(dscc_data_dir() . '/careers.json', ['applications' => []]);
+    foreach ((array) ($store['applications'] ?? []) as $candidate) {
+        if (is_array($candidate) && ($candidate['id'] ?? null) === $careerCv[1]) {
+            $application = $candidate;
+            break;
+        }
+    }
+    if (!$application) adm_out(404, ['error' => 'Not found']);
+    $extension = strtolower(pathinfo((string) ($application['cvName'] ?? ''), PATHINFO_EXTENSION));
+    if (!in_array($extension, ['pdf', 'doc', 'docx'], true)) adm_out(404, ['error' => 'Not found']);
+    $cvDir = realpath(dscc_data_dir() . '/careers_cvs');
+    $cvPath = is_string($application['cvPath'] ?? null) ? realpath($application['cvPath']) : false;
+    if (!$cvDir || !$cvPath || strpos($cvPath, $cvDir . DIRECTORY_SEPARATOR) !== 0 || !is_file($cvPath) || !is_readable($cvPath)) {
+        adm_out(404, ['error' => 'Not found']);
+    }
+    $mime = $extension === 'pdf' ? 'application/pdf'
+        : ($extension === 'doc' ? 'application/msword' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    header('Content-Type: ' . $mime);
+    header('Content-Disposition: attachment; filename="cv-' . $careerCv[1] . '.' . $extension . '"');
+    header('Content-Length: ' . (string) filesize($cvPath));
+    header('Cache-Control: no-store');
+    readfile($cvPath);
+    exit;
+}
+
 // ---------- helpers ----------
 function dscc_ymd_in_tz($ts, $tz) {
     try {
